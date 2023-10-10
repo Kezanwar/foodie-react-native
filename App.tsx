@@ -1,17 +1,22 @@
 import { useCallback } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
+import { Text, TouchableOpacity, View } from "react-native";
+import { useAppColorScheme, useDeviceContext } from "twrnc";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import tw from "lib/tailwind";
 import Test from "components/Test";
+import CustomStatusBar from "components/custom-status-bar";
+
+import tw from "lib/theme/tailwind";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontsLoaded, error] = useFonts({
+  useDeviceContext(tw, { withDeviceColorScheme: false });
+
+  const [colorScheme, toggleColorScheme] = useAppColorScheme(tw);
+
+  const [fontsLoaded] = useFonts({
     "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Poppins-ExtraBold": require("./assets/fonts/Poppins-ExtraBold.ttf"),
@@ -34,19 +39,22 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text style={tw`font-extra-light`}>Welcome to Foodie</Text>
+    <View
+      style={tw`bg-white dark:bg-grey-950  flex-1 justify-center items-center px-3`}
+      onLayout={onLayoutRootView}
+    >
       <Test />
-      <StatusBar style="auto" />
+      <Text style={tw`font-light dark:text-4xl dark:text-white`}>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
+        aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
+        Facilis, labore? Numquam cupiditate incidunt omnis esse eos
+        necessitatibus facilis tempora
+      </Text>
+
+      <TouchableOpacity onPress={toggleColorScheme}>
+        <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
+      </TouchableOpacity>
+      <CustomStatusBar colorScheme={colorScheme} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
