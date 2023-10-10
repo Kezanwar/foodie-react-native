@@ -1,7 +1,7 @@
 import React, { FC } from "react";
+import tw from "lib/theme/tailwind";
 import { Text, TouchableOpacity } from "react-native";
 
-import tw from "lib/theme/tailwind";
 import useAppDispatch from "hooks/useAppDispatch";
 import { increment } from "store/slices/auth/auth.slice";
 
@@ -14,7 +14,7 @@ const TestTwo: FC = () => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <Text style={tw`font-black text-3xl mb-8 dark:text-white`}>
+      <Text style={tw`font-black text-3xl mt-2 dark:text-white`}>
         increment
       </Text>
     </TouchableOpacity>

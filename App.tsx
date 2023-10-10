@@ -50,14 +50,14 @@ export default function App() {
         onLayout={onLayoutRootView}
       >
         <Test />
-        <Text style={tw`font-light dark:text-4xl dark:text-white`}>
+        <Text style={tw`font-light dark:text-3xl dark:text-white`}>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
           aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
           Facilis, labore? Numquam cupiditate incidunt omnis esse eos
           necessitatibus facilis tempora
         </Text>
 
-        <TouchableOpacity onPress={toggleColorScheme}>
+        <TouchableOpacity style={tw`mt-2`} onPress={toggleColorScheme}>
           <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
         </TouchableOpacity>
         <TestTwo />
