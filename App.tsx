@@ -4,7 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import tw from "./src/lib/tailwind";
+
+import tw from "lib/tailwind";
+import Test from "components/Test";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,6 +36,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <Text style={tw`font-extra-light`}>Welcome to Foodie</Text>
+      <Test />
       <StatusBar style="auto" />
     </View>
   );
