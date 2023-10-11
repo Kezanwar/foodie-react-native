@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Text } from "react-native";
 
 import tw from "theme/tailwind";
@@ -6,8 +6,13 @@ import tw from "theme/tailwind";
 import { useAppSelector } from "hooks/useAppSelector";
 
 import useOptionsQuery from "hooks/queries/useOptionsQuery";
+import { IColorMap } from "types/colors";
 
-const Test: FC = () => {
+type Props = {
+  color?: IColorMap;
+};
+
+const Test: FC<Props> = ({ color }) => {
   const count = useAppSelector((state) => state.auth.count);
 
   const { data } = useOptionsQuery();

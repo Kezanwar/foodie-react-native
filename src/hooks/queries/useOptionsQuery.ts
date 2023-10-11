@@ -8,7 +8,7 @@ const useOptionsQuery = () => {
     queryKey: [OPTIONS_QUERY],
     queryFn: getOptions,
     enabled: true,
-    staleTime: 5 * (60 * 1000),
+    staleTime: 20 * (60 * 1000),
   });
 
   return query;

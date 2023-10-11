@@ -65,3 +65,11 @@ export const ERROR = {
   darker: "#7A0916",
   contrastText: "#fff",
 };
+
+export const COLOR_MAP = {
+  primary: { ...PRIMARY },
+  secondary: { ...SECONDARY },
+  info: { ...INFO },
+  warning: { ...WARNING },
+  error: { ...ERROR },
+} as const;
