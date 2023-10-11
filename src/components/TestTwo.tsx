@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import tw from "lib/theme/tailwind";
+import tw from "theme/tailwind";
 import { Text, TouchableOpacity } from "react-native";
 
 import useAppDispatch from "hooks/useAppDispatch";
