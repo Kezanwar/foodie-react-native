@@ -13,6 +13,7 @@ module.exports = function (api) {
             store: "./src/store",
             types: "./src/types",
             hooks: "./src/hooks",
+            theme: "./src/theme",
           },
         },
       ],

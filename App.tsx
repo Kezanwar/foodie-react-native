@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useAppColorScheme, useDeviceContext } from "twrnc";
 import * as SplashScreen from "expo-splash-screen";
 
-import tw from "lib/theme/tailwind";
+import tw from "theme/tailwind";
 
 import { Provider } from "react-redux";
 import { store } from "store/store";
