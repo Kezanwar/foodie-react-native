@@ -1,5 +1,5 @@
 import axiosInstance from "lib/axios/axios";
-import { iOptions } from "types/options";
+import { IOptions } from "types/options";
 
 const endpoints = {
   // options
@@ -9,5 +9,5 @@ const endpoints = {
 // *OPTIONS
 
 export const getOptions = () => {
-  return axiosInstance.get<iOptions>(endpoints.getOptions);
+  return axiosInstance.get<IOptions>(endpoints.getOptions);
 };

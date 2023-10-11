@@ -3,6 +3,8 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useAppColorScheme, useDeviceContext } from "twrnc";
 import * as SplashScreen from "expo-splash-screen";
 
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import tw from "theme/tailwind";
 
 import { Provider } from "react-redux";
@@ -15,6 +17,7 @@ import CustomStatusBar from "components/custom-status-bar";
 import useLoadFonts from "hooks/useLoadFonts";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { COLOR_MAP, SUCCESS } from "theme/colors";
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
@@ -44,6 +47,12 @@ export default function App() {
           onLayout={onLayoutRootView}
         >
           <Test />
+          <Ionicons
+            name="md-checkmark-circle"
+            size={32}
+            style={tw`mb-6`}
+            color={SUCCESS.main}
+          />
           <Text style={tw`font-light dark:text-3xl dark:text-white`}>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
             aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.

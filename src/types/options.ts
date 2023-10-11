@@ -1,9 +1,9 @@
-type option = {
+type Option = {
   name: string;
   slug: string;
 };
 
-export type iOptions = {
-  cuisines: option[];
-  dietary_requirements: option[];
+export type IOptions = {
+  cuisines: Option[];
+  dietary_requirements: Option[];
 };
