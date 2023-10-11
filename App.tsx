@@ -14,6 +14,9 @@ import CustomStatusBar from "components/custom-status-bar";
 
 import useLoadFonts from "hooks/useLoadFonts";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -34,25 +37,27 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <View
-        style={tw`bg-white dark:bg-grey-950  flex-1 justify-center items-center px-3`}
-        onLayout={onLayoutRootView}
-      >
-        <Test />
-        <Text style={tw`font-light dark:text-3xl dark:text-white`}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
-          aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
-          Facilis, labore? Numquam cupiditate incidunt omnis esse eos
-          necessitatibus facilis tempora
-        </Text>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <View
+          style={tw`bg-white dark:bg-grey-950  flex-1 justify-center items-center px-3`}
+          onLayout={onLayoutRootView}
+        >
+          <Test />
+          <Text style={tw`font-light dark:text-3xl dark:text-white`}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
+            aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
+            Facilis, labore? Numquam cupiditate incidunt omnis esse eos
+            necessitatibus facilis tempora
+          </Text>
 
-        <TouchableOpacity style={tw`mt-2`} onPress={toggleColorScheme}>
-          <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
-        </TouchableOpacity>
-        <TestTwo />
-        <CustomStatusBar colorScheme={colorScheme} />
-      </View>
-    </Provider>
+          <TouchableOpacity style={tw`mt-2`} onPress={toggleColorScheme}>
+            <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
+          </TouchableOpacity>
+          <TestTwo />
+          <CustomStatusBar colorScheme={colorScheme} />
+        </View>
+      </Provider>
+    </QueryClientProvider>
   );
 }
