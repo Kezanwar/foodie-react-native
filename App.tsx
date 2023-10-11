@@ -17,7 +17,7 @@ import CustomStatusBar from "components/custom-status-bar";
 import useLoadFonts from "hooks/useLoadFonts";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { COLOR_MAP, SUCCESS } from "theme/colors";
+
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
@@ -51,9 +51,11 @@ export default function App() {
             name="md-checkmark-circle"
             size={32}
             style={tw`mb-6`}
-            color={SUCCESS.main}
+            color={tw.color("success-main")}
           />
-          <Text style={tw`font-light dark:text-3xl dark:text-white`}>
+          <Text
+            style={tw`font-light dark:text-type-dark-primary text-center my-4`}
+          >
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
             aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
             Facilis, labore? Numquam cupiditate incidunt omnis esse eos
