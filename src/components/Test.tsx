@@ -4,16 +4,15 @@ import { Text } from "react-native";
 import tw from "theme/tailwind";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { getOptions } from "lib/api/api";
+
+import useOptionsQuery from "hooks/queries/useOptionsQuery";
 
 const Test: FC = () => {
   const count = useAppSelector((state) => state.auth.count);
 
-  useEffect(() => {
-    getOptions()
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const { data } = useOptionsQuery();
+
+  console.log(data?.data);
 
   return (
     <Text style={tw`font-black text-3xl mb-8 dark:text-white`}>
