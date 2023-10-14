@@ -27,17 +27,19 @@ const Alert: FC<Props> = ({
       style={tw`p-3 pt-[10] flex-row rounded-md gap-3 w-full ${variantStyles[variant].bg} ${style}`}
     >
       {React.cloneElement(icon ? icon : variantStyles[variant]?.icon, {
-        color: tw.color(`${variant}-${isLight ? "main" : "lighter"}`),
+        color: tw.color(`${variant}-${isLight ? "main" : "light"}`),
       })}
       <View style={tw`flex-1 flex-wrap`}>
         {title && (
           <Text
-            style={tw`font-semi-bold text-[4]  mb-1 ${variantStyles[variant].text}`}
+            style={tw`font-semi-bold text-base  mb-1 ${variantStyles[variant].text}`}
           >
             {title}
           </Text>
         )}
-        <Text style={tw`font-regular w-full ${variantStyles[variant].text}`}>
+        <Text
+          style={tw`font-regular w-full text-sm ${variantStyles[variant].text}`}
+        >
           {content}
         </Text>
       </View>

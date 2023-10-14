@@ -82,7 +82,7 @@ export default function App() {
                 variant="success"
               />
               <Text
-                style={tw`font-light dark:text-type-dark-primary text-center`}
+                style={tw`font-light text-base dark:text-type-dark-primary text-type-light-secondary text-center`}
               >
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
                 at aperiam deleniti culpa consequuntur ad fuga, consectetur quis
