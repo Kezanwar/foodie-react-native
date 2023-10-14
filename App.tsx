@@ -9,9 +9,6 @@ import {
 import { useAppColorScheme, useDeviceContext } from "twrnc";
 import * as SplashScreen from "expo-splash-screen";
 
-import Ionicons from "@expo/vector-icons/Ionicons";
-import AntDesign from "@expo/vector-icons/AntDesign";
-
 import tw from "theme/tailwind";
 
 import { Provider } from "react-redux";
@@ -25,6 +22,8 @@ import useLoadFonts from "hooks/useLoadFonts";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Alert from "components/alert/Alert";
+import Snackbar from "components/snackbar/Snackbar";
+import TestThree from "components/TestThree";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +53,7 @@ export default function App() {
           style={tw`bg-white dark:bg-grey-950  flex-1`}
           onLayout={onLayoutRootView}
         >
+          <Snackbar />
           <ScrollView style={tw`flex-1`}>
             <View style={tw` items-center flex-1 gap-6 min-h-screen p-3`}>
               <Test />
@@ -94,6 +94,7 @@ export default function App() {
                 <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
               </TouchableOpacity>
               <TestTwo />
+              <TestThree />
             </View>
           </ScrollView>
         </SafeAreaView>
