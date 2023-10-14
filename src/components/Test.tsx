@@ -14,7 +14,7 @@ const Test: FC = () => {
 
   return (
     <>
-      <Text style={tw`font-black text-3xl  dark:text-white`}>
+      <Text style={tw`font-black text-3xl text-grey-950  dark:text-white`}>
         foodieeee {count}
       </Text>
       {isLoading && <ActivityIndicator color={tw.color("grey-500")} />}
@@ -25,7 +25,7 @@ const Test: FC = () => {
             style={tw`py-1 px-3 rounded-full bg-grey-300 dark:bg-grey-700`}
           >
             <Text
-              style={tw`font-light text-xs text-type-light-primary dark:text-type-dark-primary`}
+              style={tw`font-light text-md text-type-light-primary dark:text-type-dark-primary`}
             >
               {name}
             </Text>
