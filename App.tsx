@@ -55,7 +55,7 @@ export default function App() {
           onLayout={onLayoutRootView}
         >
           <ScrollView style={tw`flex-1`}>
-            <View style={tw` items-center flex-1 min-h-screen p-3`}>
+            <View style={tw` items-center flex-1 gap-6 min-h-screen p-3`}>
               <Test />
               <Alert
                 title="How do we use this?"
@@ -82,7 +82,7 @@ export default function App() {
                 variant="success"
               />
               <Text
-                style={tw`font-light dark:text-type-dark-primary text-center my-4`}
+                style={tw`font-light dark:text-type-dark-primary text-center`}
               >
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
                 at aperiam deleniti culpa consequuntur ad fuga, consectetur quis

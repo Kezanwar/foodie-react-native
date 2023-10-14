@@ -75,7 +75,7 @@ const Alert: FC<Props> = ({
 
   return (
     <View
-      style={tw`p-3 pt-2 flex-row rounded-md gap-3 w-full ${alertStyles[variant].bg} ${style}`}
+      style={tw`p-3 pt-[10] flex-row rounded-md gap-3 w-full ${alertStyles[variant].bg} ${style}`}
     >
       {React.cloneElement(icon ? icon : alertStyles[variant]?.icon, {
         color: tw.color(`${variant}-${isLight ? "main" : "lighter"}`),
