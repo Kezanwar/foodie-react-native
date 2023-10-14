@@ -12,8 +12,6 @@ const Test: FC = () => {
 
   const { data, isLoading } = useOptionsQuery();
 
-  console.log(data?.data);
-
   return (
     <>
       <Text style={tw`font-black text-3xl mb-8 dark:text-white`}>

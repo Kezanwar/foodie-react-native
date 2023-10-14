@@ -5,6 +5,7 @@ export type IColorMap = Path<typeof COLOR_MAP>;
 
 type IPrimary =
   | "primary-main"
+  | "primary-main-04"
   | "primary-light"
   | "primary-lighter"
   | "primary-dark"
@@ -13,6 +14,7 @@ type IPrimary =
 
 type ISecondary =
   | "secondary-main"
+  | "secondary-main-04"
   | "secondary-light"
   | "secondary-lighter"
   | "secondary-dark"
@@ -21,6 +23,7 @@ type ISecondary =
 
 type ISuccess =
   | "success-main"
+  | "success-main-04"
   | "success-light"
   | "success-lighter"
   | "success-dark"
@@ -29,6 +32,7 @@ type ISuccess =
 
 type IInfo =
   | "info-main"
+  | "info-main-04"
   | "info-light"
   | "info-lighter"
   | "info-dark"
@@ -37,6 +41,7 @@ type IInfo =
 
 type IWarning =
   | "warning-main"
+  | "warning-main-04"
   | "warning-light"
   | "warning-lighter"
   | "warning-dark"
@@ -45,6 +50,7 @@ type IWarning =
 
 type IError =
   | "error-main"
+  | "error-main-04"
   | "error-light"
   | "error-lighter"
   | "error-dark"
@@ -60,12 +66,23 @@ type IGrey =
   | "grey-600"
   | "grey-700"
   | "grey-800"
+  | "grey-900"
   | "grey-950";
 
 export type ITwColor =
   | IPrimary
   | ISecondary
+  | IWarning
   | ISuccess
   | IInfo
   | IGrey
   | IError;
+
+export type IColVariants =
+  | "primary"
+  | "secondary"
+  | "warning"
+  | "success"
+  | "info"
+  | "grey"
+  | "error";

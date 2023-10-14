@@ -7,6 +7,7 @@ module.exports = {
       primary: {
         lighter: "#ffa66b",
         light: "#f27b44",
+        "main-04": "#ffa66b2c",
         main: "#f0692a",
         dark: "#ce5f2c",
         darker: "#c65c2b",
@@ -15,6 +16,7 @@ module.exports = {
       secondary: {
         lighter: "#fcf0ff",
         light: "#e7aaf6",
+        "main-04": "#d67ded2c",
         main: "#d67ded",
         dark: "#c860e2",
         darker: "#a63ac1",
@@ -23,6 +25,7 @@ module.exports = {
       info: {
         lighter: "#d5eeff",
         light: "#72c4ff",
+        "main-04": "#33aaff2c",
         main: "#33aaff",
         dark: "#237ab8",
         darker: "#03375d",
@@ -31,6 +34,7 @@ module.exports = {
       success: {
         lighter: "#D8FBDE",
         light: "#86E8AB",
+        "main-04": "#36b37f2c",
         main: "#36B37E",
         dark: "#1B806A",
         darker: "#0A5554",
@@ -39,6 +43,7 @@ module.exports = {
       warning: {
         lighter: "#FFF5CC",
         light: "#FFD666",
+        "main-04": "#ffaa002c",
         main: "#FFAB00",
         dark: "#cc800e",
         darker: "#7A4100",
@@ -47,6 +52,7 @@ module.exports = {
       error: {
         lighter: "#FFE9D5",
         light: "#FFAC82",
+        "main-04": "#fc4d2e2c",
         main: "#fc4d2e",
         dark: "#B71D18",
         darker: "#7A0916",
