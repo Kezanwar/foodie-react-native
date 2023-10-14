@@ -14,11 +14,11 @@ const Test: FC = () => {
 
   return (
     <>
-      <Text style={tw`font-black text-3xl mb-8 dark:text-white`}>
+      <Text style={tw`font-black text-3xl  dark:text-white`}>
         foodieeee {count}
       </Text>
       {isLoading && <ActivityIndicator color={tw.color("grey-500")} />}
-      <View style={tw` flex-row gap-2 justify-center  px-8 flex-wrap mb-6`}>
+      <View style={tw` flex-row gap-2 justify-center  px-8 flex-wrap `}>
         {data?.data?.dietary_requirements?.map(({ name, slug }) => (
           <View
             key={slug}
