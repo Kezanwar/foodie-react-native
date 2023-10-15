@@ -1,27 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IUser } from "types/auth";
 
 // types
 
 interface authSliceState {
-  count: number;
+  isInitialized: boolean;
+  isAuthenticated: boolean;
+  user: IUser | null;
 }
 
 const initialState: authSliceState = {
-  count: 0,
+  isInitialized: false,
+  isAuthenticated: false,
+  user: null,
 };
 
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {
-    increment: (state) => {
-      state.count++;
-    },
-  },
+  reducers: {},
 });
 
 // export for use around the app
-export const { increment } = authSlice.actions;
+export const {} = authSlice.actions;
 
 // export for store
 const authReducer = authSlice.reducer;
