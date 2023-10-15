@@ -8,7 +8,7 @@ import tw from "./tailwind";
 
 const variantStyles = {
   primary: {
-    bg: "bg-primary-lighter dark:bg-primary-darker",
+    bg: "bg-primary-main-04",
     text: "text-primary-dark dark:text-primary-lighter",
     icon: <MaterialCommunityIcons name="thumb-up-outline" size={24} />,
   },
