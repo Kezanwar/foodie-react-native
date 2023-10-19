@@ -5,7 +5,6 @@ import {
   addMessage,
   removeMessage,
 } from "store/snackbar/snackbar.slice";
-import "react-native-get-random-values";
 import { v4 } from "uuid";
 
 const useSnackbar = () => {

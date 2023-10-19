@@ -1,13 +1,14 @@
 import { Text, View } from "react-native";
 import React from "react";
+import ScreenWrapper from "components/screen-wrapper/ScreenWrapper";
 
 type Props = {};
 
 const Home = (props: Props) => {
   return (
-    <View>
+    <ScreenWrapper>
       <Text>Home</Text>
-    </View>
+    </ScreenWrapper>
   );
 };
 

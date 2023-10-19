@@ -1,78 +1,28 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React from "react";
 import tw from "theme/tailwind";
-import Test from "components/Test";
-import Alert from "components/alert/Alert";
-import { useAppColorScheme } from "twrnc";
-import TestThree from "components/TestThree";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import { useAppSelector } from "hooks/useAppSelector";
-import { setTheme } from "store/theme/theme.slice";
 import useAppDispatch from "hooks/useAppDispatch";
-import { DARK, LIGHT } from "constants/theme";
+import ScreenWrapper from "components/screen-wrapper/ScreenWrapper";
+import { Logo } from "components/logo";
 
 type Props = {};
 
 const SignIn = (props: Props) => {
-  const [, , setColorScheme] = useAppColorScheme(tw);
-
-  const theme = useAppSelector((state) => state.theme.theme);
-
-  const dispatch = useAppDispatch();
-
-  const toggleColorScheme = () => {
-    const newTheme = theme === LIGHT ? DARK : LIGHT;
-
-    setColorScheme(newTheme);
-    dispatch(setTheme(newTheme));
-  };
-
   return (
-    <SafeAreaView style={tw`bg-white dark:bg-grey-950  flex-1 relative`}>
-      <ScrollView style={tw`flex-1`}>
-        <View style={tw` items-center flex-1 gap-6 min-h-screen p-3`}>
-          <Test />
-          <Alert
-            title="How do we use this?"
-            content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
-                at aperiam deleniti culpa consequuntur ad fuga"
-            variant="error"
-          />
-          <Alert
-            title="How do we use this?"
-            content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
-                at aperiam deleniti culpa consequuntur ad fuga."
-            variant="warning"
-          />
-          <Alert
-            title="How do we use this?"
-            content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
-                at aperiam deleniti culpa consequuntur ad fuga."
-            variant="info"
-          />
-          <Alert
-            title="How do we use this?"
-            content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem
-                at aperiam deleniti culpa consequuntur ad fuga."
-            variant="success"
-          />
-
-          <Text
-            style={tw`font-light text-base dark:text-type-dark-primary text-type-light-secondary text-center`}
-          >
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem at
-            aperiam deleniti culpa consequuntur ad fuga, consectetur quis sequi.
-            Facilis, labore? Numquam cupiditate incidunt omnis esse eos
-            necessitatibus facilis tempora
-          </Text>
-
-          <TouchableOpacity style={tw`mt-2`} onPress={toggleColorScheme}>
-            <Text style={tw`dark:text-white`}>Toggle Dark/Light Mode</Text>
-          </TouchableOpacity>
-          <TestThree />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScreenWrapper>
+      <Logo />
+      <View style={tw`my-20 items-center gap-4  flex-wrap`}>
+        <Text style={tw`font-semi-bold text-4xl`}>Sign in</Text>
+        <Text
+          style={tw`font-light text-sm  max-w-[75%] text-center text-type-light-secondary`}
+        >
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil
+          necessitatibus quasi ipsum eligendi minima amet eos! Atque
+        </Text>
+      </View>
+    </ScreenWrapper>
   );
 };
 
