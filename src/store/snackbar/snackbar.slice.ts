@@ -1,9 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IColVariants } from "types/colors";
 
-// types
-
-export type ISnackbarMessage = { message: string; variant: IColVariants };
+export type ISnackbarMessage = {
+  message: string;
+  variant: IColVariants;
+  id?: string;
+};
 
 interface snackbarSliceState {
   messages: ISnackbarMessage[];
@@ -17,18 +19,11 @@ const snackbarSlice = createSlice({
   name: "snackbarSlice",
   initialState,
   reducers: {
-    addMessage: (
-      state,
-      { payload }: PayloadAction<ISnackbarMessage | string>
-    ) => {
-      if (typeof payload === "string") {
-        state.messages.push({ message: payload, variant: "success" });
-      } else {
-        state.messages.push(payload);
-      }
+    addMessage: (state, { payload }: PayloadAction<ISnackbarMessage>) => {
+      state.messages.push(payload);
     },
     removeMessage: (state, { payload }: PayloadAction<string>) => {
-      state.messages = state.messages.filter((msg) => msg.message !== payload);
+      state.messages = state.messages.filter((msg) => msg.id !== payload);
     },
   },
 });

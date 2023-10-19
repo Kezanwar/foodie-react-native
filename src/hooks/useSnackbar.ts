@@ -4,17 +4,18 @@ import {
   ISnackbarMessage,
   addMessage,
   removeMessage,
-} from "store/slices/snackbar/snackbar.slice";
+} from "store/snackbar/snackbar.slice";
+import { v4 } from "uuid";
 
 const useSnackbar = () => {
   const dispatch = useDispatch();
 
-  const enqeueSnackbar = useCallback((message: ISnackbarMessage | string) => {
+  const enqeueSnackbar = useCallback((message: ISnackbarMessage) => {
+    const uuid = v4();
+    message.id = uuid;
     dispatch(addMessage(message));
     setTimeout(() => {
-      dispatch(
-        removeMessage(typeof message === "string" ? message : message.message)
-      );
+      dispatch(removeMessage(uuid));
     }, 3000);
   }, []);
 

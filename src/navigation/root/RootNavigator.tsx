@@ -2,10 +2,11 @@ import React, { FC } from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAppSelector } from "hooks/useAppSelector";
-import SignIn from "screens/guest/SignIn";
-import SignUp from "screens/guest/SignUp";
-import PrivacyPolicy from "screens/common/PrivacyPolicy";
-import Home from "screens/app/Home";
+import SignIn from "screens/guest/sign-in";
+import SignUp from "screens/guest/sign-up";
+import PrivacyPolicy from "screens/common/privacy-policy";
+import Home from "screens/app/home";
+import AppTabNavigator from "navigation/app";
 
 const RootStack = createNativeStackNavigator();
 
@@ -17,13 +18,17 @@ const RootNavigator: FC = () => {
     <RootStack.Navigator>
       {isLoggedIn ? (
         // App navigator
-        <RootStack.Group>
-          <RootStack.Screen name="App" component={Home} />
+        <RootStack.Group screenOptions={{ headerShown: false }}>
+          <RootStack.Screen name="App" component={AppTabNavigator} />
         </RootStack.Group>
       ) : (
         // Auth screens
         <RootStack.Group>
-          <RootStack.Screen name="SignIn" component={SignIn} />
+          <RootStack.Screen
+            name="SignIn"
+            options={{ headerShown: false }}
+            component={SignIn}
+          />
           <RootStack.Screen name="SignUp" component={SignUp} />
         </RootStack.Group>
       )}
