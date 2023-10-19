@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { View, Text } from "react-native";
-import { ISnackbarMessage } from "store/slices/snackbar/snackbar.slice";
+import { ISnackbarMessage } from "store/snackbar/snackbar.slice";
 import tw from "theme/tailwind";
 import variantStyles from "theme/variant-styles";
 

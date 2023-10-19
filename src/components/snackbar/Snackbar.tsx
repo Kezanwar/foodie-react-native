@@ -13,7 +13,7 @@ const Snackbar: FC<Props> = () => {
     <View style={tw`absolute top-0 px-3   z-10 w-full`}>
       <View style={tw`gap-1 mt-11`}>
         {messages.map((msg) => (
-          <SnackbarItem message={msg} />
+          <SnackbarItem key={msg.id} message={msg} />
         ))}
       </View>
     </View>

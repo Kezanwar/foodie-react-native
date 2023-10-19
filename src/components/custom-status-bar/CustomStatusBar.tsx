@@ -1,17 +1,13 @@
 import React, { FC } from "react";
-import { RnColorScheme } from "twrnc";
 import { StatusBar } from "expo-status-bar";
 
-type Props = {
-  colorScheme: RnColorScheme;
-};
+import { useAppSelector } from "hooks/useAppSelector";
+import { DARK, LIGHT } from "constants/theme";
 
-const LIGHT = "light";
+const CustomStatusBar: FC = () => {
+  const theme = useAppSelector((state) => state.theme.theme);
 
-const DARK = "dark";
-
-const CustomStatusBar: FC<Props> = ({ colorScheme }) => {
-  return <StatusBar style={colorScheme === LIGHT ? DARK : LIGHT} />;
+  return <StatusBar style={theme === LIGHT ? DARK : LIGHT} />;
 };
 
 export default CustomStatusBar;
