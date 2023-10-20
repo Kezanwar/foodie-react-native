@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import React from "react";
-import ScreenWrapper from "components/screen-wrapper/ScreenWrapper";
+import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
 
 type Props = {};
 
