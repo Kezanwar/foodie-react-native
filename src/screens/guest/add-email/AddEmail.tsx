@@ -1,28 +1,25 @@
-import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import tw from "theme/tailwind";
-import Animated, { FadeInDown } from "react-native-reanimated";
 import { Image } from "expo-image";
+import tw from "theme/tailwind";
+import { Text, TouchableOpacity, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { useAppSelector } from "hooks/useAppSelector";
-
+import { LoadingButton } from "components/buttons/loading-button";
+import { CustomTextField } from "components/form/custom-text-field";
+import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
-import { CustomTextField } from "components/form/custom-text-field";
-import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
-import { LoadingButton } from "components/buttons/loading-button";
-import { Or } from "components/separators/or";
-import { GoogleButton } from "components/buttons/google-button";
+
+import { useAppSelector } from "hooks/useAppSelector";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";
 
-const SignIn = (props: any) => {
+const AddEmail: React.FC = (props: any) => {
   useAppSelector((state) => state.theme.theme);
 
-  const onCreateAcc = () => {
-    props.navigation.navigate("SignUp");
-  };
+  const onGoBack = () => props.navigation.goBack();
+
   return (
     <ScrollScreenWrapper>
       <KeyboardDismissingView
@@ -45,7 +42,6 @@ const SignIn = (props: any) => {
             }}
           />
         </View>
-
         <Animated.View
           entering={FadeInDown}
           style={[
@@ -54,7 +50,7 @@ const SignIn = (props: any) => {
           ]}
         >
           <Typography variant="h6" style={" font-semi-bold mb-6 "}>
-            Sign in
+            Add email address
           </Typography>
 
           <View style={tw`gap-4  flex-1`}>
@@ -62,29 +58,23 @@ const SignIn = (props: any) => {
               autoComplete="email"
               placeholder={"Email address"}
             />
-            <CustomTextField placeholder={"Password"} />
-            <LoadingButton text="Login" />
-            <Or />
-            <GoogleButton variant="login" />
           </View>
-          <Text
-            style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}
-          >
-            New here?
-          </Text>
-          <TouchableOpacity onPress={onCreateAcc}>
-            <Typography
-              variant="body2"
-              color="primary.main"
-              style="text-center font-semi-bold"
-            >
-              Create an account
-            </Typography>
-          </TouchableOpacity>
+          <View style={tw`flex-1 h-[100] justify-end`}>
+            <LoadingButton text="Done" />
+            <TouchableOpacity style={tw`mt-4`} onPress={onGoBack}>
+              <Typography
+                variant="body2"
+                color="primary.main"
+                style="text-center font-semi-bold "
+              >
+                Go back
+              </Typography>
+            </TouchableOpacity>
+          </View>
         </Animated.View>
       </KeyboardDismissingView>
     </ScrollScreenWrapper>
   );
 };
 
-export default SignIn;
+export default AddEmail;
