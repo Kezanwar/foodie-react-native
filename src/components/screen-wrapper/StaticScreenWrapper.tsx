@@ -8,7 +8,7 @@ type Props = { children: ReactNode };
 const StaticScreenWrapper: FC<Props> = ({ children }) => {
   return (
     <SafeAreaView style={tw`bg-white dark:bg-grey-950  flex-1 relative`}>
-      <View style={tw` flex-1 gap-6 min-h-full p-4 `}>{children}</View>
+      <View style={tw` flex-1 gap-6 min-h-full py-4  `}>{children}</View>
     </SafeAreaView>
   );
 };

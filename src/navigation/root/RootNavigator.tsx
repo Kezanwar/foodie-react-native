@@ -23,12 +23,8 @@ const RootNavigator: FC = () => {
         </RootStack.Group>
       ) : (
         // Auth screens
-        <RootStack.Group>
-          <RootStack.Screen
-            name="SignIn"
-            options={{ headerShown: false }}
-            component={SignIn}
-          />
+        <RootStack.Group screenOptions={{ headerShown: false }}>
+          <RootStack.Screen name="SignIn" component={SignIn} />
           <RootStack.Screen name="SignUp" component={SignUp} />
         </RootStack.Group>
       )}
