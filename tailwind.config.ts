@@ -1,5 +1,22 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  plugins: [
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".section-top": {
+          padding: 3,
+          borderRadius: 10,
+          textTransform: `uppercase`,
+          backgroundColor: `#333`,
+        },
+        ".resize-repeat": {
+          resizeMode: `repeat`,
+        },
+      });
+    }),
+  ],
   theme: {
     colors: {
       white: "#fff",
@@ -115,6 +132,7 @@ module.exports = {
       medium: ["Poppins-Medium"],
       regular: ["Poppins-Regular"],
     },
+
     extend: {
       spacing: {},
       borderRadius: {},
