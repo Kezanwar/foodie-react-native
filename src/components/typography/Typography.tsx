@@ -7,6 +7,7 @@ const TEXT_COLORS = {
   "text.secondary": "text-type-light-secondary dark:text-type-dark-secondary",
   white: "text-white dark:text-type-dark-primary",
   "primary.main": "text-primary-main",
+  "error.main": "text-error-main",
 };
 
 const VARIANTS = {
