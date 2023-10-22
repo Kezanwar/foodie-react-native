@@ -20,6 +20,8 @@ import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";
+import { TabController } from "react-native-ui-lib";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const SignUp = (props: any) => {
   useAppSelector((state) => state.theme.theme);
@@ -27,9 +29,11 @@ const SignUp = (props: any) => {
   const onCreateAcc = () => {
     props.navigation.navigate("SignIn");
   };
+
+  const onSignUp = () => props.navigation.navigate("AddEmail");
   return (
-    <TouchableWithoutFeedback>
-      <ScrollScreenWrapper>
+    <ScrollScreenWrapper>
+      <GestureHandlerRootView>
         <KeyboardDismissingView
           containerStyle={tw`flex-1`}
           style={tw`flex-1 gap-10`}
@@ -60,6 +64,7 @@ const SignUp = (props: any) => {
             <Typography variant="h6" style={" font-semi-bold mb-6 "}>
               Create account
             </Typography>
+
             <View style={tw`gap-4  flex-1`}>
               <CustomTextField
                 autoComplete="given-name"
@@ -69,7 +74,7 @@ const SignUp = (props: any) => {
                 autoComplete="family-name"
                 placeholder={"Last name"}
               />
-              <LoadingButton text="Sign up" />
+              <LoadingButton onPress={onSignUp} text="Sign up" />
               <Or />
               <GoogleButton variant="register" />
             </View>
@@ -89,8 +94,8 @@ const SignUp = (props: any) => {
             </TouchableOpacity>
           </Animated.View>
         </KeyboardDismissingView>
-      </ScrollScreenWrapper>
-    </TouchableWithoutFeedback>
+      </GestureHandlerRootView>
+    </ScrollScreenWrapper>
   );
 };
 

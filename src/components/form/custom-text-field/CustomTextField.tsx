@@ -14,7 +14,7 @@ type Props = TextInputProps & {
   error?: string;
 };
 
-const DEFAULT_B_COL = "transparent";
+const DEFAULT_B_COL = tw.color("grey-300") || "";
 const DEFAULT_P_COL = tw.color("grey-400") || "";
 const DEFAULT_P_TOP = 42;
 const DEFAULT_P_FSIZE = 16;

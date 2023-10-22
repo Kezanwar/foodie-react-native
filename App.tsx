@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useAppColorScheme, useDeviceContext } from "twrnc";
+import { useDeviceContext } from "twrnc";
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-get-random-values";
 
@@ -15,11 +15,7 @@ import useLoadFonts from "hooks/useLoadFonts";
 import CustomStatusBar from "components/custom-status-bar";
 import Snackbar from "components/snackbar/Snackbar";
 
-import {
-  NavigationContainer,
-  // DefaultTheme,
-  // DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "navigation/root";
 import { enableFreeze } from "react-native-screens";
 
