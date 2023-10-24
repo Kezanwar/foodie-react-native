@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "types/auth";
 
 // types
@@ -18,11 +18,17 @@ const initialState: authSliceState = {
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    authLogin: (state, { payload }: PayloadAction<IUser>) => {
+      state.user = payload;
+      state.isAuthenticated = true;
+      state.isInitialized = true;
+    },
+  },
 });
 
 // export for use around the app
-export const {} = authSlice.actions;
+export const { authLogin } = authSlice.actions;
 
 // export for store
 const authReducer = authSlice.reducer;

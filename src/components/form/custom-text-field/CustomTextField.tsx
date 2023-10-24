@@ -1,7 +1,12 @@
 import { Typography } from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
-import React, { useEffect, useState } from "react";
-import { View, TextInput, TextInputProps } from "react-native";
+import React, { ReactNode, useEffect, useState } from "react";
+import {
+  View,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+} from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,11 +17,13 @@ import tw from "theme/tailwind";
 type Props = TextInputProps & {
   placeholder: string;
   error?: string;
+  actionOnPress?: () => void;
+  actionIcon?: ReactNode;
 };
 
 const DEFAULT_B_COL = tw.color("grey-200") || "";
 const DEFAULT_P_COL = tw.color("grey-500") || "";
-const DEFAULT_P_TOP = 42;
+const DEFAULT_P_TOP = 26;
 const DEFAULT_P_FSIZE = 16;
 
 const ANIM_DURATION = 150;
@@ -25,6 +32,8 @@ const CustomTextField: React.FC<Props> = ({
   placeholder,
   value = "",
   error,
+  actionIcon,
+  actionOnPress,
   ...rest
 }) => {
   const borderColor = useSharedValue(DEFAULT_B_COL);
@@ -45,7 +54,7 @@ const CustomTextField: React.FC<Props> = ({
         theme === "light" ? tw.color("grey-800") : tw.color("grey-500");
       borderColor.value = col || "";
       placeholderColor.value = col || "";
-      placeholderTop.value = 20;
+      placeholderTop.value = 13;
       placeholderFontSize.value = 12;
     }
 
@@ -89,7 +98,7 @@ const CustomTextField: React.FC<Props> = ({
       <View style={tw` rounded-md bg-grey-100    dark:bg-grey-950 `}>
         <Animated.View
           style={[
-            tw`border-[0.15]  pt-[15] pb-1 px-2   rounded-md relative`,
+            tw`border-[0.15]  flex-row items-center  px-2   rounded-md relative`,
             animatedBorderStyles,
           ]}
         >
@@ -105,8 +114,13 @@ const CustomTextField: React.FC<Props> = ({
             onBlur={onBlur}
             onFocus={onFocus}
             {...rest}
-            style={tw`font-medium text-lg  text-type-light-secondary`}
+            style={tw`font-medium text-lg flex-1 pb-1 pt-[15]  text-type-light-secondary`}
           />
+          {value && actionOnPress && (
+            <TouchableOpacity style={tw`w-6`} onPress={actionOnPress}>
+              {actionIcon || ""}
+            </TouchableOpacity>
+          )}
         </Animated.View>
       </View>
       {error && (
