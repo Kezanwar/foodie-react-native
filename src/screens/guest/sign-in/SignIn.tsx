@@ -16,6 +16,15 @@ import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";
+import { DefaultValues, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginSchema } from "lib/validation/auth";
+import RHFTextField from "components/form/RHF/RHFTextField";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const SignIn = (props: any) => {
   useAppSelector((state) => state.theme.theme);
@@ -23,6 +32,18 @@ const SignIn = (props: any) => {
   const onCreateAcc = () => {
     props.navigation.navigate("SignUp");
   };
+
+  const defaultValues: DefaultValues<FormValues> = {
+    email: "",
+    password: "",
+  };
+
+  const { handleSubmit, control } = useForm<FormValues>({
+    mode: "onChange",
+    resolver: yupResolver(LoginSchema),
+    defaultValues,
+  });
+
   return (
     <ScrollScreenWrapper>
       <KeyboardDismissingView
@@ -49,20 +70,26 @@ const SignIn = (props: any) => {
         <Animated.View
           entering={FadeInDown}
           style={[
-            tw`flex-1 py-7 px-6 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
+            tw`flex-1 py-8 px-6 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
             SECTION_SHADOWS.topShadowSection,
           ]}
         >
-          <Typography variant="h6" style={" font-semi-bold mb-6 "}>
+          {/* <Typography variant="h6" style={" font-semi-bold mb-6 "}>
             Sign in
-          </Typography>
+          </Typography> */}
 
           <View style={tw`gap-4  flex-1`}>
-            <CustomTextField
+            <RHFTextField
+              control={control}
+              name="email"
               autoComplete="email"
               placeholder={"Email address"}
             />
-            <CustomTextField placeholder={"Password"} />
+            <RHFTextField
+              name="password"
+              control={control}
+              placeholder={"Password"}
+            />
             <LoadingButton text="Login" />
             <Or />
             <GoogleButton variant="login" />
@@ -78,7 +105,7 @@ const SignIn = (props: any) => {
               color="primary.main"
               style="text-center font-semi-bold"
             >
-              Create an account
+              Register
             </Typography>
           </TouchableOpacity>
         </Animated.View>

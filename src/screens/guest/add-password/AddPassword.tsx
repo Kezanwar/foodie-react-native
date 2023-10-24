@@ -6,14 +6,14 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { LoadingButton } from "components/buttons/loading-button";
 import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
+
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
 
 import { useAppSelector } from "hooks/useAppSelector";
-
 import useSnackbar from "hooks/useSnackbar";
 
-const AddEmail: React.FC = (props: any) => {
+const AddPassword: React.FC = (props: any) => {
   useAppSelector((state) => state.theme.theme);
 
   const onGoBack = () => props.navigation.goBack();
@@ -21,9 +21,9 @@ const AddEmail: React.FC = (props: any) => {
   const enqeueSnackbar = useSnackbar();
 
   const onDone = () => {
-    props.navigation.navigate("AddPassword");
+    props.navigation.navigate("AddEmail");
     // enqeueSnackbar({
-    //   message: "Successfully added your Email  🚀",
+    //   message: "Successfully added your details  🚀",
     //   variant: "success",
     // });
   };
@@ -39,16 +39,20 @@ const AddEmail: React.FC = (props: any) => {
           style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}
         >
           <Typography variant="h6" style={" font-semi-bold mb-2 "}>
-            Welcome, Kez.
+            Finally...
           </Typography>
           <Typography variant="body2" color="text.secondary" style={"  mb-12 "}>
-            Please provide your email address.
+            Please create a Password.
           </Typography>
 
           <View style={tw`gap-4  flex-1`}>
             <CustomTextField
-              autoComplete="email"
-              placeholder={"Email address"}
+              autoComplete="new-password"
+              placeholder={"Password"}
+            />
+            <CustomTextField
+              autoComplete="off"
+              placeholder={"Confirm Password"}
             />
           </View>
           <View style={tw`flex-1 justify-end`}>
@@ -69,4 +73,4 @@ const AddEmail: React.FC = (props: any) => {
   );
 };
 
-export default AddEmail;
+export default AddPassword;

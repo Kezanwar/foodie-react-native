@@ -13,14 +13,12 @@ import { useAppSelector } from "hooks/useAppSelector";
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
-import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { LoadingButton } from "components/buttons/loading-button";
 import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";
-import { TabController } from "react-native-ui-lib";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const SignUp = (props: any) => {
@@ -30,7 +28,7 @@ const SignUp = (props: any) => {
     props.navigation.navigate("SignIn");
   };
 
-  const onSignUp = () => props.navigation.navigate("AddEmail");
+  const onSignUp = () => props.navigation.navigate("AddDetails");
   return (
     <ScrollScreenWrapper>
       <GestureHandlerRootView>
@@ -57,24 +55,19 @@ const SignUp = (props: any) => {
           <Animated.View
             entering={FadeInDown}
             style={[
-              tw`flex-1 py-7 px-6 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
+              tw`flex-1 py-8 px-6 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
               SECTION_SHADOWS.topShadowSection,
             ]}
           >
-            <Typography variant="h6" style={" font-semi-bold mb-6 "}>
-              Create account
-            </Typography>
+            {/* <Typography
+              variant="h6"
+              style={" font-semi-bold text-center mb-6 "}
+            >
+              Register
+            </Typography> */}
 
             <View style={tw`gap-4  flex-1`}>
-              <CustomTextField
-                autoComplete="given-name"
-                placeholder={"First name"}
-              />
-              <CustomTextField
-                autoComplete="family-name"
-                placeholder={"Last name"}
-              />
-              <LoadingButton onPress={onSignUp} text="Sign up" />
+              <LoadingButton onPress={onSignUp} text="Create an account" />
               <Or />
               <GoogleButton variant="register" />
             </View>

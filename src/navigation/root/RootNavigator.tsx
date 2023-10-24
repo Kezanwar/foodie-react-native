@@ -8,6 +8,8 @@ import PrivacyPolicy from "screens/common/privacy-policy";
 import Home from "screens/app/home";
 import AppTabNavigator from "navigation/app";
 import { AddEmail } from "screens/guest/add-email";
+import { AddDetails } from "screens/guest/add-details";
+import { AddPassword } from "screens/guest/add-password";
 
 const RootStack = createNativeStackNavigator();
 
@@ -27,7 +29,9 @@ const RootNavigator: FC = () => {
         <RootStack.Group screenOptions={{ headerShown: false }}>
           <RootStack.Screen name="SignIn" component={SignIn} />
           <RootStack.Screen name="SignUp" component={SignUp} />
+          <RootStack.Screen name="AddDetails" component={AddDetails} />
           <RootStack.Screen name="AddEmail" component={AddEmail} />
+          <RootStack.Screen name="AddPassword" component={AddPassword} />
         </RootStack.Group>
       )}
       {/* Common modal screens */}
