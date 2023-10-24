@@ -14,8 +14,8 @@ type Props = TextInputProps & {
   error?: string;
 };
 
-const DEFAULT_B_COL = tw.color("grey-300") || "";
-const DEFAULT_P_COL = tw.color("grey-400") || "";
+const DEFAULT_B_COL = tw.color("grey-200") || "";
+const DEFAULT_P_COL = tw.color("grey-500") || "";
 const DEFAULT_P_TOP = 42;
 const DEFAULT_P_FSIZE = 16;
 
@@ -42,7 +42,7 @@ const CustomTextField: React.FC<Props> = ({
   useEffect(() => {
     if (isFocused) {
       const col =
-        theme === "light" ? tw.color("grey-700") : tw.color("grey-500");
+        theme === "light" ? tw.color("grey-800") : tw.color("grey-500");
       borderColor.value = col || "";
       placeholderColor.value = col || "";
       placeholderTop.value = 20;

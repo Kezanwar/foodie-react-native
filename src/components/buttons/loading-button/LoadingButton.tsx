@@ -1,11 +1,6 @@
 import { Typography } from "components/typography";
 import React from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 import tw from "theme/tailwind";
 
@@ -17,7 +12,7 @@ const LoadingButton: React.FC<Props> = ({ text = "", ...rest }) => {
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`w-full p-3 bg-black rounded-md items-center`}
+      style={tw`w-full p-3 bg-grey-950 rounded-md items-center`}
     >
       <Typography
         variant="h6"
