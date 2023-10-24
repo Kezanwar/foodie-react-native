@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { TextInputProps } from "react-native";
 import {
   FieldPath,
@@ -10,6 +10,8 @@ import { CustomTextField } from "components/form/custom-text-field";
 
 type Props = TextInputProps & {
   placeholder: string;
+  actionOnPress?: () => void;
+  actionIcon?: ReactNode;
 };
 
 type RHFInputProps<

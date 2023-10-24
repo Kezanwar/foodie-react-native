@@ -1,33 +1,42 @@
+import React, { useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
-import React from "react";
-import tw from "theme/tailwind";
+import {
+  DefaultValues,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Image } from "expo-image";
+import { Feather } from "@expo/vector-icons";
 
-import { useAppSelector } from "hooks/useAppSelector";
+import tw from "theme/tailwind";
+import { SECTION_SHADOWS } from "theme/custom-shadows";
 
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
-import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { LoadingButton } from "components/buttons/loading-button";
 import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
-
-import { SECTION_SHADOWS } from "theme/custom-shadows";
-import { DefaultValues, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginSchema } from "lib/validation/auth";
 import RHFTextField from "components/form/RHF/RHFTextField";
+
+import { useAppSelector } from "hooks/useAppSelector";
+import { LoginSchema } from "lib/validation/auth";
 
 type FormValues = {
   email: string;
   password: string;
 };
 
+const iconColor = tw.color("grey-700");
+
 const SignIn = (props: any) => {
   useAppSelector((state) => state.theme.theme);
+  const [showPassword, setShowPassword] = useState(true);
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const onCreateAcc = () => {
     props.navigation.navigate("SignUp");
@@ -38,11 +47,19 @@ const SignIn = (props: any) => {
     password: "",
   };
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, setValue, getValues } = useForm<FormValues>({
     mode: "onChange",
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
+
+  const onSuccess: SubmitHandler<FormValues> = (data) => {
+    console.log(data);
+  };
+
+  const onError: SubmitErrorHandler<FormValues> = (error) => {
+    console.log(error);
+  };
 
   return (
     <ScrollScreenWrapper>
@@ -89,8 +106,20 @@ const SignIn = (props: any) => {
               name="password"
               control={control}
               placeholder={"Password"}
+              secureTextEntry={showPassword}
+              actionOnPress={toggleShowPassword}
+              actionIcon={
+                <Feather
+                  name={showPassword ? "eye" : "eye-off"}
+                  size={18}
+                  color={iconColor}
+                />
+              }
             />
-            <LoadingButton text="Login" />
+            <LoadingButton
+              onPress={handleSubmit(onSuccess, onError)}
+              text="Login"
+            />
             <Or />
             <GoogleButton variant="login" />
           </View>

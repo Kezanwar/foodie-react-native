@@ -1,9 +1,4 @@
-import {
-  Text,
-  View,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
@@ -59,13 +54,6 @@ const SignUp = (props: any) => {
               SECTION_SHADOWS.topShadowSection,
             ]}
           >
-            {/* <Typography
-              variant="h6"
-              style={" font-semi-bold text-center mb-6 "}
-            >
-              Register
-            </Typography> */}
-
             <View style={tw`gap-4  flex-1`}>
               <LoadingButton onPress={onSignUp} text="Create an account" />
               <Or />
