@@ -12,20 +12,39 @@
       "backgroundColor": "#ffffff"
     },
     "expo": {
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "android": {
+        "googleServicesFile": "./google-services.json"
+      },
+      "ios": {
+        "googleServicesFile": "./GoogleService-Info.plist"
+      },
+      "plugins": [
+        "@react-native-google-signin/google-signin",
+        "@notifee/react-native"
+      ]
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kezanwar.foodiereactnative"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.kezanwar.foodiereactnative"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dc612448-f43d-4870-af12-35590fe2b0ee"
+      }
     }
   }
 }
