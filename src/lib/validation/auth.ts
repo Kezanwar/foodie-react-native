@@ -5,7 +5,12 @@ export const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address")
     .required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+    .required()
+    .matches(/[@$!%*#?&]+/, "Password must have special character")
+    .matches(/\d+/, "Password must have one number")
+    .matches(/[a-z]+/, "Password must have one lowercase character")
+    .matches(/[A-Z]+/, "Password must have uppercase character"),
 });
 
 //* REGISTER

@@ -4,6 +4,7 @@ import {
   Ionicons,
   AntDesign,
 } from "@expo/vector-icons";
+
 import tw from "./tailwind";
 
 const variantStyles = {
@@ -42,7 +43,7 @@ const variantStyles = {
   error: {
     bg: "bg-error-lighter dark:bg-error-darker",
     text: "text-error-main dark:text-error-lighter",
-    icon: <Ionicons name="md-warning" size={24} />,
+    icon: <MaterialIcons name="error" style={tw`mt-[1]`} size={24} />,
   },
   grey: {
     bg: "bg-grey-400",

@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
-import {
-  DefaultValues,
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Image } from "expo-image";
@@ -25,6 +20,12 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { LoginSchema } from "lib/validation/auth";
+import { loginJWT } from "lib/api/api";
+
+import { fetchErrorHandler } from "util/error";
+import Alert from "components/alert/Alert";
+import { useDispatch } from "react-redux";
+import { authLogin } from "store/auth/auth.slice";
 
 type FormValues = {
   email: string;
@@ -35,7 +36,10 @@ const iconColor = tw.color("grey-700");
 
 const SignIn = (props: any) => {
   useAppSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const onCreateAcc = () => {
@@ -47,18 +51,30 @@ const SignIn = (props: any) => {
     password: "",
   };
 
-  const { handleSubmit, control, setValue, getValues } = useForm<FormValues>({
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<FormValues>({
     mode: "onChange",
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
 
-  const onSuccess: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
-  };
-
-  const onError: SubmitErrorHandler<FormValues> = (error) => {
-    console.log(error);
+  const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
+    try {
+      setIsLoading(true);
+      const res = await loginJWT(data);
+      const { user, accessToken } = res?.data;
+      dispatch(authLogin(user));
+    } catch (error) {
+      fetchErrorHandler(error, (error) => {
+        setError("root.afterSubmit", error);
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -116,8 +132,15 @@ const SignIn = (props: any) => {
                 />
               }
             />
+            {errors?.root?.afterSubmit && (
+              <Alert
+                variant="error"
+                content={errors?.root?.afterSubmit?.message}
+              />
+            )}
             <LoadingButton
-              onPress={handleSubmit(onSuccess, onError)}
+              isLoading={isLoading}
+              onPress={handleSubmit(onFormSuccess)}
               text="Login"
             />
             <Or />
@@ -134,7 +157,7 @@ const SignIn = (props: any) => {
               color="primary.main"
               style="text-center font-semi-bold"
             >
-              Register
+              Create an account
             </Typography>
           </TouchableOpacity>
         </Animated.View>

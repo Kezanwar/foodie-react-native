@@ -1,26 +1,35 @@
 import { Typography } from "components/typography";
 import React from "react";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
 import tw from "theme/tailwind";
 
 type Props = TouchableOpacityProps & {
   text: string;
+  isLoading?: boolean;
 };
 
-const LoadingButton: React.FC<Props> = ({ text = "", ...rest }) => {
+const LoadingButton: React.FC<Props> = ({ text = "", isLoading, ...rest }) => {
   return (
     <TouchableOpacity
       {...rest}
       style={tw`w-full p-3 bg-grey-950 rounded-md items-center`}
     >
-      <Typography
-        variant="h6"
-        color="white"
-        style="text-[3.75] font-semi-bold leading-[0]"
-      >
-        {text}
-      </Typography>
+      {isLoading ? (
+        <ActivityIndicator size="small" />
+      ) : (
+        <Typography
+          variant="h6"
+          color="white"
+          style="text-[3.75] font-semi-bold leading-[0]"
+        >
+          {text}
+        </Typography>
+      )}
     </TouchableOpacity>
   );
 };

@@ -13,7 +13,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 
 import useSnackbar from "hooks/useSnackbar";
 
-const AddEmail: React.FC = (props: any) => {
+const AddEmailPassword: React.FC = (props: any) => {
   useAppSelector((state) => state.theme.theme);
 
   const onGoBack = () => props.navigation.goBack();
@@ -34,15 +34,16 @@ const AddEmail: React.FC = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <Animated.View
-          entering={FadeInDown}
-          style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}
-        >
+        <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
           <Typography variant="h6" style={" font-semi-bold mb-2 "}>
-            Welcome, Kez.
+            Welcome, Kez!
           </Typography>
-          <Typography variant="body2" color="text.secondary" style={"  mb-12 "}>
-            Please provide your email address.
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={"max-w-[70]  mb-12 "}
+          >
+            Please provide your Email Address and create a Password...
           </Typography>
 
           <View style={tw`gap-4  flex-1`}>
@@ -50,7 +51,13 @@ const AddEmail: React.FC = (props: any) => {
               autoComplete="email"
               placeholder={"Email address"}
             />
+            <CustomTextField autoComplete="off" placeholder={"Password"} />
+            <CustomTextField
+              autoComplete="off"
+              placeholder={"Confirm Password"}
+            />
           </View>
+
           <View style={tw`flex-1 justify-end`}>
             <LoadingButton onPress={onDone} text="Done" />
             <TouchableOpacity style={tw`mt-4`} onPress={onGoBack}>
@@ -63,10 +70,10 @@ const AddEmail: React.FC = (props: any) => {
               </Typography>
             </TouchableOpacity>
           </View>
-        </Animated.View>
+        </View>
       </KeyboardDismissingView>
     </StaticScreenWrapper>
   );
 };
 
-export default AddEmail;
+export default AddEmailPassword;

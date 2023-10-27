@@ -1,7 +1,6 @@
 import React from "react";
 import tw from "theme/tailwind";
 import { TouchableOpacity, View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 
 import { LoadingButton } from "components/buttons/loading-button";
 import { CustomTextField } from "components/form/custom-text-field";
@@ -34,14 +33,15 @@ const AddDetails: React.FC = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <Animated.View
-          entering={FadeInDown}
-          style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}
-        >
+        <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
           <Typography variant="h6" style={" font-semi-bold mb-2 "}>
             Hello!
           </Typography>
-          <Typography variant="body2" color="text.secondary" style={"  mb-12 "}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={"max-w-[70]  mb-12 "}
+          >
             Let's get started, we just need a few details from you...
           </Typography>
 
@@ -67,7 +67,7 @@ const AddDetails: React.FC = (props: any) => {
               </Typography>
             </TouchableOpacity>
           </View>
-        </Animated.View>
+        </View>
       </KeyboardDismissingView>
     </StaticScreenWrapper>
   );
