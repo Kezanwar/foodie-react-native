@@ -10,3 +10,5 @@ export type IUser = {
 export type LoginData = { email: string; password: string };
 
 export type LoginResponse = { user: IUser; accessToken: string };
+
+export type InitializeResponse = { user: IUser };

@@ -10,6 +10,7 @@ module.exports = function (api) {
           alias: {
             lib: "./src/lib",
             components: "./src/components",
+            hocs: "./src/hocs",
             store: "./src/store",
             types: "./src/types",
             hooks: "./src/hooks",

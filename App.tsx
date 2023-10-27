@@ -18,6 +18,7 @@ import Snackbar from "components/snackbar/Snackbar";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "navigation/root";
 import { enableFreeze } from "react-native-screens";
+import AuthInitializer from "hocs/auth-initializer";
 
 enableFreeze(true);
 
@@ -61,9 +62,11 @@ export default function App() {
       <Provider store={store}>
         <View style={tw`flex-1 relative`} onLayout={onLayoutRootView}>
           <NavigationContainer>
-            <RootNavigator />
-            <Snackbar />
+            <AuthInitializer>
+              <RootNavigator />
+            </AuthInitializer>
           </NavigationContainer>
+          <Snackbar />
         </View>
         <CustomStatusBar />
       </Provider>

@@ -26,6 +26,9 @@ import { fetchErrorHandler } from "util/error";
 import Alert from "components/alert/Alert";
 import { useDispatch } from "react-redux";
 import { authLogin } from "store/auth/auth.slice";
+import { setSession } from "lib/axios/axios";
+import { useFocusEffect } from "@react-navigation/native";
+import { getAccessToken } from "lib/storage/storage";
 
 type FormValues = {
   email: string;
@@ -62,12 +65,17 @@ const SignIn = (props: any) => {
     defaultValues,
   });
 
+  useFocusEffect(() => {
+    console.log(getAccessToken());
+  });
+
   const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
     try {
       setIsLoading(true);
       const res = await loginJWT(data);
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
+      setSession(accessToken);
     } catch (error) {
       fetchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { baseUrl } from "lib/env/env";
+import { clearAccessToken, storeAccessToken } from "lib/storage/storage";
 // config
 
 // import { navigate } from '@app/components/RootNavigator/RootNavigator';
@@ -7,7 +9,7 @@ import axios from "axios";
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
+  baseURL: baseUrl,
 });
 
 axiosInstance.interceptors.response.use(
@@ -27,20 +29,15 @@ axiosInstance.interceptors.response.use(
 
 export default axiosInstance;
 
-// export const setSession = async (accessToken) => {
-//   if (accessToken) {
-//     await storeAccessToken(accessToken);
+export const setSession = (accessToken: string) => {
+  storeAccessToken(accessToken);
+  axiosInstance.defaults.headers["x-auth-token"] = accessToken;
+};
 
-//     axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-//   } else {
-//     return await endSession();
-//   }
-// };
-
-// export const endSession = async () => {
-//   await clearAccessToken();
-//   delete axiosInstance.defaults.headers.common.Authorization;
-// };
+export const endSession = async () => {
+  clearAccessToken();
+  delete axiosInstance.defaults.headers["x-auth-token"];
+};
 
 // export const hardEndSession = async () => {
 //   await clearAllTokens();
