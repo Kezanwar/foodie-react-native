@@ -7,7 +7,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 type Props = { children: ReactNode };
 
 const ScrollScreenWrapper: FC<Props> = ({ children }) => {
-  const theme = useAppSelector((state) => state.theme.theme);
+  useAppSelector((state) => state.theme.theme);
   return (
     <SafeAreaView style={tw`bg-white dark:bg-grey-950  flex-1 relative`}>
       <ScrollView style={tw`flex-1`}>
