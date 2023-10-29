@@ -26,8 +26,8 @@ const RootNavigator: FC = () => {
       ) : (
         // Auth screens
         <RootStack.Group screenOptions={{ headerShown: false }}>
-          <RootStack.Screen name="SignIn" component={SignIn} />
           <RootStack.Screen name="SignUp" component={SignUp} />
+          <RootStack.Screen name="SignIn" component={SignIn} />
           <RootStack.Screen name="AddDetails" component={AddDetails} />
           <RootStack.Screen name="AddEmail" component={AddEmailPassword} />
         </RootStack.Group>

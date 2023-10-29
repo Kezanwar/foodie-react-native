@@ -24,11 +24,16 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.isInitialized = true;
     },
+    authLogout: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isInitialized = true;
+    },
   },
 });
 
 // export for use around the app
-export const { authLogin } = authSlice.actions;
+export const { authLogin, authLogout } = authSlice.actions;
 
 // export for store
 const authReducer = authSlice.reducer;

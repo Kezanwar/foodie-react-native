@@ -7,6 +7,8 @@ export type IUser = {
   avatar: string;
 };
 
-export type LoginData = { email: string; password: string };
+export type LoginJWTData = { email: string; password: string };
 
 export type LoginResponse = { user: IUser; accessToken: string };
+
+export type InitializeResponse = { user: IUser };
