@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Animated, { FadeInDown } from "react-native-reanimated";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
+
 import { Image } from "expo-image";
 import { Feather } from "@expo/vector-icons";
 
@@ -20,15 +23,15 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { LoginSchema } from "lib/validation/auth";
-import { loginJWT } from "lib/api/api";
+import { loginGoogle, loginJWT } from "lib/api/api";
 
 import { fetchErrorHandler } from "util/error";
 import Alert from "components/alert/Alert";
 import { useDispatch } from "react-redux";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
-import { useFocusEffect } from "@react-navigation/native";
-import { getAccessToken } from "lib/storage/storage";
+
+WebBrowser.maybeCompleteAuthSession();
 
 type FormValues = {
   email: string;
@@ -42,6 +45,11 @@ const SignIn = (props: any) => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [, response, prompAsync] = Google.useAuthRequest({
+    iosClientId:
+      "688879209449-6m9ojfpgapdlnolr98a0tbg20oc1il61.apps.googleusercontent.com",
+  });
 
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -65,10 +73,6 @@ const SignIn = (props: any) => {
     defaultValues,
   });
 
-  useFocusEffect(() => {
-    console.log(getAccessToken());
-  });
-
   const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
     try {
       setIsLoading(true);
@@ -84,6 +88,33 @@ const SignIn = (props: any) => {
       setIsLoading(false);
     }
   };
+
+  const loginWithGoogle = async (token: string) => {
+    try {
+      setGoogleLoading(true);
+      const res = await loginGoogle(token);
+      const { user, accessToken } = res?.data;
+      dispatch(authLogin(user));
+      setSession(accessToken);
+    } catch (error) {
+      fetchErrorHandler(error, (error) => {
+        setError("root.afterSubmit", error);
+      });
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  const onGoogleSignIn = () => {
+    prompAsync();
+  };
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      if (response.authentication?.accessToken)
+        loginWithGoogle(response.authentication?.accessToken);
+    }
+  }, [response]);
 
   return (
     <ScrollScreenWrapper>
@@ -152,7 +183,11 @@ const SignIn = (props: any) => {
               text="Login"
             />
             <Or />
-            <GoogleButton variant="login" />
+            <GoogleButton
+              loading={googleLoading}
+              onPress={onGoogleSignIn}
+              variant="login"
+            />
           </View>
           <Text
             style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}

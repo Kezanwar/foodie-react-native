@@ -4,11 +4,11 @@ import { Text } from "react-native";
 import { View } from "react-native-ui-lib";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { authLogin, initializeFailed } from "store/auth/auth.slice";
+import { authLogin, authLogout } from "store/auth/auth.slice";
 
 import { initializeJWT } from "lib/api/api";
 import { setSession } from "lib/axios/axios";
-import { getAccessToken } from "lib/storage/storage";
+import { clearAccessToken, getAccessToken } from "lib/storage/storage";
 
 type Props = {
   children: ReactNode;
@@ -21,19 +21,18 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   const dispatch = useDispatch();
 
   const initialize = useCallback(async () => {
-    const accessToken = getAccessToken();
-    if (!accessToken) return;
-    if (accessToken) {
-      try {
-        setSession(accessToken);
-        const res = await initializeJWT();
-        const {
-          data: { user },
-        } = res;
-        dispatch(authLogin(user));
-      } catch (error) {
-        dispatch(initializeFailed());
-      }
+    try {
+      const accessToken = getAccessToken();
+      if (!accessToken) throw new Error("no token");
+      setSession(accessToken);
+      const res = await initializeJWT();
+      const {
+        data: { user },
+      } = res;
+      dispatch(authLogin(user));
+    } catch (error) {
+      dispatch(authLogout());
+      clearAccessToken();
     }
   }, []);
 
@@ -44,8 +43,10 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   }, [isInitialized]);
 
   return isInitialized ? (
+    //* render children whether the above initialize has authenticated user or not
     children
   ) : (
+    //* loading screen if user has bad connection and initialize is taking time
     <View>
       <Text>is initializing</Text>
     </View>

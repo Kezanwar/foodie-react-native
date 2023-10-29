@@ -1,15 +1,16 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
-import { getAccessToken } from "lib/storage/storage";
-import { useFocusEffect } from "@react-navigation/native";
+import { clearAccessToken } from "lib/storage/storage";
 
 type Props = {};
 
 const Home = (props: Props) => {
   return (
     <ScreenWrapper>
-      <Text>Home</Text>
+      <TouchableOpacity onPress={clearAccessToken}>
+        <Text>Home</Text>
+      </TouchableOpacity>
     </ScreenWrapper>
   );
 };

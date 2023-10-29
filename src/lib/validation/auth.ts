@@ -6,7 +6,7 @@ export const LoginSchema = Yup.object().shape({
     .email("Email must be a valid email address")
     .required("Email is required"),
   password: Yup.string()
-    .required()
+    .required("Password is required")
     .matches(/[@$!%*#?&]+/, "Password must have special character")
     .matches(/\d+/, "Password must have one number")
     .matches(/[a-z]+/, "Password must have one lowercase character")
