@@ -17,7 +17,7 @@ const LoadingButton: React.FC<Props> = ({ text = "", isLoading, ...rest }) => {
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`w-full p-3 bg-grey-950 rounded-md items-center`}
+      style={tw`w-full p-3 bg-grey-950 dark:bg-grey-200 rounded-md items-center`}
     >
       {isLoading ? (
         <ActivityIndicator size="small" />

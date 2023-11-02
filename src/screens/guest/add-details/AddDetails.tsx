@@ -1,31 +1,49 @@
 import React from "react";
 import tw from "theme/tailwind";
 import { TouchableOpacity, View } from "react-native";
+import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { LoadingButton } from "components/buttons/loading-button";
-import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
-
+import RHFTextField from "components/form/RHF/RHFTextField";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import useSnackbar from "hooks/useSnackbar";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import useAppDispatch from "hooks/useAppDispatch";
+import { addRegisterDetails } from "store/create-account/create-account.slice";
+import { RegisterUserDetailsSchema } from "lib/validation/auth";
+
+type FormValues = {
+  first_name: string;
+  last_name: string;
+};
 
 const AddDetails: React.FC = (props: any) => {
   useAppSelector((state) => state.theme.theme);
 
+  const dispatch = useAppDispatch();
+
   const onGoBack = () => props.navigation.goBack();
 
-  const enqeueSnackbar = useSnackbar();
-
-  const onDone = () => {
+  const onDone: SubmitHandler<FormValues> = (data) => {
+    dispatch(addRegisterDetails({ ...data }));
     props.navigation.navigate("AddEmail");
-    // enqeueSnackbar({
-    //   message: "Successfully added your details  🚀",
-    //   variant: "success",
-    // });
   };
+
+  const defaultValues: DefaultValues<FormValues> = {
+    first_name: "",
+    last_name: "",
+  };
+
+  const { handleSubmit, control } = useForm<FormValues>({
+    mode: "onChange",
+    resolver: yupResolver(RegisterUserDetailsSchema),
+    defaultValues,
+  });
 
   return (
     <StaticScreenWrapper>
@@ -46,17 +64,21 @@ const AddDetails: React.FC = (props: any) => {
           </Typography>
 
           <View style={tw`gap-4  flex-1`}>
-            <CustomTextField
+            <RHFTextField
+              control={control}
+              name="first_name"
               autoComplete="given-name"
               placeholder={"First name"}
             />
-            <CustomTextField
+            <RHFTextField
+              control={control}
+              name="last_name"
               autoComplete="family-name"
               placeholder={"Last name"}
             />
           </View>
           <View style={tw`flex-1 justify-end`}>
-            <LoadingButton onPress={onDone} text="Done" />
+            <LoadingButton onPress={handleSubmit(onDone)} text="Done" />
             <TouchableOpacity style={tw`mt-4`} onPress={onGoBack}>
               <Typography
                 variant="body2"

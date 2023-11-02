@@ -9,6 +9,7 @@ import { authLogin, authLogout } from "store/auth/auth.slice";
 import { initializeJWT } from "lib/api/api";
 import { setSession } from "lib/axios/axios";
 import { clearAccessToken, getAccessToken } from "lib/storage/storage";
+import { LoadingScreen } from "components/loading-screen";
 
 type Props = {
   children: ReactNode;
@@ -47,9 +48,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
     children
   ) : (
     //* loading screen if user has bad connection and initialize is taking time
-    <View>
-      <Text>is initializing</Text>
-    </View>
+    <LoadingScreen />
   );
 };
 

@@ -95,7 +95,7 @@ const CustomTextField: React.FC<Props> = ({
 
   return (
     <View>
-      <View style={tw` rounded-md bg-grey-100    dark:bg-grey-950 `}>
+      <View style={tw` rounded-md bg-grey-100    dark:bg-grey-900 `}>
         <Animated.View
           style={[
             tw`border-[0.15]  flex-row items-center  px-2   rounded-md relative`,

@@ -5,7 +5,7 @@ import tw from "theme/tailwind";
 const TEXT_COLORS = {
   "text.primary": "text-type-light-primary dark:text-type-dark-primary",
   "text.secondary": "text-type-light-secondary dark:text-type-dark-secondary",
-  white: "text-white dark:text-type-dark-primary",
+  white: "text-white dark:text-grey-950",
   "primary.main": "text-primary-main",
   "error.main": "text-error-main",
 };
