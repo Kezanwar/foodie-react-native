@@ -3,6 +3,7 @@ import tw from "theme/tailwind";
 import { TouchableOpacity, View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Feather } from "@expo/vector-icons";
 
 import { LoadingButton } from "components/buttons/loading-button";
 
@@ -22,6 +23,8 @@ import { setSession } from "lib/axios/axios";
 import { catchErrorHandler } from "util/error";
 import Alert from "components/alert/Alert";
 
+const iconColor = tw.color("grey-700");
+
 type FormValues = {
   email: string;
   password: string;
@@ -30,6 +33,9 @@ type FormValues = {
 
 const AddEmailPassword: React.FC = (props: any) => {
   useAppSelector((state) => state.theme.theme);
+  const [showPassword, setShowPassword] = useState(true);
+
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -114,12 +120,30 @@ const AddEmailPassword: React.FC = (props: any) => {
               name="password"
               autoComplete="off"
               placeholder={"Password"}
+              secureTextEntry={showPassword}
+              actionOnPress={toggleShowPassword}
+              actionIcon={
+                <Feather
+                  name={showPassword ? "eye" : "eye-off"}
+                  size={18}
+                  color={iconColor}
+                />
+              }
             />
             <RHFTextField
               control={control}
               name="confirm_password"
               autoComplete="off"
               placeholder={"Confirm Password"}
+              secureTextEntry={showPassword}
+              actionOnPress={toggleShowPassword}
+              actionIcon={
+                <Feather
+                  name={showPassword ? "eye" : "eye-off"}
+                  size={18}
+                  color={iconColor}
+                />
+              }
             />
             {errors?.root?.afterSubmit && (
               <Alert
