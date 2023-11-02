@@ -1,5 +1,10 @@
 import axiosInstance from "lib/axios/axios";
-import { InitializeResponse, LoginJWTData, LoginResponse } from "types/auth";
+import {
+  InitializeResponse,
+  LoginJWTData,
+  LoginResponse,
+  RegisterJWTData,
+} from "types/auth";
 import { IOptions } from "types/options";
 
 const AUTH_ENDPOINTS = {
@@ -30,6 +35,14 @@ export const loginGoogle = (token: string) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.loginWithGoogle, {
     token,
   });
+};
+export const registerGoogle = (token: string) => {
+  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithGoogle, {
+    token,
+  });
+};
+export const registerJWT = (data: RegisterJWTData) => {
+  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.register, data);
 };
 
 export const initializeJWT = () => {

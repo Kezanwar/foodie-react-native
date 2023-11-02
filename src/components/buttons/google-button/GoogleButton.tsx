@@ -5,13 +5,12 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   TouchableOpacityProps,
-  View,
 } from "react-native";
 import tw from "theme/tailwind";
 
 type Props = TouchableOpacityProps & {
   variant: "login" | "register";
-  loading: boolean;
+  loading?: boolean;
 };
 
 const GoogleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {

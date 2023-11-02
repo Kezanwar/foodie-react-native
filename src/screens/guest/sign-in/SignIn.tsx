@@ -18,18 +18,18 @@ import { Typography } from "components/typography";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { LoadingButton } from "components/buttons/loading-button";
 import { Or } from "components/separators/or";
+import Alert from "components/alert/Alert";
 import { GoogleButton } from "components/buttons/google-button";
 import RHFTextField from "components/form/RHF/RHFTextField";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { LoginSchema } from "lib/validation/auth";
 import { loginGoogle, loginJWT } from "lib/api/api";
-
-import { fetchErrorHandler } from "util/error";
-import Alert from "components/alert/Alert";
-import { useDispatch } from "react-redux";
+import { catchErrorHandler } from "util/error";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
+import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
+import useAppDispatch from "hooks/useAppDispatch";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -42,13 +42,13 @@ const iconColor = tw.color("grey-700");
 
 const SignIn = (props: any) => {
   useAppSelector((state) => state.theme.theme);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [, response, prompAsync] = Google.useAuthRequest({
-    iosClientId:
-      "688879209449-6m9ojfpgapdlnolr98a0tbg20oc1il61.apps.googleusercontent.com",
+    iosClientId: iOSOAuthClientId,
+    androidClientId: androidOAuthClientId,
   });
 
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
@@ -81,7 +81,7 @@ const SignIn = (props: any) => {
       dispatch(authLogin(user));
       setSession(accessToken);
     } catch (error) {
-      fetchErrorHandler(error, (error) => {
+      catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);
       });
     } finally {
@@ -97,7 +97,7 @@ const SignIn = (props: any) => {
       dispatch(authLogin(user));
       setSession(accessToken);
     } catch (error) {
-      fetchErrorHandler(error, (error) => {
+      catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);
       });
     } finally {
@@ -142,13 +142,11 @@ const SignIn = (props: any) => {
         <Animated.View
           entering={FadeInDown}
           style={[
-            tw`flex-1 py-8 px-6 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
+            tw`flex-1 py-8 px-6 z-20  bg-white dark:bg-grey-950   rounded-3xl`,
             SECTION_SHADOWS.topShadowSection,
           ]}
         >
-          {/* <Typography variant="h6" style={" font-semi-bold mb-6 "}>
-            Sign in
-          </Typography> */}
+          {/* <ThemeToggle /> */}
 
           <View style={tw`gap-4  flex-1`}>
             <RHFTextField

@@ -4,11 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/auth.slice";
 import snackbarReducer from "./snackbar/snackbar.slice";
 import themeReducer from "./theme/theme.slice";
+import createAccountReducer from "./create-account/create-account.slice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     snackbar: snackbarReducer,
     theme: themeReducer,
+    createAccount: createAccountReducer,
   },
 });
