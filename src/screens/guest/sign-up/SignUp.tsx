@@ -108,12 +108,14 @@ const SignUp = (props: any) => {
         </View>
 
         {error?.message && (
-          <Alert
-            style="mt-8"
-            align="center"
-            variant="error"
-            content={error.message}
-          />
+          <View style={tw`items-center`}>
+            <Alert
+              style="mt-8"
+              align="center"
+              variant="error"
+              content={error.message}
+            />
+          </View>
         )}
         <Text
           style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}

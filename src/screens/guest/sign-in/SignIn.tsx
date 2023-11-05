@@ -172,6 +172,7 @@ const SignIn = (props: any) => {
             />
             {errors?.root?.afterSubmit && (
               <Alert
+                align="center"
                 variant="error"
                 content={errors?.root?.afterSubmit?.message}
               />

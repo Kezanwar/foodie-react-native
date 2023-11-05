@@ -26,12 +26,16 @@ const Alert: FC<Props> = ({
 
   return (
     <View
-      style={tw`p-2 py-2  flex-row rounded-md gap-2 w-full  ${variantStyles[variant].bg} ${style}`}
+      style={tw`p-2 py-2 ${
+        align === "center" ? "justify-center" : ""
+      } flex-row rounded-md gap-2 w-full  ${
+        variantStyles[variant].bg
+      } ${style}`}
     >
       {React.cloneElement(icon ? icon : variantStyles[variant]?.icon, {
         color: tw.color(`${variant}-${isLight ? "main" : "light"}`),
       })}
-      <View style={tw`flex-1 flex-wrap`}>
+      <View style={tw`${align === "left" ? "flex-1" : ""} flex-wrap`}>
         {title && (
           <Text
             style={tw`font-semi-bold text-base  ${variantStyles[variant].text}`}
