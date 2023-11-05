@@ -24,6 +24,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { ErrorObject } from "types/error";
 import { registerGoogle } from "lib/api/api";
 import Alert from "components/alert/Alert";
+import { AUTH_ROUTES } from "constants/routes";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -39,10 +40,10 @@ const SignUp = (props: any) => {
   });
 
   const onCreateAcc = () => {
-    props.navigation.navigate("SignIn");
+    props.navigation.navigate(AUTH_ROUTES.SIGN_IN);
   };
 
-  const onSignUp = () => props.navigation.navigate("AddDetails");
+  const onSignUp = () => props.navigation.navigate(AUTH_ROUTES.ADD_DETAILS);
 
   const registerWithGoogle = async (token: string) => {
     try {

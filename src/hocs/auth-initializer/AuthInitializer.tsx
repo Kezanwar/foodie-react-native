@@ -1,7 +1,5 @@
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Text } from "react-native";
-import { View } from "react-native-ui-lib";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { authLogin, authLogout } from "store/auth/auth.slice";

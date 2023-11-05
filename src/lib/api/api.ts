@@ -11,6 +11,8 @@ const AUTH_ENDPOINTS = {
   login: "/auth/login",
   loginWithGoogle: "/auth/login-google",
   register: "/auth/register",
+  confirmEmailOTP: "/auth/confirm-email",
+  resendEmailOTP: "/auth/confirm-email/resend-otp",
   registerWithGoogle: "/auth/register-google",
   intialize: "/auth/initialize",
 };
@@ -35,6 +37,12 @@ export const loginGoogle = (token: string) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.loginWithGoogle, {
     token,
   });
+};
+export const confirmEmailOTP = (otp: string) => {
+  return axiosInstance.post(`${AUTH_ENDPOINTS.confirmEmailOTP}/${otp}`);
+};
+export const resendEmailOTP = () => {
+  return axiosInstance.patch(AUTH_ENDPOINTS.resendEmailOTP);
 };
 export const registerGoogle = (token: string) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithGoogle, {
