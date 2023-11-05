@@ -110,11 +110,7 @@ const ConfirmEmail: React.FC = () => {
             ref={otpRef}
             theme={OTP_THEME}
           />
-          {error && (
-            <View style={tw`items-center`}>
-              <Alert style="w-70" variant="error" content={error} />
-            </View>
-          )}
+          {error && <Alert align="center" variant="error" content={error} />}
 
           <View style={tw`flex-1 justify-end`}>
             <Text
