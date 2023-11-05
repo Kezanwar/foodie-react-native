@@ -124,7 +124,11 @@ const CustomTextField: React.FC<Props> = ({
         </Animated.View>
       </View>
       {error && (
-        <Typography variant="body2" style="text-[3] mt-1" color="error.main">
+        <Typography
+          variant="body2"
+          style="text-[3] mt-1 ml-1"
+          color="error.main"
+        >
           {error}
         </Typography>
       )}

@@ -30,6 +30,7 @@ import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
 import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
 import useAppDispatch from "hooks/useAppDispatch";
+import { AUTH_ROUTES } from "constants/routes";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -54,7 +55,7 @@ const SignIn = (props: any) => {
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const onCreateAcc = () => {
-    props.navigation.navigate("SignUp");
+    props.navigation.navigate(AUTH_ROUTES.SIGN_UP);
   };
 
   const defaultValues: DefaultValues<FormValues> = {

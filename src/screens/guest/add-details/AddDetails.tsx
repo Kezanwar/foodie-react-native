@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useAppDispatch from "hooks/useAppDispatch";
 import { addRegisterDetails } from "store/create-account/create-account.slice";
 import { RegisterUserDetailsSchema } from "lib/validation/auth";
+import { AUTH_ROUTES } from "constants/routes";
 
 type FormValues = {
   first_name: string;
@@ -31,7 +32,7 @@ const AddDetails: React.FC = (props: any) => {
 
   const onDone: SubmitHandler<FormValues> = (data) => {
     dispatch(addRegisterDetails({ ...data }));
-    props.navigation.navigate("AddEmail");
+    props.navigation.navigate(AUTH_ROUTES.ADD_EMAIL_PASSWORD);
   };
 
   const defaultValues: DefaultValues<FormValues> = {

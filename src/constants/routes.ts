@@ -1,3 +1,12 @@
+//APP
 export const HOME_STACK = {
   ROOT: "HOME_STACK_ROOT",
+};
+
+//AUTH
+export const AUTH_ROUTES = {
+  SIGN_UP: "SIGN_UP",
+  SIGN_IN: "SIGN_IN",
+  ADD_DETAILS: "ADD_DETAILS",
+  ADD_EMAIL_PASSWORD: "ADD_EMAIL_PASSWORD",
 };
