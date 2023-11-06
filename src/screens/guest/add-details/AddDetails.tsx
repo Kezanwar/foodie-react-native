@@ -9,8 +9,6 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
 
-import { useAppSelector } from "hooks/useAppSelector";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useAppDispatch from "hooks/useAppDispatch";
@@ -24,7 +22,7 @@ type FormValues = {
 };
 
 const AddDetails: React.FC = (props: any) => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
 
   const dispatch = useAppDispatch();
 

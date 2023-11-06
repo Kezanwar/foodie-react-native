@@ -27,10 +27,9 @@ import {
 import useSnackbar from "hooks/useSnackbar";
 import { addPreferences } from "lib/api/api";
 import { catchErrorHandler } from "util/error";
-import { HOME_STACK } from "constants/routes";
 
 const Preferences = (props: any) => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
   const [apiLoading, setApiLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -121,7 +120,7 @@ const Preferences = (props: any) => {
           .map(({ name, slug }) => ({ name, slug })),
       });
       updatePreferences(res);
-      props.navigation.navigate(HOME_STACK.ROOT);
+      props.navigation.goBack();
     } catch (error) {
       catchErrorHandler(error, (err) => {
         enqeueSnackbar({ message: err.message, variant: "error" });

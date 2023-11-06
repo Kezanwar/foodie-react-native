@@ -39,4 +39,4 @@ yarn-error.*
 .env.local
 
 # build
-build
+build/app

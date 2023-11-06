@@ -6,6 +6,7 @@ import snackbarReducer from "./snackbar/snackbar.slice";
 import themeReducer from "./theme/theme.slice";
 import createAccountReducer from "./create-account/create-account.slice";
 import preferencesReducer from "./preferences/preferences.slice";
+import locationReducer from "./location/location.slice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     theme: themeReducer,
     createAccount: createAccountReducer,
     preferences: preferencesReducer,
+    location: locationReducer,
   },
 });

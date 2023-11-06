@@ -1,36 +1,31 @@
 import { Text, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
-import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
+
+import { useQueryClient } from "@tanstack/react-query";
+
 import {
-  clearAccessToken,
   getInitialPreferencesDone,
   setInitialPreferencesDone,
 } from "lib/storage/storage";
+
 import { authLogout } from "store/auth/auth.slice";
+import { COMMON_ROUTES } from "constants/routes";
+import { endSession } from "lib/axios/axios";
+import { LoadingScreen } from "components/loading-screen";
+import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
+
 import useAppDispatch from "hooks/useAppDispatch";
 import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
-import { LoadingScreen } from "components/loading-screen";
-import { COMMON_ROUTES } from "constants/routes";
-import { useQueryClient } from "@tanstack/react-query";
-import { endSession } from "lib/axios/axios";
+
+import { useAppSelector } from "hooks/useAppSelector";
+import useRequestLocation from "hooks/useRequestLocation";
 
 const Home = (props: any) => {
   const dispatch = useAppDispatch();
-
+  const requestLocation = useRequestLocation();
+  const { location } = useAppSelector((state) => state.location);
   const client = useQueryClient();
-
-  const logout = () => {
-    dispatch(authLogout());
-    endSession();
-    client.clear();
-  };
-
-  const pref = () => {
-    props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
-  };
-
   const { data, isLoading } = usePreferencesQuery();
-
   const hasInitialPref = getInitialPreferencesDone();
 
   useEffect(() => {
@@ -44,6 +39,26 @@ const Home = (props: any) => {
     }
   }, [isLoading, data?.data?.preferences?.cuisines]);
 
+  useEffect(() => {
+    requestLocation();
+  }, []);
+
+  useEffect(() => {
+    if (location?.coords) {
+      console.log(location.coords);
+    }
+  }, [location?.coords]);
+
+  const logout = () => {
+    dispatch(authLogout());
+    endSession();
+    client.clear();
+  };
+
+  const pref = () => {
+    props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
+  };
+
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -51,6 +66,7 @@ const Home = (props: any) => {
       <TouchableOpacity onPress={logout}>
         <Text>Logout</Text>
       </TouchableOpacity>
+      <Text>{JSON.stringify(location)}</Text>
       <TouchableOpacity onPress={pref}>
         <Text>Preferences</Text>
       </TouchableOpacity>
