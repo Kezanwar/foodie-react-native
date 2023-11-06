@@ -1,1 +1,3 @@
 export const OPTIONS_QUERY = "OPTIONS";
+
+export const PREFERENCES_QUERY = "PREFERENCES";

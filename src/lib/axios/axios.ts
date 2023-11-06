@@ -1,6 +1,10 @@
 import axios from "axios";
 import { baseUrl } from "lib/env/env";
-import { clearAccessToken, storeAccessToken } from "lib/storage/storage";
+import {
+  clearAccessToken,
+  clearStorage,
+  storeAccessToken,
+} from "lib/storage/storage";
 // config
 
 // import { navigate } from '@app/components/RootNavigator/RootNavigator';
@@ -35,7 +39,7 @@ export const setSession = (accessToken: string) => {
 };
 
 export const endSession = async () => {
-  clearAccessToken();
+  clearStorage();
   delete axiosInstance.defaults.headers["x-auth-token"];
 };
 

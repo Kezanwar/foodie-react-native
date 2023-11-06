@@ -25,6 +25,8 @@ import { ErrorObject } from "types/error";
 import { registerGoogle } from "lib/api/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
+import { useFocusEffect } from "@react-navigation/native";
+import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -72,16 +74,18 @@ const SignUp = (props: any) => {
     }
   }, [response]);
 
+  const pref = usePreferencesQuery();
+
+  console.log(pref?.data?.data);
+
   return (
     <ScrollScreenWrapper>
       <View style={tw`flex-1 px-6`}>
         <Logo width={180} height={60} />
-        <Text
-          style={tw`font-light text-sm mt-4 max-w-full mb-12  text-type-light-secondary`}
-        >
+        <Typography variant="body2" color="text.secondary" style={"mt-4 mb-8"}>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta,
           impedit.
-        </Text>
+        </Typography>
         <Image
           style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}
           source={{

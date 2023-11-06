@@ -13,11 +13,9 @@ export const catchErrorHandler = (
   }
   const apiErr = error as ErrorObject;
   if (apiErr?.message) {
-    console.log("api-error type string");
     onError(apiErr);
     return;
   } else {
-    console.log("api-error type obj");
     onError({ message: genericErrMsg, statusCode: 500 });
   }
 };

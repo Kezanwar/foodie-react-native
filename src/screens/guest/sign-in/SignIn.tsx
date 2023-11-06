@@ -125,12 +125,14 @@ const SignIn = (props: any) => {
       >
         <View style={tw`flex-1 px-6`}>
           <Logo width={180} height={60} />
-          <Text
-            style={tw`font-light text-sm mt-4 max-w-full mb-8  text-type-light-secondary`}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style={"mt-4 mb-8"}
           >
             Welcome back, lorem ipsum dolor, sit amet consectetur adipisicing
             elit. Ea, molestiae.
-          </Text>
+          </Typography>
 
           <Image
             style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}

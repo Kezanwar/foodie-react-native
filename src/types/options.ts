@@ -1,4 +1,4 @@
-type Option = {
+export type Option = {
   name: string;
   slug: string;
 };
