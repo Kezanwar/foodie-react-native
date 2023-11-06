@@ -21,12 +21,16 @@
       },
       "plugins": [
         "@react-native-google-signin/google-signin",
-        "@notifee/react-native"
+        "@notifee/react-native",
+        [
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+          }
+        ]
       ]
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kezanwar.foodiereactnative"

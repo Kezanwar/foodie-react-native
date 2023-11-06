@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import { useAppSelector } from "hooks/useAppSelector";
+
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 
@@ -25,13 +25,11 @@ import { ErrorObject } from "types/error";
 import { registerGoogle } from "lib/api/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
-import { useFocusEffect } from "@react-navigation/native";
-import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const SignUp = (props: any) => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
   const dispatch = useAppDispatch();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState<ErrorObject | null>(null);
@@ -73,10 +71,6 @@ const SignUp = (props: any) => {
         registerWithGoogle(response.authentication?.accessToken);
     }
   }, [response]);
-
-  const pref = usePreferencesQuery();
-
-  console.log(pref?.data?.data);
 
   return (
     <ScrollScreenWrapper>

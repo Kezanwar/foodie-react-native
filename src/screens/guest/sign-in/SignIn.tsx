@@ -22,7 +22,6 @@ import Alert from "components/alert/Alert";
 import { GoogleButton } from "components/buttons/google-button";
 import RHFTextField from "components/form/RHF/RHFTextField";
 
-import { useAppSelector } from "hooks/useAppSelector";
 import { LoginSchema } from "lib/validation/auth";
 import { loginGoogle, loginJWT } from "lib/api/api";
 import { catchErrorHandler } from "util/error";
@@ -42,7 +41,7 @@ type FormValues = {
 const iconColor = tw.color("grey-700");
 
 const SignIn = (props: any) => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(true);
   const [isLoading, setIsLoading] = useState(false);

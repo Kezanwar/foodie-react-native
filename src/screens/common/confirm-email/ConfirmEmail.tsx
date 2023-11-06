@@ -23,7 +23,7 @@ const OTP_THEME: Theme = {
 };
 
 const ConfirmEmail: React.FC = () => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
   const user = useAppSelector((state) => state.auth.user);
   const [error, setError] = useState("");
 

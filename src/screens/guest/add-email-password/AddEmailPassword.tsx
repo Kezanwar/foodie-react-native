@@ -32,7 +32,7 @@ type FormValues = {
 };
 
 const AddEmailPassword: React.FC = (props: any) => {
-  useAppSelector((state) => state.theme.theme);
+  // useAppSelector((state) => state.theme.theme);
   const [showPassword, setShowPassword] = useState(true);
 
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
