@@ -6,6 +6,7 @@ import {
   RegisterJWTData,
 } from "types/auth";
 import { IOptions } from "types/options";
+import { IPreferences } from "types/preferences";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -20,12 +21,23 @@ const AUTH_ENDPOINTS = {
 const APP_ENDPOINTS = {
   // options
   getOptions: "/options",
+  getPreferences: "cust/preferences",
+  addPreferences: "cust/preferences/add",
 };
 
 // *OPTIONS
 
 export const getOptions = () => {
   return axiosInstance.get<IOptions>(APP_ENDPOINTS.getOptions);
+};
+// *PREFERENCES
+
+export const getPreferences = () => {
+  return axiosInstance.get<IPreferences>(APP_ENDPOINTS.getPreferences);
+};
+
+export const addPreferences = (data: IOptions) => {
+  return axiosInstance.post<IPreferences>(APP_ENDPOINTS.addPreferences, data);
 };
 
 //*AUTH

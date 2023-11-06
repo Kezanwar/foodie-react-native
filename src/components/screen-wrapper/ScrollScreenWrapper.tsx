@@ -4,14 +4,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import tw from "theme/tailwind";
 import { useAppSelector } from "hooks/useAppSelector";
 
-type Props = { children: ReactNode };
+type Props = { children: ReactNode; header?: ReactNode };
 
-const ScrollScreenWrapper: FC<Props> = ({ children }) => {
+const ScrollScreenWrapper: FC<Props> = ({ children, header }) => {
   useAppSelector((state) => state.theme.theme);
   return (
-    <SafeAreaView style={tw`bg-white dark:bg-grey-950  flex-1 relative`}>
+    <SafeAreaView style={tw`bg-white dark:bg-grey-950 py-4  flex-1 relative`}>
+      {header}
       <ScrollView style={tw`flex-1`}>
-        <View style={tw` flex-1 gap-6 min-h-full py-4 `}>{children}</View>
+        <View style={tw` flex-1 gap-6 min-h-full  `}>{children}</View>
       </ScrollView>
     </SafeAreaView>
   );

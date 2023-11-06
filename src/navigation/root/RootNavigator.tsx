@@ -5,12 +5,13 @@ import { useAppSelector } from "hooks/useAppSelector";
 import SignIn from "screens/guest/sign-in";
 import SignUp from "screens/guest/sign-up";
 import PrivacyPolicy from "screens/common/privacy-policy";
-import Home from "screens/app/home";
+
 import AppTabNavigator from "navigation/app";
 import AddEmailPassword from "screens/guest/add-email-password";
 import AddDetails from "screens/guest/add-details";
-import { AUTH_ROUTES } from "constants/routes";
+import { AUTH_ROUTES, COMMON_ROUTES } from "constants/routes";
 import ConfirmEmail from "screens/common/confirm-email/ConfirmEmail";
+import Preferences from "screens/common/preferences";
 
 const RootStack = createNativeStackNavigator();
 
@@ -26,7 +27,10 @@ const RootNavigator: FC = () => {
       {isLoggedIn ? (
         !emailConfirmed ? (
           <RootStack.Group screenOptions={{ headerShown: false }}>
-            <RootStack.Screen name="SignUp" component={ConfirmEmail} />
+            <RootStack.Screen
+              name={AUTH_ROUTES.CONFIRM_EMAIL}
+              component={ConfirmEmail}
+            />
           </RootStack.Group>
         ) : (
           // App navigator
@@ -50,8 +54,16 @@ const RootNavigator: FC = () => {
         </RootStack.Group>
       )}
       {/* Common modal screens */}
-      <RootStack.Group screenOptions={{ presentation: "modal" }}>
-        <RootStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+      <RootStack.Group>
+        <RootStack.Screen
+          name={COMMON_ROUTES.PRIVACY_POLICY}
+          component={PrivacyPolicy}
+        />
+        <RootStack.Screen
+          options={{ headerShown: false }}
+          name={COMMON_ROUTES.PREFERENCES}
+          component={Preferences}
+        />
       </RootStack.Group>
     </RootStack.Navigator>
   );

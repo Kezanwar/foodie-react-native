@@ -5,6 +5,7 @@ import authReducer from "./auth/auth.slice";
 import snackbarReducer from "./snackbar/snackbar.slice";
 import themeReducer from "./theme/theme.slice";
 import createAccountReducer from "./create-account/create-account.slice";
+import preferencesReducer from "./preferences/preferences.slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     snackbar: snackbarReducer,
     theme: themeReducer,
     createAccount: createAccountReducer,
+    preferences: preferencesReducer,
   },
 });

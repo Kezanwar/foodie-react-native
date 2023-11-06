@@ -1,0 +1,1 @@
+import CuisinesSelectForm from "./CuisinesSelectForm";
