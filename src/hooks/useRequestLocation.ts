@@ -14,8 +14,13 @@ const useRequestLocation = () => {
       dispatch(setLocationError("Permission to access location was denied"));
       return;
     }
-    let loc = await Location.getCurrentPositionAsync();
-    dispatch(setLocationObject(loc));
+    const location = await Location.getCurrentPositionAsync({ accuracy: 5 });
+    const geo = await Location.reverseGeocodeAsync({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+
+    dispatch(setLocationObject({ location, reverseGeocode: geo[0] || null }));
   }, []);
   return request;
 };

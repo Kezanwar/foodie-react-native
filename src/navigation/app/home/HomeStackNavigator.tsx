@@ -11,7 +11,11 @@ type Props = {};
 const HomeStackNavigator: FC = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name={HOME_STACK.ROOT} component={Home} />
+      <HomeStack.Screen
+        name={HOME_STACK.ROOT}
+        options={{ headerShown: false }}
+        component={Home}
+      />
     </HomeStack.Navigator>
   );
 };
