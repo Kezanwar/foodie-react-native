@@ -1,33 +1,35 @@
-import { SafeAreaView, View } from "react-native";
+import { Linking, SafeAreaView, View } from "react-native";
 import React, { useEffect } from "react";
-
 import { useQueryClient } from "@tanstack/react-query";
+import tw from "theme/tailwind";
 
 import {
   getInitialPreferencesDone,
   setInitialPreferencesDone,
 } from "lib/storage/storage";
-
+import { endSession } from "lib/axios/axios";
 import { authLogout } from "store/auth/auth.slice";
 import { COMMON_ROUTES } from "constants/routes";
-import { endSession } from "lib/axios/axios";
+
 import { LoadingScreen } from "components/loading-screen";
 import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
+import LocationButton from "components/buttons/location-button";
+import FilterButton from "components/buttons/filter-button";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
-
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
-import LocationButton from "components/buttons/location-button";
-import tw from "theme/tailwind";
-import FilterIcon from "components/svgs/filter-icon";
-import FilterButton from "components/buttons/filter-button";
+import Alert from "components/alert/Alert";
+import { Typography } from "components/typography";
+import TextButton from "components/buttons/text-button";
 
 const Home = (props: any) => {
   const dispatch = useAppDispatch();
   const requestLocation = useRequestLocation();
-  const { location } = useAppSelector((state) => state.location);
+  const { location, error: locationError } = useAppSelector(
+    (state) => state.location
+  );
   const client = useQueryClient();
   const { data, isLoading } = usePreferencesQuery();
   const hasInitialPref = getInitialPreferencesDone();
@@ -47,12 +49,6 @@ const Home = (props: any) => {
     requestLocation();
   }, []);
 
-  useEffect(() => {
-    if (location?.coords) {
-      console.log(location.coords);
-    }
-  }, [location?.coords]);
-
   const logout = () => {
     dispatch(authLogout());
     endSession();
@@ -63,6 +59,11 @@ const Home = (props: any) => {
     props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
   };
 
+  const navigateLocation = () =>
+    props.navigation.navigate(COMMON_ROUTES.LOCATION);
+
+  const openSettings = () => Linking.openSettings();
+
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -71,19 +72,32 @@ const Home = (props: any) => {
         <View
           style={tw`px-6 border-b-[0.5px] border-b-grey-250 py-3 flex-row items-center justify-between`}
         >
-          <LocationButton />
+          <LocationButton onPress={navigateLocation} />
           <FilterButton />
         </View>
+        {locationError && (
+          <View style={tw`px-6 mt-4`}>
+            <Alert variant="error" align="center" content={locationError} />
+            <Typography
+              style="mt-4 text-center"
+              color="text.secondary"
+              variant="body2"
+            >
+              Sorry, we can't show you any Deals until you enable Location
+              Permissions for Foodie.
+            </Typography>
+            <TextButton
+              label="Open Settings"
+              style={tw`mt-4`}
+              onPress={openSettings}
+            />
+          </View>
+        )}
       </SafeAreaView>
       <ScreenWrapper>
         {/* <View style={tw`px-6 gap-8`}>
-          <TouchableOpacity onPress={logout}>
-            <Text>Logout</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={pref}>
-            <Text>Preferences</Text>
-          </TouchableOpacity>
+          <TextButton label="Logout" onPress={logout} />
+          <TextButton label="Preferences" onPress={pref} />
         </View> */}
       </ScreenWrapper>
     </>

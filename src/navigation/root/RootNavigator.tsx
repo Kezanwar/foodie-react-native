@@ -12,6 +12,8 @@ import AddDetails from "screens/guest/add-details";
 import { AUTH_ROUTES, COMMON_ROUTES } from "constants/routes";
 import ConfirmEmail from "screens/common/confirm-email/ConfirmEmail";
 import Preferences from "screens/common/preferences";
+import Location from "screens/common/location";
+import AddCustomLocation from "screens/common/add-custom-location";
 
 const RootStack = createNativeStackNavigator();
 
@@ -19,8 +21,6 @@ const RootNavigator: FC = () => {
   const auth = useAppSelector((state) => state.auth);
   const isLoggedIn = auth.isAuthenticated && auth.isInitialized && auth.user;
   const emailConfirmed = auth?.user?.email_confirmed;
-
-  console.log(auth.user);
 
   return (
     <RootStack.Navigator>
@@ -59,11 +59,28 @@ const RootNavigator: FC = () => {
           name={COMMON_ROUTES.PRIVACY_POLICY}
           component={PrivacyPolicy}
         />
-        <RootStack.Screen
-          options={{ headerShown: false }}
-          name={COMMON_ROUTES.PREFERENCES}
-          component={Preferences}
-        />
+        {isLoggedIn && emailConfirmed && (
+          <>
+            <RootStack.Screen
+              options={{ headerShown: false }}
+              name={COMMON_ROUTES.PREFERENCES}
+              component={Preferences}
+            />
+            <RootStack.Screen
+              options={{ headerShown: false }}
+              name={COMMON_ROUTES.LOCATION}
+              component={Location}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                presentation: "containedModal",
+              }}
+              name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
+              component={AddCustomLocation}
+            />
+          </>
+        )}
       </RootStack.Group>
     </RootStack.Navigator>
   );

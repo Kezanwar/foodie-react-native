@@ -10,6 +10,7 @@ const useRequestLocation = () => {
   const dispatch = useAppDispatch();
   const request = useCallback(async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
+
     if (status !== "granted") {
       dispatch(setLocationError("Permission to access location was denied"));
       return;

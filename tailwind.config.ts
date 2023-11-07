@@ -58,7 +58,7 @@ module.exports = {
         contrast: "#fff",
       },
       warning: {
-        lighter: "#FFF5CC",
+        lighter: "#fff6d0",
         light: "#FFD666",
         "main-04": "#ffaa002c",
         main: "#FFAB00",

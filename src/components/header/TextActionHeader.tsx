@@ -9,6 +9,7 @@ import {
 import React, { FC } from "react";
 import { Typography } from "components/typography";
 import tw from "theme/tailwind";
+import TextButton from "components/buttons/text-button";
 
 type Props = {
   headerText: string;
@@ -19,7 +20,7 @@ type Props = {
 
 const TextActionHeader: FC<Props> = ({
   headerText,
-  rightActionText,
+  rightActionText = "",
   rightActionOnPress,
   loading,
 }) => {
@@ -31,15 +32,11 @@ const TextActionHeader: FC<Props> = ({
       {loading ? (
         <ActivityIndicator size={"small"} color={tw.color("primary-main")} />
       ) : (
-        <TouchableOpacity onPress={rightActionOnPress}>
-          <Typography
-            variant="body2"
-            style="font-medium leading-tight"
-            color="primary.main"
-          >
-            {rightActionText}
-          </Typography>
-        </TouchableOpacity>
+        <TextButton
+          label={rightActionText}
+          textStyle="font-medium leading-tight"
+          onPress={rightActionOnPress}
+        />
       )}
     </View>
   );

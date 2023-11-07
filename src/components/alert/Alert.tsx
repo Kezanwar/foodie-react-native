@@ -26,7 +26,7 @@ const Alert: FC<Props> = ({
 
   return (
     <View
-      style={tw`p-2 py-2 ${
+      style={tw`px-3 py-2 ${
         align === "center" ? "justify-center" : ""
       } flex-row rounded-md gap-2 w-full  ${
         variantStyles[variant].bg

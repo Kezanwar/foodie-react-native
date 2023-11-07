@@ -30,6 +30,7 @@ import { setSession } from "lib/axios/axios";
 import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
 import useAppDispatch from "hooks/useAppDispatch";
 import { AUTH_ROUTES } from "constants/routes";
+import TextButton from "components/buttons/text-button";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -195,15 +196,7 @@ const SignIn = (props: any) => {
           >
             New here?
           </Text>
-          <TouchableOpacity onPress={onCreateAcc}>
-            <Typography
-              variant="body2"
-              color="primary.main"
-              style="text-center font-semi-bold"
-            >
-              Create an account
-            </Typography>
-          </TouchableOpacity>
+          <TextButton label="Create an account" onPress={onCreateAcc} />
         </Animated.View>
       </KeyboardDismissingView>
     </ScrollScreenWrapper>

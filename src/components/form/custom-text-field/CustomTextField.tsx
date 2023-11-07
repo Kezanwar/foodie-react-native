@@ -6,6 +6,7 @@ import {
   TextInput,
   TextInputProps,
   TouchableOpacity,
+  StyleProp,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -13,12 +14,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import tw from "theme/tailwind";
+import { TailwindFn } from "twrnc";
 
 type Props = TextInputProps & {
   placeholder: string;
   error?: string;
   actionOnPress?: () => void;
   actionIcon?: ReactNode;
+  containerStyle?: ReturnType<TailwindFn>;
 };
 
 const DEFAULT_B_COL = tw.color("grey-200") || "";
@@ -31,6 +34,7 @@ const ANIM_DURATION = 150;
 const CustomTextField: React.FC<Props> = ({
   placeholder,
   value = "",
+  containerStyle,
   error,
   actionIcon,
   actionOnPress,
@@ -94,7 +98,7 @@ const CustomTextField: React.FC<Props> = ({
   }));
 
   return (
-    <View>
+    <View style={containerStyle}>
       <View style={tw` rounded-md bg-grey-100    dark:bg-grey-900 `}>
         <Animated.View
           style={[

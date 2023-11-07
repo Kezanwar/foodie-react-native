@@ -15,6 +15,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { addRegisterDetails } from "store/create-account/create-account.slice";
 import { RegisterUserDetailsSchema } from "lib/validation/auth";
 import { AUTH_ROUTES } from "constants/routes";
+import TextButton from "components/buttons/text-button";
 
 type FormValues = {
   first_name: string;
@@ -78,15 +79,7 @@ const AddDetails: React.FC = (props: any) => {
           </View>
           <View style={tw`flex-1 justify-end`}>
             <LoadingButton onPress={handleSubmit(onDone)} text="Done" />
-            <TouchableOpacity style={tw`mt-4`} onPress={onGoBack}>
-              <Typography
-                variant="body2"
-                color="primary.main"
-                style="text-center font-semi-bold "
-              >
-                Go back
-              </Typography>
-            </TouchableOpacity>
+            <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
           </View>
         </View>
       </KeyboardDismissingView>
