@@ -19,6 +19,7 @@ import DietarySelectForm from "features/dietary-select-form";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import {
+  clearPreferencesIsDirty,
   initializeCuisines,
   initializeDietary,
   toggleCuisine,
@@ -36,9 +37,8 @@ const Preferences = (props: any) => {
   const updatePreferences = useUpdatePreferences();
   const enqeueSnackbar = useSnackbar();
 
-  const cuisines = useAppSelector((state) => state.preferences.cuisines);
-  const dietary_requirements = useAppSelector(
-    (state) => state.preferences.dietary_requirements
+  const { cuisines, dietary_requirements, isDirty } = useAppSelector(
+    (state) => state.preferences
   );
 
   const preferences = usePreferencesQuery();
@@ -109,6 +109,11 @@ const Preferences = (props: any) => {
       return;
     }
 
+    if (!isDirty) {
+      props.navigation.goBack();
+      return;
+    }
+
     try {
       setApiLoading(true);
       const res = await addPreferences({
@@ -120,6 +125,7 @@ const Preferences = (props: any) => {
           .map(({ name, slug }) => ({ name, slug })),
       });
       updatePreferences(res);
+      dispatch(clearPreferencesIsDirty());
       props.navigation.goBack();
     } catch (error) {
       catchErrorHandler(error, (err) => {
@@ -128,7 +134,7 @@ const Preferences = (props: any) => {
     } finally {
       setApiLoading(false);
     }
-  }, [cuisineCount, dietaryCount]);
+  }, [cuisineCount, dietaryCount, isDirty]);
 
   return isLoading || preferences?.isLoading ? (
     <LoadingScreen />

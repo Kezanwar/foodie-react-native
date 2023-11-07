@@ -6,7 +6,7 @@ import tw from "theme/tailwind";
 type Props = {};
 
 const Line: React.FC = () => (
-  <View style={tw`h-[0.1] w-8 bg-type-light-secondary`} />
+  <View style={tw`h-[0.1] w-4 bg-type-light-secondary`} />
 );
 
 const Or: React.FC<Props> = (props) => {
@@ -14,7 +14,7 @@ const Or: React.FC<Props> = (props) => {
     <View style={tw`flex-row justify-center items-center gap-2`}>
       <Line />
       <Typography variant="body2" color="text.secondary">
-        or
+        Or
       </Typography>
       <Line />
     </View>

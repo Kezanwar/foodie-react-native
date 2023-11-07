@@ -22,6 +22,7 @@ import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
 import { catchErrorHandler } from "util/error";
 import Alert from "components/alert/Alert";
+import TextButton from "components/buttons/text-button";
 
 const iconColor = tw.color("grey-700");
 
@@ -160,15 +161,7 @@ const AddEmailPassword: React.FC = (props: any) => {
               onPress={handleSubmit(onDone)}
               text="Done"
             />
-            <TouchableOpacity style={tw`mt-4`} onPress={onGoBack}>
-              <Typography
-                variant="body2"
-                color="primary.main"
-                style="text-center font-semi-bold "
-              >
-                Go back
-              </Typography>
-            </TouchableOpacity>
+            <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
           </View>
         </View>
       </KeyboardDismissingView>

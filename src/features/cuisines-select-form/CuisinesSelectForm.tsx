@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { ChipContainer, ChipSelect } from "components/chip";
 
 import tw from "theme/tailwind";
@@ -32,4 +32,4 @@ const CuisinesSelectForm: FC<Props> = ({ cuisines, onCuisineSelect }) => {
   );
 };
 
-export default CuisinesSelectForm;
+export default memo(CuisinesSelectForm);

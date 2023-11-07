@@ -58,7 +58,7 @@ module.exports = {
         contrast: "#fff",
       },
       warning: {
-        lighter: "#FFF5CC",
+        lighter: "#fff6d0",
         light: "#FFD666",
         "main-04": "#ffaa002c",
         main: "#FFAB00",
@@ -78,6 +78,7 @@ module.exports = {
       grey: {
         100: "#F9FAFB",
         200: "#F4F6F8",
+        250: "#e9e9e9",
         300: "#DFE3E8",
         400: "#C4CDD5",
         500: "#919EAB",

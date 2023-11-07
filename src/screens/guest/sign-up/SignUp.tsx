@@ -25,6 +25,7 @@ import { ErrorObject } from "types/error";
 import { registerGoogle } from "lib/api/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
+import TextButton from "components/buttons/text-button";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -120,15 +121,7 @@ const SignUp = (props: any) => {
         >
           Already have an account?
         </Text>
-        <TouchableOpacity onPress={onCreateAcc}>
-          <Typography
-            variant="body2"
-            color="primary.main"
-            style="text-center font-semi-bold "
-          >
-            Sign in
-          </Typography>
-        </TouchableOpacity>
+        <TextButton label="Sign in" onPress={onCreateAcc} />
       </Animated.View>
     </ScrollScreenWrapper>
   );
