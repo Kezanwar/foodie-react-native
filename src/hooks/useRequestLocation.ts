@@ -5,14 +5,22 @@ import {
   setLocationError,
   setLocationObject,
 } from "store/location/location.slice";
+import { setShouldUseCurrentLocation } from "lib/storage/storage";
+import useSnackbar from "./useSnackbar";
 
 const useRequestLocation = () => {
   const dispatch = useAppDispatch();
-  const request = useCallback(async () => {
+  const enqSnack = useSnackbar();
+  const request = useCallback(async (showSnackOnErr?: boolean) => {
     let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
       dispatch(setLocationError("Permission to access location was denied"));
+      if (showSnackOnErr)
+        enqSnack({
+          message: "You must update Location Permissions for Foodie first.",
+          variant: "error",
+        });
       return;
     }
     const location = await Location.getCurrentPositionAsync({ accuracy: 5 });
@@ -22,6 +30,7 @@ const useRequestLocation = () => {
     });
 
     dispatch(setLocationObject({ location, reverseGeocode: geo[0] || null }));
+    setShouldUseCurrentLocation(true);
   }, []);
   return request;
 };

@@ -17,6 +17,8 @@ import useRequestLocation from "hooks/useRequestLocation";
 
 import { reverseGeocodedMainText } from "util/text";
 import { COMMON_ROUTES } from "constants/routes";
+import { useFocusEffect } from "@react-navigation/native";
+import LocationErrorAlert from "components/location-error-alert";
 
 const Location = (props: any) => {
   const onDone = () => props.navigation.goBack();
@@ -28,6 +30,12 @@ const Location = (props: any) => {
     props.navigation.navigate(COMMON_ROUTES.ADD_CUSTOM_LOCATION);
 
   const openSettings = () => Linking.openSettings();
+
+  useFocusEffect(() => {
+    if (error) {
+      requestLocation();
+    }
+  });
 
   return (
     <StaticScreenWrapper>
@@ -64,9 +72,18 @@ const Location = (props: any) => {
             style={"mt-2 -ml-1 text-center "}
           >
             {reverseGeocode
-              ? ` ${reverseGeocode?.subregion}, ${reverseGeocode?.country}`
+              ? reverseGeocode?.subregion
               : "User denied Location Permissions..."}
           </Typography>
+          {reverseGeocode && (
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              style={"mt-2 -ml-1 text-center "}
+            >
+              {reverseGeocode?.country}
+            </Typography>
+          )}
         </View>
         <View style={tw`flex-1 gap-4 justify-end`}>
           {error ? (
@@ -75,13 +92,12 @@ const Location = (props: any) => {
                 variant="info"
                 content="If you previously denied permissions, to use your current location you must enable Location Permissions for Foodie in your settings."
               />
-              <TextButton label="Open Settings" onPress={openSettings} />
-              <View style={tw`h-4`} />
+              <LocationErrorAlert />
             </>
           ) : (
             <>
               <LoadingButton
-                onPress={requestLocation}
+                onPress={() => requestLocation()}
                 text="Use your Current Location"
               />
               <Or />

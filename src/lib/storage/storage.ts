@@ -30,3 +30,15 @@ export const getInitialPreferencesDone: () => boolean | undefined = () => {
 export const setInitialPreferencesDone = () => {
   storage.set(STORAGE_KEYS.INITIAL_PREFERENCES, true);
 };
+
+//location
+
+export const shouldUseCurrentLocation: () => boolean | undefined = () => {
+  return storage.getBoolean(STORAGE_KEYS.USE_CURRENT_LOCATION);
+};
+
+export const setShouldUseCurrentLocation: (should: boolean) => void = (
+  should
+) => {
+  storage.set(STORAGE_KEYS.USE_CURRENT_LOCATION, should);
+};

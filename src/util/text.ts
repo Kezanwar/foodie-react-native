@@ -1,14 +1,17 @@
 import { LocationGeocodedAddress } from "expo-location";
 
 type ReverseGeocodeMainText = (
-  reverseGeocode: LocationGeocodedAddress
+  reverseGeocode: LocationGeocodedAddress,
+  short?: boolean
 ) => string;
 
 export const reverseGeocodedMainText: ReverseGeocodeMainText = (
-  reverseGeocode
+  reverseGeocode,
+  short
 ) => {
   if (!reverseGeocode) return "";
   if (reverseGeocode?.district)
-    return `${reverseGeocode?.district}, ${reverseGeocode?.city}`;
+    if (short) return reverseGeocode?.district;
+    else return `${reverseGeocode?.district}, ${reverseGeocode?.city}`;
   else return reverseGeocode?.city || "";
 };
