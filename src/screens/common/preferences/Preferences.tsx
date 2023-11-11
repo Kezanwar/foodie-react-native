@@ -42,7 +42,7 @@ const Preferences = (props: any) => {
   );
 
   const preferences = usePreferencesQuery();
-  const { isLoading, data } = useOptionsQuery();
+  const { data } = useOptionsQuery();
 
   const initialCuisines = useMemo(() => {
     return data?.data?.cuisines
@@ -136,7 +136,7 @@ const Preferences = (props: any) => {
     }
   }, [cuisineCount, dietaryCount, isDirty]);
 
-  return isLoading || preferences?.isLoading ? (
+  return !cuisines?.length ? (
     <LoadingScreen />
   ) : (
     <StaticScreenWrapper>

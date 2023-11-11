@@ -6,6 +6,7 @@ import tw from "theme/tailwind";
 import {
   getInitialPreferencesDone,
   setInitialPreferencesDone,
+  shouldUseCurrentLocation,
 } from "lib/storage/storage";
 import { endSession } from "lib/axios/axios";
 import { authLogout } from "store/auth/auth.slice";
@@ -20,9 +21,10 @@ import useAppDispatch from "hooks/useAppDispatch";
 import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
-import Alert from "components/alert/Alert";
-import { Typography } from "components/typography";
+
 import TextButton from "components/buttons/text-button";
+import LocationErrorAlert from "components/location-error-alert";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Home = (props: any) => {
   const dispatch = useAppDispatch();
@@ -49,9 +51,14 @@ const Home = (props: any) => {
     requestLocation();
   }, []);
 
+  useFocusEffect(() => {
+    console.log(shouldUseCurrentLocation());
+  });
+
   const logout = () => {
     dispatch(authLogout());
     endSession();
+
     client.clear();
   };
 
@@ -61,8 +68,6 @@ const Home = (props: any) => {
 
   const navigateLocation = () =>
     props.navigation.navigate(COMMON_ROUTES.LOCATION);
-
-  const openSettings = () => Linking.openSettings();
 
   return isLoading ? (
     <LoadingScreen />
@@ -75,30 +80,13 @@ const Home = (props: any) => {
           <LocationButton onPress={navigateLocation} />
           <FilterButton />
         </View>
-        {locationError && (
-          <View style={tw`px-6 mt-4`}>
-            <Alert variant="error" align="center" content={locationError} />
-            <Typography
-              style="mt-4 text-center"
-              color="text.secondary"
-              variant="body2"
-            >
-              Sorry, we can't show you any Deals until you enable Location
-              Permissions for Foodie.
-            </Typography>
-            <TextButton
-              label="Open Settings"
-              style={tw`mt-4`}
-              onPress={openSettings}
-            />
-          </View>
-        )}
+        {locationError && <LocationErrorAlert error={locationError} />}
       </SafeAreaView>
       <ScreenWrapper>
-        {/* <View style={tw`px-6 gap-8`}>
+        <View style={tw`px-6 gap-8`}>
           <TextButton label="Logout" onPress={logout} />
           <TextButton label="Preferences" onPress={pref} />
-        </View> */}
+        </View>
       </ScreenWrapper>
     </>
   );
