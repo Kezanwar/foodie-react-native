@@ -35,7 +35,7 @@ const HomeFeed: FC<Props> = ({}) => {
       contentContainerStyle={tw`bg-grey-200 gap-3`}
       data={data}
       renderItem={({ item }) => <DealCard onShare={onShare} item={item} />}
-      keyExtractor={(item) => item._id + item.location.id}
+      keyExtractor={(item) => item.deal.id + item.location.id}
       onEndReached={() => fetchNextPage()}
       onEndReachedThreshold={1}
     />
