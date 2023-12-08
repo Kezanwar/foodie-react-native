@@ -10,6 +10,7 @@ const TEXT_COLORS = {
   "primary.dark": "text-primary-dark",
   "error.main": "text-error-main",
   "success.dark": "text-success-dark",
+  "success.main": "text-success-main",
   "info.dark": "text-info-dark",
 };
 
@@ -29,6 +30,7 @@ type Props = {
   variant?: keyof typeof VARIANTS;
   children: ReactNode;
   style?: string;
+  numberOfLines?: number;
 };
 
 const Typography: React.FC<Props> = ({
@@ -36,9 +38,13 @@ const Typography: React.FC<Props> = ({
   children,
   variant = "h1",
   style = "",
+  numberOfLines,
 }) => {
   return (
-    <Text style={tw`${TEXT_COLORS[color]} ${VARIANTS[variant]} ${style}`}>
+    <Text
+      numberOfLines={numberOfLines}
+      style={tw`${TEXT_COLORS[color]} ${VARIANTS[variant]} ${style}`}
+    >
       {children}
     </Text>
   );
