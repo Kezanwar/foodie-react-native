@@ -111,7 +111,7 @@ const AddCustomLocation = (props: any) => {
         })
       );
       setShouldUseCurrentLocation(false);
-      onGoBack();
+      props.navigation.navigate("Home");
     }
   };
 

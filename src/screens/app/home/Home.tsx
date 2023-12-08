@@ -1,4 +1,4 @@
-import { Linking, SafeAreaView, View } from "react-native";
+import { Alert, SafeAreaView, Share, View } from "react-native";
 import React, { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import tw from "theme/tailwind";
@@ -13,7 +13,7 @@ import { authLogout } from "store/auth/auth.slice";
 import { COMMON_ROUTES } from "constants/routes";
 
 import { LoadingScreen } from "components/loading-screen";
-import ScreenWrapper from "components/screen-wrapper/ScrollScreenWrapper";
+
 import LocationButton from "components/buttons/location-button";
 import FilterButton from "components/buttons/filter-button";
 
@@ -22,9 +22,9 @@ import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
 
-import TextButton from "components/buttons/text-button";
 import LocationErrorAlert from "components/location-error-alert";
-import { useFocusEffect } from "@react-navigation/native";
+
+import HomeFeed from "features/home-feed/HomeFeed";
 
 const Home = (props: any) => {
   const dispatch = useAppDispatch();
@@ -50,10 +50,6 @@ const Home = (props: any) => {
   useEffect(() => {
     requestLocation();
   }, []);
-
-  useFocusEffect(() => {
-    console.log(shouldUseCurrentLocation());
-  });
 
   const logout = () => {
     dispatch(authLogout());
@@ -82,14 +78,13 @@ const Home = (props: any) => {
         </View>
         {locationError && <LocationErrorAlert error={locationError} />}
       </SafeAreaView>
-      <ScreenWrapper>
-        <View style={tw`px-6 gap-8`}>
-          <TextButton label="Logout" onPress={logout} />
-          <TextButton label="Preferences" onPress={pref} />
-        </View>
-      </ScreenWrapper>
+      {/* <TextButton label="Logout" onPress={logout} />
+          <TextButton label="Preferences" onPress={pref} /> */}
+      {!locationError && <HomeFeed />}
     </>
   );
 };
 
 export default Home;
+
+//https://github.com/TanStack/query/discussions/4252#discussioncomment-3823114

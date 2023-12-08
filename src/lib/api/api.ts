@@ -5,8 +5,10 @@ import {
   LoginResponse,
   RegisterJWTData,
 } from "types/auth";
+import { DealInfinitePage, ISearchFilterList } from "types/deals";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
+import { parseFiltersToParams } from "util/api";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -23,6 +25,8 @@ const APP_ENDPOINTS = {
   getOptions: "/options",
   getPreferences: "cust/preferences",
   addPreferences: "cust/preferences/add",
+  //home
+  getFeed: "cust/deals/feed",
 };
 
 // *OPTIONS
@@ -67,4 +71,22 @@ export const registerJWT = (data: RegisterJWTData) => {
 
 export const initializeJWT = () => {
   return axiosInstance.get<InitializeResponse>(AUTH_ENDPOINTS.intialize);
+};
+
+//* HOME
+
+export const getFeed = (
+  page: number,
+  long: number,
+  lat: number,
+  cuisines: string,
+  dietary_requirements: string
+) => {
+  return axiosInstance
+    .get<DealInfinitePage>(
+      `${APP_ENDPOINTS.getFeed}/?page=${page}&long=${long}&lat=${lat}${
+        cuisines + dietary_requirements
+      }`
+    )
+    .then((res) => res.data);
 };

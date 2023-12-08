@@ -1,3 +1,5 @@
 export const OPTIONS_QUERY = "OPTIONS";
 
 export const PREFERENCES_QUERY = "PREFERENCES";
+
+export const HOME_FEED_QUERY = "HOME_FEED_QUERY";
