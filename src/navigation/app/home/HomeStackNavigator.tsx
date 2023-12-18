@@ -1,12 +1,11 @@
-import { View, Text } from "react-native";
 import React, { FC } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HOME_STACK } from "constants/routes";
-import Home from "screens/app/home";
+
+import { Filters } from "screens/app/home/filters";
+import { Root } from "screens/app/home/root";
 
 const HomeStack = createNativeStackNavigator();
-
-type Props = {};
 
 const HomeStackNavigator: FC = () => {
   return (
@@ -14,7 +13,12 @@ const HomeStackNavigator: FC = () => {
       <HomeStack.Screen
         name={HOME_STACK.ROOT}
         options={{ headerShown: false }}
-        component={Home}
+        component={Root}
+      />
+      <HomeStack.Screen
+        name={HOME_STACK.FILTERS}
+        options={{ headerShown: false }}
+        component={Filters}
       />
     </HomeStack.Navigator>
   );

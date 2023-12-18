@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { getFeed } from "lib/api/api";
 
 import { HOME_FEED_QUERY } from "constants/react-query";
@@ -22,18 +22,17 @@ const useHomeFeedQuery = (
     ? parseFiltersToParams("dietary_requirements", dietary_requirements)
     : "";
 
+  const lon = location?.longitude || 0;
+  const lat = location?.latitude || 0;
+
   const query = useInfiniteQuery<DealInfinitePage, Error>({
     initialPageParam: page,
     queryFn: ({ pageParam }) =>
-      getFeed(
-        pageParam as number,
-        location?.longitude as number,
-        location?.latitude as number,
-        cuisinesParam,
-        dietaryParam
-      ),
+      getFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
     enabled: !!location,
-    queryKey: [`${HOME_FEED_QUERY}-${cuisinesParam}-${dietaryParam}`],
+    queryKey: [
+      `${HOME_FEED_QUERY}-${cuisinesParam}-${dietaryParam}-${lon}-${lat}`,
+    ],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
     staleTime: 20 * (60 * 1000),
   });

@@ -1,11 +1,4 @@
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import React, { FC } from "react";
 import { Typography } from "components/typography";
 import tw from "theme/tailwind";
