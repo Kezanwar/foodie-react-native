@@ -1,5 +1,5 @@
-import { Alert, SafeAreaView, Share, View } from "react-native";
-import React, { useEffect } from "react";
+import { SafeAreaView } from "react-native";
+import React, { FC, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import tw from "theme/tailwind";
 
@@ -10,12 +10,9 @@ import {
 } from "lib/storage/storage";
 import { endSession } from "lib/axios/axios";
 import { authLogout } from "store/auth/auth.slice";
-import { COMMON_ROUTES } from "constants/routes";
+import { COMMON_ROUTES, HOME_STACK } from "constants/routes";
 
 import { LoadingScreen } from "components/loading-screen";
-
-import LocationButton from "components/buttons/location-button";
-import FilterButton from "components/buttons/filter-button";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
@@ -25,8 +22,9 @@ import useRequestLocation from "hooks/useRequestLocation";
 import LocationErrorAlert from "components/location-error-alert";
 
 import HomeFeed from "features/home-feed/HomeFeed";
+import { RootHeader } from "features/headers/home";
 
-const Home = (props: any) => {
+const Home: FC<any> = (props) => {
   const dispatch = useAppDispatch();
   const requestLocation = useRequestLocation();
   const { location, error: locationError } = useAppSelector(
@@ -54,15 +52,14 @@ const Home = (props: any) => {
   const logout = () => {
     dispatch(authLogout());
     endSession();
-
     client.clear();
   };
 
-  const pref = () => {
-    props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
+  const handlePressFilters = () => {
+    props.navigation.navigate(HOME_STACK.FILTERS);
   };
 
-  const navigateLocation = () =>
+  const handleLocationPress = () =>
     props.navigation.navigate(COMMON_ROUTES.LOCATION);
 
   return isLoading ? (
@@ -70,12 +67,10 @@ const Home = (props: any) => {
   ) : (
     <>
       <SafeAreaView style={tw`bg-white `}>
-        <View
-          style={tw`px-6 border-b-[0.5px] border-b-grey-250 py-3 flex-row items-center justify-between`}
-        >
-          <LocationButton onPress={navigateLocation} />
-          <FilterButton />
-        </View>
+        <RootHeader
+          onFilterPress={handlePressFilters}
+          onLocationPress={handleLocationPress}
+        />
         {locationError && <LocationErrorAlert error={locationError} />}
       </SafeAreaView>
       {/* <TextButton label="Logout" onPress={logout} />

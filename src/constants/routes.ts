@@ -1,6 +1,7 @@
 //APP
 export const HOME_STACK = {
   ROOT: "HOME_STACK_ROOT",
+  FILTERS: "HOME_STACK_FILTERS",
 };
 
 //AUTH

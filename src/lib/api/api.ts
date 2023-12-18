@@ -88,5 +88,8 @@ export const getFeed = (
         cuisines + dietary_requirements
       }`
     )
-    .then((res) => res.data);
+    .then((res) => {
+      console.log("api called");
+      return res.data;
+    });
 };

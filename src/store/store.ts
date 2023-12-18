@@ -7,6 +7,7 @@ import themeReducer from "./theme/theme.slice";
 import createAccountReducer from "./create-account/create-account.slice";
 import preferencesReducer from "./preferences/preferences.slice";
 import locationReducer from "./location/location.slice";
+import homeReducer from "./home/home.slice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     createAccount: createAccountReducer,
     preferences: preferencesReducer,
     location: locationReducer,
+    home: homeReducer,
   },
 });

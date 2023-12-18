@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import tw from "theme/tailwind";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import TextActionHeader from "components/header/TextActionHeader";
+import TextActionHeader from "features/headers/common/TextActionHeader";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { LoadingScreen } from "components/loading-screen";
 import { Typography } from "components/typography";
