@@ -8,6 +8,7 @@ import EmptyState from "components/empty-state/EmptyState";
 import { useAppSelector } from "hooks/useAppSelector";
 import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
+import LoadingState from "components/loading-state";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -49,14 +50,13 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
   };
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <LoadingState text="Searching for deals..." />;
   }
 
   if (!data?.length) {
     const hasFilters = cuisines.length + dietary_requirements.length > 0;
     return (
       <EmptyState
-        style="py-8"
         title="No results found"
         description={`Sorry, we couldn't find any results ${
           hasFilters

@@ -5,10 +5,9 @@ import {
   LoginResponse,
   RegisterJWTData,
 } from "types/auth";
-import { DealInfinitePage, ISearchFilterList } from "types/deals";
+import { DealInfinitePage } from "types/deals";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
-import { parseFiltersToParams } from "util/api";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -75,7 +74,7 @@ export const initializeJWT = () => {
 
 //* HOME
 
-export const getFeed = (
+export const getFeed = async (
   page: number,
   long: number,
   lat: number,
