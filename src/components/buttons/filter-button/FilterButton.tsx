@@ -20,6 +20,7 @@ const FilterButton: FC<Props> = ({ onPress, count }) => {
           backgroundColor={tw.color("success-main")}
           style={tw`absolute right-[-2.5] top-[-2.5] font-light`}
           label={`${count}`}
+          labelStyle={count > 9 ? tw`text-2.1` : undefined}
         />
       ) : null}
     </TouchableOpacity>

@@ -4,13 +4,14 @@ import { PREFERENCES_QUERY } from "constants/react-query";
 import { AxiosResponse } from "axios";
 import { IPreferences } from "types/preferences";
 import { useCallback } from "react";
+import { minutes } from "util/time";
 
 const usePreferencesQuery = () => {
   const query = useQuery({
     queryKey: [PREFERENCES_QUERY],
     queryFn: getPreferences,
     enabled: true,
-    staleTime: 20 * (60 * 1000),
+    staleTime: minutes(20),
   });
 
   return query;

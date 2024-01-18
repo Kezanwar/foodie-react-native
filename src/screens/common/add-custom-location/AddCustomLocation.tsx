@@ -1,11 +1,10 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import tw from "theme/tailwind";
 import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import Alert from "components/alert/Alert";
-import { LoadingButton } from "components/buttons/loading-button";
 import TextButton from "components/buttons/text-button";
 import { Typography } from "components/typography";
 import { AntDesign } from "@expo/vector-icons";
@@ -202,7 +201,6 @@ const AddCustomLocation = (props: any) => {
           </>
         )}
         <View style={tw`flex-1 gap-4 justify-end`}>
-          {/* {result && <LoadingButton onPress={() => {}} text="Done" />} */}
           <TextButton label="Cancel" onPress={onGoBack} />
         </View>
       </KeyboardDismissingView>

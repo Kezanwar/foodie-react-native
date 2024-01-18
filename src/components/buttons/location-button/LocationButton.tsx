@@ -16,11 +16,11 @@ const LocationButton: FC<Props> = ({ onPress }) => {
     <TouchableOpacity onPress={onPress} style={tw`flex-row gap-2 items-center`}>
       <Ionicons
         name="ios-map-outline"
-        size={20}
+        size={21}
         color={tw.color("primary-main")}
       />
       <View>
-        <Typography variant="body2" style=" text-[3.15]" color="text.primary">
+        <Typography variant="body2" style=" text-[3.25]" color="text.primary">
           {reverseGeocode
             ? reverseGeocodedMainText(reverseGeocode, true)
             : "No Location"}

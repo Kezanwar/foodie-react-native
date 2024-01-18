@@ -8,11 +8,12 @@ type Props = {
   title: string;
   count: string;
   error?: boolean;
+  mb: boolean;
 };
 
-const TitleBadgeCounter: FC<Props> = ({ title, count, error }) => {
+const TitleBadgeCounter: FC<Props> = ({ title, count, error, mb }) => {
   return (
-    <View style={tw`relative self-start mb-4`}>
+    <View style={tw`relative self-start ${mb ? "mb-4" : ""}`}>
       <Typography variant="subheader" style={" text-lg"}>
         {title}
       </Typography>

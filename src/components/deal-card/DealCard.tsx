@@ -19,16 +19,16 @@ const DealCard: FC<Props> = ({ item, onShare }) => {
         <TouchableOpacity style={tw`absolute top-4 right-4 shadow-md`}>
           <AntDesign
             name={item.deal.is_favourited ? "heart" : "hearto"}
-            size={20}
+            size={22}
             color={item.deal.is_favourited ? tw.color("error-main") : "white"}
           />
         </TouchableOpacity>
       </View>
 
       <View style={tw` mt-5`}>
-        <View style={tw`mb-1 flex-row items-start justify-between`}>
+        <View style={tw`mb-2 flex-row items-start justify-between`}>
           <View>
-            <Typography variant="subheader" style="text-4.25 mb-1">
+            <Typography variant="subheader" style="text-4.5 mb-1">
               {item.deal.name}
             </Typography>
             <Typography
@@ -43,14 +43,14 @@ const DealCard: FC<Props> = ({ item, onShare }) => {
             <Typography
               variant="body2"
               color="success.main"
-              style=" font-medium leading-1.2 text-3"
+              style=" font-medium leading-1.2 text-3.25"
             >
               {item.location.distance_miles.toFixed(1)} Miles
             </Typography>
             <TouchableOpacity onPress={() => onShare(item.deal.name)}>
               <Ionicons
                 name="md-share-outline"
-                size={20}
+                size={21}
                 color={tw.color("primary-main")}
               />
             </TouchableOpacity>
@@ -60,7 +60,7 @@ const DealCard: FC<Props> = ({ item, onShare }) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          style="text-3"
+          style="text-3.25"
           numberOfLines={2}
         >
           {item.deal.description}

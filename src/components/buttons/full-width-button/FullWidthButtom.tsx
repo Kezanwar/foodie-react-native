@@ -13,11 +13,15 @@ type Props = TouchableOpacityProps & {
   isLoading?: boolean;
 };
 
-const LoadingButton: React.FC<Props> = ({ text = "", isLoading, ...rest }) => {
+const FullWidthButton: React.FC<Props> = ({
+  text = "",
+  isLoading,
+  ...rest
+}) => {
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`w-full p-3 bg-grey-950 dark:bg-grey-200 rounded-md items-center`}
+      style={tw`w-full p-3 rounded-md bg-grey-950 dark:bg-grey-200 items-center`}
     >
       {isLoading ? (
         <ActivityIndicator size="small" />
@@ -25,7 +29,7 @@ const LoadingButton: React.FC<Props> = ({ text = "", isLoading, ...rest }) => {
         <Typography
           variant="h6"
           color="white"
-          style="text-[3.75] font-semi-bold leading-[0]"
+          style={"text-[3.75] font-semi-bold leading-[0]"}
         >
           {text}
         </Typography>
@@ -34,4 +38,4 @@ const LoadingButton: React.FC<Props> = ({ text = "", isLoading, ...rest }) => {
   );
 };
 
-export default LoadingButton;
+export default FullWidthButton;

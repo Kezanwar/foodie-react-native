@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import tw from "theme/tailwind";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Feather } from "@expo/vector-icons";
 
-import { LoadingButton } from "components/buttons/loading-button";
+import { FullWidthButton } from "components/buttons/full-width-button";
 
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { StaticScreenWrapper } from "components/screen-wrapper";
@@ -156,7 +156,7 @@ const AddEmailPassword: React.FC = (props: any) => {
           </View>
 
           <View style={tw`flex-1 justify-end`}>
-            <LoadingButton
+            <FullWidthButton
               isLoading={isLoading}
               onPress={handleSubmit(onDone)}
               text="Done"

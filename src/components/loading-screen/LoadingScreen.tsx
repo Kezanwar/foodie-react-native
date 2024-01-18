@@ -7,7 +7,7 @@ import tw from "theme/tailwind";
 const LoadingScreen: React.FC = () => {
   return (
     <View
-      style={tw`absolute h-screen w-screen top-0 items-center justify-center `}
+      style={tw`absolute bg-white h-screen w-screen top-0 items-center justify-center `}
     >
       <LottieView
         source={require("../../../assets/lottie/foodie-loading.json")}

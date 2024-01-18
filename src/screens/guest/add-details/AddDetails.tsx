@@ -1,9 +1,9 @@
 import React from "react";
 import tw from "theme/tailwind";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { LoadingButton } from "components/buttons/loading-button";
+import { FullWidthButton } from "components/buttons/full-width-button";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import RHFTextField from "components/form/RHF/RHFTextField";
 import { StaticScreenWrapper } from "components/screen-wrapper";
@@ -78,7 +78,7 @@ const AddDetails: React.FC = (props: any) => {
             />
           </View>
           <View style={tw`flex-1 justify-end`}>
-            <LoadingButton onPress={handleSubmit(onDone)} text="Done" />
+            <FullWidthButton onPress={handleSubmit(onDone)} text="Done" />
             <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
           </View>
         </View>

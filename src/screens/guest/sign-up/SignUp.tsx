@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
@@ -10,7 +10,7 @@ import * as WebBrowser from "expo-web-browser";
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
-import { LoadingButton } from "components/buttons/loading-button";
+import { FullWidthButton } from "components/buttons/full-width-button";
 import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
@@ -97,7 +97,7 @@ const SignUp = (props: any) => {
         ]}
       >
         <View style={tw`gap-4  flex-1`}>
-          <LoadingButton onPress={onSignUp} text="Create an account" />
+          <FullWidthButton onPress={onSignUp} text="Create an account" />
           <Or />
           <GoogleButton
             onPress={onGoogleRegister}
