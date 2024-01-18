@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native";
-import React, { FC, useEffect } from "react";
+import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import tw from "theme/tailwind";
 
@@ -23,6 +23,10 @@ import LocationErrorAlert from "components/location-error-alert";
 
 import HomeFeed from "features/home-feed/HomeFeed";
 import { RootHeader } from "features/headers/home";
+import { HomeFilterSheet } from "features/home-filter-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import TextButton from "components/buttons/text-button";
+import { onSaveFilterForm } from "store/home/home.slice";
 
 const Home: FC<any> = (props) => {
   const dispatch = useAppDispatch();
@@ -54,28 +58,56 @@ const Home: FC<any> = (props) => {
     endSession();
     client.clear();
   };
+  const navToPref = () => {
+    props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
+  };
 
-  const handlePressFilters = () => {
-    props.navigation.navigate(HOME_STACK.FILTERS);
+  const filterRef = useRef<BottomSheetModal>(null);
+  const isFilterOpen = useRef<boolean>(false);
+
+  const presentModal = useCallback(() => {
+    filterRef?.current?.present();
+    isFilterOpen.current = true;
+  }, []);
+
+  const dismissModal = useCallback(() => {
+    filterRef?.current?.dismiss();
+    dispatch(onSaveFilterForm());
+    isFilterOpen.current = false;
+  }, []);
+
+  const onDismissedModal = () => {
+    isFilterOpen.current = false;
+    dispatch(onSaveFilterForm());
   };
 
   const handleLocationPress = () =>
     props.navigation.navigate(COMMON_ROUTES.LOCATION);
 
+  const handleFilterPress = () => {
+    isFilterOpen.current ? dismissModal() : presentModal();
+  };
   return isLoading ? (
     <LoadingScreen />
   ) : (
     <>
       <SafeAreaView style={tw`bg-white `}>
         <RootHeader
-          onFilterPress={handlePressFilters}
+          onFilterPress={handleFilterPress}
           onLocationPress={handleLocationPress}
         />
         {locationError && <LocationErrorAlert error={locationError} />}
       </SafeAreaView>
-      {/* <TextButton label="Logout" onPress={logout} />
-          <TextButton label="Preferences" onPress={pref} /> */}
-      {!locationError && <HomeFeed />}
+
+      {/* <TextButton label="Preferences" onPress={navToPref} /> */}
+      {/* <TextButton label="Logout" onPress={logout} /> */}
+      {!locationError && (
+        <HomeFeed
+          navToLocation={handleLocationPress}
+          openFilters={handleFilterPress}
+        />
+      )}
+      <HomeFilterSheet onDismissedModal={onDismissedModal} ref={filterRef} />
     </>
   );
 };

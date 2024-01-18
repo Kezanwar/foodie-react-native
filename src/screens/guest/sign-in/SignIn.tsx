@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -16,7 +16,7 @@ import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import { Typography } from "components/typography";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
-import { LoadingButton } from "components/buttons/loading-button";
+import { FullWidthButton } from "components/buttons/full-width-button";
 import { Or } from "components/separators/or";
 import Alert from "components/alert/Alert";
 import { GoogleButton } from "components/buttons/google-button";
@@ -179,7 +179,7 @@ const SignIn = (props: any) => {
                 content={errors?.root?.afterSubmit?.message}
               />
             )}
-            <LoadingButton
+            <FullWidthButton
               isLoading={isLoading}
               onPress={handleSubmit(onFormSuccess)}
               text="Login"

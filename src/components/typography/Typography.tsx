@@ -15,17 +15,17 @@ const TEXT_COLORS = {
 };
 
 const VARIANTS = {
-  h1: "font-bold text-8xl leading-[1.1] tracking-tight",
-  h3: "font-bold text-6xl leading-[1.1] tracking-tight ",
-  h4: "font-bold text-5xl leading-[1.1] tracking-tight",
-  h5: "font-bold text-4xl leading-[1.1] tracking-tight",
-  h6: "font-bold text-3xl leading-[1.1] tracking-tight",
+  h1: "font-bold text-6xl leading-[1.1] tracking-tight",
+  h3: "font-bold text-5xl leading-[1.1] tracking-tight ",
+  h4: "font-bold text-4xl leading-[1.1] tracking-tight",
+  h5: "font-bold text-3xl leading-[1.1] tracking-tight",
+  h6: "font-bold text-2xl leading-[1.1] tracking-tight",
   subheader: "font-semi-bold text-xl leading-[1.1] tracking-tight ",
   body1: "font-light text-base ",
   body2: "font-light text-sm",
 };
 
-type Props = {
+export type TypgraphyProps = {
   color?: keyof typeof TEXT_COLORS;
   variant?: keyof typeof VARIANTS;
   children: ReactNode;
@@ -33,7 +33,7 @@ type Props = {
   numberOfLines?: number;
 };
 
-const Typography: React.FC<Props> = ({
+const Typography: React.FC<TypgraphyProps> = ({
   color = "text.primary",
   children,
   variant = "h1",

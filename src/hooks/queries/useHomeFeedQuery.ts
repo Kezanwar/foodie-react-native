@@ -1,26 +1,25 @@
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFeed } from "lib/api/api";
 
 import { HOME_FEED_QUERY } from "constants/react-query";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { DealInfinitePage, ISearchFilterList } from "types/deals";
+import { DealInfinitePage } from "types/deals";
 import { parseFiltersToParams } from "util/api";
+import { minutes } from "util/time";
 
-const useHomeFeedQuery = (
-  page: number = 0,
-  cuisines?: ISearchFilterList,
-  dietary_requirements?: ISearchFilterList
-) => {
+const useHomeFeedQuery = (page: number = 0) => {
   const location = useAppSelector((state) => state.location.location?.coords);
+  const { cuisines, dietary_requirements } = useAppSelector(
+    (state) => state.home.filters
+  );
 
-  const cuisinesParam = cuisines
-    ? parseFiltersToParams("cuisines", cuisines)
-    : "";
+  const cuisinesParam = parseFiltersToParams("cuisines", cuisines);
 
-  const dietaryParam = dietary_requirements
-    ? parseFiltersToParams("dietary_requirements", dietary_requirements)
-    : "";
+  const dietaryParam = parseFiltersToParams(
+    "dietary_requirements",
+    dietary_requirements
+  );
 
   const lon = location?.longitude || 0;
   const lat = location?.latitude || 0;
@@ -34,7 +33,7 @@ const useHomeFeedQuery = (
       `${HOME_FEED_QUERY}-${cuisinesParam}-${dietaryParam}-${lon}-${lat}`,
     ],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
-    staleTime: 20 * (60 * 1000),
+    staleTime: minutes(20),
   });
 
   return query;

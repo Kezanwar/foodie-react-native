@@ -156,6 +156,7 @@ const Preferences = (props: any) => {
         <View style={tw`gap-8`}>
           <View>
             <TitleBadgeCounter
+              mb
               error={cuisineCount === 0}
               title="Cuisines"
               count={`${cuisineCount}`}
@@ -167,6 +168,7 @@ const Preferences = (props: any) => {
           </View>
           <View>
             <TitleBadgeCounter
+              mb
               title="Dietary Requirements"
               count={`${dietaryCount}`}
             />

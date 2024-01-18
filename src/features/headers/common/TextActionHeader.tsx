@@ -9,6 +9,8 @@ type Props = {
   rightActionText?: string;
   rightActionOnPress?: () => void;
   loading?: boolean;
+  mb?: boolean;
+  fontSize?: "large" | "medium";
 };
 
 const TextActionHeader: FC<Props> = ({
@@ -16,10 +18,19 @@ const TextActionHeader: FC<Props> = ({
   rightActionText = "",
   rightActionOnPress,
   loading,
+  mb = true,
+  fontSize = "large",
 }) => {
   return (
-    <View style={tw` mb-4 flex-row items-center justify-between `}>
-      <Typography variant="h6" style={" font-semi-bold leading-tight "}>
+    <View
+      style={tw` ${mb ? "mb-4" : ""} flex-row items-center justify-between `}
+    >
+      <Typography
+        variant="h6"
+        style={`font-semi-bold leading-tight ${
+          fontSize === "medium" ? "text-5" : ""
+        } `}
+      >
         {headerText}
       </Typography>
       {loading ? (

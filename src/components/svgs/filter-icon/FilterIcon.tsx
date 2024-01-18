@@ -9,7 +9,7 @@ type Props = {
 };
 
 const FilterIcon: React.FC<Props> = ({
-  height = 23,
+  height = 24,
   width = 18,
   color = tw.color("primary-main"),
 }) => {
