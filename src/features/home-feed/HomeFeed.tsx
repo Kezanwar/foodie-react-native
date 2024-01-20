@@ -1,7 +1,6 @@
 import { Alert, FlatList, Share } from "react-native";
-import React, { FC, useCallback } from "react";
+import React, { FC } from "react";
 import useHomeFeedQuery, {
-  FeedQState,
   useMutateFavouriteDeal,
 } from "hooks/queries/useHomeFeedQuery";
 import DealCard from "components/deal-card";
@@ -12,12 +11,6 @@ import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
 import { IFeedDeal } from "types/deals";
-import { favouriteDeal, unFavouriteDeal } from "lib/api/api";
-import { FavouriteDealRequest } from "types/favourites";
-import useSnackbar from "hooks/useSnackbar";
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
-import { HOME_FEED_QUERY } from "constants/react-query";
-import { catchErrorHandler } from "util/error";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
