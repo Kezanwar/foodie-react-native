@@ -6,6 +6,7 @@ import {
   RegisterJWTData,
 } from "types/auth";
 import { DealInfinitePage } from "types/deals";
+import { FavouriteDealRequest } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 
@@ -26,6 +27,8 @@ const APP_ENDPOINTS = {
   addPreferences: "cust/preferences/add",
   //home
   getFeed: "cust/deals/feed",
+  //deal
+  favDeal: "cust/favourites",
 };
 
 // *OPTIONS
@@ -91,4 +94,23 @@ export const getFeed = async (
       console.log("api called");
       return res.data;
     });
+};
+
+//* FAVOURITES
+
+type FavouriteDealResponse = {
+  deal_id: string;
+  location_id: string;
+  is_favourited: boolean;
+};
+
+export const favouriteDeal = (data: FavouriteDealRequest) => {
+  return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.favDeal, data);
+};
+
+export const unFavouriteDeal = (data: FavouriteDealRequest) => {
+  return axiosInstance.patch<FavouriteDealResponse>(
+    APP_ENDPOINTS.favDeal,
+    data
+  );
 };
