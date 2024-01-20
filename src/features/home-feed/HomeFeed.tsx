@@ -1,13 +1,16 @@
 import { Alert, FlatList, Share } from "react-native";
 import React, { FC } from "react";
-import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
+import useHomeFeedQuery, {
+  useMutateFavouriteDeal,
+} from "hooks/queries/useHomeFeedQuery";
 import DealCard from "components/deal-card";
 import tw from "theme/tailwind";
-import { LoadingScreen } from "components/loading-screen";
 import EmptyState from "components/empty-state/EmptyState";
 import { useAppSelector } from "hooks/useAppSelector";
 import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
+import LoadingState from "components/loading-state";
+import { IFeedDeal } from "types/deals";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -48,15 +51,34 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
     }
   };
 
+  const [mutateAdd, mutateRemove] = useMutateFavouriteDeal();
+
+  const onLike = async (item: IFeedDeal) => {
+    try {
+      if (!item.deal.is_favourited) {
+        mutateAdd.mutate({
+          deal_id: item.deal.id,
+          location_id: item.location.id,
+        });
+      } else {
+        mutateRemove.mutate({
+          deal_id: item.deal.id,
+          location_id: item.location.id,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (isLoading) {
-    return <LoadingScreen />;
+    return <LoadingState text="Searching for deals..." />;
   }
 
   if (!data?.length) {
     const hasFilters = cuisines.length + dietary_requirements.length > 0;
     return (
       <EmptyState
-        style="py-8"
         title="No results found"
         description={`Sorry, we couldn't find any results ${
           hasFilters
@@ -86,7 +108,9 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
       refreshing={isRefetching}
       contentContainerStyle={tw`bg-grey-200 gap-3`}
       data={data}
-      renderItem={({ item }) => <DealCard onShare={onShare} item={item} />}
+      renderItem={({ item }) => (
+        <DealCard onShare={onShare} item={item} onLike={onLike} />
+      )}
       keyExtractor={(item) => `${item.deal.id}-${item.location.id}`}
       onEndReached={() => fetchNextPage()}
       onEndReachedThreshold={1}

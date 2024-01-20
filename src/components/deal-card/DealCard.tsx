@@ -6,9 +6,13 @@ import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import { Typography } from "components/typography";
 
-type Props = { item: IFeedDeal; onShare: (name: string) => void };
+type Props = {
+  item: IFeedDeal;
+  onShare: (name: string) => void;
+  onLike: (item: IFeedDeal) => void;
+};
 
-const DealCard: FC<Props> = ({ item, onShare }) => {
+const DealCard: FC<Props> = ({ item, onShare, onLike }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} style={tw` bg-white px-6 py-6 `}>
       <View style={tw`relative`}>
@@ -16,10 +20,13 @@ const DealCard: FC<Props> = ({ item, onShare }) => {
           style={tw`h-40 rounded-md`}
           source={{ uri: item.restaurant.cover_photo }}
         />
-        <TouchableOpacity style={tw`absolute top-4 right-4 shadow-md`}>
+        <TouchableOpacity
+          onPress={() => onLike(item)}
+          style={tw`absolute top-4 right-4 shadow-md`}
+        >
           <AntDesign
             name={item.deal.is_favourited ? "heart" : "hearto"}
-            size={22}
+            size={24}
             color={item.deal.is_favourited ? tw.color("error-main") : "white"}
           />
         </TouchableOpacity>
@@ -71,62 +78,3 @@ const DealCard: FC<Props> = ({ item, onShare }) => {
 };
 
 export default DealCard;
-
-{
-  /* {feed &&
-              feed.map((item) => {
-                return (
-                  // <View style={tw`border-[0.2px] p-3 rounded-lg border-grey-300`}>
-                  <View>
-                    <Typography variant="subheader" style="text-5 mb-1">
-                      {item.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      // color="text.secondary"
-                      style="mb-2 text-4"
-                    >
-                      {item.restaurant.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      style="mb-4 text-3"
-                      numberOfLines={2}
-                    >
-                      {item.description}
-                    </Typography> */
-}
-{
-  /* <View style={tw`flex-row gap-2`}>
-                    <Ionicons
-                      name="restaurant-outline"
-                      size={20}
-                      color={tw.color("primary-main")}
-                    />
-                    <ChipContainer style={"mb-3 "}>
-                      {item.cuisines.map((c) => {
-                        return <ChipReadOnly label={c.name} />;
-                      })}
-                    </ChipContainer>
-                  </View>
-                  <View style={tw`flex-row gap-2`}>
-                    <Ionicons
-                      name="ios-leaf-outline"
-                      size={20}
-                      color={tw.color("success-main")}
-                    />
-                    <ChipContainer style={"mb-3"}>
-                      {item.dietary_requirements.map((c) => {
-                        return <ChipReadOnly label={c.name} />;
-                      })}
-                    </ChipContainer>
-                  </View> */
-}
-{
-  /* </View> */
-}
-{
-  /* );
-              })} */
-}
