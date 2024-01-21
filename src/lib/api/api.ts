@@ -5,10 +5,11 @@ import {
   LoginResponse,
   RegisterJWTData,
 } from "types/auth";
-import { DealInfinitePage } from "types/deals";
-import { FavouriteDealRequest } from "types/favourites";
+import { DealInfinitePage } from "types/feed";
+import { FavouriteDealRequest, FavouriteDealResponse } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
+import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -29,6 +30,7 @@ const APP_ENDPOINTS = {
   getFeed: "cust/deals/feed",
   //deal
   favDeal: "cust/favourites",
+  getSingleDeal: "cust/deals/single",
 };
 
 // *OPTIONS
@@ -98,12 +100,6 @@ export const getFeed = async (
 
 //* FAVOURITES
 
-type FavouriteDealResponse = {
-  deal_id: string;
-  location_id: string;
-  is_favourited: boolean;
-};
-
 export const favouriteDeal = (data: FavouriteDealRequest) => {
   return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.favDeal, data);
 };
@@ -113,4 +109,12 @@ export const unFavouriteDeal = (data: FavouriteDealRequest) => {
     APP_ENDPOINTS.favDeal,
     data
   );
+};
+
+//* SINGLE DEAL
+
+export const getSingleDeal = (data: GetSingleDealProps & ILatLong) => {
+  return axiosInstance.get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
+    params: data,
+  });
 };

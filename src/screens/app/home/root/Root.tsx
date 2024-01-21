@@ -103,6 +103,7 @@ const Home: FC<any> = (props) => {
       {/* <TextButton label="Logout" onPress={logout} /> */}
       {!locationError && (
         <HomeFeed
+          navigation={props.navigation}
           navToLocation={handleLocationPress}
           openFilters={handleFilterPress}
         />

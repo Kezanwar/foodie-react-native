@@ -11,7 +11,7 @@ const usePreferencesQuery = () => {
     queryKey: [PREFERENCES_QUERY],
     queryFn: getPreferences,
     enabled: true,
-    staleTime: minutes(20),
+    staleTime: minutes(60),
   });
 
   return query;

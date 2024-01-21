@@ -10,7 +10,7 @@ const useOptionsQuery = () => {
     queryKey: [OPTIONS_QUERY],
     queryFn: getOptions,
     enabled: true,
-    staleTime: minutes(20),
+    staleTime: minutes(240),
   });
 
   return query;

@@ -1,20 +1,28 @@
 import { Image, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
-import { IFeedDeal } from "types/deals";
+import { IFeedDeal } from "types/feed";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import { Typography } from "components/typography";
+import { GetSingleDealProps } from "types/single-deal";
 
 type Props = {
   item: IFeedDeal;
   onShare: (name: string) => void;
   onLike: (item: IFeedDeal) => void;
+  navToDeal: (data: GetSingleDealProps) => void;
 };
 
-const DealCard: FC<Props> = ({ item, onShare, onLike }) => {
+const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={tw` bg-white px-6 py-6 `}>
+    <TouchableOpacity
+      onPress={() =>
+        navToDeal({ deal_id: item.deal.id, location_id: item.location.id })
+      }
+      activeOpacity={0.8}
+      style={tw` bg-white px-6 py-6 `}
+    >
       <View style={tw`relative`}>
         <Image
           style={tw`h-40 rounded-md`}
