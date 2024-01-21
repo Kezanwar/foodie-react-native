@@ -14,6 +14,23 @@ import ConfirmEmail from "screens/common/confirm-email/ConfirmEmail";
 import Preferences from "screens/common/preferences";
 import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
+import SingleDeal from "screens/common/single-deal";
+
+// export type RootStackParamList = {
+//   App: undefined;
+
+//   [AUTH_ROUTES.CONFIRM_EMAIL]: undefined;
+//   [AUTH_ROUTES.SIGN_IN]: undefined;
+//   [AUTH_ROUTES.SIGN_UP]: undefined;
+//   [AUTH_ROUTES.ADD_EMAIL_PASSWORD]: undefined;
+//   [AUTH_ROUTES.ADD_DETAILS]: undefined;
+
+//   [COMMON_ROUTES.SINGLE_DEAL]: undefined;
+//   [COMMON_ROUTES.LOCATION]: undefined;
+//   [COMMON_ROUTES.PREFERENCES]: undefined;
+//   [COMMON_ROUTES.PRIVACY_POLICY]: undefined;
+//   [COMMON_ROUTES.ADD_CUSTOM_LOCATION]: undefined;
+// };
 
 const RootStack = createNativeStackNavigator();
 
@@ -53,7 +70,7 @@ const RootNavigator: FC = () => {
           />
         </RootStack.Group>
       )}
-      {/* Common modal screens */}
+      {/* Common screens */}
       <RootStack.Group>
         <RootStack.Screen
           name={COMMON_ROUTES.PRIVACY_POLICY}
@@ -78,6 +95,16 @@ const RootNavigator: FC = () => {
               }}
               name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
               component={AddCustomLocation}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                presentation: "modal",
+                animation: "slide_from_bottom",
+                // gestureDirection: "vertical",
+              }}
+              name={COMMON_ROUTES.SINGLE_DEAL}
+              component={SingleDeal}
             />
           </>
         )}

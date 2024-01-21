@@ -2,7 +2,7 @@
 export const HOME_STACK = {
   ROOT: "HOME_STACK_ROOT",
   FILTERS: "HOME_STACK_FILTERS",
-};
+} as const;
 
 //AUTH
 export const AUTH_ROUTES = {
@@ -11,7 +11,7 @@ export const AUTH_ROUTES = {
   ADD_DETAILS: "ADD_DETAILS",
   ADD_EMAIL_PASSWORD: "ADD_EMAIL_PASSWORD",
   CONFIRM_EMAIL: "CONFIRM_EMAIL",
-};
+} as const;
 
 export const COMMON_ROUTES = {
   PRIVACY_POLICY: "PRIVACY_POLICY",
@@ -19,4 +19,6 @@ export const COMMON_ROUTES = {
   PREFERENCES: "PREFERENCES",
   LOCATION: "LOCATION",
   ADD_CUSTOM_LOCATION: "ADD_CUSTOM_LOCATION",
-};
+  //deal
+  SINGLE_DEAL: "SINGLE_DEAL",
+} as const;

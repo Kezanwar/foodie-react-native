@@ -10,13 +10,19 @@ import { useAppSelector } from "hooks/useAppSelector";
 import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-import { IFeedDeal } from "types/deals";
+import { IFeedDeal } from "types/feed";
+import { COMMON_ROUTES } from "constants/routes";
+import { GetSingleDealProps } from "types/single-deal";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
-type Props = { openFilters: () => void; navToLocation: () => void };
+type Props = {
+  openFilters: () => void;
+  navToLocation: () => void;
+  navigation: any;
+};
 
-const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
+const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
   const {
     data: feedData,
     fetchNextPage,
@@ -71,6 +77,10 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
     }
   };
 
+  const navToDeal = (data: GetSingleDealProps) => {
+    navigation.navigate(COMMON_ROUTES.SINGLE_DEAL, data);
+  };
+
   if (isLoading) {
     return <LoadingState text="Searching for deals..." />;
   }
@@ -109,7 +119,12 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation }) => {
       contentContainerStyle={tw`bg-grey-200 gap-3`}
       data={data}
       renderItem={({ item }) => (
-        <DealCard onShare={onShare} item={item} onLike={onLike} />
+        <DealCard
+          navToDeal={navToDeal}
+          onShare={onShare}
+          item={item}
+          onLike={onLike}
+        />
       )}
       keyExtractor={(item) => `${item.deal.id}-${item.location.id}`}
       onEndReached={() => fetchNextPage()}

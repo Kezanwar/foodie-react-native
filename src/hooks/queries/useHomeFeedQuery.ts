@@ -8,7 +8,7 @@ import { favouriteDeal, getFeed, unFavouriteDeal } from "lib/api/api";
 import { HOME_FEED_QUERY } from "constants/react-query";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { DealInfinitePage } from "types/deals";
+import { DealInfinitePage } from "types/feed";
 import { parseFiltersToParams } from "util/api";
 import { minutes } from "util/time";
 import { FavouriteDealRequest } from "types/favourites";
@@ -38,7 +38,7 @@ const useHomeFeedQuery = (page: number = 0) => {
       getFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
     queryKey: [key],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
-    staleTime: minutes(20),
+    staleTime: minutes(10),
   });
 
   return query;
