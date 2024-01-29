@@ -20,7 +20,7 @@ const useSingleDealQuery = (data: GetSingleDealProps) => {
   const query = useQuery({
     queryKey: [getSingleDealKey(dataWithLocation)],
     queryFn: () => getSingleDeal(dataWithLocation),
-    staleTime: minutes(10),
+    staleTime: minutes(5),
   });
 
   return query;

@@ -36,6 +36,7 @@ export default axiosInstance;
 export const setSession = (accessToken: string) => {
   storeAccessToken(accessToken);
   axiosInstance.defaults.headers["x-auth-token"] = accessToken;
+  console.log(accessToken);
 };
 
 export const endSession = async () => {

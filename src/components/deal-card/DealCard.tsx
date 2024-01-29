@@ -28,54 +28,76 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
           style={tw`h-40 rounded-md`}
           source={{ uri: item.restaurant.cover_photo }}
         />
-        <TouchableOpacity
-          onPress={() => onLike(item)}
-          style={tw`absolute top-4 right-4 shadow-md`}
-        >
-          <AntDesign
-            name={item.deal.is_favourited ? "heart" : "hearto"}
-            size={24}
-            color={item.deal.is_favourited ? tw.color("error-main") : "white"}
-          />
-        </TouchableOpacity>
       </View>
 
-      <View style={tw` mt-5`}>
-        <View style={tw`mb-2 flex-row items-start justify-between`}>
-          <View>
-            <Typography variant="subheader" style="text-4.5 mb-1">
-              {item.deal.name}
-            </Typography>
+      <View style={tw`mt-5`}>
+        <View style={tw` flex-row items-start justify-between`}>
+          <View style={tw`gap-1.5`}>
+            <View style={tw`flex-row gap-1.5  max-w-60`}>
+              <AntDesign
+                name="tago"
+                size={20}
+                color={tw.color("primary-main")}
+                style={tw`-mt-0.5`}
+              />
+              <Typography variant="subheader" style="text-4.5 mb-1">
+                {item.deal.name}
+              </Typography>
+            </View>
+
             <Typography
               variant="body2"
               // color="text.secondary"
-              style="mb-2 text-3.75"
+              style=" text-3.75 font-normal"
             >
-              {item.restaurant.name} ({item.location.nickname})
+              {item.restaurant.name}{" "}
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                style=" text-3.25 font-normal"
+              >
+                ({item.location.nickname})
+              </Typography>
             </Typography>
           </View>
-          <View style={tw`items-end gap-2`}>
+          <View style={tw`gap-3`}>
+            <View style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}>
+              <TouchableOpacity
+                style={tw`-m-0.5 `}
+                onPress={() => onShare(item.deal.name)}
+              >
+                <Ionicons
+                  name="md-share-outline"
+                  size={20}
+                  color={tw.color("grey-900")}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => onLike(item)}>
+                <AntDesign
+                  name={item.deal.is_favourited ? "heart" : "hearto"}
+                  size={19}
+                  color={
+                    item.deal.is_favourited
+                      ? tw.color("error-main")
+                      : tw.color("grey-900")
+                  }
+                />
+              </TouchableOpacity>
+            </View>
             <Typography
               variant="body2"
               color="success.main"
-              style=" font-medium leading-1.2 text-3.25"
+              style=" font-medium  text-3.25"
             >
               {item.location.distance_miles.toFixed(1)} Miles
             </Typography>
-            <TouchableOpacity onPress={() => onShare(item.deal.name)}>
-              <Ionicons
-                name="md-share-outline"
-                size={21}
-                color={tw.color("primary-main")}
-              />
-            </TouchableOpacity>
           </View>
         </View>
 
         <Typography
           variant="body2"
           color="text.secondary"
-          style="text-3.25"
+          style="text-3.25 mt-3 leading-[1.6]"
           numberOfLines={2}
         >
           {item.deal.description}

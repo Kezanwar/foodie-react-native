@@ -11,6 +11,7 @@ const TEXT_COLORS = {
   "error.main": "text-error-main",
   "success.dark": "text-success-dark",
   "success.main": "text-success-main",
+  "warning.main": "text-warning-main",
   "info.dark": "text-info-dark",
 };
 
