@@ -1,8 +1,6 @@
 import { Alert, FlatList, Share } from "react-native";
 import React, { FC } from "react";
-import useHomeFeedQuery, {
-  useMutateFavouriteDeal,
-} from "hooks/queries/useHomeFeedQuery";
+import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
 import DealCard from "components/deal-card";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
@@ -13,6 +11,7 @@ import LoadingState from "components/loading-state";
 import { IFeedDeal } from "types/feed";
 import { COMMON_ROUTES } from "constants/routes";
 import { GetSingleDealProps } from "types/single-deal";
+import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 

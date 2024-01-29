@@ -1,3 +1,4 @@
+import { IOpeningTimes } from "./opening-times";
 import { Option } from "./options";
 
 export type GetSingleDealProps = {
@@ -18,15 +19,27 @@ export interface ISingleDeal {
   is_expired: boolean;
   cuisines: Option[];
   dietary_requirements: Option[];
-  restaurant: Restaurant;
+  restaurant: ISingleRestaurant;
   is_favourited: boolean;
-  location: Location;
+  is_following: boolean;
+  location: ISingleLocation;
   distance_miles: number;
 }
 
-interface Location {
-  location_id: string;
+interface Address {
+  address_line_1: string;
+  address_line_2: string;
+  postcode: string;
+  city: string;
+  country: string;
+}
+export interface ISingleLocation {
+  _id: string;
   nickname: string;
+  address: Address;
+  phone_number: string;
+  email: string;
+  opening_times: IOpeningTimes;
   geometry: Geometry;
 }
 
@@ -35,9 +48,11 @@ interface Geometry {
   coordinates: number[];
 }
 
-interface Restaurant {
+export interface ISingleRestaurant {
   id: string;
   name: string;
   avatar: string;
   cover_photo: string;
+  bio: string;
+  booking_link?: string;
 }
