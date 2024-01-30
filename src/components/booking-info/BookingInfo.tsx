@@ -46,7 +46,7 @@ const BookingInfo: FC<Props> = ({ location, restuarant }) => {
   };
 
   return (
-    <View style={tw`m-6 mt-5 mb-8 gap-3`}>
+    <View style={tw`m-6 mt-5 gap-3`}>
       <GreyBtn onPress={onDirectionsPress}>
         <IconAndText
           text={Object.values(location.address).filter((el) => el)}
@@ -118,7 +118,7 @@ const IconAndText: FC<{ text: string | string[]; icon: ReactNode }> = ({
       ) : (
         <View style={tw`-mt-1`}>
           {text.map((s) => (
-            <Text>{s}</Text>
+            <Text key={s}>{s}</Text>
           ))}
         </View>
       )}

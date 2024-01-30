@@ -10,6 +10,7 @@ import { FavouriteDealRequest, FavouriteDealResponse } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
+import { FollowRestRequest, FollowRestResponse } from "types/following";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -29,8 +30,10 @@ const APP_ENDPOINTS = {
   //home
   getFeed: "cust/deals/feed",
   //deal
-  favDeal: "cust/favourites",
+  fav: "cust/favourites",
   getSingleDeal: "cust/deals/single",
+  //rest
+  follow: "cust/following",
 };
 
 // *OPTIONS
@@ -101,20 +104,31 @@ export const getFeed = async (
 //* FAVOURITES
 
 export const favouriteDeal = (data: FavouriteDealRequest) => {
-  return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.favDeal, data);
+  return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
 };
 
 export const unFavouriteDeal = (data: FavouriteDealRequest) => {
-  return axiosInstance.patch<FavouriteDealResponse>(
-    APP_ENDPOINTS.favDeal,
-    data
-  );
+  return axiosInstance.patch<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
+};
+
+//* FOLLOWS
+
+export const followRestaurant = (data: FollowRestRequest) => {
+  return axiosInstance.post<FollowRestResponse>(APP_ENDPOINTS.follow, data);
+};
+
+export const unFollowRestaurant = (data: FollowRestRequest) => {
+  return axiosInstance.patch<FollowRestResponse>(APP_ENDPOINTS.follow, data);
 };
 
 //* SINGLE DEAL
 
-export const getSingleDeal = (data: GetSingleDealProps & ILatLong) => {
-  return axiosInstance.get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
-    params: data,
-  });
+export const getSingleDeal = async (data: GetSingleDealProps & ILatLong) => {
+  return axiosInstance
+    .get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
+      params: data,
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
