@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { HOME_FEED_QUERY } from "constants/react-query";
+import { HOME_FEED_QUERY, SINGLE_DEAL_QUERY } from "constants/react-query";
 import useSnackbar from "hooks/useSnackbar";
 import { favouriteDeal, unFavouriteDeal } from "lib/api/api";
 import { FavouriteDealRequest } from "types/favourites";
 import { FeedQState } from "./useHomeFeedQuery";
+import { ISingleDeal } from "types/single-deal";
 
 const useMutateFavouriteDeal = () => {
   const queryClient = useQueryClient();
@@ -40,6 +41,23 @@ const useMutateFavouriteDeal = () => {
               pages: newPages,
               pageParams: [...oldData.pageParams],
             };
+          } else return undefined;
+        }
+      );
+      queryClient.setQueriesData(
+        {
+          predicate: (query) =>
+            query.queryKey.every((q) => {
+              if (typeof q === "string") {
+                return q.includes(
+                  `${SINGLE_DEAL_QUERY}-${deal_id}-${location_id}`
+                );
+              } else return false;
+            }),
+        },
+        (oldData: ISingleDeal | undefined): ISingleDeal | undefined => {
+          if (oldData) {
+            return { ...oldData, is_favourited };
           } else return undefined;
         }
       );
@@ -80,6 +98,23 @@ const useMutateFavouriteDeal = () => {
               pages: newPages,
               pageParams: [...oldData.pageParams],
             };
+          } else return undefined;
+        }
+      );
+      queryClient.setQueriesData(
+        {
+          predicate: (query) =>
+            query.queryKey.every((q) => {
+              if (typeof q === "string") {
+                return q.includes(
+                  `${SINGLE_DEAL_QUERY}-${deal_id}-${location_id}`
+                );
+              } else return false;
+            }),
+        },
+        (oldData: ISingleDeal | undefined): ISingleDeal | undefined => {
+          if (oldData) {
+            return { ...oldData, is_favourited };
           } else return undefined;
         }
       );

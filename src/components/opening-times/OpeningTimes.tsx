@@ -1,9 +1,11 @@
 import { View } from "react-native";
 import React, { FC } from "react";
+import tw from "theme/tailwind";
 
 import { Typography } from "components/typography";
-import tw from "theme/tailwind";
+
 import { capitalize } from "util/string";
+
 import { ISingleLocation } from "types/single-deal";
 import { IOpeningDay } from "types/opening-times";
 
@@ -20,10 +22,10 @@ const OpeningTimes: FC<Props> = React.memo(
 
     return (
       <View
-        style={tw`gap-2 m-6 border rounded-lg border-grey-200 p-3 mt-5  mb-8 ${containerStyle}`}
+        style={tw`gap-2 m-6 border rounded-lg border-grey-200 p-3 mt-5 ${containerStyle}`}
       >
         {Object.entries(opening_times).map(([day, val]) => {
-          return <Item day={day} val={val} />;
+          return <Item key={day} day={day} val={val} />;
         })}
       </View>
     );

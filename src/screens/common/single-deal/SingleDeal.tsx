@@ -20,6 +20,7 @@ import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import MapView, { Marker, Region } from "react-native-maps";
 import BookingInfo from "components/booking-info";
 import OpeningTimes from "components/opening-times/OpeningTimes";
+import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 const tabControllerItems: TabControllerItemProps[] = [
   {
@@ -50,12 +51,14 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
 
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
 
-  const { data, isLoading, isError } = useSingleDealQuery({
+  const {
+    data: deal,
+    isLoading,
+    isError,
+  } = useSingleDealQuery({
     deal_id,
     location_id,
   });
-
-  const deal = data?.data;
 
   const CarouselItems = useMemo(() => {
     return deal
@@ -86,6 +89,26 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
         ]
       : [];
   }, [deal]);
+  const [mutateAdd, mutateRemove] = useMutateFavouriteDeal();
+
+  const onLike = async () => {
+    if (deal)
+      try {
+        if (!deal.is_favourited) {
+          mutateAdd.mutate({
+            deal_id: deal._id,
+            location_id: deal.location._id,
+          });
+        } else {
+          mutateRemove.mutate({
+            deal_id: deal._id,
+            location_id: deal.location._id,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  };
 
   if (isLoading) return <LoadingScreen />;
 
@@ -114,7 +137,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 style={tw`-mt-0.5`}
               />
             </IconButton>
-            <IconButton onPress={goBack}>
+            <IconButton onPress={onLike}>
               <AntDesign
                 name={deal.is_favourited ? "heart" : "hearto"}
                 size={20}
@@ -220,13 +243,3 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
 };
 
 export default SingleDeal;
-
-const Bio: FC<{ text: string }> = ({ text }) => {
-  return (
-    <View style={tw`mt-4 px-6`}>
-      <Typography variant="body2" color="text.secondary" style="leading-[1.6]">
-        {text}
-      </Typography>
-    </View>
-  );
-};

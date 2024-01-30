@@ -113,8 +113,12 @@ export const unFavouriteDeal = (data: FavouriteDealRequest) => {
 
 //* SINGLE DEAL
 
-export const getSingleDeal = (data: GetSingleDealProps & ILatLong) => {
-  return axiosInstance.get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
-    params: data,
-  });
+export const getSingleDeal = async (data: GetSingleDealProps & ILatLong) => {
+  return axiosInstance
+    .get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
+      params: data,
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
