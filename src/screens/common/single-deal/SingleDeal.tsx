@@ -1,10 +1,4 @@
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { Image, ScrollView, View, TouchableOpacity } from "react-native";
 import React, { FC, useMemo, useState } from "react";
 import MapView, { Marker, Region } from "react-native-maps";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
@@ -27,6 +21,7 @@ import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { GetSingleDealProps } from "types/single-deal";
+import EmptyState from "components/empty-state/EmptyState";
 
 const tabControllerItems: TabControllerItemProps[] = [
   {
@@ -141,11 +136,19 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
       }
   };
 
+  const goBack = () => navigation.goBack();
+
   if (isLoading) return <LoadingScreen />;
 
-  if (!deal) return null;
-
-  const goBack = () => navigation.goBack();
+  if (!deal || isError)
+    return (
+      <EmptyState
+        title="Oops!"
+        description="Sorry we can't seem to find that deal, it may have been deleted"
+        action={goBack}
+        actionText="Go back"
+      />
+    );
 
   return (
     <>
@@ -218,7 +221,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                   />
                   <Typography
                     variant="h6"
-                    style="font-medium text-4.5 max-w-[86%] "
+                    style="font-medium text-4.5 max-w-[88%] "
                   >
                     {deal.name}
                   </Typography>
