@@ -16,7 +16,12 @@
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "https://foodie-restaurant-api-staging.onrender.com/api",
+        "EXPO_PUBLIC_IOS_OAUTH_CLIENT_ID": "688879209449-6m9ojfpgapdlnolr98a0tbg20oc1il61.apps.googleusercontent.com",
+        "EXPO_PUBLIC_ANDROID_OAUTH_CLIENT_ID": "688879209449-da0qoaq0q1vlprcpi4dto4dp7uedlucu.apps.googleusercontent.com"
+      }
     },
     "production": {}
   },

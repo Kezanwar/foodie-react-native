@@ -45,7 +45,7 @@ const Item: FC<{ day: string; val: IOpeningDay }> = ({ day, val }) => {
         style="font-medium text-3.15"
         color={val.is_open ? "success.main" : "warning.main"}
       >
-        {val.is_open ? `${val.open}-${val.close}` : "CLOSED"}
+        {val.is_open ? `${val.open} - ${val.close}` : "CLOSED"}
       </Typography>
     </View>
   );
