@@ -1,34 +1,39 @@
-import { Image, ImageBackground, ScrollView, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import React, { FC, useMemo, useState } from "react";
-
-import { GetSingleDealProps } from "types/single-deal";
-import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
-import { LoadingScreen } from "components/loading-screen";
+import MapView, { Marker, Region } from "react-native-maps";
+import { TabController, TabControllerItemProps } from "react-native-ui-lib";
+import { StatusBar } from "expo-status-bar";
 import tw from "theme/tailwind";
-import IconButton from "components/buttons/icon-button";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
+import { LoadingScreen } from "components/loading-screen";
+import IconButton from "components/buttons/icon-button";
 import { Typography } from "components/typography";
-
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Divider from "components/divider";
-import { StatusBar } from "expo-status-bar";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
-import { TabController, TabControllerItemProps } from "react-native-ui-lib";
-import MapView, { Marker, Region } from "react-native-maps";
 import BookingInfo from "components/booking-info";
 import OpeningTimes from "components/opening-times/OpeningTimes";
+
+import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-import { followRestaurant, unFollowRestaurant } from "lib/api/api";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
+
+import { GetSingleDealProps } from "types/single-deal";
 
 const tabControllerItems: TabControllerItemProps[] = [
   {
     label: "Map View",
     labelColor: tw.color("grey-500"),
     selectedLabelStyle: tw`font-medium`,
+    backgroundColor: "#00000000",
     labelStyle: tw`font-medium`,
     selectedLabelColor: tw.color("primary-main"),
   },
@@ -36,6 +41,7 @@ const tabControllerItems: TabControllerItemProps[] = [
     label: "Booking Info",
     labelColor: tw.color("grey-500"),
     selectedLabelStyle: tw`font-medium`,
+    backgroundColor: "#00000000",
     labelStyle: tw`font-medium`,
     selectedLabelColor: tw.color("primary-main"),
   },
@@ -44,6 +50,7 @@ const tabControllerItems: TabControllerItemProps[] = [
     labelColor: tw.color("grey-500"),
     selectedLabelStyle: tw`font-medium`,
     labelStyle: tw`font-medium`,
+    backgroundColor: "#00000000",
     selectedLabelColor: tw.color("primary-main"),
   },
 ];
@@ -91,8 +98,6 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
         ]
       : [];
   }, [deal]);
-
-  console.log(deal?.is_following);
 
   const [mutateFavAdd, mutateFavRemove] = useMutateFavouriteDeal();
 
@@ -146,34 +151,13 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
     <>
       <StatusBar style="light" />
       <View style={tw`flex-1 bg-white`}>
-        <View style={tw`relative`}>
-          <ImageBackground
-            style={tw`h-45 w-full `}
-            source={{ uri: deal.restaurant.cover_photo }}
-          >
-            <View style={tw`w-full h-full bg-[rgba(0,0,0,0.3)]`} />
-          </ImageBackground>
+        <Image
+          style={tw`h-45 w-full `}
+          source={{ uri: deal.restaurant.cover_photo }}
+        />
 
-          <View style={tw`absolute top-6 right-6 flex-row items-center gap-3`}>
-            <IconButton onPress={goBack}>
-              <Ionicons
-                name="md-share-outline"
-                size={23}
-                color={"white"}
-                style={tw`-mt-0.5`}
-              />
-            </IconButton>
-            <IconButton onPress={onLike}>
-              <AntDesign
-                name={deal.is_favourited ? "heart" : "hearto"}
-                size={20}
-                color={deal.is_favourited ? tw.color("error-main") : "white"}
-              />
-            </IconButton>
-          </View>
-        </View>
         <ScrollView contentContainerStyle={tw`pb-20`}>
-          <View style={tw`px-6`}>
+          <View style={tw`px-6 relative`}>
             <View style={tw` pt-5 flex-row  items-center gap-4`}>
               <Image
                 style={tw` rounded-full  w-18  h-18  `}
@@ -196,14 +180,16 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                     onPress={onFollow}
                     style={tw`rounded-full w-17 items-center justify-center ${
                       deal.is_following
-                        ? "bg-primary-main text-white w-22 "
+                        ? "border border-primary-main  w-22 "
                         : "bg-grey-200 w-17"
-                    } py-2 px-3`}
+                    } py-1.75 px-3`}
                   >
                     <Typography
                       variant="body2"
-                      color={deal.is_following ? "white" : "text.primary"}
-                      style="-m-1 text-3.45"
+                      color={
+                        deal.is_following ? "primary.main" : "text.primary"
+                      }
+                      style="-m-1 text-3.25"
                     >
                       {deal.is_following ? "Following" : "Follow"}
                     </Typography>
@@ -222,16 +208,43 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
             <Divider />
 
             <View style={tw` gap-2`}>
-              <View style={tw`flex-row items-center gap-2`}>
-                <AntDesign
-                  name="tago"
-                  size={20}
-                  color={tw.color("primary-main")}
-                  style={tw`-mt-0.5`}
-                />
-                <Typography variant="h6" style="font-medium text-4.5 ">
-                  {deal.name}
-                </Typography>
+              <View style={tw`flex-row justify-between`}>
+                <View style={tw`flex-row items-start gap-2`}>
+                  <AntDesign
+                    name="tago"
+                    size={20}
+                    color={tw.color("primary-main")}
+                    style={tw`-mt-0.5`}
+                  />
+                  <Typography
+                    variant="h6"
+                    style="font-medium text-4.5 max-w-[86%] "
+                  >
+                    {deal.name}
+                  </Typography>
+                </View>
+                <View
+                  style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}
+                >
+                  <IconButton style={tw`-m-0.5 `} onPress={goBack}>
+                    <Ionicons
+                      name="md-share-outline"
+                      size={20}
+                      color={tw.color("grey-900")}
+                    />
+                  </IconButton>
+                  <IconButton onPress={onLike}>
+                    <AntDesign
+                      name={deal.is_favourited ? "heart" : "hearto"}
+                      size={19}
+                      color={
+                        deal.is_favourited
+                          ? tw.color("error-main")
+                          : tw.color("grey-900")
+                      }
+                    />
+                  </IconButton>
+                </View>
               </View>
 
               <Typography
@@ -252,17 +265,18 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
             </ChipContainer>
             <Divider style="mt-5 mb-2" />
           </View>
+
           <TabController
             onChangeIndex={(i) => setCarouselIndex(i)}
             asCarousel
-            useSafeArea
             items={tabControllerItems}
           >
             <TabController.TabBar
               indicatorStyle={tw`h-[1px] bg-primary-main `}
               height={32}
               spreadItems={false}
-              containerStyle={tw`mx-2`}
+              backgroundColor="transparent"
+              containerStyle={tw`mx-2 bg-[#00000000]`}
               items={tabControllerItems}
             />
             {CarouselItems[carouselIndex]}

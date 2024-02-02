@@ -1,14 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { HOME_FEED_QUERY, SINGLE_DEAL_QUERY } from "constants/react-query";
+import { SINGLE_DEAL_QUERY } from "constants/react-query";
 import useSnackbar from "hooks/useSnackbar";
-import {
-  favouriteDeal,
-  followRestaurant,
-  unFavouriteDeal,
-  unFollowRestaurant,
-} from "lib/api/api";
-import { FavouriteDealRequest } from "types/favourites";
-import { FeedQState } from "./useHomeFeedQuery";
+import { followRestaurant, unFollowRestaurant } from "lib/api/api";
+
 import { ISingleDeal } from "types/single-deal";
 import { FollowRestRequest } from "types/following";
 

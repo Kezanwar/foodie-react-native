@@ -23,7 +23,11 @@ const useRequestLocation = () => {
         });
       return;
     }
-    const location = await Location.getCurrentPositionAsync({ accuracy: 5 });
+
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Highest,
+      mayShowUserSettingsDialog: true,
+    });
     const geo = await Location.reverseGeocodeAsync({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,

@@ -6,6 +6,7 @@ import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import { Typography } from "components/typography";
 import { GetSingleDealProps } from "types/single-deal";
+import IconButton from "components/buttons/icon-button";
 
 type Props = {
   item: IFeedDeal;
@@ -45,11 +46,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
               </Typography>
             </View>
 
-            <Typography
-              variant="body2"
-              // color="text.secondary"
-              style=" text-3.75 font-normal"
-            >
+            <Typography variant="body2" style=" text-3.75 font-normal">
               {item.restaurant.name}{" "}
               <Typography
                 variant="body2"
@@ -62,7 +59,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
           </View>
           <View style={tw`gap-3`}>
             <View style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}>
-              <TouchableOpacity
+              <IconButton
                 style={tw`-m-0.5 `}
                 onPress={() => onShare(item.deal.name)}
               >
@@ -71,8 +68,8 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
                   size={20}
                   color={tw.color("grey-900")}
                 />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => onLike(item)}>
+              </IconButton>
+              <IconButton onPress={() => onLike(item)}>
                 <AntDesign
                   name={item.deal.is_favourited ? "heart" : "hearto"}
                   size={19}
@@ -82,7 +79,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
                       : tw.color("grey-900")
                   }
                 />
-              </TouchableOpacity>
+              </IconButton>
             </View>
             <Typography
               variant="body2"

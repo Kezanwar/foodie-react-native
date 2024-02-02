@@ -96,7 +96,7 @@ export const getFeed = async (
       }`
     )
     .then((res) => {
-      console.log("api called");
+      console.log("Home Feed API Request");
       return res.data;
     });
 };
