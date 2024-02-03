@@ -1,27 +1,29 @@
-import { Image, ScrollView, View, TouchableOpacity } from "react-native";
+import { ScrollView, View } from "react-native";
 import React, { FC, useMemo, useState } from "react";
 import MapView, { Marker, Region } from "react-native-maps";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import { StatusBar } from "expo-status-bar";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 
 import { LoadingScreen } from "components/loading-screen";
-import IconButton from "components/buttons/icon-button";
 import { Typography } from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
 import BookingInfo from "components/booking-info";
 import OpeningTimes from "components/opening-times/OpeningTimes";
+import LikeButton from "components/buttons/like-button";
+import ShareButton from "components/buttons/share-button";
+import FollowButton from "components/buttons/follow-button";
+import EmptyState from "components/empty-state/EmptyState";
 
 import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { GetSingleDealProps } from "types/single-deal";
-import EmptyState from "components/empty-state/EmptyState";
+import { Image } from "expo-image";
 
 const tabControllerItems: TabControllerItemProps[] = [
   {
@@ -155,6 +157,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
       <StatusBar style="light" />
       <View style={tw`flex-1 bg-white`}>
         <Image
+          transition={500}
           style={tw`h-45 w-full `}
           source={{ uri: deal.restaurant.cover_photo }}
         />
@@ -163,12 +166,16 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
           <View style={tw`px-6 relative`}>
             <View style={tw` pt-5 flex-row  items-center gap-4`}>
               <Image
+                transition={500}
                 style={tw` rounded-full  w-18  h-18  `}
                 source={{ uri: deal.restaurant.avatar }}
               />
 
               <View style={tw`gap-2`}>
-                <Typography variant="h6" style="font-medium text-5 max-w-70">
+                <Typography
+                  variant="h6"
+                  style="font-semi-bold text-4.25 max-w-70"
+                >
                   {deal.restaurant.name}
                   <Typography
                     variant="h6"
@@ -179,24 +186,10 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                   </Typography>
                 </Typography>
                 <View style={tw`gap-3 items-center flex-row`}>
-                  <TouchableOpacity
+                  <FollowButton
                     onPress={onFollow}
-                    style={tw`rounded-full w-17 items-center justify-center ${
-                      deal.is_following
-                        ? "border border-primary-main  w-22 "
-                        : "bg-grey-200 w-17"
-                    } py-1.75 px-3`}
-                  >
-                    <Typography
-                      variant="body2"
-                      color={
-                        deal.is_following ? "primary.main" : "text.primary"
-                      }
-                      style="-m-1 text-3.25"
-                    >
-                      {deal.is_following ? "Following" : "Follow"}
-                    </Typography>
-                  </TouchableOpacity>
+                    following={deal.is_following}
+                  />
                   <Typography
                     variant="body2"
                     color="success.main"
@@ -221,7 +214,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                   />
                   <Typography
                     variant="h6"
-                    style="font-medium text-4.5 max-w-[88%] "
+                    style="font-semi-bold text-4.25 max-w-[88%] "
                   >
                     {deal.name}
                   </Typography>
@@ -229,24 +222,8 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 <View
                   style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}
                 >
-                  <IconButton style={tw`-m-0.5 `} onPress={goBack}>
-                    <Ionicons
-                      name="md-share-outline"
-                      size={20}
-                      color={tw.color("grey-900")}
-                    />
-                  </IconButton>
-                  <IconButton onPress={onLike}>
-                    <AntDesign
-                      name={deal.is_favourited ? "heart" : "hearto"}
-                      size={19}
-                      color={
-                        deal.is_favourited
-                          ? tw.color("error-main")
-                          : tw.color("grey-900")
-                      }
-                    />
-                  </IconButton>
+                  <ShareButton onPress={goBack} />
+                  <LikeButton liked={deal.is_favourited} onPress={onLike} />
                 </View>
               </View>
 
@@ -255,7 +232,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 color="text.secondary"
                 style="leading-[1.6]"
               >
-                {deal.description.trim()}
+                {deal.description}
               </Typography>
             </View>
             <ChipContainer style="mt-5">

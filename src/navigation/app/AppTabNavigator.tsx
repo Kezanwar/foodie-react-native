@@ -5,6 +5,7 @@ import { DiscoverTabNavigator } from "./discover";
 
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
+import AccountStackNavigator from "./account";
 
 const Tab = createBottomTabNavigator();
 
@@ -57,8 +58,8 @@ const AppTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="User"
-        component={DiscoverTabNavigator}
+        name="Account"
+        component={AccountStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign

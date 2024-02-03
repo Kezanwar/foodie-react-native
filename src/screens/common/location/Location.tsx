@@ -46,7 +46,11 @@ const Location = (props: any) => {
           rightActionText="Done"
           rightActionOnPress={onDone}
         />
-        <Typography variant="body2" style="mb-20" color="text.secondary">
+        <Typography
+          variant="body2"
+          style="mb-20 leading-[1.6]"
+          color="text.secondary"
+        >
           Choose a location to browse from, you can use your current location or
           specify one.
         </Typography>

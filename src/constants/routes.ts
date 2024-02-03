@@ -4,6 +4,11 @@ export const HOME_STACK = {
   FILTERS: "HOME_STACK_FILTERS",
 } as const;
 
+export const ACCOUNT_STACK = {
+  ROOT: "ACCOUNT_STACK_ROOT",
+  PROFILE: "ACCOUNT_STACK_PROFILE",
+} as const;
+
 //AUTH
 export const AUTH_ROUTES = {
   SIGN_UP: "SIGN_UP",
