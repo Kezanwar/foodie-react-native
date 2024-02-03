@@ -126,7 +126,7 @@ const AddCustomLocation = (props: any) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          style={"max-w-[70]  mb-12 "}
+          style={"max-w-[70] leading-[1.6]  mb-12 "}
         >
           Use the input below to set a location to be used for your feed.
         </Typography>

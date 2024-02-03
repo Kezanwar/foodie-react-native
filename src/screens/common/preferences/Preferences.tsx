@@ -71,11 +71,13 @@ const Preferences = (props: any) => {
   }, [data?.data?.dietary_requirements]);
 
   useEffect(() => {
-    if (initialCuisines.length) dispatch(initializeCuisines(initialCuisines));
+    if (!cuisines.length && initialCuisines.length)
+      dispatch(initializeCuisines(initialCuisines));
   }, [initialCuisines]);
 
   useEffect(() => {
-    if (initialDietary.length) dispatch(initializeDietary(initialDietary));
+    if (!dietary_requirements.length && initialDietary.length)
+      dispatch(initializeDietary(initialDietary));
   }, [initialCuisines]);
 
   const cuisineCount = useMemo(() => {
@@ -147,7 +149,11 @@ const Preferences = (props: any) => {
           rightActionText="Done"
           rightActionOnPress={onDone}
         />
-        <Typography variant="body2" style="mb-6" color="text.secondary">
+        <Typography
+          variant="body2"
+          style="mb-6 leading-[1.6]"
+          color="text.secondary"
+        >
           To help us organize your feed better, select your preferred cuisine
           types (minimum 1) and let us know your preferred dietary requirements.
         </Typography>

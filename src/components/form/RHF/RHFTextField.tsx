@@ -12,6 +12,7 @@ type Props = TextInputProps & {
   placeholder: string;
   actionOnPress?: () => void;
   actionIcon?: ReactNode;
+  disabled?: boolean;
 };
 
 type RHFInputProps<

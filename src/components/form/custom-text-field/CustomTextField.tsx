@@ -6,7 +6,6 @@ import {
   TextInput,
   TextInputProps,
   TouchableOpacity,
-  StyleProp,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -22,6 +21,7 @@ type Props = TextInputProps & {
   actionOnPress?: () => void;
   actionIcon?: ReactNode;
   containerStyle?: ReturnType<TailwindFn>;
+  disabled?: boolean;
 };
 
 const DEFAULT_B_COL = tw.color("grey-200") || "";
@@ -33,11 +33,12 @@ const ANIM_DURATION = 150;
 
 const CustomTextField: React.FC<Props> = ({
   placeholder,
-  value = "",
+  value,
   containerStyle,
   error,
   actionIcon,
   actionOnPress,
+  disabled,
   ...rest
 }) => {
   const borderColor = useSharedValue(DEFAULT_B_COL);
@@ -53,7 +54,7 @@ const CustomTextField: React.FC<Props> = ({
     setIsFocused(true);
   };
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused || value || disabled) {
       const col =
         theme === "light" ? tw.color("grey-800") : tw.color("grey-500");
       borderColor.value = col || "";
@@ -114,12 +115,21 @@ const CustomTextField: React.FC<Props> = ({
           >
             {placeholder}
           </Animated.Text>
-          <TextInput
-            onBlur={onBlur}
-            onFocus={onFocus}
-            {...rest}
-            style={tw`font-medium text-lg flex-1 pb-1 pt-[15]  text-type-light-secondary`}
-          />
+          {disabled ? (
+            <Typography
+              style={"font-medium text-4 flex-1 pb-1 pt-[24]  text-grey-500"}
+            >
+              {value}
+            </Typography>
+          ) : (
+            <TextInput
+              onBlur={onBlur}
+              onFocus={onFocus}
+              value={value}
+              {...rest}
+              style={tw`font-medium text-lg flex-1 pb-1 pt-[15]  text-type-light-secondary`}
+            />
+          )}
           {value && actionOnPress && (
             <TouchableOpacity style={tw`w-6`} onPress={actionOnPress}>
               {actionIcon || ""}

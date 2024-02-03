@@ -1,12 +1,14 @@
-import { Image, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Image } from "expo-image";
 import React, { FC } from "react";
 import { IFeedDeal } from "types/feed";
-import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import { Typography } from "components/typography";
 import { GetSingleDealProps } from "types/single-deal";
-import IconButton from "components/buttons/icon-button";
+
+import ShareButton from "components/buttons/share-button";
+import LikeButton from "components/buttons/like-button";
 
 type Props = {
   item: IFeedDeal;
@@ -59,27 +61,11 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
           </View>
           <View style={tw`gap-3`}>
             <View style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}>
-              <IconButton
-                style={tw`-m-0.5 `}
-                onPress={() => onShare(item.deal.name)}
-              >
-                <Ionicons
-                  name="md-share-outline"
-                  size={20}
-                  color={tw.color("grey-900")}
-                />
-              </IconButton>
-              <IconButton onPress={() => onLike(item)}>
-                <AntDesign
-                  name={item.deal.is_favourited ? "heart" : "hearto"}
-                  size={19}
-                  color={
-                    item.deal.is_favourited
-                      ? tw.color("error-main")
-                      : tw.color("grey-900")
-                  }
-                />
-              </IconButton>
+              <ShareButton onPress={() => onShare(item.deal.name)} />
+              <LikeButton
+                liked={item.deal.is_favourited}
+                onPress={() => onLike(item)}
+              />
             </View>
             <Typography
               variant="body2"

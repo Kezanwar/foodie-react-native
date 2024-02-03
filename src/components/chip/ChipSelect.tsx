@@ -2,7 +2,6 @@ import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
 import React, { FC, memo } from "react";
 
 import tw from "theme/tailwind";
-import Animated, { useSharedValue } from "react-native-reanimated";
 
 type Props = TouchableOpacityProps & {
   label: string;

@@ -3,7 +3,7 @@ export type IUser = {
   last_name: string;
   email: string;
   email_confirmed: string;
-  auth_method: string;
+  auth_method: "jwt" | "google";
   avatar: string;
 };
 
