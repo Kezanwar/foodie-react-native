@@ -31,6 +31,7 @@ import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
 import useAppDispatch from "hooks/useAppDispatch";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
+import Spacer from "components/separators/spacer";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -56,6 +57,10 @@ const SignIn = (props: any) => {
 
   const onCreateAcc = () => {
     props.navigation.navigate(AUTH_ROUTES.SIGN_UP);
+  };
+
+  const onForgotPassword = () => {
+    props.navigation.navigate(AUTH_ROUTES.FORGOT_PASSWORD);
   };
 
   const defaultValues: DefaultValues<FormValues> = {
@@ -172,6 +177,7 @@ const SignIn = (props: any) => {
                 />
               }
             />
+
             {errors?.root?.afterSubmit && (
               <Alert
                 align="center"
@@ -197,6 +203,13 @@ const SignIn = (props: any) => {
             New here?
           </Text>
           <TextButton label="Create an account" onPress={onCreateAcc} />
+          <Spacer spacing="mt-14" />
+          <TextButton
+            onPress={onForgotPassword}
+            label="Forgot Password?"
+            textStyle="text-grey-600 underline font-regular"
+            style={tw``}
+          />
         </Animated.View>
       </KeyboardDismissingView>
     </ScrollScreenWrapper>

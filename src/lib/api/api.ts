@@ -1,5 +1,6 @@
 import axiosInstance from "lib/axios/axios";
 import {
+  IUser,
   InitializeResponse,
   LoginJWTData,
   LoginResponse,
@@ -20,20 +21,23 @@ const AUTH_ENDPOINTS = {
   resendEmailOTP: "/auth/confirm-email/resend-otp",
   registerWithGoogle: "/auth/register-google",
   intialize: "/auth/initialize",
+  forgotPassword: "/auth/forgot-password",
 };
 
 const APP_ENDPOINTS = {
   // options
   getOptions: "/options",
-  getPreferences: "cust/preferences",
-  addPreferences: "cust/preferences/add",
+  getPreferences: "/cust/preferences",
+  addPreferences: "/cust/preferences/add",
   //home
-  getFeed: "cust/deals/feed",
+  getFeed: "/cust/deals/feed",
   //deal
-  fav: "cust/favourites",
-  getSingleDeal: "cust/deals/single",
+  fav: "/cust/favourites",
+  getSingleDeal: "/cust/deals/single",
   //rest
-  follow: "cust/following",
+  follow: "/cust/following",
+  //account
+  patchProfile: "/account/profile",
 };
 
 // *OPTIONS
@@ -78,6 +82,10 @@ export const registerJWT = (data: RegisterJWTData) => {
 
 export const initializeJWT = () => {
   return axiosInstance.get<InitializeResponse>(AUTH_ENDPOINTS.intialize);
+};
+
+export const changePassword = (email: string) => {
+  return axiosInstance.post(AUTH_ENDPOINTS.forgotPassword, { email });
 };
 
 //* HOME
@@ -131,4 +139,13 @@ export const getSingleDeal = async (data: GetSingleDealProps & ILatLong) => {
     .then((res) => {
       return res.data;
     });
+};
+
+//* ACCOUNT
+
+export const patchProfile = (data: {
+  first_name: string;
+  last_name: string;
+}) => {
+  return axiosInstance.patch<IUser>(APP_ENDPOINTS.patchProfile, data);
 };

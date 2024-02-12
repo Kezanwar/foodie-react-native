@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { View } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useDeviceContext } from "twrnc";
@@ -20,7 +19,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "navigation/root";
 import { enableFreeze } from "react-native-screens";
 import AuthInitializer from "hocs/auth-initializer";
-import { BottomSheetProvider } from "@gorhom/bottom-sheet/lib/typescript/contexts";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 enableFreeze(true);

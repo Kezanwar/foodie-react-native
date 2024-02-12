@@ -15,6 +15,7 @@ import Preferences from "screens/common/preferences";
 import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
 import SingleDeal from "screens/common/single-deal";
+import ForgotPassword from "screens/guest/forgot-password";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -67,6 +68,10 @@ const RootNavigator: FC = () => {
           <RootStack.Screen
             name={AUTH_ROUTES.ADD_EMAIL_PASSWORD}
             component={AddEmailPassword}
+          />
+          <RootStack.Screen
+            name={AUTH_ROUTES.FORGOT_PASSWORD}
+            component={ForgotPassword}
           />
         </RootStack.Group>
       )}

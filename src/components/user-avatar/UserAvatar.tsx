@@ -24,7 +24,7 @@ const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName }) => {
       ) : (
         <Typography
           variant="h6"
-          style="font-light text-6 leading-[0]"
+          style="font-regular tracking-wide text-6 leading-[0]"
           color="white"
         >
           {firstName.charAt(0)}
