@@ -68,9 +68,11 @@ const Root: FC<Props> = ({ navigation }) => {
           <ListButton
             icon={<FilterIcon />}
             onPress={onPreferencesPress}
+            withBorder
             text="Preferences"
           />
           <ListButton
+            withBorder
             icon={
               <Ionicons
                 name="ios-map-outline"
@@ -82,6 +84,7 @@ const Root: FC<Props> = ({ navigation }) => {
             text="Location"
           />
           <ListButton
+            withBorder
             icon={
               <AntDesign
                 name="user"

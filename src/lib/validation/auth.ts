@@ -33,3 +33,9 @@ export const RegisterEmailPasswordSchema = Yup.object().shape({
     .required("Must confirm your Password")
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
+
+export const ForgotPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Email must be a valid email address")
+    .required("Email is required"),
+});
