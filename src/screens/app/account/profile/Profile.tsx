@@ -51,7 +51,6 @@ const Profile: FC = (props: any) => {
   const goBack = () => props.navigation.goBack();
 
   const onDone: SubmitHandler<FormValues> = async (data) => {
-    console.log(isDirty);
     if (isDirty) {
       try {
         const res = await patchProfile(data);
@@ -63,7 +62,7 @@ const Profile: FC = (props: any) => {
           setError("root.afterSubmit", error);
         });
       }
-    }
+    } else goBack();
   };
 
   const onResetPassword = async () => {
