@@ -1,8 +1,9 @@
-import { View } from "react-native";
 import React, { FC, useMemo } from "react";
+
 import FilterButton from "components/buttons/filter-button";
 import LocationButton from "components/buttons/location-button";
-import tw from "theme/tailwind";
+import HeaderContainer from "components/header-container";
+
 import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = { onFilterPress: () => void; onLocationPress: () => void };
@@ -17,12 +18,10 @@ const RootHeader: FC<Props> = ({ onFilterPress, onLocationPress }) => {
     [cuisines, dietary_requirements]
   );
   return (
-    <View
-      style={tw`px-6 border-b-[0.5px] border-b-grey-250 py-3 flex-row items-center justify-between`}
-    >
+    <HeaderContainer style="flex-row items-center justify-between">
       <LocationButton onPress={onLocationPress} />
       <FilterButton onPress={onFilterPress} count={filterCount} />
-    </View>
+    </HeaderContainer>
   );
 };
 

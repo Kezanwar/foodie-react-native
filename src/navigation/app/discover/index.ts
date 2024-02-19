@@ -1,3 +1,3 @@
-import DiscoverTabNavigator from './DiscoverTabNavigator';
+import DiscoverStackNavigator from "./DiscoverStackNavigator";
 
-export { DiscoverTabNavigator }
+export { DiscoverStackNavigator };

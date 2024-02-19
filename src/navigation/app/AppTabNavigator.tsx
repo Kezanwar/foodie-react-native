@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackNavigator from "./home";
-import { DiscoverTabNavigator } from "./discover";
+import { DiscoverStackNavigator } from "./discover";
 
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
@@ -31,7 +31,7 @@ const AppTabNavigator = () => {
       />
       <Tab.Screen
         name="Search"
-        component={DiscoverTabNavigator}
+        component={DiscoverStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign
@@ -45,7 +45,7 @@ const AppTabNavigator = () => {
       />
       <Tab.Screen
         name="Favourites"
-        component={DiscoverTabNavigator}
+        component={DiscoverStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign

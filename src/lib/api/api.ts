@@ -149,3 +149,7 @@ export const patchProfile = (data: {
 }) => {
   return axiosInstance.patch<IUser>(APP_ENDPOINTS.patchProfile, data);
 };
+
+//* DISCOVER
+
+export const getPopularRestaurants = () => {};
