@@ -9,6 +9,10 @@ export const ACCOUNT_STACK = {
   PROFILE: "ACCOUNT_STACK_PROFILE",
 } as const;
 
+export const DISCOVER_STACK = {
+  ROOT: "DISCOVER_STACK_ROOT",
+};
+
 //AUTH
 export const AUTH_ROUTES = {
   FORGOT_PASSWORD: "FORGOT_PASSWORD",

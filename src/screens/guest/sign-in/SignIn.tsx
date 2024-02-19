@@ -198,7 +198,7 @@ const SignIn = (props: any) => {
             />
           </View>
           <Text
-            style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}
+            style={tw`font-light text-center text-sm mt-12 mb-1.5   text-type-light-secondary`}
           >
             New here?
           </Text>
@@ -207,7 +207,7 @@ const SignIn = (props: any) => {
           <TextButton
             onPress={onForgotPassword}
             label="Forgot Password?"
-            textStyle="text-grey-600 underline font-regular"
+            textStyle="text-type-light-secondary underline font-regular text-3"
             style={tw``}
           />
         </Animated.View>

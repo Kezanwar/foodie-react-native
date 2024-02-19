@@ -130,7 +130,7 @@ const CustomTextField: React.FC<Props> = ({
               style={tw`font-medium text-lg flex-1 pb-1 pt-[15]  text-type-light-secondary`}
             />
           )}
-          {value && actionOnPress && (
+          {actionOnPress && (
             <TouchableOpacity style={tw`w-6`} onPress={actionOnPress}>
               {actionIcon || ""}
             </TouchableOpacity>

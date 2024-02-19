@@ -174,7 +174,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
               <View style={tw`gap-2`}>
                 <Typography
                   variant="h6"
-                  style="font-semi-bold text-4.25 max-w-70"
+                  style="font-semi-bold text-4.25 max-w-80"
                 >
                   {deal.restaurant.name}
                   <Typography
@@ -214,7 +214,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                   />
                   <Typography
                     variant="h6"
-                    style="font-semi-bold text-4.25 max-w-[88%] "
+                    style="font-semi-bold text-4.25 max-w-[89%] "
                   >
                     {deal.name}
                   </Typography>
