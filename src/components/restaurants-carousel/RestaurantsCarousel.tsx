@@ -55,7 +55,7 @@ const RestaurantsCarousel: FC<Props> = () => {
       <View style={tw`flex-row items-center  mb-5 gap-2 `}>
         {/* <StoreFront color={tw.color("primary-main") as string} /> */}
 
-        <Typography style="font-medium leading-[0] text-4.5" variant="h6">
+        <Typography style="font-semi-bold leading-[0] text-4.5" variant="h6">
           Popular Restaurants
         </Typography>
       </View>

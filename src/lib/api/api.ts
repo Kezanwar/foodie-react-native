@@ -12,6 +12,7 @@ import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
 import { FollowRestRequest, FollowRestResponse } from "types/following";
+import { DiscoverResponse } from "types/discover";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -38,6 +39,8 @@ const APP_ENDPOINTS = {
   follow: "/cust/following",
   //account
   patchProfile: "/account/profile",
+  //discover
+  getDiscover: "/cust/discover",
 };
 
 // *OPTIONS
@@ -152,4 +155,8 @@ export const patchProfile = (data: {
 
 //* DISCOVER
 
-export const getPopularRestaurants = () => {};
+export const getDiscover = (long: number, lat: number) => {
+  return axiosInstance.get<DiscoverResponse>(
+    `${APP_ENDPOINTS.getDiscover}?lat=${lat}&long=${long}`
+  );
+};
