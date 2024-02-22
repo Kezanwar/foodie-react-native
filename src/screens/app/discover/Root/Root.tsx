@@ -11,13 +11,20 @@ import tw from "theme/tailwind";
 import HeaderContainer from "components/header-container";
 
 import { CustomTextField } from "components/form/custom-text-field";
-import CuisinesCarousel from "components/cuisines-carousel";
+
 import RestaurantsCarousel from "components/restaurants-carousel";
-import Divider from "components/divider";
+import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
+import { LoadingScreen } from "components/loading-screen";
 
 type Props = {};
 
 const Root: FC<Props> = () => {
+  const { data, isLoading } = useDiscoverQuery();
+
+  console.log(data?.data);
+
+  if (isLoading) return <LoadingScreen />;
+
   return (
     <>
       <SafeAreaView style={tw`bg-white`}>
@@ -37,11 +44,7 @@ const Root: FC<Props> = () => {
         </HeaderContainer>
       </SafeAreaView>
       <ScrollView style={tw`flex-1 bg-grey-200`}>
-        <View style={tw` bg-white gap-2 p-6 `}>
-          <CuisinesCarousel />
-          <Divider />
-          <RestaurantsCarousel />
-          <Divider />
+        <View style={tw` bg-white  p-6 `}>
           <RestaurantsCarousel />
         </View>
       </ScrollView>
