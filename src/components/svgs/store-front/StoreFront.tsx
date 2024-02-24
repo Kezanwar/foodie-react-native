@@ -2,12 +2,12 @@ import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
 type Props = {
-  color: string;
+  color?: string;
 };
 
 const StoreFront: React.FC<Props> = ({ color = "#000" }) => {
   return (
-    <Svg width={18} height={17} viewBox="0 0 26 24" fill="none">
+    <Svg width={17} height={17} viewBox="0 0 26 24" fill="none">
       <Path
         d="M3 13.449V22a1 1 0 001 1h18a1 1 0 001-1V13.45M3.754 1h18.492a1 1 0 01.961.725L25 8H1l1.793-6.275A1 1 0 013.754 1z"
         stroke={color}

@@ -5,7 +5,7 @@ export interface DiscoverResponse {
   cuisines: Option[];
 }
 
-interface PopularRestaurants {
+export interface PopularRestaurants {
   _id: string;
   restaurant: Restaurant;
   location: Location;

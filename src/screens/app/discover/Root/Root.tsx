@@ -12,16 +12,14 @@ import HeaderContainer from "components/header-container";
 
 import { CustomTextField } from "components/form/custom-text-field";
 
-import RestaurantsCarousel from "components/restaurants-carousel";
 import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import { LoadingScreen } from "components/loading-screen";
+import DiscoverRestaurants from "features/discover-restaurants";
 
 type Props = {};
 
 const Root: FC<Props> = () => {
   const { data, isLoading } = useDiscoverQuery();
-
-  console.log(data?.data);
 
   if (isLoading) return <LoadingScreen />;
 
@@ -43,10 +41,8 @@ const Root: FC<Props> = () => {
           />
         </HeaderContainer>
       </SafeAreaView>
-      <ScrollView style={tw`flex-1 bg-grey-200`}>
-        <View style={tw` bg-white  p-6 `}>
-          <RestaurantsCarousel />
-        </View>
+      <ScrollView style={tw`flex-1 bg-white p-6`}>
+        <DiscoverRestaurants restaurants={data?.data.restaurants} />
       </ScrollView>
     </>
   );
