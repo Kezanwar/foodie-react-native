@@ -11,7 +11,7 @@ export const reverseGeocodedMainText: ReverseGeocodeMainText = (
 ) => {
   if (!reverseGeocode) return "";
   if (reverseGeocode?.district)
-    if (short) return reverseGeocode?.district;
+    if (short) return `${reverseGeocode?.city}, ${reverseGeocode?.subregion}`;
     else return `${reverseGeocode?.district}, ${reverseGeocode?.city}`;
   else return reverseGeocode?.city || "";
 };
