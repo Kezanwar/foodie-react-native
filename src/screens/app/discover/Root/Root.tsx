@@ -4,7 +4,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
@@ -15,11 +15,14 @@ import { CustomTextField } from "components/form/custom-text-field";
 import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import { LoadingScreen } from "components/loading-screen";
 import DiscoverRestaurants from "features/discover-restaurants";
+import DiscoverCuisines from "features/discover-cuisines";
 
 type Props = {};
 
 const Root: FC<Props> = () => {
   const { data, isLoading } = useDiscoverQuery();
+
+  const onCuisinePress = useCallback(() => {}, []);
 
   if (isLoading) return <LoadingScreen />;
 
@@ -41,8 +44,17 @@ const Root: FC<Props> = () => {
           />
         </HeaderContainer>
       </SafeAreaView>
-      <ScrollView style={tw`flex-1 bg-white p-6`}>
-        <DiscoverRestaurants restaurants={data?.data.restaurants} />
+      <ScrollView style={tw` bg-grey-200`} contentContainerStyle={tw`gap-3`}>
+        <View style={tw`bg-white p-6`}>
+          <DiscoverRestaurants restaurants={data?.data.restaurants} />
+        </View>
+
+        <View style={tw`bg-white p-6`}>
+          <DiscoverCuisines
+            onCuisinePress={onCuisinePress}
+            cuisines={data?.data.cuisines}
+          />
+        </View>
       </ScrollView>
     </>
   );
