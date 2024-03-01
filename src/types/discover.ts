@@ -1,8 +1,10 @@
+import { BlogItem } from "./blog";
 import { Option } from "./options";
 
 export interface DiscoverResponse {
   restaurants: PopularRestaurants[];
   cuisines: Option[];
+  blogs: BlogItem[];
 }
 
 export interface PopularRestaurants {

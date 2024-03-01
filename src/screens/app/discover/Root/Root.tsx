@@ -9,13 +9,13 @@ import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
 import HeaderContainer from "components/header-container";
-
 import { CustomTextField } from "components/form/custom-text-field";
-
-import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import { LoadingScreen } from "components/loading-screen";
 import DiscoverRestaurants from "features/discover-restaurants";
 import DiscoverCuisines from "features/discover-cuisines";
+
+import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
+import NewsCarousel from "features/news-carousel";
 
 type Props = {};
 
@@ -48,12 +48,14 @@ const Root: FC<Props> = () => {
         <View style={tw`bg-white p-6`}>
           <DiscoverRestaurants restaurants={data?.data.restaurants} />
         </View>
-
         <View style={tw`bg-white p-6`}>
           <DiscoverCuisines
             onCuisinePress={onCuisinePress}
             cuisines={data?.data.cuisines}
           />
+        </View>
+        <View style={tw`bg-white p-6`}>
+          <NewsCarousel blogs={data?.data.blogs} />
         </View>
       </ScrollView>
     </>

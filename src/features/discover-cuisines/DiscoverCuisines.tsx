@@ -1,12 +1,14 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
-import { Option } from "types/options";
-import ChipButton from "components/buttons/chip-button";
-import { ScrollView } from "react-native-gesture-handler";
-import { ChipContainer } from "components/chip";
 import { Fader } from "react-native-ui-lib";
 import tw from "theme/tailwind";
+import { ScrollView } from "react-native-gesture-handler";
+
+import { Option } from "types/options";
+import ChipButton from "components/buttons/chip-button";
+import { ChipContainer } from "components/chip";
 import { Typography } from "components/typography";
+
 import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = {
@@ -28,20 +30,17 @@ const DiscoverCuisines: FC<Props> = React.memo(
             near {location?.city}, {location?.subregion}
           </Typography>
         </View>
-        <ScrollView style={tw`h-[80]`} contentContainerStyle={tw`pb-8`}>
-          <ChipContainer>
-            {cuisines?.map((item) => (
-              <ChipButton
-                key={item.slug}
-                bgColor="grey-200"
-                color="text.primary"
-                text={item.name}
-                onPress={onCuisinePress}
-              />
-            ))}
-          </ChipContainer>
-        </ScrollView>
-        <Fader visible position={Fader.position.BOTTOM} />
+        <ChipContainer>
+          {cuisines?.map((item) => (
+            <ChipButton
+              key={item.slug}
+              bgColor="grey-200"
+              color="text.primary"
+              text={item.name}
+              onPress={onCuisinePress}
+            />
+          ))}
+        </ChipContainer>
       </View>
     );
   }
