@@ -49,7 +49,7 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants }) => {
               <View
                 style={tw`mt-3 gap-1.5 justify-between items-center flex-row flex-wrap `}
               >
-                <View style={tw`flex-row flex-wrap gap-1.5 items-center`}>
+                <View style={tw`flex-row flex-wrap gap-1.75 items-center`}>
                   <StoreFront color={iconCol} />
                   <Typography style=" font-medium text-3.75" variant="body1">
                     {item.restaurant.name}

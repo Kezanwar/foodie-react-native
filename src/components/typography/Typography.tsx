@@ -26,8 +26,10 @@ const VARIANTS = {
   body2: "font-light text-sm",
 };
 
+export type TypographyTextColors = keyof typeof TEXT_COLORS;
+
 export type TypgraphyProps = {
-  color?: keyof typeof TEXT_COLORS;
+  color?: TypographyTextColors;
   variant?: keyof typeof VARIANTS;
   children: ReactNode;
   style?: string;
