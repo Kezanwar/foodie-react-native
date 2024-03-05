@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View } from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 
 import { StatusBar } from "expo-status-bar";
@@ -19,16 +19,24 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { Image } from "expo-image";
 import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
+import { COMMON_ROUTES } from "constants/routes";
+import { GetSingleDealProps } from "types/single-deal";
+import { Badge } from "react-native-ui-lib";
+import { RouteParams as DealRouteParams } from "../single-deal/SingleDeal";
 
-type RouteParams = {
+export type RouteParams = {
   location_id: string;
   show_cover_photo: boolean;
+  should_deal_show_cover: boolean;
 };
 
 const iconCol = tw.color("primary-main");
 
+const badgeCol = tw.color("success-main");
+
 const SingleRestaurant: FC = ({ route, navigation }: any) => {
-  const { location_id, show_cover_photo } = route.params as RouteParams;
+  const { location_id, show_cover_photo, should_deal_show_cover } =
+    route.params as RouteParams;
 
   const {
     data: restaurant,
@@ -58,6 +66,10 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
   //       console.log(error);
   //     }
   // };
+
+  const navToDeal = (data: DealRouteParams) => {
+    navigation.navigate(COMMON_ROUTES.SINGLE_DEAL, data);
+  };
 
   const [mutateFollowAdd, mutateFollowRemove] = useMutateFollowingRest();
 
@@ -106,9 +118,9 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           />
         )}
 
-        <ScrollView contentContainerStyle={tw`pb-20`}>
+        <ScrollView>
           <View style={tw`px-6 relative`}>
-            <View style={tw` pt-5 flex-row  items-center gap-4`}>
+            <View style={tw` pt-6 flex-row  items-center gap-4`}>
               <Image
                 transition={500}
                 style={tw` rounded-full  w-18  h-18  `}
@@ -144,12 +156,10 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                 </View>
               </View>
             </View>
-
-            <Divider />
-
+            <Divider my="6" />
             <View style={tw` gap-2`}>
               <View style={tw`flex-row justify-between`}>
-                <View style={tw`flex-row items-center gap-2`}>
+                <View style={tw`flex-row items-center gap-2 `}>
                   <AntDesign name="isv" size={19} color={iconCol} />
                   <Typography
                     variant="h6"
@@ -176,7 +186,52 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                 <ChipReadOnly key={slug} size="lg" label={name} />
               ))}
             </ChipContainer>
-            <Divider style="mt-5 mb-2" />
+            <Divider my="6" />
+
+            <View style={tw`flex-row  items-center gap-2 mb-4`}>
+              <AntDesign name="tago" size={20} color={iconCol} />
+              <View style={tw`flex-row items-center gap-2 relative `}>
+                <Typography
+                  variant="h6"
+                  style="font-semi-bold text-4.25  leading-0"
+                >
+                  Current Deals
+                </Typography>
+                {restaurant.active_deals.length > 1 && (
+                  <Badge
+                    size={16}
+                    backgroundColor={badgeCol}
+                    style={tw`absolute right-[-3] top-[-2] font-light`}
+                    label={`${restaurant.active_deals.length}`}
+                  />
+                )}
+              </View>
+            </View>
+            <View style={tw`gap-3`}>
+              {restaurant.active_deals.map((deal) => {
+                return (
+                  <TouchableOpacity
+                    style={tw` border-dashed border-[1.25px] border-primary-light p-3 rounded-md`}
+                    onPress={() =>
+                      navToDeal({
+                        deal_id: deal._id,
+                        location_id: restaurant._id,
+                        show_cover_photo: should_deal_show_cover,
+                      })
+                    }
+                  >
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      style="text-3.25"
+                    >
+                      {deal.name}
+                    </Typography>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+            <Divider style="mt-6 mb-3" />
           </View>
 
           <RestaurantInfoTabs
