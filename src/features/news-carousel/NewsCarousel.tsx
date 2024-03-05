@@ -1,11 +1,16 @@
 import { Dimensions, FlatList, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
-import tw from "theme/tailwind";
-import { Typography } from "components/typography";
-import { BlogItem } from "types/blog";
+
 import { Image } from "expo-image";
 import { Fader } from "react-native-ui-lib";
 import { Ionicons } from "@expo/vector-icons";
+
+import tw from "theme/tailwind";
+
+import { Typography } from "components/typography";
+import CarouselDivider from "components/separators/carousel-divider";
+
+import { BlogItem } from "types/blog";
 
 const iconCol = tw.color("primary-main");
 
@@ -29,7 +34,7 @@ const NewsCarousel: FC<Props> = ({ blogs }) => {
         showsHorizontalScrollIndicator={false}
         horizontal
         data={blogs}
-        ItemSeparatorComponent={() => <View style={tw`w-[4vw]`} />}
+        ItemSeparatorComponent={() => <CarouselDivider />}
         snapToAlignment="start"
         decelerationRate={"fast"}
         keyExtractor={(item) => item.slug}

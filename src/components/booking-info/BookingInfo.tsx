@@ -1,6 +1,5 @@
 import { Platform, TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode } from "react";
-import { ISingleLocation, ISingleRestaurant } from "types/single-deal";
 import { Typography } from "components/typography";
 import tw from "theme/tailwind";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -8,22 +7,33 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Linking } from "react-native";
+import { Geometry } from "types/geometry";
+import { Address } from "types/address";
 
 type Props = {
-  restuarant: ISingleRestaurant;
-  location: ISingleLocation;
+  name: string;
+  booking_link?: string;
+  geometry: Geometry;
+  address: Address;
+  email: string;
+  phone_number: string;
 };
 
-const BookingInfo: FC<Props> = ({ location, restuarant }) => {
-  const { geometry } = location;
-
+const BookingInfo: FC<Props> = ({
+  geometry,
+  name,
+  booking_link,
+  address,
+  phone_number,
+  email,
+}) => {
   const onDirectionsPress = () => {
     const scheme = Platform.select({
       ios: "maps://0,0?q=",
       android: "geo:0,0?q=",
     });
     const latLng = `${geometry.coordinates[1]},${geometry.coordinates[0]}`;
-    const label = restuarant.name;
+    const label = name;
     const url = Platform.select({
       ios: `${scheme}${label}@${latLng}`,
       android: `${scheme}${latLng}(${label})`,
@@ -33,23 +43,23 @@ const BookingInfo: FC<Props> = ({ location, restuarant }) => {
   };
 
   const onPhonePress = () => {
-    Linking.openURL(`tel:${location.phone_number}`);
+    Linking.openURL(`tel:${phone_number}`);
   };
 
   const onEmailPress = () => {
-    Linking.openURL(`mailto:${location.email}`);
+    Linking.openURL(`mailto:${email}`);
   };
 
   const onBookOnline = () => {
-    if (!restuarant.booking_link) return;
-    Linking.openURL(restuarant.booking_link);
+    if (!booking_link) return;
+    Linking.openURL(booking_link);
   };
 
   return (
     <View style={tw`m-6 mt-5 gap-3`}>
       <GreyBtn onPress={onDirectionsPress}>
         <IconAndText
-          text={Object.values(location.address).filter((el) => el)}
+          text={Object.values(address).filter((el) => el)}
           icon={
             <SimpleLineIcons
               name="directions"
@@ -59,7 +69,7 @@ const BookingInfo: FC<Props> = ({ location, restuarant }) => {
           }
         />
       </GreyBtn>
-      {restuarant.booking_link && (
+      {booking_link && (
         <GreyBtn onPress={onEmailPress}>
           <IconAndText
             text={"Make a booking online"}
@@ -76,7 +86,7 @@ const BookingInfo: FC<Props> = ({ location, restuarant }) => {
 
       <GreyBtn onPress={onPhonePress}>
         <IconAndText
-          text={location.phone_number}
+          text={phone_number}
           icon={
             <Feather
               name="smartphone"
@@ -89,7 +99,7 @@ const BookingInfo: FC<Props> = ({ location, restuarant }) => {
 
       <GreyBtn onPress={onEmailPress}>
         <IconAndText
-          text={location.email}
+          text={email}
           icon={
             <MaterialIcons
               name="alternate-email"

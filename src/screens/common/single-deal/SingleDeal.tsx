@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import React, { FC, useMemo, useState } from "react";
 import MapView, { Marker, Region } from "react-native-maps";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
@@ -24,38 +24,11 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { GetSingleDealProps } from "types/single-deal";
 import { Image } from "expo-image";
-
-const tabControllerItems: TabControllerItemProps[] = [
-  {
-    label: "Map View",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    labelStyle: tw`font-medium`,
-    selectedLabelColor: tw.color("primary-main"),
-  },
-  {
-    label: "Booking Info",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    labelStyle: tw`font-medium`,
-    selectedLabelColor: tw.color("primary-main"),
-  },
-  {
-    label: "Opening Times",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    labelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    selectedLabelColor: tw.color("primary-main"),
-  },
-];
+import { COMMON_ROUTES } from "constants/routes";
+import RestaurantInfoTabs from "features/restaurant-info-tabs";
 
 const SingleDeal: FC = ({ route, navigation }: any) => {
   const { deal_id, location_id } = route.params as GetSingleDealProps;
-
-  const [carouselIndex, setCarouselIndex] = useState<number>(0);
 
   const {
     data: deal,
@@ -65,36 +38,6 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
     deal_id,
     location_id,
   });
-
-  const CarouselItems = useMemo(() => {
-    return deal
-      ? [
-          <MapView
-            minZoomLevel={10}
-            showsUserLocation
-            mapType="terrain"
-            showsPointsOfInterest
-            region={
-              {
-                latitude: deal.location.geometry.coordinates[1],
-                longitude: deal.location.geometry.coordinates[0],
-              } as Region
-            }
-            style={tw`h-50 m-6 mt-5 rounded-md`}
-          >
-            <Marker
-              coordinate={{
-                latitude: deal.location.geometry.coordinates[1],
-                longitude: deal.location.geometry.coordinates[0],
-              }}
-              pinColor={tw.color("primary-main")}
-            />
-          </MapView>,
-          <BookingInfo location={deal.location} restuarant={deal.restaurant} />,
-          <OpeningTimes location={deal.location} />,
-        ]
-      : [];
-  }, [deal]);
 
   const [mutateFavAdd, mutateFavRemove] = useMutateFavouriteDeal();
 
@@ -140,6 +83,9 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
 
   const goBack = () => navigation.goBack();
 
+  const navRest = () =>
+    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, { location_id });
+
   if (isLoading) return <LoadingScreen />;
 
   if (!deal || isError)
@@ -165,11 +111,13 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
         <ScrollView contentContainerStyle={tw`pb-20`}>
           <View style={tw`px-6 relative`}>
             <View style={tw` pt-5 flex-row  items-center gap-4`}>
-              <Image
-                transition={500}
-                style={tw` rounded-full  w-18  h-18  `}
-                source={{ uri: deal.restaurant.avatar }}
-              />
+              <TouchableOpacity onPress={navRest}>
+                <Image
+                  transition={500}
+                  style={tw` rounded-full  w-18  h-18  `}
+                  source={{ uri: deal.restaurant.avatar }}
+                />
+              </TouchableOpacity>
 
               <View style={tw`gap-2`}>
                 <Typography
@@ -246,21 +194,15 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
             <Divider style="mt-5 mb-2" />
           </View>
 
-          <TabController
-            onChangeIndex={(i) => setCarouselIndex(i)}
-            asCarousel
-            items={tabControllerItems}
-          >
-            <TabController.TabBar
-              indicatorStyle={tw`h-[1px] bg-primary-main `}
-              height={32}
-              spreadItems={false}
-              backgroundColor="transparent"
-              containerStyle={tw`mx-2 bg-[#00000000]`}
-              items={tabControllerItems}
-            />
-            {CarouselItems[carouselIndex]}
-          </TabController>
+          <RestaurantInfoTabs
+            address={deal.location.address}
+            email={deal.location.email}
+            geometry={deal.location.geometry}
+            name={deal.restaurant.name}
+            phone_number={deal.location.phone_number}
+            booking_link={deal.restaurant?.booking_link}
+            opening_times={deal.location.opening_times}
+          />
         </ScrollView>
       </View>
     </>

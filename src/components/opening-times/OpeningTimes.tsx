@@ -5,21 +5,15 @@ import tw from "theme/tailwind";
 import { Typography } from "components/typography";
 
 import { capitalize } from "util/string";
-
-import { ISingleLocation } from "types/single-deal";
-import { IOpeningDay } from "types/opening-times";
+import { IOpeningDay, IOpeningTimes } from "types/opening-times";
 
 type Props = {
-  location: ISingleLocation;
+  opening_times: IOpeningTimes;
   containerStyle?: string;
 };
 
 const OpeningTimes: FC<Props> = React.memo(
-  ({ location, containerStyle = "" }) => {
-    if (!location) return null;
-
-    const { opening_times } = location;
-
+  ({ opening_times, containerStyle = "" }) => {
     return (
       <View
         style={tw`gap-2 m-6 border rounded-lg border-grey-200 p-3 mt-5 ${containerStyle}`}

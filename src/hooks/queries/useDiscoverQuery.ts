@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDiscover } from "lib/api/api";
-import { POPULAR_RESTUARANTS_QUERY } from "constants/react-query";
+import { DISCOVER_QUERY } from "constants/react-query";
 
 import { minutes } from "util/time";
 
@@ -12,7 +12,7 @@ const useDiscoverQuery = () => {
   const lon = location?.longitude || 0;
   const lat = location?.latitude || 0;
 
-  const key = `${POPULAR_RESTUARANTS_QUERY}-${lon}-${lat}`;
+  const key = `${DISCOVER_QUERY}-${lon}-${lat}`;
 
   const query = useQuery({
     queryKey: [key],

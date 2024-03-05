@@ -14,11 +14,7 @@ const LocationButton: FC<Props> = ({ onPress }) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={tw`flex-row gap-2 items-center`}>
-      <Ionicons
-        name="ios-map-outline"
-        size={21}
-        color={tw.color("primary-main")}
-      />
+      <Ionicons name="map-outline" size={21} color={tw.color("primary-main")} />
       <View>
         <Typography variant="body2" style=" text-[3.25]" color="text.primary">
           {reverseGeocode

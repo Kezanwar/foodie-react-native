@@ -75,7 +75,7 @@ const Root: FC<Props> = ({ navigation }) => {
             withBorder
             icon={
               <Ionicons
-                name="ios-map-outline"
+                name="map-outline"
                 size={19}
                 color={tw.color("primary-main")}
               />

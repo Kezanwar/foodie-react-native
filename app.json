@@ -30,7 +30,9 @@
         ]
       ]
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kezanwar.foodiereactnative"
@@ -49,6 +51,9 @@
       "eas": {
         "projectId": "dc612448-f43d-4870-af12-35590fe2b0ee"
       }
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
