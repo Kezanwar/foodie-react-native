@@ -31,4 +31,6 @@ export const COMMON_ROUTES = {
   ADD_CUSTOM_LOCATION: "ADD_CUSTOM_LOCATION",
   //deal
   SINGLE_DEAL: "SINGLE_DEAL",
+  //restaurant
+  SINGLE_RESTAURANT: "SINGLE_RESTAURANT",
 } as const;

@@ -16,6 +16,7 @@ import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
 import SingleDeal from "screens/common/single-deal";
 import ForgotPassword from "screens/guest/forgot-password";
+import SingleRestaurant from "screens/common/single-restaurant";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -105,11 +106,20 @@ const RootNavigator: FC = () => {
               options={{
                 headerShown: false,
                 presentation: "modal",
-                animation: "slide_from_bottom",
+                // animation: "slide_from_bottom",
                 // gestureDirection: "vertical",
               }}
               name={COMMON_ROUTES.SINGLE_DEAL}
               component={SingleDeal}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                presentation: "modal",
+                // animation: "slide_from_bottom",
+              }}
+              name={COMMON_ROUTES.SINGLE_RESTAURANT}
+              component={SingleRestaurant}
             />
           </>
         )}

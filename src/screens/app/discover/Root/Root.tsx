@@ -16,13 +16,20 @@ import DiscoverCuisines from "features/discover-cuisines";
 
 import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import NewsCarousel from "features/news-carousel";
+import { COMMON_ROUTES } from "constants/routes";
 
-type Props = {};
+type Props = any;
 
-const Root: FC<Props> = () => {
+const Root: FC<Props> = ({ navigation }) => {
   const { data, isLoading } = useDiscoverQuery();
 
   const onCuisinePress = useCallback(() => {}, []);
+
+  const navRest = (location_id: string) =>
+    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, {
+      location_id,
+      show_cover_photo: true,
+    });
 
   if (isLoading) return <LoadingScreen />;
 
@@ -46,7 +53,10 @@ const Root: FC<Props> = () => {
       </SafeAreaView>
       <ScrollView style={tw` bg-grey-200`} contentContainerStyle={tw`gap-3`}>
         <View style={tw`bg-white p-6`}>
-          <DiscoverRestaurants restaurants={data?.data.restaurants} />
+          <DiscoverRestaurants
+            navToRest={navRest}
+            restaurants={data?.data.restaurants}
+          />
         </View>
         <View style={tw`bg-white p-6`}>
           <DiscoverCuisines

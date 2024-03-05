@@ -1,3 +1,4 @@
+import { Geometry } from "./geometry";
 import { IOpeningTimes } from "./opening-times";
 import { Option } from "./options";
 
@@ -41,11 +42,6 @@ export interface ISingleLocation {
   email: string;
   opening_times: IOpeningTimes;
   geometry: Geometry;
-}
-
-interface Geometry {
-  type: string;
-  coordinates: number[];
 }
 
 export interface ISingleRestaurant {

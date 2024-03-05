@@ -2,11 +2,14 @@ import { Dimensions, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
-import { Typography } from "components/typography";
 import { FlatList } from "react-native-gesture-handler";
 import { Fader } from "react-native-ui-lib";
 
-import StoreFront from "components/svgs/store-front";
+import { Typography } from "components/typography";
+
+import { AntDesign } from "@expo/vector-icons";
+import CarouselDivider from "components/separators/carousel-divider";
+
 import { PopularRestaurants } from "types/discover";
 import { useAppSelector } from "hooks/useAppSelector";
 
@@ -14,9 +17,10 @@ const iconCol = tw.color("primary-main");
 
 type Props = {
   restaurants?: PopularRestaurants[];
+  navToRest: (location_id: string) => void;
 };
 
-const DiscoverRestaurants: FC<Props> = ({ restaurants }) => {
+const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
   const location = useAppSelector((state) => state.location.reverseGeocode);
 
   return restaurants ? (
@@ -34,23 +38,28 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants }) => {
         showsHorizontalScrollIndicator={false}
         horizontal
         data={restaurants}
-        ItemSeparatorComponent={() => <View style={tw`w-[4vw]`} />}
+        ItemSeparatorComponent={() => <CarouselDivider />}
         snapToAlignment="start"
         decelerationRate={"fast"}
         keyExtractor={(item) => item._id}
         snapToInterval={Dimensions.get("window").width * 0.74}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity style={tw`w-[70vw] rounded-md`}>
+            <TouchableOpacity
+              onPress={() => navToRest(item._id)}
+              style={tw`w-[70vw] rounded-md`}
+            >
               <Image
-                style={tw`h-32 w-[70vw] rounded-md`}
+                style={tw`h-32 w-full rounded-md`}
                 source={{ uri: item.restaurant.cover_photo }}
               />
               <View
                 style={tw`mt-3 gap-1.5 justify-between items-center flex-row flex-wrap `}
               >
-                <View style={tw`flex-row flex-wrap gap-1.75 items-center`}>
-                  <StoreFront color={iconCol} />
+                <View
+                  style={tw`flex-row flex-wrap gap-1.75 flex-1 items-center`}
+                >
+                  <AntDesign name="isv" size={17} color={iconCol} />
                   <Typography style=" font-medium text-3.75" variant="body1">
                     {item.restaurant.name}
                   </Typography>

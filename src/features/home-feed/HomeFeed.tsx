@@ -101,7 +101,7 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
             <FilterIcon />
           ) : (
             <Ionicons
-              name="ios-map-outline"
+              name="map-outline"
               size={21}
               color={tw.color("primary-main")}
             />

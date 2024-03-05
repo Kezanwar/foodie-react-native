@@ -56,7 +56,7 @@ const Location = (props: any) => {
         </Typography>
         <View style={tw`items-center`}>
           <Ionicons
-            name="ios-map-outline"
+            name="map-outline"
             size={32}
             color={tw.color("primary-main")}
           />
