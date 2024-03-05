@@ -5,23 +5,27 @@ import { IFeedDeal } from "types/feed";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import { Typography } from "components/typography";
-import { GetSingleDealProps } from "types/single-deal";
 
 import ShareButton from "components/buttons/share-button";
 import LikeButton from "components/buttons/like-button";
+import { RouteParams } from "screens/common/single-deal/SingleDeal";
 
 type Props = {
   item: IFeedDeal;
   onShare: (name: string) => void;
   onLike: (item: IFeedDeal) => void;
-  navToDeal: (data: GetSingleDealProps) => void;
+  navToDeal: (data: RouteParams) => void;
 };
 
 const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navToDeal({ deal_id: item.deal.id, location_id: item.location.id })
+        navToDeal({
+          deal_id: item.deal.id,
+          location_id: item.location.id,
+          show_cover_photo: true,
+        })
       }
       activeOpacity={0.8}
       style={tw` bg-white px-6 py-6 `}

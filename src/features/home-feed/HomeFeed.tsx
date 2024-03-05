@@ -10,8 +10,9 @@ import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
 import { IFeedDeal } from "types/feed";
 import { COMMON_ROUTES } from "constants/routes";
-import { GetSingleDealProps } from "types/single-deal";
+
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
+import { RouteParams } from "screens/common/single-deal/SingleDeal";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -76,7 +77,7 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
     }
   };
 
-  const navToDeal = (data: GetSingleDealProps) => {
+  const navToDeal = (data: RouteParams) => {
     navigation.navigate(COMMON_ROUTES.SINGLE_DEAL, data);
   };
 

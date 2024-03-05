@@ -1,7 +1,5 @@
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import React, { FC, useMemo, useState } from "react";
-import MapView, { Marker, Region } from "react-native-maps";
-import { TabController, TabControllerItemProps } from "react-native-ui-lib";
+import React, { FC } from "react";
 import { StatusBar } from "expo-status-bar";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -11,8 +9,7 @@ import { Typography } from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
-import BookingInfo from "components/booking-info";
-import OpeningTimes from "components/opening-times/OpeningTimes";
+
 import LikeButton from "components/buttons/like-button";
 import ShareButton from "components/buttons/share-button";
 import FollowButton from "components/buttons/follow-button";
@@ -26,9 +23,13 @@ import { GetSingleDealProps } from "types/single-deal";
 import { Image } from "expo-image";
 import { COMMON_ROUTES } from "constants/routes";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
+import { RouteParams as RestRouteParams } from "../single-restaurant/SingleRestaurant";
+
+export type RouteParams = GetSingleDealProps & { show_cover_photo: boolean };
 
 const SingleDeal: FC = ({ route, navigation }: any) => {
-  const { deal_id, location_id } = route.params as GetSingleDealProps;
+  const { deal_id, location_id, show_cover_photo } =
+    route.params as RouteParams;
 
   const {
     data: deal,
@@ -84,7 +85,10 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
   const goBack = () => navigation.goBack();
 
   const navRest = () =>
-    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, { location_id });
+    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, {
+      location_id,
+      should_deal_show_cover: true,
+    } as RestRouteParams);
 
   if (isLoading) return <LoadingScreen />;
 
@@ -102,15 +106,17 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
     <>
       <StatusBar style="light" />
       <View style={tw`flex-1 bg-white`}>
-        <Image
-          transition={500}
-          style={tw`h-45 w-full `}
-          source={{ uri: deal.restaurant.cover_photo }}
-        />
+        {show_cover_photo && (
+          <Image
+            transition={500}
+            style={tw`h-45 w-full `}
+            source={{ uri: deal.restaurant.cover_photo }}
+          />
+        )}
 
         <ScrollView contentContainerStyle={tw`pb-20`}>
           <View style={tw`px-6 relative`}>
-            <View style={tw` pt-5 flex-row  items-center gap-4`}>
+            <View style={tw` pt-6 flex-row  items-center gap-4`}>
               <TouchableOpacity onPress={navRest}>
                 <Image
                   transition={500}
@@ -149,7 +155,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
               </View>
             </View>
 
-            <Divider />
+            <Divider my="6" />
 
             <View style={tw` gap-2`}>
               <View style={tw`flex-row justify-between`}>
@@ -191,7 +197,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 <ChipReadOnly key={slug} size="lg" label={name} />
               ))}
             </ChipContainer>
-            <Divider style="mt-5 mb-2" />
+            <Divider style="mt-6 mb-3" />
           </View>
 
           <RestaurantInfoTabs
