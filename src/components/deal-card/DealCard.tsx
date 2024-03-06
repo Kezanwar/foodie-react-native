@@ -47,7 +47,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
                 color={tw.color("primary-main")}
                 style={tw`-mt-0.5`}
               />
-              <Typography variant="subheader" style="text-4.5 mb-1">
+              <Typography variant="subheader" style="text-4.5  mb-1">
                 {item.deal.name}
               </Typography>
             </View>

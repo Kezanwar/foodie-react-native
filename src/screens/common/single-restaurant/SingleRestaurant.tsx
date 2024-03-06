@@ -23,6 +23,7 @@ import { COMMON_ROUTES } from "constants/routes";
 import { GetSingleDealProps } from "types/single-deal";
 import { Badge } from "react-native-ui-lib";
 import { RouteParams as DealRouteParams } from "../single-deal/SingleDeal";
+import DealButton from "components/buttons/deal-button";
 
 export type RouteParams = {
   location_id: string;
@@ -48,24 +49,24 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
   const [mutateFavAdd, mutateFavRemove] = useMutateFavouriteDeal();
 
-  // const onLike = async () => {
-  //   if (deal)
-  //     try {
-  //       if (!deal.is_favourited) {
-  //         mutateFavAdd.mutate({
-  //           deal_id: deal._id,
-  //           location_id: deal.location._id,
-  //         });
-  //       } else {
-  //         mutateFavRemove.mutate({
-  //           deal_id: deal._id,
-  //           location_id: deal.location._id,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  // };
+  const onLike = async (is_favourited: boolean, deal_id: string) => {
+    if (restaurant)
+      try {
+        if (!is_favourited) {
+          mutateFavAdd.mutate({
+            deal_id: deal_id,
+            location_id: restaurant._id,
+          });
+        } else {
+          mutateFavRemove.mutate({
+            deal_id: deal_id,
+            location_id: restaurant._id,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  };
 
   const navToDeal = (data: DealRouteParams) => {
     navigation.navigate(COMMON_ROUTES.SINGLE_DEAL, data);
@@ -210,24 +211,14 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
             <View style={tw`gap-3`}>
               {restaurant.active_deals.map((deal) => {
                 return (
-                  <TouchableOpacity
-                    style={tw` border-dashed border-[1.25px] border-primary-light p-3 rounded-md`}
-                    onPress={() =>
-                      navToDeal({
-                        deal_id: deal._id,
-                        location_id: restaurant._id,
-                        show_cover_photo: should_deal_show_cover,
-                      })
-                    }
-                  >
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      style="text-3.25"
-                    >
-                      {deal.name}
-                    </Typography>
-                  </TouchableOpacity>
+                  <DealButton
+                    deal={deal}
+                    key={deal._id}
+                    onLike={onLike}
+                    restaurant={restaurant}
+                    navToDeal={navToDeal}
+                    should_deal_show_cover={should_deal_show_cover}
+                  />
                 );
               })}
             </View>
@@ -235,7 +226,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           </View>
 
           <RestaurantInfoTabs
-            initialIndex={1}
+            initialIndex={show_cover_photo ? 0 : 1}
             address={restaurant.address}
             email={restaurant.email}
             geometry={restaurant.geometry}

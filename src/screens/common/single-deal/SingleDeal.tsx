@@ -208,6 +208,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
             phone_number={deal.location.phone_number}
             booking_link={deal.restaurant?.booking_link}
             opening_times={deal.location.opening_times}
+            initialIndex={show_cover_photo ? 0 : 1}
           />
         </ScrollView>
       </View>
