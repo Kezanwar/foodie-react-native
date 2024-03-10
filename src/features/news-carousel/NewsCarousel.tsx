@@ -11,6 +11,7 @@ import { Typography } from "components/typography";
 import CarouselDivider from "components/separators/carousel-divider";
 
 import { BlogItem } from "types/blog";
+import useBrowser from "hooks/useBrowser";
 
 const iconCol = tw.color("primary-main");
 
@@ -18,7 +19,13 @@ type Props = {
   blogs?: BlogItem[];
 };
 
-const NewsCarousel: FC<Props> = ({ blogs }) => {
+const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
+  const open = useBrowser();
+
+  const onBlogPress = (slug: string) => {
+    open(`https://www.thefoodiestaging.app/news/${slug}`);
+  };
+
   return (
     <View>
       <View style={tw`mb-5  gap-1`}>
@@ -41,7 +48,10 @@ const NewsCarousel: FC<Props> = ({ blogs }) => {
         snapToInterval={Dimensions.get("window").width * 0.74}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity style={tw`w-[70vw] rounded-md`}>
+            <TouchableOpacity
+              onPress={() => onBlogPress(item.slug)}
+              style={tw`w-[70vw] rounded-md`}
+            >
               <Image
                 style={tw`h-32 w-[70vw] rounded-md`}
                 source={{ uri: item.featuredImage }}
@@ -76,6 +86,6 @@ const NewsCarousel: FC<Props> = ({ blogs }) => {
       <Fader visible size={30} position={Fader.position.END} />
     </View>
   );
-};
+});
 
 export default NewsCarousel;
