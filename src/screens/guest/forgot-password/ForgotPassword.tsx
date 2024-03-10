@@ -26,8 +26,6 @@ type FormValues = {
 const ForgotPassword: React.FC = (props: any) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onGoBack = () => props.navigation.goBack();
-
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
   };
@@ -51,7 +49,7 @@ const ForgotPassword: React.FC = (props: any) => {
       await changePassword(data.email);
       setIsLoading(false);
       enqSnack({ message: `Email sent to ${data.email}.`, variant: "success" });
-      onGoBack();
+      props.navigation.goBack();
     } catch (error) {
       catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);
@@ -102,7 +100,11 @@ const ForgotPassword: React.FC = (props: any) => {
               onPress={handleSubmit(onDone)}
               text="Submit"
             />
-            <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
+            <TextButton
+              label="Go back"
+              style={tw`mt-4`}
+              onPress={props.navigation.goBack}
+            />
           </View>
         </View>
       </KeyboardDismissingView>

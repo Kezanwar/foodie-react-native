@@ -21,7 +21,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import LocationErrorAlert from "components/location-error-alert";
 
 const Location = (props: any) => {
-  const onDone = () => props.navigation.goBack();
   const { reverseGeocode, error } = useAppSelector((state) => state.location);
 
   const requestLocation = useRequestLocation();
@@ -44,7 +43,7 @@ const Location = (props: any) => {
           loading={false}
           headerText="Location"
           rightActionText="Done"
-          rightActionOnPress={onDone}
+          rightActionOnPress={props.navigation.goBack}
         />
         <Typography
           variant="body2"

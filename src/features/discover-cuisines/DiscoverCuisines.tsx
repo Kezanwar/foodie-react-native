@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React, { FC } from "react";
 import { Fader } from "react-native-ui-lib";
 import tw from "theme/tailwind";
@@ -13,7 +13,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = {
   cuisines?: Option[];
-  onCuisinePress: () => void;
+  onCuisinePress: (option: Option) => void;
 };
 
 const DiscoverCuisines: FC<Props> = React.memo(
@@ -37,7 +37,7 @@ const DiscoverCuisines: FC<Props> = React.memo(
               bgColor="grey-200"
               color="text.primary"
               text={item.name}
-              onPress={onCuisinePress}
+              onPress={() => onCuisinePress(item)}
             />
           ))}
         </ChipContainer>

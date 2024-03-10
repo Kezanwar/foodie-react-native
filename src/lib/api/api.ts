@@ -11,9 +11,11 @@ import { FavouriteDealRequest, FavouriteDealResponse } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
-import { FollowRestRequest, FollowRestResponse } from "types/following";
+import { FollowRestResponse } from "types/following";
 import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
+import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
+import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -110,28 +112,28 @@ export const getFeed = async (
       }`
     )
     .then((res) => {
-      console.log("Home Feed API Request");
+      console.log("Feed API Request");
       return res.data;
     });
 };
 
 //* FAVOURITES
 
-export const favouriteDeal = (data: FavouriteDealRequest) => {
+export const favouriteDeal = (data: FavMutationArg) => {
   return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
 };
 
-export const unFavouriteDeal = (data: FavouriteDealRequest) => {
+export const unFavouriteDeal = (data: FavMutationArg) => {
   return axiosInstance.patch<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
 };
 
 //* FOLLOWS
 
-export const followRestaurant = (data: FollowRestRequest) => {
+export const followRestaurant = (data: FollowMutationArg) => {
   return axiosInstance.post<FollowRestResponse>(APP_ENDPOINTS.follow, data);
 };
 
-export const unFollowRestaurant = (data: FollowRestRequest) => {
+export const unFollowRestaurant = (data: FollowMutationArg) => {
   return axiosInstance.patch<FollowRestResponse>(APP_ENDPOINTS.follow, data);
 };
 

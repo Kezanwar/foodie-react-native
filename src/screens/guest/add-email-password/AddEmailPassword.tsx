@@ -47,8 +47,6 @@ const AddEmailPassword: React.FC = (props: any) => {
 
   const enqueueSnack = useSnackbar();
 
-  const onGoBack = () => props.navigation.goBack();
-
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
     password: "",
@@ -161,7 +159,11 @@ const AddEmailPassword: React.FC = (props: any) => {
               onPress={handleSubmit(onDone)}
               text="Done"
             />
-            <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
+            <TextButton
+              label="Go back"
+              style={tw`mt-4`}
+              onPress={props.navigation.goBack}
+            />
           </View>
         </View>
       </KeyboardDismissingView>

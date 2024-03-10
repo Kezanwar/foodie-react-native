@@ -102,25 +102,6 @@ const RootNavigator: FC = () => {
               name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
               component={AddCustomLocation}
             />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                presentation: "modal",
-                // animation: "slide_from_bottom",
-                // gestureDirection: "vertical",
-              }}
-              name={COMMON_ROUTES.SINGLE_DEAL}
-              component={SingleDeal}
-            />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                presentation: "modal",
-                // animation: "slide_from_bottom",
-              }}
-              name={COMMON_ROUTES.SINGLE_RESTAURANT}
-              component={SingleRestaurant}
-            />
           </>
         )}
       </RootStack.Group>

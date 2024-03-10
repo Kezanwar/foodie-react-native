@@ -34,10 +34,6 @@ const Cuisines = (props: any) => {
     dispatch(setCuisineFilterForm(index));
   }, []);
 
-  const onDone = () => {
-    props.navigation.goBack();
-  };
-
   const alphabetSearchMap = useMemo(() => {
     return cuisinesForm ? createAlphabetCuisinesSearchMap(cuisinesForm) : {};
   }, [cuisinesForm]);
@@ -67,7 +63,7 @@ const Cuisines = (props: any) => {
           mb={false}
           headerText="Cuisines"
           rightActionText="Done"
-          rightActionOnPress={onDone}
+          rightActionOnPress={props.navigation.goBack}
         />
       </View>
 
