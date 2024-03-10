@@ -7,7 +7,7 @@ type Props = { onDismissedModal: () => void };
 
 const FilterSheet = forwardRef<BottomSheetModal, Props>(
   ({ onDismissedModal }, ref) => {
-    const snapPoints = useMemo(() => ["95%"], []);
+    const snapPoints = useMemo(() => ["40%", "95%"], []);
 
     return (
       <BottomSheetModal

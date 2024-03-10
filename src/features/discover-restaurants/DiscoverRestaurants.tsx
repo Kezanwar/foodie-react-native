@@ -64,13 +64,13 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
                     {item.restaurant.name}
                   </Typography>
 
-                  <Typography
+                  {/* <Typography
                     style="text-3.25"
                     variant="body1"
                     color="text.secondary"
                   >
                     ({item.location.nickname})
-                  </Typography>
+                  </Typography> */}
                 </View>
                 <Typography
                   variant="body2"

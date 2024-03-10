@@ -1,41 +1,37 @@
 import { Alert, FlatList, Share } from "react-native";
 import React, { FC } from "react";
-import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
+
 import DealCard from "components/deal-card";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
-import { useAppSelector } from "hooks/useAppSelector";
-import FilterIcon from "components/svgs/filter-icon";
+
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
 import { IFeedDeal } from "types/feed";
-import { HOME_STACK } from "constants/routes";
+import { DISCOVER_STACK } from "constants/routes";
 
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import { RouteParams } from "screens/common/single-deal/SingleDeal";
+import useCategoryFeedQuery from "hooks/queries/useCategoryFeedQuery";
+import { Option } from "types/options";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
 type Props = {
-  openFilters: () => void;
-  navToLocation: () => void;
   navigation: any;
+  category: Option;
 };
 
-const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
+const CategoryFeed: FC<Props> = ({ category, navigation }) => {
   const {
     data: feedData,
     fetchNextPage,
     refetch,
     isRefetching,
     isLoading,
-  } = useHomeFeedQuery(0);
+  } = useCategoryFeedQuery(0, category.slug);
 
   const data = feedData?.pages.map((p) => p.deals).flat(1) || [];
-
-  const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.home.filters
-  );
 
   const onShare = async (title: string) => {
     try {
@@ -72,8 +68,8 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
   };
 
   const navToDeal = (data: RouteParams) => {
-    data.stack = HOME_STACK;
-    navigation.navigate(HOME_STACK.SINGLE_DEAL, data);
+    data.stack = DISCOVER_STACK;
+    navigation.navigate(DISCOVER_STACK.SINGLE_DEAL, data);
   };
 
   if (isLoading) {
@@ -81,27 +77,18 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
   }
 
   if (!data?.length) {
-    const hasFilters = cuisines.length + dietary_requirements.length > 0;
     return (
       <EmptyState
         title="No results found"
-        description={`Sorry, we couldn't find any results ${
-          hasFilters
-            ? "for your applied filters within your chosen location"
-            : "within your chosen location"
-        }.`}
-        action={hasFilters ? openFilters : navToLocation}
-        actionText={hasFilters ? "Adjust Your Filters" : "Change Location"}
+        description={`Sorry, we couldn't find any results.`}
+        action={navigation.goBack}
+        actionText={"Error"}
         actionIcon={
-          hasFilters ? (
-            <FilterIcon />
-          ) : (
-            <Ionicons
-              name="map-outline"
-              size={21}
-              color={tw.color("primary-main")}
-            />
-          )
+          <Ionicons
+            name="map-outline"
+            size={21}
+            color={tw.color("primary-main")}
+          />
         }
       />
     );
@@ -128,4 +115,4 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
   );
 };
 
-export default HomeFeed;
+export default CategoryFeed;

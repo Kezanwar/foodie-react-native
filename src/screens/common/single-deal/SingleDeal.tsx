@@ -1,6 +1,6 @@
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
-import { StatusBar } from "expo-status-bar";
+
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -21,14 +21,18 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { GetSingleDealProps } from "types/single-deal";
 import { Image } from "expo-image";
-import { COMMON_ROUTES } from "constants/routes";
+import { DynamicStack } from "constants/routes";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
 import { RouteParams as RestRouteParams } from "../single-restaurant/SingleRestaurant";
+import CoverBackButton from "components/cover-back-button";
 
-export type RouteParams = GetSingleDealProps & { show_cover_photo: boolean };
+export type RouteParams = GetSingleDealProps & {
+  show_cover_photo: boolean;
+  stack?: DynamicStack;
+};
 
 const SingleDeal: FC = ({ route, navigation }: any) => {
-  const { deal_id, location_id, show_cover_photo } =
+  const { deal_id, location_id, show_cover_photo, stack } =
     route.params as RouteParams;
 
   const {
@@ -40,54 +44,41 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
     location_id,
   });
 
-  const [mutateFavAdd, mutateFavRemove] = useMutateFavouriteDeal();
+  const mutateFav = useMutateFavouriteDeal();
 
   const onLike = async () => {
     if (deal)
       try {
-        if (!deal.is_favourited) {
-          mutateFavAdd.mutate({
-            deal_id: deal._id,
-            location_id: deal.location._id,
-          });
-        } else {
-          mutateFavRemove.mutate({
-            deal_id: deal._id,
-            location_id: deal.location._id,
-          });
-        }
+        mutateFav.mutate({
+          deal_id: deal._id,
+          location_id: deal.location._id,
+          is_favourited: deal.is_favourited,
+        });
       } catch (error) {
         console.log(error);
       }
   };
 
-  const [mutateFollowAdd, mutateFollowRemove] = useMutateFollowingRest();
+  const mutateFollow = useMutateFollowingRest();
 
   const onFollow = async () => {
     if (deal)
       try {
-        if (deal.is_following) {
-          mutateFollowRemove.mutate({
-            location_id: deal.location._id,
-            rest_id: deal.restaurant.id,
-          });
-        } else {
-          mutateFollowAdd.mutate({
-            location_id: deal.location._id,
-            rest_id: deal.restaurant.id,
-          });
-        }
+        mutateFollow.mutate({
+          location_id: deal.location._id,
+          rest_id: deal.restaurant.id,
+          is_following: deal.is_following,
+        });
       } catch (error) {
         console.log(error);
       }
   };
 
-  const goBack = () => navigation.goBack();
-
   const navRest = () =>
-    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, {
+    navigation.navigate(stack?.SINGLE_RESTAURANT, {
       location_id,
       should_deal_show_cover: true,
+      stack,
     } as RestRouteParams);
 
   if (isLoading) return <LoadingScreen />;
@@ -97,26 +88,23 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
       <EmptyState
         title="Oops!"
         description="Sorry we can't seem to find that deal, it may have been deleted"
-        action={goBack}
+        action={navigation.goBack}
         actionText="Go back"
       />
     );
 
   return (
     <>
-      <StatusBar style="light" />
       <View style={tw`flex-1 bg-white`}>
-        {show_cover_photo && (
-          <Image
-            transition={500}
-            style={tw`h-45 w-full `}
-            source={{ uri: deal.restaurant.cover_photo }}
-          />
-        )}
+        <CoverBackButton
+          cover_photo={deal.restaurant.cover_photo}
+          goBack={navigation.goBack}
+          show_cover_photo={show_cover_photo}
+        />
 
         <ScrollView contentContainerStyle={tw`pb-20`}>
           <View style={tw`px-6 relative`}>
-            <View style={tw` pt-6 flex-row  items-center gap-4`}>
+            <View style={tw` pt-3 flex-row  items-center gap-4`}>
               <TouchableOpacity onPress={navRest}>
                 <Image
                   transition={500}
@@ -176,7 +164,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 <View
                   style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}
                 >
-                  <ShareButton onPress={goBack} />
+                  <ShareButton onPress={navigation.goBack} />
                   <LikeButton liked={deal.is_favourited} onPress={onLike} />
                 </View>
               </View>

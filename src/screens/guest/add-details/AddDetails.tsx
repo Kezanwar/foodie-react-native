@@ -27,8 +27,6 @@ const AddDetails: React.FC = (props: any) => {
 
   const dispatch = useAppDispatch();
 
-  const onGoBack = () => props.navigation.goBack();
-
   const onDone: SubmitHandler<FormValues> = (data) => {
     dispatch(addRegisterDetails({ ...data }));
     props.navigation.navigate(AUTH_ROUTES.ADD_EMAIL_PASSWORD);
@@ -79,7 +77,11 @@ const AddDetails: React.FC = (props: any) => {
           </View>
           <View style={tw`flex-1 justify-end`}>
             <FullWidthButton onPress={handleSubmit(onDone)} text="Done" />
-            <TextButton label="Go back" style={tw`mt-4`} onPress={onGoBack} />
+            <TextButton
+              label="Go back"
+              style={tw`mt-4`}
+              onPress={props.navigation.goBack}
+            />
           </View>
         </View>
       </KeyboardDismissingView>

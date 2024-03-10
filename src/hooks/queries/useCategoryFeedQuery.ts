@@ -3,32 +3,25 @@ import { getFeed } from "lib/api/api";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { DealInfinitePage } from "types/feed";
-import { parseFiltersToParams } from "util/api";
+
 import { minutes } from "util/time";
 import { createFeedQueryKey } from "util/queries";
+import { parseFiltersToParams } from "util/api";
 
-const useHomeFeedQuery = (page: number = 0) => {
+const useCategoryFeedQuery = (page: number = 0, category: string) => {
   const location = useAppSelector((state) => state.location.location?.coords);
-  const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.home.filters
-  );
-
-  const cuisinesParam = parseFiltersToParams("cuisines", cuisines);
-
-  const dietaryParam = parseFiltersToParams(
-    "dietary_requirements",
-    dietary_requirements
-  );
 
   const lon = location?.longitude || 0;
   const lat = location?.latitude || 0;
 
-  const key = createFeedQueryKey(lat, lon, cuisinesParam, dietaryParam);
+  const catParam = parseFiltersToParams("cuisines", category);
+
+  const key = createFeedQueryKey(lat, lon, catParam, "");
 
   const query = useInfiniteQuery<DealInfinitePage, Error>({
     initialPageParam: page,
     queryFn: ({ pageParam }) =>
-      getFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
+      getFeed(pageParam as number, lon, lat, catParam, ""),
     queryKey: [key],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
     staleTime: minutes(10),
@@ -37,7 +30,7 @@ const useHomeFeedQuery = (page: number = 0) => {
   return query;
 };
 
-export default useHomeFeedQuery;
+export default useCategoryFeedQuery;
 
 export type FeedQState =
   | {

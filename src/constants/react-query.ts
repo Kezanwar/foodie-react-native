@@ -2,7 +2,7 @@ export const OPTIONS_QUERY = "OPTIONS";
 
 export const PREFERENCES_QUERY = "PREFERENCES";
 
-export const HOME_FEED_QUERY = "HOME_FEED";
+export const FEED_QUERY = "FEED_QUERY";
 
 export const SINGLE_DEAL_QUERY = "SINGLE_DEAL";
 

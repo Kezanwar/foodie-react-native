@@ -1,21 +1,31 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
-type Props = TouchableOpacityProps;
+type Props = TouchableOpacityProps & {
+  isAbsolute?: boolean;
+  withPad?: boolean;
+};
 
-const iconCol = tw.color("grey-500");
+const iconCol = tw.color("primary-main");
 
-const BackButton: FC<Props> = (props) => {
+const BackButton: FC<Props> = ({ isAbsolute, withPad = true, ...rest }) => {
   return (
-    <TouchableOpacity {...props} style={tw`gap-1 flex-row items-center`}>
-      <MaterialCommunityIcons name="arrow-left" size={20} color={iconCol} />
-      <Typography style="font-regular text-3.2 text-grey-500" variant="body1">
-        Back
-      </Typography>
+    <TouchableOpacity
+      {...rest}
+      style={tw`${
+        isAbsolute
+          ? "absolute left-6 top-12 bg-[#46484970] shadow-lg rounded-full px-2 py-0.5"
+          : `${withPad ? "px-6" : ""}  mb-3`
+      }`}
+    >
+      <AntDesign
+        name="arrowleft"
+        size={18}
+        color={isAbsolute ? "white" : iconCol}
+      />
     </TouchableOpacity>
   );
 };

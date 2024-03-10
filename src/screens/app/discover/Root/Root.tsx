@@ -16,19 +16,23 @@ import DiscoverCuisines from "features/discover-cuisines";
 
 import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import NewsCarousel from "features/news-carousel";
-import { COMMON_ROUTES } from "constants/routes";
+import { DISCOVER_STACK } from "constants/routes";
+import { Option } from "types/options";
 
 type Props = any;
 
 const Root: FC<Props> = ({ navigation }) => {
   const { data, isLoading } = useDiscoverQuery();
 
-  const onCuisinePress = useCallback(() => {}, []);
+  const onCuisinePress = useCallback((option: Option) => {
+    navigation.navigate(DISCOVER_STACK.CATEGORY, option);
+  }, []);
 
   const navRest = (location_id: string) =>
-    navigation.navigate(COMMON_ROUTES.SINGLE_RESTAURANT, {
+    navigation.navigate(DISCOVER_STACK.SINGLE_RESTAURANT, {
       location_id,
       show_cover_photo: true,
+      stack: DISCOVER_STACK,
     });
 
   if (isLoading) return <LoadingScreen />;

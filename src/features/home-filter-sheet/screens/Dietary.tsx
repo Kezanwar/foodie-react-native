@@ -28,10 +28,6 @@ const Dietary = (props: any) => {
     dispatch(setDietaryReqFilterForm(index));
   }, []);
 
-  const onDone = () => {
-    props.navigation.goBack();
-  };
-
   return (
     <StaticScreenWrapper>
       <View style={tw`pl-6 pr-4`}>
@@ -40,7 +36,7 @@ const Dietary = (props: any) => {
           mb={false}
           headerText="Dietary Requirements"
           rightActionText="Done"
-          rightActionOnPress={onDone}
+          rightActionOnPress={props.navigation.goBack}
         />
       </View>
 
