@@ -1,16 +1,13 @@
 import { SafeAreaView } from "react-native";
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import tw from "theme/tailwind";
 
-import {
-  getInitialPreferencesDone,
-  setInitialPreferencesDone,
-  shouldUseCurrentLocation,
-} from "lib/storage/storage";
+import tw from "theme/tailwind";
+import ls from "lib/storage/storage";
+
 import { endSession } from "lib/axios/axios";
 import { authLogout } from "store/auth/auth.slice";
-import { COMMON_ROUTES, HOME_STACK } from "constants/routes";
+import { COMMON_ROUTES } from "constants/routes";
 
 import { LoadingScreen } from "components/loading-screen";
 
@@ -25,7 +22,7 @@ import HomeFeed from "features/home-feed/HomeFeed";
 import { RootHeader } from "features/headers/home";
 import { HomeFilterSheet } from "features/home-filter-sheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import TextButton from "components/buttons/text-button";
+
 import { onSaveFilterForm } from "store/home/home.slice";
 
 const Home: FC<any> = (props) => {
@@ -36,7 +33,7 @@ const Home: FC<any> = (props) => {
   );
   const client = useQueryClient();
   const { data, isLoading } = usePreferencesQuery();
-  const hasInitialPref = getInitialPreferencesDone();
+  const hasInitialPref = ls.getInitialPreferencesDone();
 
   useEffect(() => {
     if (
@@ -45,7 +42,7 @@ const Home: FC<any> = (props) => {
       !data?.data?.preferences?.cuisines?.length
     ) {
       props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
-      setInitialPreferencesDone();
+      ls.setInitialPreferencesDone();
     }
   }, [isLoading, data?.data?.preferences?.cuisines, true]);
 

@@ -5,7 +5,7 @@ import {
   setLocationError,
   setLocationObject,
 } from "store/location/location.slice";
-import { setShouldUseCurrentLocation } from "lib/storage/storage";
+import ls from "lib/storage/storage";
 import useSnackbar from "./useSnackbar";
 
 const useRequestLocation = () => {
@@ -34,7 +34,7 @@ const useRequestLocation = () => {
     });
 
     dispatch(setLocationObject({ location, reverseGeocode: geo[0] || null }));
-    setShouldUseCurrentLocation(true);
+    ls.setShouldUseCurrentLocation(true);
   }, []);
   return request;
 };

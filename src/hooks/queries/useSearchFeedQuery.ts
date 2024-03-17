@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getFeed } from "lib/api/api";
+import { getSearchFeed } from "lib/api/api";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { DealInfinitePage } from "types/feed";
@@ -8,38 +8,33 @@ import { minutes } from "util/time";
 import { createFeedQueryKey } from "util/queries";
 import { useMemo } from "react";
 
-const useHomeFeedQuery = (page: number = 0) => {
+const useSearchFeedQuery = (page: number = 0) => {
   const location = useAppSelector((state) => state.location.location?.coords);
-  const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.home.filters
-  );
+  const text = useAppSelector((state) => state.discover.searchSubmitText);
 
-  const cuisinesParam = useMemo(() => {
-    return parseFiltersToParams("cuisines", cuisines);
-  }, [cuisines]);
-
-  const dietaryParam = useMemo(() => {
-    return parseFiltersToParams("dietary_requirements", dietary_requirements);
-  }, [dietary_requirements]);
+  const textParam = useMemo(() => {
+    return parseFiltersToParams("text", text);
+  }, [text]);
 
   const lon = location?.longitude || 0;
   const lat = location?.latitude || 0;
 
-  const key = createFeedQueryKey(lat, lon, cuisinesParam, dietaryParam, "");
+  const key = createFeedQueryKey(lat, lon, "", "", textParam);
 
   const query = useInfiniteQuery<DealInfinitePage, Error>({
     initialPageParam: page,
     queryFn: ({ pageParam }) =>
-      getFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
+      getSearchFeed(pageParam as number, lon, lat, textParam),
     queryKey: [key],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
     staleTime: minutes(10),
+    enabled: !!text,
   });
 
   return query;
 };
 
-export default useHomeFeedQuery;
+export default useSearchFeedQuery;
 
 export type FeedQState =
   | {

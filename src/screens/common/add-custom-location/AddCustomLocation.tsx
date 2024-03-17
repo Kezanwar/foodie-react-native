@@ -1,25 +1,30 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { StaticScreenWrapper } from "components/screen-wrapper";
-import tw from "theme/tailwind";
-import { CustomTextField } from "components/form/custom-text-field";
-import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
-import Alert from "components/alert/Alert";
-import TextButton from "components/buttons/text-button";
-import { Typography } from "components/typography";
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import {
   LocationGeocodedAddress,
   LocationGeocodedLocation,
   geocodeAsync,
   reverseGeocodeAsync,
 } from "expo-location";
-import { catchErrorHandler } from "util/error";
 import Animated, { FadeInUp } from "react-native-reanimated";
-import { Entypo } from "@expo/vector-icons";
+
+import tw from "theme/tailwind";
+import ls from "lib/storage/storage";
+
+import { StaticScreenWrapper } from "components/screen-wrapper";
+import { CustomTextField } from "components/form/custom-text-field";
+import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
+import Alert from "components/alert/Alert";
+import TextButton from "components/buttons/text-button";
+import { Typography } from "components/typography";
+
 import useAppDispatch from "hooks/useAppDispatch";
+
+import { catchErrorHandler } from "util/error";
+
 import { setLocationObject } from "store/location/location.slice";
-import { setShouldUseCurrentLocation } from "lib/storage/storage";
 
 const PRIM = tw.color("primary-main");
 
@@ -94,6 +99,7 @@ const AddCustomLocation = (props: any) => {
               speed: null,
             },
           },
+          //@ts-ignore
           reverseGeocode: {
             city,
             country,
@@ -109,7 +115,7 @@ const AddCustomLocation = (props: any) => {
           },
         })
       );
-      setShouldUseCurrentLocation(false);
+      ls.setShouldUseCurrentLocation(false);
       props.navigation.navigate("Home");
     }
   };
@@ -141,7 +147,7 @@ const AddCustomLocation = (props: any) => {
             <ActivityIndicator size={"small"} color={PRIM} />
           ) : (
             <TouchableOpacity onPress={onSearch}>
-              <AntDesign name="search1" size={26} color={PRIM} />
+              <AntDesign name="search1" size={23} color={PRIM} />
             </TouchableOpacity>
           )}
         </View>

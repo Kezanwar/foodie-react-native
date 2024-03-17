@@ -1,44 +1,52 @@
 import { STORAGE_KEYS } from "constants/storage";
 import { MMKV } from "react-native-mmkv";
 
-const storage = new MMKV();
+const mmkv = new MMKV();
 
-//auth access token
+class LocalStorage {
+  //default
+  clearStorage() {
+    mmkv.clearAll();
+  }
 
-export const clearStorage = () => {
-  storage.clearAll();
-};
+  //access token
+  storeAccessToken(accessToken: string) {
+    mmkv.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+  }
+  getAccessToken() {
+    return mmkv.getString(STORAGE_KEYS.ACCESS_TOKEN) || "";
+  }
+  clearAccessToken() {
+    mmkv.delete(STORAGE_KEYS.ACCESS_TOKEN);
+  }
 
-export const storeAccessToken = (accessToken: string) => {
-  storage.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-};
+  //preferences
+  getInitialPreferencesDone() {
+    return mmkv.getBoolean(STORAGE_KEYS.INITIAL_PREFERENCES);
+  }
+  setInitialPreferencesDone() {
+    mmkv.set(STORAGE_KEYS.INITIAL_PREFERENCES, true);
+  }
 
-export const getAccessToken: () => string = () => {
-  return storage.getString(STORAGE_KEYS.ACCESS_TOKEN) || "";
-};
+  //location
+  getShouldUseCurrentLocation() {
+    return mmkv.getBoolean(STORAGE_KEYS.USE_CURRENT_LOCATION);
+  }
+  setShouldUseCurrentLocation(should: boolean) {
+    mmkv.set(STORAGE_KEYS.USE_CURRENT_LOCATION, should);
+  }
 
-export const clearAccessToken = () => {
-  storage.delete(STORAGE_KEYS.ACCESS_TOKEN);
-};
+  //search history
+  setSearchHistory(history: string[]) {
+    mmkv.set(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(history));
+  }
+  getSearchHistory(): string[] {
+    const h = mmkv.getString(STORAGE_KEYS.SEARCH_HISTORY);
+    if (h) return JSON.parse(h);
+    else return [];
+  }
+}
 
-//initial preferences
+const ls = new LocalStorage();
 
-export const getInitialPreferencesDone: () => boolean | undefined = () => {
-  return storage.getBoolean(STORAGE_KEYS.INITIAL_PREFERENCES);
-};
-
-export const setInitialPreferencesDone = () => {
-  storage.set(STORAGE_KEYS.INITIAL_PREFERENCES, true);
-};
-
-//location
-
-export const shouldUseCurrentLocation: () => boolean | undefined = () => {
-  return storage.getBoolean(STORAGE_KEYS.USE_CURRENT_LOCATION);
-};
-
-export const setShouldUseCurrentLocation: (should: boolean) => void = (
-  should
-) => {
-  storage.set(STORAGE_KEYS.USE_CURRENT_LOCATION, should);
-};
+export default ls;

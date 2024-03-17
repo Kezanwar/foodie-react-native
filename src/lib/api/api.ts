@@ -44,6 +44,7 @@ const APP_ENDPOINTS = {
   patchProfile: "/account/profile",
   //discover
   getDiscover: "/cust/discover",
+  getSearchFeed: "/cust/deals/search",
   //restaurant
   getSingleRestaurant: "/cust/restaurant",
 };
@@ -164,6 +165,22 @@ export const getDiscover = (long: number, lat: number) => {
   return axiosInstance.get<DiscoverResponse>(
     `${APP_ENDPOINTS.getDiscover}?lat=${lat}&long=${long}`
   );
+};
+
+export const getSearchFeed = async (
+  page: number,
+  long: number,
+  lat: number,
+  search_text: string
+) => {
+  return axiosInstance
+    .get<DealInfinitePage>(
+      `${APP_ENDPOINTS.getSearchFeed}/?page=${page}&long=${long}&lat=${lat}${search_text}`
+    )
+    .then((res) => {
+      console.log("Search Feed API Request", res.data.deals.length);
+      return res.data;
+    });
 };
 
 //* SINGLE RESTAURANT
