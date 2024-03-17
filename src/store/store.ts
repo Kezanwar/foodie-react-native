@@ -8,6 +8,7 @@ import createAccountReducer from "./create-account/create-account.slice";
 import preferencesReducer from "./preferences/preferences.slice";
 import locationReducer from "./location/location.slice";
 import homeReducer from "./home/home.slice";
+import discoverReducer from "./discover/discover.slice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     preferences: preferencesReducer,
     location: locationReducer,
     home: homeReducer,
+    discover: discoverReducer,
   },
 });

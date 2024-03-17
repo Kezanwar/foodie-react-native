@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 type Props = ViewProps & {
-  containerStyle: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 const KeyboardDismissingView: React.FC<Props> = ({

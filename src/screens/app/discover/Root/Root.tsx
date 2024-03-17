@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { FC, useCallback } from "react";
@@ -18,11 +19,49 @@ import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import NewsCarousel from "features/news-carousel";
 import { DISCOVER_STACK } from "constants/routes";
 import { Option } from "types/options";
+import SearchSuggestions from "components/search-suggestions";
+import { DiscoverResponse } from "types/discover";
+import useAppDispatch from "hooks/useAppDispatch";
+import {
+  handleSubmitSearch,
+  onClearSearchText,
+  setIsSearchFocusedOff,
+  setIsSearchFocusedOn,
+  setSearchText,
+} from "store/discover/discover.slice";
+import { useAppSelector } from "hooks/useAppSelector";
+
+import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 
 type Props = any;
 
+const PRIM = tw.color("primary-main");
+
 const Root: FC<Props> = ({ navigation }) => {
   const { data, isLoading } = useDiscoverQuery();
+
+  const dispatch = useAppDispatch();
+
+  const handleUpdateSearch = (s: string) => {
+    dispatch(setSearchText(s));
+  };
+
+  const { isSearchFocused, searchInputText, searchSubmitText } = useAppSelector(
+    (state) => state.discover
+  );
+
+  const hasSubmitted = !!searchSubmitText;
+
+  const { data: searchFeedData, isLoading: searchFeedIsLoading } =
+    useSearchFeedQuery();
+
+  const handleSetSearchFocusedOn = () => dispatch(setIsSearchFocusedOn());
+
+  const handleClearText = () => dispatch(onClearSearchText());
+
+  const handleSetSearchFocusedOff = () => dispatch(setIsSearchFocusedOff());
+
+  const handleOnSearchSubmit = () => dispatch(handleSubmitSearch());
 
   const onCuisinePress = useCallback((option: Option) => {
     navigation.navigate(DISCOVER_STACK.CATEGORY, option);
@@ -39,39 +78,85 @@ const Root: FC<Props> = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView style={tw`bg-white`}>
-        <HeaderContainer style="pb-4">
-          <CustomTextField
-            actionIcon={
-              <AntDesign
-                name="search1"
-                size={18}
-                color={tw.color("primary-main")}
-              />
-              //   <ActivityIndicator size={18} color={tw.color("primary-main")} />
-            }
-            actionOnPress={() => {}}
-            placeholder="Type to search..."
-          />
+      <SafeAreaView style={tw`bg-white z-10`}>
+        <HeaderContainer style="pb-4 relative">
+          <View style={tw`flex-row items-center gap-2`}>
+            <CustomTextField
+              value={searchInputText}
+              containerStyle={tw`flex-1`}
+              actionIcon={
+                <AntDesign
+                  name="closecircleo"
+                  size={18}
+                  color={tw.color("grey-600")}
+                />
+              }
+              actionOnPress={
+                searchInputText?.length ? handleClearText : undefined
+              }
+              onFocus={handleSetSearchFocusedOn}
+              onBlur={handleSetSearchFocusedOff}
+              onChangeText={handleUpdateSearch}
+              placeholder="Type to search..."
+            />
+            {searchFeedIsLoading ? (
+              <ActivityIndicator size={"small"} color={PRIM} />
+            ) : (
+              <TouchableOpacity onPress={handleOnSearchSubmit}>
+                <AntDesign name="search1" size={23} color={PRIM} />
+              </TouchableOpacity>
+            )}
+          </View>
+          {isSearchFocused && (
+            <SearchSuggestions onSuggestionPress={() => {}} />
+          )}
         </HeaderContainer>
       </SafeAreaView>
-      <ScrollView style={tw` bg-grey-200`} contentContainerStyle={tw`gap-3`}>
-        <View style={tw`bg-white p-6`}>
-          <DiscoverRestaurants
+
+      <ScrollView
+        style={tw`bg-grey-200 relative`}
+        contentContainerStyle={tw`gap-3 z-0 `}
+      >
+        {(!hasSubmitted || searchFeedIsLoading) && data?.data && (
+          <DiscoverBaseContent
             navToRest={navRest}
-            restaurants={data?.data.restaurants}
-          />
-        </View>
-        <View style={tw`bg-white p-6`}>
-          <DiscoverCuisines
             onCuisinePress={onCuisinePress}
-            cuisines={data?.data.cuisines}
+            data={data?.data}
           />
-        </View>
-        <View style={tw`bg-white p-6`}>
-          <NewsCarousel blogs={data?.data.blogs} />
-        </View>
+        )}
       </ScrollView>
+    </>
+  );
+};
+
+type DiscoverBaseContentProps = {
+  data: DiscoverResponse;
+  navToRest: (location_id: string) => void;
+  onCuisinePress: (option: Option) => void;
+};
+
+const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
+  data,
+  navToRest,
+  onCuisinePress,
+}) => {
+  return (
+    <>
+      <View style={tw`bg-white p-6`}>
+        <DiscoverRestaurants
+          navToRest={navToRest}
+          restaurants={data?.restaurants}
+        />
+      </View>
+      <View style={tw`bg-white p-6`}>
+        <DiscoverCuisines
+          onCuisinePress={onCuisinePress}
+          cuisines={data?.cuisines}
+        />
+      </View>
+      <View style={tw`bg-white p-6`}>
+        <NewsCarousel blogs={data?.blogs} />
+      </View>
     </>
   );
 };

@@ -1,12 +1,13 @@
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import ls from "lib/storage/storage";
 import { useAppSelector } from "hooks/useAppSelector";
 import { authLogin, authLogout } from "store/auth/auth.slice";
 
 import { initializeJWT } from "lib/api/api";
 import { setSession } from "lib/axios/axios";
-import { clearAccessToken, getAccessToken } from "lib/storage/storage";
+
 import { LoadingScreen } from "components/loading-screen";
 
 type Props = {
@@ -21,7 +22,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
 
   const initialize = useCallback(async () => {
     try {
-      const accessToken = getAccessToken();
+      const accessToken = ls.getAccessToken();
       if (!accessToken) throw new Error("no token");
       setSession(accessToken);
       const res = await initializeJWT();
@@ -31,7 +32,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
       dispatch(authLogin(user));
     } catch (error) {
       dispatch(authLogout());
-      clearAccessToken();
+      ls.clearAccessToken();
     }
   }, []);
 
