@@ -1,5 +1,5 @@
 import { Alert, FlatList, Share } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
 import DealCard from "components/deal-card";
 import tw from "theme/tailwind";
@@ -31,7 +31,10 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
     isLoading,
   } = useHomeFeedQuery(0);
 
-  const data = feedData?.pages.map((p) => p.deals).flat(1) || [];
+  const data = useMemo(
+    () => feedData?.pages.map((p) => p.deals).flat(1) || [],
+    [feedData]
+  );
 
   const { cuisines, dietary_requirements } = useAppSelector(
     (state) => state.home.filters

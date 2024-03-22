@@ -174,7 +174,7 @@ const SingleDeal: FC = ({ route, navigation }: any) => {
                 color="text.secondary"
                 style="leading-[1.6]"
               >
-                {deal.description}
+                {deal.description.trim()}
               </Typography>
             </View>
             <ChipContainer style="mt-5">

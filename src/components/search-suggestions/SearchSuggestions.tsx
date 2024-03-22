@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import tw from "theme/tailwind";
