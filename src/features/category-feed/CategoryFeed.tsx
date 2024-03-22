@@ -1,5 +1,5 @@
 import { Alert, FlatList, Share } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 
 import DealCard from "components/deal-card";
 import tw from "theme/tailwind";
@@ -31,7 +31,10 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
     isLoading,
   } = useCategoryFeedQuery(0, category.slug);
 
-  const data = feedData?.pages.map((p) => p.deals).flat(1) || [];
+  const data = useMemo(
+    () => feedData?.pages.map((p) => p.deals).flat(1) || [],
+    [feedData]
+  );
 
   const onShare = async (title: string) => {
     try {

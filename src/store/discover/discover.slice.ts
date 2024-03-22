@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import ls from "lib/storage/storage";
+import { Keyboard } from "react-native";
 
 // types
 
@@ -39,6 +40,7 @@ const discoverSlice = createSlice({
       state.searchInputText = payload;
       state.searchSubmitText = payload;
       state.isSearchFocused = false;
+      Keyboard.dismiss();
     },
     handleSubmitSearch: (state) => {
       if (state.searchInputText) {

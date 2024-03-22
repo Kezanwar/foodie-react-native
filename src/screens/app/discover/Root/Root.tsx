@@ -32,6 +32,7 @@ import {
 import { useAppSelector } from "hooks/useAppSelector";
 
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
+import SearchFeed from "features/search-feed/SearchFeed";
 
 type Props = any;
 
@@ -52,8 +53,7 @@ const Root: FC<Props> = ({ navigation }) => {
 
   const hasSubmitted = !!searchSubmitText;
 
-  const { data: searchFeedData, isLoading: searchFeedIsLoading } =
-    useSearchFeedQuery();
+  const { isLoading: searchFeedIsLoading } = useSearchFeedQuery(0);
 
   const handleSetSearchFocusedOn = () => dispatch(setIsSearchFocusedOn());
 
@@ -107,24 +107,19 @@ const Root: FC<Props> = ({ navigation }) => {
               </TouchableOpacity>
             )}
           </View>
-          {isSearchFocused && (
-            <SearchSuggestions onSuggestionPress={() => {}} />
-          )}
+          {isSearchFocused && <SearchSuggestions />}
         </HeaderContainer>
       </SafeAreaView>
 
-      <ScrollView
-        style={tw`bg-grey-200 relative`}
-        contentContainerStyle={tw`gap-3 z-0 `}
-      >
-        {(!hasSubmitted || searchFeedIsLoading) && data?.data && (
-          <DiscoverBaseContent
-            navToRest={navRest}
-            onCuisinePress={onCuisinePress}
-            data={data?.data}
-          />
-        )}
-      </ScrollView>
+      {(!hasSubmitted || searchFeedIsLoading) && data?.data ? (
+        <DiscoverBaseContent
+          navToRest={navRest}
+          onCuisinePress={onCuisinePress}
+          data={data?.data}
+        />
+      ) : (
+        <SearchFeed navigation={navigation} />
+      )}
     </>
   );
 };
@@ -141,7 +136,10 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
   onCuisinePress,
 }) => {
   return (
-    <>
+    <ScrollView
+      style={tw`bg-grey-200 relative`}
+      contentContainerStyle={tw`gap-3 z-0 `}
+    >
       <View style={tw`bg-white p-6`}>
         <DiscoverRestaurants
           navToRest={navToRest}
@@ -157,7 +155,7 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
       <View style={tw`bg-white p-6`}>
         <NewsCarousel blogs={data?.blogs} />
       </View>
-    </>
+    </ScrollView>
   );
 };
 
