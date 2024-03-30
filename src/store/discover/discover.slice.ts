@@ -54,6 +54,7 @@ const discoverSlice = createSlice({
         state.searchHistory = final;
         state.searchSubmitText = state.searchInputText;
         state.isSearchFocused = false;
+        Keyboard.dismiss();
       }
     },
     setIsSearchFocusedOn: (state) => {

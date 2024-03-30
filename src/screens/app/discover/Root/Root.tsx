@@ -33,6 +33,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import SearchFeed from "features/search-feed/SearchFeed";
+import SectionCard from "components/section-card/SectionCard";
 
 type Props = any;
 
@@ -140,21 +141,21 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
       style={tw`bg-grey-200 relative`}
       contentContainerStyle={tw`gap-3 z-0 `}
     >
-      <View style={tw`bg-white p-6`}>
+      <SectionCard>
         <DiscoverRestaurants
           navToRest={navToRest}
           restaurants={data?.restaurants}
         />
-      </View>
-      <View style={tw`bg-white p-6`}>
+      </SectionCard>
+      <SectionCard>
         <DiscoverCuisines
           onCuisinePress={onCuisinePress}
           cuisines={data?.cuisines}
         />
-      </View>
-      <View style={tw`bg-white p-6`}>
+      </SectionCard>
+      <SectionCard>
         <NewsCarousel blogs={data?.blogs} />
-      </View>
+      </SectionCard>
     </ScrollView>
   );
 };

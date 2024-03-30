@@ -6,6 +6,7 @@ import { DiscoverStackNavigator } from "./discover";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import AccountStackNavigator from "./account";
+import FavouritesStackNavigator from "./favourites/FavouritesStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,7 @@ const AppTabNavigator = () => {
       />
       <Tab.Screen
         name="Favourites"
-        component={DiscoverStackNavigator}
+        component={FavouritesStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <AntDesign

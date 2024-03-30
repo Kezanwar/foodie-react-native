@@ -28,11 +28,11 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
         })
       }
       activeOpacity={0.8}
-      style={tw` bg-white px-6 py-6 `}
+      style={tw` bg-white px-6 py-6  `}
     >
       <View style={tw`relative`}>
         <Image
-          style={tw`h-40 rounded-md`}
+          style={tw`h-35 rounded-md`}
           source={{ uri: item.restaurant.cover_photo }}
         />
       </View>
