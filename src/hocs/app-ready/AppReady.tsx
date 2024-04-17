@@ -1,0 +1,37 @@
+import React, { FC, ReactNode } from "react";
+import "react-native-get-random-values";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
+import { useDeviceContext } from "twrnc";
+import tw from "theme/tailwind";
+
+import Navigation from "hocs/app-ready/providers/navigation";
+import FontLoadGestureHandler from "hocs/app-ready/providers/font-load-gesture-handler";
+import ReactQuery from "hocs/app-ready/providers/react-query";
+import Redux from "hocs/app-ready/providers/redux";
+
+import { enableFreeze } from "react-native-screens";
+
+enableFreeze(true);
+
+type Props = {
+  children: ReactNode;
+};
+
+const AppReady: FC<Props> = ({ children }) => {
+  useDeviceContext(tw, { withDeviceColorScheme: false });
+
+  return (
+    <ReactQuery>
+      <Redux>
+        <FontLoadGestureHandler>
+          <BottomSheetModalProvider>
+            <Navigation>{children}</Navigation>
+          </BottomSheetModalProvider>
+        </FontLoadGestureHandler>
+      </Redux>
+    </ReactQuery>
+  );
+};
+
+export default AppReady;

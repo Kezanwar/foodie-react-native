@@ -13,7 +13,7 @@ const TextButton: FC<Props> = ({ label, onPress, style, textStyle = "" }) => {
       <Typography
         variant="body2"
         color="primary.main"
-        style={`text-center font-semi-bold ${textStyle}`}
+        style={`text-center font-semi-bold px-0.75 ${textStyle}`}
       >
         {label}
       </Typography>

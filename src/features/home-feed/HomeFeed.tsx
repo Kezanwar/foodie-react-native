@@ -12,7 +12,9 @@ import { IFeedDeal } from "types/feed";
 import { HOME_STACK } from "constants/routes";
 
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-import { RouteParams } from "screens/common/single-deal/SingleDeal";
+
+import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
+import { GetSingleDealProps } from "types/single-deal";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -74,9 +76,15 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
     }
   };
 
-  const navToDeal = (data: RouteParams) => {
-    data.stack = HOME_STACK;
-    navigation.navigate(HOME_STACK.SINGLE_DEAL, data);
+  const { open } = useSingleDealContext();
+
+  const openDeal = (data: GetSingleDealProps) => {
+    open({
+      deal_id: data.deal_id,
+      location_id: data.location_id,
+      stack: HOME_STACK,
+      linkRestaurant: true,
+    });
   };
 
   if (isLoading) {
@@ -118,7 +126,7 @@ const HomeFeed: FC<Props> = ({ openFilters, navToLocation, navigation }) => {
       data={data}
       renderItem={({ item }) => (
         <DealCard
-          navToDeal={navToDeal}
+          openDeal={openDeal}
           onShare={onShare}
           item={item}
           onLike={onLike}

@@ -1,21 +1,16 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
 import { Image } from "expo-image";
 import BackButton from "components/buttons/back-button";
 import tw from "theme/tailwind";
 
 type Props = {
-  show_cover_photo: boolean;
   cover_photo: string;
   goBack: () => void;
 };
 
-const CoverBackButton: FC<Props> = ({
-  show_cover_photo,
-  cover_photo,
-  goBack,
-}) => {
-  return show_cover_photo ? (
+const CoverBackButton: FC<Props> = ({ cover_photo, goBack }) => {
+  return (
     <View style={tw`w-full relative`}>
       <Image
         transition={500}
@@ -24,10 +19,6 @@ const CoverBackButton: FC<Props> = ({
       />
       <BackButton isAbsolute={true} onPress={goBack} />
     </View>
-  ) : (
-    <SafeAreaView>
-      <BackButton onPress={goBack} />
-    </SafeAreaView>
   );
 };
 

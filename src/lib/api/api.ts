@@ -1,4 +1,7 @@
+//axios
 import axiosInstance from "lib/axios/axios";
+
+//types
 import {
   IUser,
   InitializeResponse,
@@ -7,7 +10,7 @@ import {
   RegisterJWTData,
 } from "types/auth";
 import { DealInfinitePage } from "types/feed";
-import { FavouriteDealRequest, FavouriteDealResponse } from "types/favourites";
+import { FavouriteDealResponse } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
@@ -16,6 +19,7 @@ import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
+import { FollowFavQuery } from "hooks/queries/useFollowFavouritesQuery";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -199,4 +203,12 @@ export const getSingleRest = async (data: GetSingleRestProps & ILatLong) => {
     .then((res) => {
       return res.data;
     });
+};
+
+//* FAVOURITES TAB
+
+export const getFavouritesAndFollowing = (long: number, lat: number) => {
+  return axiosInstance
+    .get<FollowFavQuery>(`${APP_ENDPOINTS.fav}?lat=${lat}&long=${long}`)
+    .then((res) => res.data);
 };

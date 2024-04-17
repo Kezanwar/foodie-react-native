@@ -20,23 +20,21 @@ import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
 import { DynamicStack } from "constants/routes";
 
-import { RouteParams as DealRouteParams } from "../single-deal/SingleDeal";
 import DealButton from "components/buttons/deal-button";
 
 import CoverBackButton from "components/cover-back-button";
+import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
+import { GetSingleDealProps } from "types/single-deal";
 
 export type RouteParams = {
   location_id: string;
-  show_cover_photo: boolean;
-  should_deal_show_cover: boolean;
   stack: DynamicStack;
 };
 
 const iconCol = tw.color("primary-main");
 
 const SingleRestaurant: FC = ({ route, navigation }: any) => {
-  const { location_id, show_cover_photo, should_deal_show_cover, stack } =
-    route.params as RouteParams;
+  const { location_id, stack } = route.params as RouteParams;
 
   const {
     data: restaurant,
@@ -61,11 +59,6 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       }
   };
 
-  const navToDeal = (data: DealRouteParams) => {
-    data.stack = stack;
-    navigation.navigate(stack.SINGLE_DEAL, data);
-  };
-
   const mutateFollow = useMutateFollowingRest();
 
   const onFollow = async () => {
@@ -79,6 +72,17 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       } catch (error) {
         console.log(error);
       }
+  };
+
+  const { open } = useSingleDealContext();
+
+  const openDeal = (data: GetSingleDealProps) => {
+    open({
+      deal_id: data.deal_id,
+      location_id: data.location_id,
+      stack: stack,
+      linkRestaurant: false,
+    });
   };
 
   if (isLoading) return <LoadingScreen />;
@@ -98,7 +102,6 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       <CoverBackButton
         cover_photo={restaurant.restaurant.cover_photo}
         goBack={navigation.goBack}
-        show_cover_photo={show_cover_photo}
       />
       <ScrollView>
         <View style={tw`px-6 relative`}>
@@ -186,8 +189,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                   key={deal._id}
                   onLike={onLike}
                   restaurant={restaurant}
-                  navToDeal={navToDeal}
-                  should_deal_show_cover={should_deal_show_cover}
+                  openDeal={openDeal}
                 />
               );
             })}
@@ -195,7 +197,6 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           <Divider style="mt-6 mb-3" />
         </View>
         <RestaurantInfoTabs
-          initialIndex={show_cover_photo ? 0 : 1}
           address={restaurant.address}
           email={restaurant.email}
           geometry={restaurant.geometry}

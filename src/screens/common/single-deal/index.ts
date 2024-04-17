@@ -1,2 +1,3 @@
-import SingleDeal from "./SingleDeal";
-export default SingleDeal;
+import SingleDealModalScreen from "./SingleDealModalScreen";
+
+export default SingleDealModalScreen;

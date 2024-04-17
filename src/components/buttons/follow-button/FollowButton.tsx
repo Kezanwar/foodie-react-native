@@ -12,8 +12,8 @@ const FollowButton: FC<Props> = ({ onPress, following }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={tw`rounded-full w-17 items-center justify-center ${
-        following ? "border border-primary-main  w-22 " : "bg-grey-200 w-17"
+      style={tw`rounded-full w-17 border items-center justify-center ${
+        following ? "border-primary-main  w-22 " : " border-grey-800 w-17"
       } py-1.75 px-3`}
     >
       <Typography

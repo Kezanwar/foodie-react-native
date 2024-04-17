@@ -22,7 +22,7 @@ interface Restaurant {
 }
 
 interface Location {
-  id: string;
+  _id: string;
   nickname: string;
   distance_miles: number;
 }
