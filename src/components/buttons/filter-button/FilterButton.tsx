@@ -5,6 +5,7 @@ import { Badge } from "react-native-ui-lib";
 import FilterIcon from "components/svgs/filter-icon";
 
 import tw from "theme/tailwind";
+import IconButton from "../icon-button";
 
 type Props = TouchableOpacityProps & {
   count: number;
@@ -12,7 +13,7 @@ type Props = TouchableOpacityProps & {
 
 const FilterButton: FC<Props> = ({ onPress, count }) => {
   return (
-    <TouchableOpacity style={tw`relative`} onPress={onPress}>
+    <IconButton buttonStyle={"relative"} onPress={onPress}>
       <FilterIcon />
       {count ? (
         <Badge
@@ -23,7 +24,7 @@ const FilterButton: FC<Props> = ({ onPress, count }) => {
           labelStyle={count > 9 ? tw`text-2.1` : undefined}
         />
       ) : null}
-    </TouchableOpacity>
+    </IconButton>
   );
 };
 

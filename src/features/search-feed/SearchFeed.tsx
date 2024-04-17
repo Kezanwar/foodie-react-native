@@ -11,11 +11,13 @@ import { IFeedDeal } from "types/feed";
 import { DISCOVER_STACK } from "constants/routes";
 
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-import { RouteParams } from "screens/common/single-deal/SingleDeal";
+
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import { View } from "react-native-ui-lib";
 import { Typography } from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
+import { GetSingleDealProps } from "types/single-deal";
+import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -72,10 +74,15 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
       console.log(error);
     }
   };
+  const { open } = useSingleDealContext();
 
-  const navToDeal = (data: RouteParams) => {
-    data.stack = DISCOVER_STACK;
-    navigation.navigate(DISCOVER_STACK.SINGLE_DEAL, data);
+  const openDeal = (data: GetSingleDealProps) => {
+    open({
+      deal_id: data.deal_id,
+      location_id: data.location_id,
+      stack: DISCOVER_STACK,
+      linkRestaurant: true,
+    });
   };
 
   if (isLoading) {
@@ -120,7 +127,7 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
         data={data}
         renderItem={({ item }) => (
           <DealCard
-            navToDeal={navToDeal}
+            openDeal={openDeal}
             onShare={onShare}
             item={item}
             onLike={onLike}

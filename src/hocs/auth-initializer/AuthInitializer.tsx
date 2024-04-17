@@ -43,10 +43,10 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   }, [isInitialized]);
 
   return isInitialized ? (
-    //* render children whether the above initialize has authenticated user or not
+    //render children whether the above initialize has authenticated user or not
     children
   ) : (
-    //* loading screen if user has bad connection and initialize is taking time
+    //loading screen if user has bad connection and initialize is taking time
     <LoadingScreen />
   );
 };

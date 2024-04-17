@@ -8,23 +8,22 @@ import { Typography } from "components/typography";
 
 import ShareButton from "components/buttons/share-button";
 import LikeButton from "components/buttons/like-button";
-import { RouteParams } from "screens/common/single-deal/SingleDeal";
+import { GetSingleDealProps } from "types/single-deal";
 
 type Props = {
   item: IFeedDeal;
   onShare: (name: string) => void;
   onLike: (item: IFeedDeal) => void;
-  navToDeal: (data: RouteParams) => void;
+  openDeal: (data: GetSingleDealProps) => void;
 };
 
-const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
+const DealCard: FC<Props> = ({ item, onShare, onLike, openDeal }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navToDeal({
+        openDeal({
           deal_id: item.deal.id,
           location_id: item.location.id,
-          show_cover_photo: true,
         })
       }
       activeOpacity={0.8}
@@ -40,14 +39,14 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
       <View style={tw`mt-5`}>
         <View style={tw` flex-row items-start justify-between`}>
           <View style={tw`gap-1.5`}>
-            <View style={tw`flex-row gap-1.5  max-w-60`}>
+            <View style={tw`flex-row gap-1.5  max-w-66`}>
               <AntDesign
                 name="tago"
                 size={20}
                 color={tw.color("primary-main")}
                 style={tw`-mt-0.5`}
               />
-              <Typography variant="subheader" style="text-4.5  mb-1">
+              <Typography variant="subheader" style="text-4.3  mb-1">
                 {item.deal.name}
               </Typography>
             </View>
@@ -64,7 +63,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
             </Typography>
           </View>
           <View style={tw`gap-3`}>
-            <View style={tw`items-start justify-end  -m-0.5  flex-row gap-2.5`}>
+            <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
               <ShareButton onPress={() => onShare(item.deal.name)} />
               <LikeButton
                 liked={item.deal.is_favourited}
@@ -80,15 +79,6 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, navToDeal }) => {
             </Typography>
           </View>
         </View>
-
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          style="text-3.25 mt-3 leading-[1.6]"
-          numberOfLines={2}
-        >
-          {item.deal.description}
-        </Typography>
       </View>
     </TouchableOpacity>
   );

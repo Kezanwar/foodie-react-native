@@ -1,5 +1,5 @@
-import React, { forwardRef, useMemo } from "react";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import React, { forwardRef, useCallback, useMemo } from "react";
+import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
 import FilterStackNavigator from "./navigator/FilterStackNavigator";
 import tw from "theme/tailwind";
 
@@ -9,6 +9,19 @@ const FilterSheet = forwardRef<BottomSheetModal, Props>(
   ({ onDismissedModal }, ref) => {
     const snapPoints = useMemo(() => ["40%", "95%"], []);
 
+    const renderBackdrop = useCallback(
+      (props: any) => (
+        <BottomSheetBackdrop
+          {...props}
+          animatedIndex={{
+            value: 1,
+          }}
+          opacity={0.3}
+        />
+      ),
+      []
+    );
+
     return (
       <BottomSheetModal
         ref={ref}
@@ -17,6 +30,7 @@ const FilterSheet = forwardRef<BottomSheetModal, Props>(
         backgroundStyle={tw`shadow-xl`}
         snapPoints={snapPoints}
         onDismiss={onDismissedModal}
+        backdropComponent={renderBackdrop}
       >
         <FilterStackNavigator />
       </BottomSheetModal>

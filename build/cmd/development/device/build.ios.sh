@@ -1,0 +1,1 @@
+ eas build --profile development-device --platform ios 

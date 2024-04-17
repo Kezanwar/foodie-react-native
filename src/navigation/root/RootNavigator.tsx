@@ -14,9 +14,7 @@ import ConfirmEmail from "screens/common/confirm-email/ConfirmEmail";
 import Preferences from "screens/common/preferences";
 import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
-import SingleDeal from "screens/common/single-deal";
 import ForgotPassword from "screens/guest/forgot-password";
-import SingleRestaurant from "screens/common/single-restaurant";
 
 // export type RootStackParamList = {
 //   App: undefined;

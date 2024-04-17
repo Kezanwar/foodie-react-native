@@ -8,7 +8,7 @@ type Props = { onPress: (e: GestureResponderEvent) => void };
 
 const ShareButton: FC<Props> = ({ onPress }) => {
   return (
-    <IconButton style={tw`-m-0.5 `} onPress={onPress}>
+    <IconButton buttonStyle={"-m-0.5"} onPress={onPress}>
       <Ionicons name="share-outline" size={20} color={tw.color("grey-900")} />
     </IconButton>
   );

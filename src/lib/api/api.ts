@@ -1,4 +1,7 @@
+//axios
 import axiosInstance from "lib/axios/axios";
+
+//types
 import {
   IUser,
   InitializeResponse,
@@ -6,14 +9,14 @@ import {
   LoginResponse,
   RegisterJWTData,
 } from "types/auth";
-import { DealInfinitePage, IFeedDeal } from "types/feed";
-import { FavouriteDealRequest, FavouriteDealResponse } from "types/favourites";
+import { DealInfinitePage } from "types/feed";
+import { FavouriteDealResponse } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
 import { FollowRestResponse } from "types/following";
 import { DiscoverResponse } from "types/discover";
-import { GetSingleRestProps, IRestaurant, Restaurant } from "types/restaurant";
+import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 import { FollowFavQuery } from "hooks/queries/useFollowFavouritesQuery";
