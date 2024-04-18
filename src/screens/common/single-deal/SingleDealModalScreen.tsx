@@ -139,7 +139,6 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
             onPress={navRest}
           >
             <Image
-              transition={500}
               style={tw` rounded-full  w-18  h-18  `}
               source={{ uri: deal.restaurant.avatar }}
             />

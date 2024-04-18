@@ -16,8 +16,6 @@ import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
 
-import LocationErrorAlert from "components/location-error-alert";
-
 import HomeFeed from "features/home-feed/HomeFeed";
 import { RootHeader } from "features/headers/home";
 import { HomeFilterSheet } from "features/home-filter-sheet";
@@ -25,13 +23,15 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 import { onSaveFilterForm } from "store/home/home.slice";
 
+import LocationStatus from "components/location-status/LocationStatus";
+
 const Home: FC<any> = (props) => {
   const dispatch = useAppDispatch();
   const requestLocation = useRequestLocation();
   const { location, error: locationError } = useAppSelector(
     (state) => state.location
   );
-  const client = useQueryClient();
+
   const { data, isLoading } = usePreferencesQuery();
   const hasInitialPref = ls.getInitialPreferencesDone();
 
@@ -50,14 +50,7 @@ const Home: FC<any> = (props) => {
     requestLocation();
   }, []);
 
-  const logout = () => {
-    dispatch(authLogout());
-    endSession();
-    client.clear();
-  };
-  const navToPref = () => {
-    props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
-  };
+  const hasLocation = !locationError && location;
 
   const filterRef = useRef<BottomSheetModal>(null);
   const isFilterOpen = useRef<boolean>(false);
@@ -93,12 +86,9 @@ const Home: FC<any> = (props) => {
           onFilterPress={handleFilterPress}
           onLocationPress={handleLocationPress}
         />
-        {locationError && <LocationErrorAlert error={locationError} />}
       </SafeAreaView>
-
-      {/* <TextButton label="Preferences" onPress={navToPref} /> */}
-      {/* <TextButton label="Logout" onPress={logout} /> */}
-      {!locationError && (
+      <LocationStatus />
+      {hasLocation && (
         <HomeFeed
           navigation={props.navigation}
           navToLocation={handleLocationPress}
