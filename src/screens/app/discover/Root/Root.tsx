@@ -20,7 +20,7 @@ import NewsCarousel from "features/news-carousel";
 import { DISCOVER_STACK } from "constants/routes";
 import { Option } from "types/options";
 import SearchSuggestions from "components/search-suggestions";
-import { DiscoverResponse } from "types/discover";
+
 import useAppDispatch from "hooks/useAppDispatch";
 import {
   handleSubmitSearch,
@@ -34,14 +34,13 @@ import { useAppSelector } from "hooks/useAppSelector";
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import SearchFeed from "features/search-feed/SearchFeed";
 import SectionCard from "components/section-card/SectionCard";
+import LocationStatus from "components/location-status/LocationStatus";
 
 type Props = any;
 
 const PRIM = tw.color("primary-main");
 
 const Root: FC<Props> = ({ navigation }) => {
-  const { data, isLoading } = useDiscoverQuery();
-
   const dispatch = useAppDispatch();
 
   const handleUpdateSearch = (s: string) => {
@@ -51,6 +50,12 @@ const Root: FC<Props> = ({ navigation }) => {
   const { isSearchFocused, searchInputText, searchSubmitText } = useAppSelector(
     (state) => state.discover
   );
+
+  const { location, error: locationError } = useAppSelector(
+    (state) => state.location
+  );
+
+  const hasLocation = !locationError && location;
 
   const hasSubmitted = !!searchSubmitText;
 
@@ -74,8 +79,6 @@ const Root: FC<Props> = ({ navigation }) => {
       show_cover_photo: true,
       stack: DISCOVER_STACK,
     });
-
-  if (isLoading) return <LoadingScreen />;
 
   return (
     <>
@@ -111,31 +114,34 @@ const Root: FC<Props> = ({ navigation }) => {
           {isSearchFocused && <SearchSuggestions />}
         </HeaderContainer>
       </SafeAreaView>
-
-      {(!hasSubmitted || searchFeedIsLoading) && data?.data ? (
-        <DiscoverBaseContent
-          navToRest={navRest}
-          onCuisinePress={onCuisinePress}
-          data={data?.data}
-        />
-      ) : (
-        <SearchFeed navigation={navigation} />
-      )}
+      <LocationStatus />
+      {hasLocation ? (
+        !hasSubmitted || searchFeedIsLoading ? (
+          <DiscoverBaseContent
+            navToRest={navRest}
+            onCuisinePress={onCuisinePress}
+          />
+        ) : (
+          <SearchFeed navigation={navigation} />
+        )
+      ) : null}
     </>
   );
 };
 
 type DiscoverBaseContentProps = {
-  data: DiscoverResponse;
   navToRest: (location_id: string) => void;
   onCuisinePress: (option: Option) => void;
 };
 
 const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
-  data,
   navToRest,
   onCuisinePress,
 }) => {
+  const { data, isLoading } = useDiscoverQuery();
+
+  if (isLoading) return <LoadingScreen />;
+
   return (
     <ScrollView
       style={tw`bg-grey-200 relative`}
@@ -144,17 +150,17 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
       <SectionCard>
         <DiscoverRestaurants
           navToRest={navToRest}
-          restaurants={data?.restaurants}
+          restaurants={data?.data?.restaurants}
         />
       </SectionCard>
       <SectionCard>
         <DiscoverCuisines
           onCuisinePress={onCuisinePress}
-          cuisines={data?.cuisines}
+          cuisines={data?.data?.cuisines}
         />
       </SectionCard>
       <SectionCard>
-        <NewsCarousel blogs={data?.blogs} />
+        <NewsCarousel blogs={data?.data?.blogs} />
       </SectionCard>
     </ScrollView>
   );

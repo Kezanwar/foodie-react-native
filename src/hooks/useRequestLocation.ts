@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import * as Location from "expo-location";
 import useAppDispatch from "./useAppDispatch";
 import {
+  setIsFindingLocation,
   setLocationError,
   setLocationObject,
 } from "store/location/location.slice";
@@ -11,21 +12,26 @@ import useSnackbar from "./useSnackbar";
 const useRequestLocation = () => {
   const dispatch = useAppDispatch();
   const enqSnack = useSnackbar();
+
   const request = useCallback(async (showSnackOnErr?: boolean) => {
     let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
-      dispatch(setLocationError("Permission to access location was denied"));
+      dispatch(setLocationError("Location Permission was denied"));
+
       if (showSnackOnErr)
         enqSnack({
           message: "You must update Location Permissions for Foodie first.",
           variant: "error",
         });
+
       return;
     }
 
+    dispatch(setIsFindingLocation());
+
     const location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Highest,
+      accuracy: Location.Accuracy.Balanced,
       mayShowUserSettingsDialog: true,
     });
     const geo = await Location.reverseGeocodeAsync({
