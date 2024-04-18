@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DISCOVER_STACK } from "constants/routes";
 
-import Root from "screens/app/discover/root";
 import SingleRestaurant from "screens/common/single-restaurant";
 import Category from "screens/app/discover/category";
+import Root from "screens/app/discover/Root";
 
 const DiscoverStack = createNativeStackNavigator();
 
