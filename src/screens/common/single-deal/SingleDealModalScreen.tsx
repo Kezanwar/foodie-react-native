@@ -188,9 +188,5 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
 export default SingleDealModalScreen;
 
 const BaseWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-  return (
-    <View style={tw`flex-1 bg-white`}>
-      <View style={tw`px-6 py-6 relative`}>{children}</View>
-    </View>
-  );
+  return <View style={tw`flex-1 bg-white px-6 py-6 relative`}>{children}</View>;
 };
