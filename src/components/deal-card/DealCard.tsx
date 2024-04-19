@@ -36,48 +36,46 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, openDeal }) => {
         />
       </View>
 
-      <View style={tw`mt-5`}>
-        <View style={tw` flex-row items-start justify-between`}>
-          <View style={tw`gap-1.5`}>
-            <View style={tw`flex-row gap-1.5  max-w-66`}>
-              <AntDesign
-                name="tago"
-                size={20}
-                color={tw.color("primary-main")}
-                style={tw`-mt-0.5`}
-              />
-              <Typography variant="subheader" style="text-4.3  mb-1">
-                {item.deal.name}
-              </Typography>
-            </View>
-
-            <Typography variant="body2" style=" text-3.75 font-normal">
-              {item.restaurant.name}{" "}
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style=" text-3.25 font-normal"
-              >
-                ({item.location.nickname})
-              </Typography>
+      <View style={tw` mt-5 flex-row items-start justify-between`}>
+        <View style={tw`gap-1.5`}>
+          <View style={tw`flex-row gap-1.5  max-w-66`}>
+            <AntDesign
+              name="tago"
+              size={20}
+              color={tw.color("primary-main")}
+              style={tw`-mt-0.5`}
+            />
+            <Typography variant="subheader" style="text-4.3  mb-1">
+              {item.deal.name}
             </Typography>
           </View>
-          <View style={tw`gap-3`}>
-            <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
-              <ShareButton onPress={() => onShare(item.deal.name)} />
-              <LikeButton
-                liked={item.deal.is_favourited}
-                onPress={() => onLike(item)}
-              />
-            </View>
+
+          <Typography variant="body2" style=" text-3.75 font-normal">
+            {item.restaurant.name}{" "}
             <Typography
               variant="body2"
-              color="success.main"
-              style=" font-medium  text-3.25"
+              color="text.secondary"
+              style=" text-3.25 font-normal"
             >
-              {item.location.distance_miles.toFixed(1)} Miles
+              ({item.location.nickname})
             </Typography>
+          </Typography>
+        </View>
+        <View style={tw`gap-3`}>
+          <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
+            <ShareButton onPress={() => onShare(item.deal.name)} />
+            <LikeButton
+              liked={item.deal.is_favourited}
+              onPress={() => onLike(item)}
+            />
           </View>
+          <Typography
+            variant="body2"
+            color="success.main"
+            style=" font-medium  text-3.25"
+          >
+            {item.location.distance_miles.toFixed(1)} Miles
+          </Typography>
         </View>
       </View>
     </TouchableOpacity>
