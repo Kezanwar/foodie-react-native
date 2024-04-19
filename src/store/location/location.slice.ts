@@ -43,6 +43,7 @@ const locationSlice = createSlice({
       state.location = payload.location;
       state.reverseGeocode = payload.reverseGeocode;
       state.isFindingLocation = false;
+      state.error = null;
       ls.setlastKnownLocation({
         location: payload.location,
         reverseGeocode: payload.reverseGeocode,

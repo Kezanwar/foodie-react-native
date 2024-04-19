@@ -197,6 +197,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           <Divider style="mt-6 mb-3" />
         </View>
         <RestaurantInfoTabs
+          initialIndex={1}
           address={restaurant.address}
           email={restaurant.email}
           geometry={restaurant.geometry}

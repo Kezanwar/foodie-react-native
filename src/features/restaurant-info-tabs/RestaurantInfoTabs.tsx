@@ -84,7 +84,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
                   longitude: geometry.coordinates[0],
                 } as Region
               }
-              style={tw`h-50 m-6 mt-5 rounded-md`}
+              style={tw`h-70 m-6 mt-5 rounded-md`}
             >
               <Marker
                 coordinate={{
