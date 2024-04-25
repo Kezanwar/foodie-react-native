@@ -17,7 +17,8 @@ import { View } from "react-native-ui-lib";
 import { Typography } from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import { GetSingleDealProps } from "types/single-deal";
-import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import useAppDispatch from "hooks/useAppDispatch";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -74,15 +75,18 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
       console.log(error);
     }
   };
-  const { open } = useSingleDealContext();
+
+  const dispatch = useAppDispatch();
 
   const openDeal = (data: GetSingleDealProps) => {
-    open({
-      deal_id: data.deal_id,
-      location_id: data.location_id,
-      stack: DISCOVER_STACK,
-      linkRestaurant: true,
-    });
+    dispatch(
+      setSingleDeal({
+        deal_id: data.deal_id,
+        location_id: data.location_id,
+        stack: DISCOVER_STACK,
+        linkRestaurant: true,
+      })
+    );
   };
 
   if (isLoading) {

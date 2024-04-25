@@ -1,5 +1,4 @@
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 import ls from "lib/storage/storage";
 import { useAppSelector } from "hooks/useAppSelector";
@@ -9,6 +8,7 @@ import { initializeJWT } from "lib/api/api";
 import { setSession } from "lib/axios/axios";
 
 import { LoadingScreen } from "components/loading-screen";
+import useAppDispatch from "hooks/useAppDispatch";
 
 type Props = {
   children: ReactNode;
@@ -18,7 +18,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   const authState = useAppSelector((state) => state.auth);
   const { isInitialized, isAuthenticated } = authState;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const initialize = useCallback(async () => {
     try {

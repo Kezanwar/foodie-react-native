@@ -7,15 +7,18 @@ import EmptyState from "components/empty-state/EmptyState";
 
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-import { IFeedDeal } from "types/feed";
+
 import { DISCOVER_STACK } from "constants/routes";
 
+import useCategoryFeedQuery from "hooks/queries/useCategoryFeedQuery";
+import useAppDispatch from "hooks/useAppDispatch";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
-import useCategoryFeedQuery from "hooks/queries/useCategoryFeedQuery";
 import { Option } from "types/options";
-import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
 import { GetSingleDealProps } from "types/single-deal";
+import { IFeedDeal } from "types/feed";
+
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -72,15 +75,17 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
     }
   };
 
-  const { open } = useSingleDealContext();
+  const dispatch = useAppDispatch();
 
   const openDeal = (data: GetSingleDealProps) => {
-    open({
-      deal_id: data.deal_id,
-      location_id: data.location_id,
-      stack: DISCOVER_STACK,
-      linkRestaurant: true,
-    });
+    dispatch(
+      setSingleDeal({
+        deal_id: data.deal_id,
+        location_id: data.location_id,
+        stack: DISCOVER_STACK,
+        linkRestaurant: true,
+      })
+    );
   };
 
   if (isLoading) {

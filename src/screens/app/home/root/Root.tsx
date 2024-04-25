@@ -1,6 +1,7 @@
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import React, { FC, useCallback, useEffect, useRef } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+
+import { useScrollToTop } from "@react-navigation/native";
 
 import tw from "theme/tailwind";
 import ls from "lib/storage/storage";
@@ -16,7 +17,7 @@ import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
 
-import HomeFeed from "features/home-feed/HomeFeed";
+import HomeFeed, { HomeFeedRef } from "features/home-feed/HomeFeed";
 import { RootHeader } from "features/headers/home";
 import { HomeFilterSheet } from "features/home-filter-sheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -50,6 +51,10 @@ const Home: FC<any> = (props) => {
     requestLocation();
   }, []);
 
+  const feedRef = useRef<ScrollView>(null);
+
+  useScrollToTop(feedRef);
+
   const hasLocation = !locationError && location;
 
   const filterRef = useRef<BottomSheetModal>(null);
@@ -77,6 +82,7 @@ const Home: FC<any> = (props) => {
   const handleFilterPress = () => {
     isFilterOpen.current ? dismissModal() : presentModal();
   };
+
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -90,6 +96,7 @@ const Home: FC<any> = (props) => {
       <LocationStatus />
       {hasLocation && (
         <HomeFeed
+          ref={feedRef}
           navigation={props.navigation}
           navToLocation={handleLocationPress}
           openFilters={handleFilterPress}

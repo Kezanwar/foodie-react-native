@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import tw from "theme/tailwind";
 import MapView, { Marker, Region } from "react-native-maps";
@@ -35,6 +35,8 @@ const tabControllerItems: TabControllerItemProps[] = [
   },
 ];
 
+const map_style = tw`h-70 m-6 mt-5 rounded-md`;
+
 type Props = {
   name: string;
   booking_link?: string;
@@ -57,6 +59,12 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
     opening_times,
     initialIndex = 0,
   }) => {
+    const region = useMemo(() => {
+      return {
+        latitude: geometry.coordinates[1],
+        longitude: geometry.coordinates[0],
+      };
+    }, [geometry.coordinates[1], geometry.coordinates[0]]);
     return (
       <TabController
         asCarousel
@@ -74,23 +82,14 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
         <TabController.PageCarousel>
           <TabController.TabPage lazy index={0}>
             <MapView
-              minZoomLevel={10}
+              minZoomLevel={11}
               showsUserLocation
-              mapType="terrain"
-              showsPointsOfInterest
-              region={
-                {
-                  latitude: geometry.coordinates[1],
-                  longitude: geometry.coordinates[0],
-                } as Region
-              }
-              style={tw`h-70 m-6 mt-5 rounded-md`}
+              mapType="standard"
+              region={region as Region}
+              style={map_style}
             >
               <Marker
-                coordinate={{
-                  latitude: geometry.coordinates[1],
-                  longitude: geometry.coordinates[0],
-                }}
+                coordinate={region}
                 pinColor={tabControllerItems[0].selectedLabelColor}
               />
             </MapView>

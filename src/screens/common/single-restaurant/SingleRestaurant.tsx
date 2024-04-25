@@ -23,8 +23,11 @@ import { DynamicStack } from "constants/routes";
 import DealButton from "components/buttons/deal-button";
 
 import CoverBackButton from "components/cover-back-button";
-import { useSingleDealContext } from "hocs/single-deal-context/SingleDealContext";
+
 import { GetSingleDealProps } from "types/single-deal";
+
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import useAppDispatch from "hooks/useAppDispatch";
 
 export type RouteParams = {
   location_id: string;
@@ -74,15 +77,17 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       }
   };
 
-  const { open } = useSingleDealContext();
+  const dispatch = useAppDispatch();
 
   const openDeal = (data: GetSingleDealProps) => {
-    open({
-      deal_id: data.deal_id,
-      location_id: data.location_id,
-      stack: stack,
-      linkRestaurant: false,
-    });
+    dispatch(
+      setSingleDeal({
+        deal_id: data.deal_id,
+        location_id: data.location_id,
+        stack: stack,
+        linkRestaurant: true,
+      })
+    );
   };
 
   if (isLoading) return <LoadingScreen />;

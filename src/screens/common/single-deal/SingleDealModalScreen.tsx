@@ -1,5 +1,6 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode } from "react";
+import { Image } from "expo-image";
 
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -8,7 +9,6 @@ import { Typography } from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
-
 import LikeButton from "components/buttons/like-button";
 import ShareButton from "components/buttons/share-button";
 import FollowButton from "components/buttons/follow-button";
@@ -18,9 +18,8 @@ import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
-import { Image } from "expo-image";
-import { SingleDealState } from "hocs/single-deal-context/SingleDealContext";
 import { navigate } from "hocs/app-ready/providers/navigation/Navigation";
+import { SingleDealState } from "store/single-deal/single-deal.slice";
 
 const PRIM = tw.color("primary-main");
 

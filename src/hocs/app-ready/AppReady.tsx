@@ -10,6 +10,8 @@ import FontLoadGestureHandler from "hocs/app-ready/providers/font-load-gesture-h
 import ReactQuery from "hocs/app-ready/providers/react-query";
 import Redux from "hocs/app-ready/providers/redux";
 
+import SingleDealModal from "features/single-deal-modal";
+
 import { enableFreeze } from "react-native-screens";
 
 enableFreeze(true);
@@ -27,6 +29,7 @@ const AppReady: FC<Props> = ({ children }) => {
         <FontLoadGestureHandler>
           <BottomSheetModalProvider>
             <Navigation>{children}</Navigation>
+            <SingleDealModal />
           </BottomSheetModalProvider>
         </FontLoadGestureHandler>
       </Redux>

@@ -9,6 +9,7 @@ import preferencesReducer from "./preferences/preferences.slice";
 import locationReducer from "./location/location.slice";
 import homeReducer from "./home/home.slice";
 import discoverReducer from "./discover/discover.slice";
+import singleDealReducer from "./single-deal/single-deal.slice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     location: locationReducer,
     home: homeReducer,
     discover: discoverReducer,
+    singleDeal: singleDealReducer,
   },
 });

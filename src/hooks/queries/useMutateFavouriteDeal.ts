@@ -23,6 +23,7 @@ const useMutateFavouriteDeal = () => {
     mutationFn: (body: FavMutationArg) =>
       body.is_favourited ? unFavouriteDeal(body) : favouriteDeal(body),
     onSuccess: ({ data: { deal_id, is_favourited, location_id } }) => {
+      console.log({ deal_id, is_favourited, location_id });
       queryClient.setQueriesData(
         {
           predicate: (query) =>
@@ -86,6 +87,7 @@ const useMutateFavouriteDeal = () => {
             const newData = { ...oldData };
             for (let d of newData.active_deals) {
               if (d._id === deal_id) {
+                console.log("match");
                 d.is_favourited = is_favourited;
               }
             }
