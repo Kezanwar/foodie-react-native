@@ -1,19 +1,19 @@
 export type IFeedDeal = {
   _id: string;
   restaurant: {
-    id: string;
+    _id: string;
     name: string;
     avatar: string;
     cover_photo: string;
   };
   deal: {
-    id: string;
+    _id: string;
     name: string;
     description: string;
     is_favourited: boolean;
   };
   location: {
-    id: string;
+    _id: string;
     nickname: string;
     distance_miles: number;
   };

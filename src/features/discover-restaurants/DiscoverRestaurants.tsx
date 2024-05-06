@@ -1,20 +1,17 @@
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
-import { Image } from "expo-image";
+
 import { FlatList } from "react-native-gesture-handler";
-import { Fader } from "react-native-ui-lib";
 
 import { Typography } from "components/typography";
 
-import { AntDesign } from "@expo/vector-icons";
 import CarouselDivider from "components/separators/carousel-divider";
 
 import { PopularRestaurants } from "types/discover";
 import { useAppSelector } from "hooks/useAppSelector";
-import RestaurantCard from "components/rest-card/RestaurantCard";
-
-const iconCol = tw.color("primary-main");
+import RestaurantCard from "features/rest-card/RestaurantCard";
+import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 
 type Props = {
   restaurants?: PopularRestaurants[];
@@ -43,10 +40,11 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
         snapToAlignment="start"
         decelerationRate={"fast"}
         keyExtractor={(item) => item._id}
-        snapToInterval={Dimensions.get("window").width * 0.74}
+        snapToInterval={CAROUSEL_ITEM_WIDTH}
         renderItem={({ item }) => {
           return (
             <RestaurantCard
+              type="carousel"
               location={item.location}
               navToRest={navToRest}
               restaurant={item.restaurant}
@@ -54,7 +52,6 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
           );
         }}
       />
-      <Fader visible size={30} position={Fader.position.END} />
     </View>
   ) : null;
 };

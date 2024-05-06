@@ -5,6 +5,7 @@ import { FAVOURITES_STACK } from "constants/routes";
 import Root from "screens/app/favourites/root";
 
 import SingleRestaurant from "screens/common/single-restaurant";
+import Following from "screens/app/account/following";
 
 const FavouritesStack = createNativeStackNavigator();
 
@@ -23,6 +24,11 @@ const FavouritesStackNavigator: FC<Props> = () => {
         name={FAVOURITES_STACK.SINGLE_RESTAURANT}
         options={{ headerShown: false }}
         component={SingleRestaurant}
+      />
+      <FavouritesStack.Screen
+        name={FAVOURITES_STACK.FOLLOWING}
+        options={{ headerShown: false }}
+        component={Following}
       />
     </FavouritesStack.Navigator>
   );

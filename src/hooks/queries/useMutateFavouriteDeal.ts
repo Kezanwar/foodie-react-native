@@ -40,7 +40,7 @@ const useMutateFavouriteDeal = () => {
             const newPages = oldData.pages.map(({ deals, nextCursor }) => ({
               nextCursor,
               deals: deals?.map((item) =>
-                item.deal.id === deal_id && item.location.id === location_id
+                item.deal._id === deal_id && item.location._id === location_id
                   ? {
                       ...item,
                       deal: { ...item.deal, is_favourited },

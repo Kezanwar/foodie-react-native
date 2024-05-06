@@ -28,6 +28,7 @@ import { GetSingleDealProps } from "types/single-deal";
 
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import useAppDispatch from "hooks/useAppDispatch";
+import RestaurantAvatar from "components/restaurant-avatar";
 
 export type RouteParams = {
   location_id: string;
@@ -69,7 +70,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       try {
         mutateFollow.mutate({
           location_id: restaurant._id,
-          rest_id: restaurant.restaurant.id,
+          rest_id: restaurant.restaurant._id,
           is_following: restaurant.is_following,
         });
       } catch (error) {
@@ -111,12 +112,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       <ScrollView>
         <View style={tw`px-6 relative`}>
           <View style={tw`mt-3 flex-row  items-center gap-4`}>
-            <Image
-              transition={500}
-              style={tw` rounded-full  w-18  h-18  `}
-              source={{ uri: restaurant.restaurant.avatar }}
-            />
-
+            <RestaurantAvatar source={{ uri: restaurant.restaurant.avatar }} />
             <View style={tw`gap-2`}>
               <Typography
                 variant="h6"
@@ -155,7 +151,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                   variant="h6"
                   style="font-semi-bold text-4.25 max-w-[89%] leading-0"
                 >
-                  Restaurant Bio
+                  Bio
                 </Typography>
               </View>
             </View>

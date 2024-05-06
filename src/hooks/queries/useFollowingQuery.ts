@@ -1,0 +1,28 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getFollowing } from "lib/api/api";
+
+import { minutes } from "util/time";
+
+import { FollowingInfinitePage } from "types/following";
+import { FOLLOWING } from "constants/react-query";
+
+const useFollowingQuery = (page: number = 0) => {
+  const query = useInfiniteQuery<FollowingInfinitePage, Error>({
+    initialPageParam: page,
+    queryFn: ({ pageParam }) => getFollowing(pageParam as number),
+    queryKey: [FOLLOWING],
+    getNextPageParam: (LastPage) => LastPage.nextCursor,
+    staleTime: minutes(10),
+  });
+
+  return query;
+};
+
+export default useFollowingQuery;
+
+export type FollowingQState =
+  | {
+      pageParams: number[];
+      pages: FollowingInfinitePage[];
+    }
+  | undefined;

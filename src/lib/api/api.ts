@@ -10,16 +10,18 @@ import {
   RegisterJWTData,
 } from "types/auth";
 import { DealInfinitePage } from "types/feed";
-import { FavouriteDealResponse } from "types/favourites";
+import {
+  FavouriteDealResponse,
+  FavouritesInfinitePage,
+} from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
-import { FollowRestResponse } from "types/following";
+import { FollowRestResponse, FollowingInfinitePage } from "types/following";
 import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
-import { FollowFavQuery } from "hooks/queries/useFollowFavouritesQuery";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -132,6 +134,12 @@ export const unFavouriteDeal = (data: FavMutationArg) => {
   return axiosInstance.patch<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
 };
 
+export const getFavourites = async (page: number) => {
+  return axiosInstance
+    .get<FavouritesInfinitePage>(`${APP_ENDPOINTS.fav}/?page=${page}`)
+    .then((res) => res.data);
+};
+
 //* FOLLOWS
 
 export const followRestaurant = (data: FollowMutationArg) => {
@@ -140,6 +148,12 @@ export const followRestaurant = (data: FollowMutationArg) => {
 
 export const unFollowRestaurant = (data: FollowMutationArg) => {
   return axiosInstance.patch<FollowRestResponse>(APP_ENDPOINTS.follow, data);
+};
+
+export const getFollowing = async (page: number) => {
+  return axiosInstance
+    .get<FollowingInfinitePage>(`${APP_ENDPOINTS.follow}/?page=${page}`)
+    .then((res) => res.data);
 };
 
 //* SINGLE DEAL
@@ -203,12 +217,4 @@ export const getSingleRest = async (data: GetSingleRestProps & ILatLong) => {
     .then((res) => {
       return res.data;
     });
-};
-
-//* FAVOURITES TAB
-
-export const getFavouritesAndFollowing = (long: number, lat: number) => {
-  return axiosInstance
-    .get<FollowFavQuery>(`${APP_ENDPOINTS.fav}?lat=${lat}&long=${long}`)
-    .then((res) => res.data);
 };

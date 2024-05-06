@@ -5,110 +5,158 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import tw from "theme/tailwind";
 
 import { FlatList } from "react-native-gesture-handler";
-import { Fader } from "react-native-ui-lib";
 
 import { Typography } from "components/typography";
 
 import CarouselDivider from "components/separators/carousel-divider";
 
-import RestaurantCard from "components/rest-card/RestaurantCard";
-import useFollowFavouritesQuery from "hooks/queries/useFollowFavouritesQuery";
-import { FAVOURITES_STACK } from "constants/routes";
+import RestaurantCard from "features/rest-card/RestaurantCard";
+
 import SectionCard from "components/section-card/SectionCard";
+import useFollowingQuery from "hooks/queries/useFollowingQuery";
+import { FAVOURITES_STACK } from "constants/routes";
+import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
+import useFavouritesQuery from "hooks/queries/useFavouritesQuery";
+import DealCard from "features/deal-card";
+import { IFeedDeal } from "types/feed";
+import useAppDispatch from "hooks/useAppDispatch";
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { GetSingleDealProps } from "types/single-deal";
 
 type Props = any;
 
 const Root: FC<Props> = ({ navigation }) => {
-  // const { data } = useFollowFavouritesQuery();
+  const { data: followData } = useFollowingQuery(0);
 
-  // const navToRest = (location_id: string) =>
-  //   navigation.navigate(FAVOURITES_STACK.SINGLE_RESTAURANT, {
-  //     location_id,
-  //     show_cover_photo: true,
-  //     stack: FAVOURITES_STACK,
-  //   });
+  const dispatch = useAppDispatch();
+
+  const following = useMemo(() => {
+    return followData?.pages[0].restaurants.slice(0, 4) || [];
+  }, [followData]);
+
+  const { data: favData } = useFavouritesQuery(0);
+
+  const favs = useMemo(() => {
+    return favData?.pages[0].deals.slice(0, 4) || [];
+  }, [favData]);
+
+  const navToRest = (location_id: string) =>
+    navigation.navigate(FAVOURITES_STACK.SINGLE_RESTAURANT, {
+      location_id,
+      stack: FAVOURITES_STACK,
+    });
+
+  const openDeal = (data: GetSingleDealProps) => {
+    dispatch(
+      setSingleDeal({
+        deal_id: data.deal_id,
+        location_id: data.location_id,
+        stack: FAVOURITES_STACK,
+        linkRestaurant: true,
+      })
+    );
+  };
+
+  const seeAllFollowing = () => navigation.navigate(FAVOURITES_STACK.FOLLOWING);
 
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
-      <SectionCard>
-        <Typography variant={"body1"}>Test</Typography>
-      </SectionCard>
-      {/* <View style={tw`bg-grey-200 gap-3`}> */}
-      {/* <SectionCard>
-          <SectionHeader
-            subtext="Recently followed by you."
-            title="Restaurants"
-            onSeeAll={() => {}}
-          />
-          <View>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              data={data?.following.slice(0, 3)}
-              ItemSeparatorComponent={() => <CarouselDivider />}
-              snapToAlignment="start"
-              decelerationRate={"fast"}
-              keyExtractor={(item) => item._id}
-              snapToInterval={Dimensions.get("window").width * 0.74}
-              renderItem={({ item }) => {
-                return (
-                  <RestaurantCard
-                    location={item.location}
-                    navToRest={navToRest}
-                    restaurant={item.restaurant}
-                  />
-                );
-              }}
-            />
-            <Fader visible size={30} position={Fader.position.END} />
-          </View>
-        </SectionCard>
+      <ScrollView contentContainerStyle={tw`bg-grey-200 gap-3`}>
         <SectionCard>
           <SectionHeader
-            subtext="Recently favourited by you."
+            subtext="Recently favourited by you"
             title="Deals"
             onSeeAll={() => {}}
           />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={favs}
+            ItemSeparatorComponent={() => <CarouselDivider />}
+            snapToAlignment="start"
+            decelerationRate={"fast"}
+            keyExtractor={(item) => item._id}
+            snapToInterval={CAROUSEL_ITEM_WIDTH}
+            renderItem={({ item }) => {
+              return (
+                <DealCard
+                  type="carousel"
+                  item={item as IFeedDeal}
+                  onShare={(name) => {}}
+                  onLike={(item) => {}}
+                  openDeal={openDeal}
+                  // location={item.location}
+                  // navToRest={navToRest}
+                  // restaurant={item.restaurant}
+                />
+              );
+            }}
+          />
+        </SectionCard>
+        <SectionCard>
+          <SectionHeader
+            subtext="Restaurants recently followed by you"
+            title="Following"
+            onSeeAll={seeAllFollowing}
+          />
 
           <FlatList
-            contentContainerStyle={tw` gap-3`}
-            data={data?.favourites.slice(0, 6)}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                key={item._id}
-                style={tw` border-dashed justify-between border-[1.25px] border-primary-lighter p-3 rounded-md`}
-                // onPress={() =>
-                //   navToDeal({
-                //     deal_id: deal._id,
-                //     location_id: restaurant._id,
-                //     show_cover_photo: should_deal_show_cover,
-                //   })
-                // }
-              >
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  style="text-3.25 font-medium"
-                >
-                  {item.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  style="text-3.25 font-medium"
-                >
-                  {item.name}
-                </Typography>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item) => `${item._id}-`}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={following}
+            ItemSeparatorComponent={() => <CarouselDivider />}
+            snapToAlignment="start"
+            decelerationRate={"fast"}
+            keyExtractor={(item) => item._id}
+            snapToInterval={CAROUSEL_ITEM_WIDTH}
+            renderItem={({ item }) => {
+              return (
+                <RestaurantCard
+                  type="carousel"
+                  location={item.location}
+                  navToRest={navToRest}
+                  restaurant={item.restaurant}
+                />
+              );
+            }}
           />
-        </SectionCard> */}
-      {/* </View> */}
+        </SectionCard>
+
+        <SectionCard>
+          <SectionHeader
+            subtext="The last 5 deals you've viewed"
+            title="Recently Viewed"
+          />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={favs}
+            ItemSeparatorComponent={() => <CarouselDivider />}
+            snapToAlignment="start"
+            decelerationRate={"fast"}
+            keyExtractor={(item) => item._id}
+            snapToInterval={CAROUSEL_ITEM_WIDTH}
+            renderItem={({ item }) => {
+              return (
+                <DealCard
+                  type="carousel"
+                  item={item as IFeedDeal}
+                  onShare={(name) => {}}
+                  onLike={(item) => {}}
+                  openDeal={openDeal}
+                  // location={item.location}
+                  // navToRest={navToRest}
+                  // restaurant={item.restaurant}
+                />
+              );
+            }}
+          />
+        </SectionCard>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -118,7 +166,7 @@ export default Root;
 const SectionHeader: FC<{
   title: string;
   subtext: string;
-  onSeeAll: () => void;
+  onSeeAll?: () => void;
 }> = ({ onSeeAll, subtext, title }) => {
   return (
     <View style={tw`flex-row items-center justify-between`}>

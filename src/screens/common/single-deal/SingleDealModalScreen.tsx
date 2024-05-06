@@ -20,6 +20,7 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { SingleDealState } from "store/single-deal/single-deal.slice";
+import RestaurantAvatar from "components/restaurant-avatar";
 
 const PRIM = tw.color("primary-main");
 
@@ -147,10 +148,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
           activeOpacity={linkRestaurant ? 0.8 : 1}
           onPress={navRest}
         >
-          <Image
-            style={tw` rounded-full  w-18  h-18  `}
-            source={{ uri: deal.restaurant.avatar }}
-          />
+          <RestaurantAvatar source={{ uri: deal.restaurant.avatar }} />
         </TouchableOpacity>
         <View style={tw`gap-2`}>
           <TouchableOpacity

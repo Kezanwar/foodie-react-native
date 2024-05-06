@@ -24,7 +24,7 @@ export interface IRestaurant {
 }
 
 export interface Restaurant {
-  id: string;
+  _id: string;
   name: string;
   avatar: string;
   cover_photo: string;

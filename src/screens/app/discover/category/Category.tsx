@@ -22,9 +22,6 @@ const Category: FC<Props> = ({ navigation, route }) => {
         <HeaderContainer>
           <BackButton withPad={false} onPress={navigation.goBack} />
           <View style={tw` gap-1`}>
-            <Typography variant="body2" color="text.secondary">
-              Deals tagged in
-            </Typography>
             <Typography
               style="font-semi-bold leading-[0] text-4.5"
               variant="h6"

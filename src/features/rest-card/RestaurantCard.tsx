@@ -6,6 +6,7 @@ import { Image } from "expo-image";
 import { Typography } from "components/typography";
 
 import { AntDesign } from "@expo/vector-icons";
+import RestaurantAvatar from "components/restaurant-avatar";
 
 const iconCol = tw.color("primary-main");
 
@@ -26,40 +27,54 @@ type Props = {
   location: Location;
   restaurant: Restaurant;
   navToRest: (location_id: string) => void;
+  type: "carousel" | "list";
 };
 
-const RestaurantCard: FC<Props> = ({ location, restaurant, navToRest }) => {
+const RestaurantCard: FC<Props> = ({
+  location,
+  restaurant,
+  navToRest,
+  type,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => navToRest(location._id)}
-      style={tw`w-[70vw] rounded-md`}
+      style={tw`${
+        type === "carousel" ? "w-[70vw]" : "p-6 bg-white"
+      } rounded-md`}
     >
       <Image
         style={tw`h-32 w-full rounded-md`}
         source={{ uri: restaurant.cover_photo }}
       />
       <View
-        style={tw`mt-3 gap-1.5 justify-between items-center flex-row flex-wrap `}
+        style={tw`mt-3 gap-1.5 justify-between items-start flex-row flex-wrap `}
       >
         <View style={tw`flex-row flex-wrap gap-1.75 flex-1 items-center`}>
-          <AntDesign name="isv" size={17} color={iconCol} />
-          <Typography style=" font-medium text-3.75" variant="body1">
-            {restaurant.name}
-          </Typography>
-
-          {/* <Typography
-                    style="text-3.25"
-                    variant="body1"
-                    color="text.secondary"
-                  >
-                    ({item.location.nickname})
-                  </Typography> */}
+          <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
+          <View>
+            <Typography
+              style=" font-medium leading-[1.3] text-4"
+              variant="body1"
+            >
+              {restaurant.name}
+            </Typography>
+            {location?.nickname && (
+              <Typography
+                style="text-3.25"
+                variant="body2"
+                color="text.secondary"
+              >
+                {location.nickname}
+              </Typography>
+            )}
+          </View>
         </View>
         {location?.distance_miles && (
           <Typography
             variant="body2"
             color="success.main"
-            style=" font-medium  text-3.15"
+            style=" font-medium mt-.75  text-3.15"
           >
             {location.distance_miles.toFixed(1)} Miles
           </Typography>

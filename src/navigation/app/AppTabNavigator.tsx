@@ -44,7 +44,7 @@ const AppTabNavigator = () => {
           tabBarLabelStyle: { display: "none" },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Favourites"
         component={FavouritesStackNavigator}
         options={{
@@ -57,7 +57,7 @@ const AppTabNavigator = () => {
           ),
           tabBarLabelStyle: { display: "none" },
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Account"
         component={AccountStackNavigator}

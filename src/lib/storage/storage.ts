@@ -1,5 +1,6 @@
 import { MMKV } from "react-native-mmkv";
 import { LocationStorageData } from "store/location/location.slice";
+import { IFeedDeal } from "types/feed";
 
 const mmkv = new MMKV();
 
@@ -9,6 +10,7 @@ const STORAGE_KEYS = {
   USE_CURRENT_LOCATION: "USE_CURRENT_LOCATION",
   SEARCH_HISTORY: "SEARCH_HISTORY",
   LAST_KNOWN_LOCATION: "LAST_KNOWN_LOCATION",
+  RECENTLY_VIEWED_DISPLAY: "RECENTLY_VIEWED_DISPLAY",
 };
 
 class LocalStorage {
@@ -66,6 +68,22 @@ class LocalStorage {
     const h = mmkv.getString(STORAGE_KEYS.SEARCH_HISTORY);
     if (h) return JSON.parse(h);
     else return [];
+  }
+
+  //recently viewed (DISPLAY)
+  setRecentlyViewedDisplay(deal: IFeedDeal) {
+    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
+    if (curr) {
+      const p = JSON.parse(curr).slice(0, 3);
+      p.push(deal);
+      mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
+    } else {
+      mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
+    }
+  }
+  getRecentlyViewedDisplay(): IFeedDeal[] {
+    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
+    return curr ? JSON.parse(curr) : [];
   }
 }
 

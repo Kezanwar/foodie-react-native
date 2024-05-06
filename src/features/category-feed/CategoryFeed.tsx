@@ -1,7 +1,7 @@
 import { Alert, FlatList, Share } from "react-native";
 import React, { FC, useMemo } from "react";
 
-import DealCard from "components/deal-card";
+import DealCard from "features/deal-card";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
 
@@ -66,8 +66,8 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
   const onLike = async (item: IFeedDeal) => {
     try {
       mutateFav.mutate({
-        deal_id: item.deal.id,
-        location_id: item.location.id,
+        deal_id: item.deal._id,
+        location_id: item.location._id,
         is_favourited: item.deal.is_favourited,
       });
     } catch (error) {
@@ -118,13 +118,14 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
       data={data}
       renderItem={({ item }) => (
         <DealCard
+          type="list"
           openDeal={openDeal}
           onShare={onShare}
           item={item}
           onLike={onLike}
         />
       )}
-      keyExtractor={(item) => `${item.deal.id}-${item.location.id}`}
+      keyExtractor={(item) => `${item.deal._id}-${item.location._id}`}
       onEndReached={() => fetchNextPage()}
       onEndReachedThreshold={1}
     />

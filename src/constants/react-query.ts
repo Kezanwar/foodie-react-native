@@ -10,4 +10,6 @@ export const DISCOVER_QUERY = "DISCOVER";
 
 export const SINGLE_REST_QUERY = "SINGLE_REST";
 
-export const FOLLOW_FAVOURITES_QUERY = "FOLLOW_FAVOURITES";
+export const FOLLOWING = "FOLLOWING";
+
+export const FAVOURITES = "FAVOURITES";

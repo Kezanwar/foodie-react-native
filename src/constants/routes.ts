@@ -1,26 +1,25 @@
 //APP
 export const HOME_STACK = {
   ROOT: "HS_ROOT",
-  SINGLE_DEAL: "HS_SINGLE_DEAL",
   SINGLE_RESTAURANT: "HS_SINGLE_REST",
 } as const;
 
 export const ACCOUNT_STACK = {
   ROOT: "AS_ROOT",
   PROFILE: "AS_PROFILE",
+  FOLLOWING: "AS_FOLLOWING",
 } as const;
 
 export const DISCOVER_STACK = {
   ROOT: "DS_ROOT",
-  SINGLE_DEAL: "DS_SINGLE_DEAL",
   SINGLE_RESTAURANT: "DS_SINGLE_REST",
   CATEGORY: "DS_CATEGORY",
 } as const;
 
 export const FAVOURITES_STACK = {
   ROOT: "FS_ROOT",
-  SINGLE_DEAL: "FS_SINGLE_DEAL",
   SINGLE_RESTAURANT: "FS_SINGLE_REST",
+  FOLLOWING: "FS_FOLLOWING",
 } as const;
 
 export type DynamicStack =
