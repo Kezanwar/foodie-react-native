@@ -15,7 +15,6 @@ import EmptyState from "components/empty-state/EmptyState";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
-import { Image } from "expo-image";
 import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
 import { DynamicStack } from "constants/routes";
@@ -109,7 +108,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
         cover_photo={restaurant.restaurant.cover_photo}
         goBack={navigation.goBack}
       />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`px-6 relative`}>
           <View style={tw`mt-3 flex-row  items-center gap-4`}>
             <RestaurantAvatar source={{ uri: restaurant.restaurant.avatar }} />

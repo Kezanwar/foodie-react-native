@@ -5,7 +5,7 @@ import tw from "theme/tailwind";
 type Props = { children: ReactNode };
 
 const SectionCard: FC<Props> = ({ children }) => {
-  return <View style={tw`bg-white p-6`}>{children}</View>;
+  return <View style={tw`bg-white p-6 `}>{children}</View>;
 };
 
 export default SectionCard;

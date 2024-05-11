@@ -74,8 +74,14 @@ class LocalStorage {
   setRecentlyViewedDisplay(deal: IFeedDeal) {
     const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
     if (curr) {
-      const p = JSON.parse(curr).slice(0, 3);
-      p.push(deal);
+      let p: IFeedDeal[] = JSON.parse(curr);
+
+      p.unshift(deal);
+
+      if (p.length > 5) {
+        p.pop();
+      }
+
       mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
     } else {
       mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));

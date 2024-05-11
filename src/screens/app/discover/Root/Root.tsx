@@ -144,6 +144,7 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       style={tw`bg-grey-200 relative`}
       contentContainerStyle={tw`gap-3 z-0 `}
     >

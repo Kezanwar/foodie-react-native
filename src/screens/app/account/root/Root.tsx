@@ -1,5 +1,5 @@
 import { Alert, FlatList, SafeAreaView, ScrollView, View } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import tw from "theme/tailwind";
 import UserAvatar from "components/user-avatar";
@@ -23,11 +23,15 @@ import ls from "lib/storage/storage";
 import CarouselDivider from "components/separators/carousel-divider";
 import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 import DealCard from "features/deal-card";
+import { useFocusEffect } from "@react-navigation/native";
 
 type Props = any;
 
 const Root: FC<Props> = ({ navigation }) => {
-  const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
+  const [recentlyViewed, setRecentlyViewed] = useState(
+    ls.getRecentlyViewedDisplay()
+  );
 
   const dispatch = useAppDispatch();
 
@@ -37,6 +41,8 @@ const Root: FC<Props> = ({ navigation }) => {
   const onPreferencesPress = () =>
     navigation.navigate(COMMON_ROUTES.PREFERENCES);
   const onProfilePress = () => navigation.navigate(ACCOUNT_STACK.PROFILE);
+  const onFollowPress = () => navigation.navigate(ACCOUNT_STACK.FOLLOWING);
+  const onFavouritePress = () => navigation.navigate(ACCOUNT_STACK.FAVOURITES);
 
   const logout = () => {
     dispatch(authLogout());
@@ -55,14 +61,20 @@ const Root: FC<Props> = ({ navigation }) => {
     ]);
   };
 
-  const recent = ls.getRecentlyViewedDisplay();
+  const setRecent = useCallback(() => {
+    setRecentlyViewed(ls.getRecentlyViewedDisplay());
+  }, []);
 
-  if (!isAuthenticated || !user) return null;
+  useFocusEffect(setRecent);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <View style={tw`flex-1`}>
       <SafeAreaView style={tw`bg-white`}>
-        <View style={tw`flex-row px-6 pb-4  items-center justify-between`}>
+        <View style={tw`flex-row px-6 pb-4 pt-2 items-center justify-between`}>
           <View>
             <Typography variant="h6" style={`font-semi-bold leading-tight  `}>
               Account
@@ -70,7 +82,7 @@ const Root: FC<Props> = ({ navigation }) => {
             <TouchableOpacity onPress={onLogoutPress}>
               <Typography
                 variant="body2"
-                color="primary.main"
+                color="text.secondary"
                 style={`font-regular mt-1 leading-[1.2]`}
               >
                 Sign out
@@ -86,6 +98,7 @@ const Root: FC<Props> = ({ navigation }) => {
         </View>
       </SafeAreaView>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={tw`gap-3`}
         style={tw`bg-grey-200  flex-1`}
       >
@@ -118,7 +131,7 @@ const Root: FC<Props> = ({ navigation }) => {
                 color={tw.color("primary-main")}
               />
             }
-            onPress={onProfilePress}
+            onPress={onFavouritePress}
             text="Favourites"
           />
           <ListButton
@@ -129,7 +142,7 @@ const Root: FC<Props> = ({ navigation }) => {
                 color={tw.color("primary-main")}
               />
             }
-            onPress={onProfilePress}
+            onPress={onFollowPress}
             text="Following"
           />
         </SectionCard>
@@ -174,11 +187,13 @@ const Root: FC<Props> = ({ navigation }) => {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={recent}
+            data={recentlyViewed}
             ItemSeparatorComponent={() => <CarouselDivider />}
             snapToAlignment="start"
             decelerationRate={"fast"}
-            keyExtractor={(item) => item._id}
+            keyExtractor={(item, index) =>
+              `${index}-${item.deal._id}-${item.location._id}`
+            }
             snapToInterval={CAROUSEL_ITEM_WIDTH}
             renderItem={({ item }) => {
               return (

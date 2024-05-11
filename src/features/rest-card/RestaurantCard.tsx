@@ -5,10 +5,7 @@ import { Image } from "expo-image";
 
 import { Typography } from "components/typography";
 
-import { AntDesign } from "@expo/vector-icons";
 import RestaurantAvatar from "components/restaurant-avatar";
-
-const iconCol = tw.color("primary-main");
 
 interface Restaurant {
   id: string;
@@ -50,7 +47,7 @@ const RestaurantCard: FC<Props> = ({
       <View
         style={tw`mt-3 gap-1.5 justify-between items-start flex-row flex-wrap `}
       >
-        <View style={tw`flex-row flex-wrap gap-1.75 flex-1 items-center`}>
+        <View style={tw`flex-row flex-wrap gap-2 flex-1 items-center`}>
           <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
           <View>
             <Typography
