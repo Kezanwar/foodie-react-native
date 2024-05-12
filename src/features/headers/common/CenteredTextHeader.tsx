@@ -18,7 +18,7 @@ const CenteredTextHeader: FC<Props> = ({ goBack, title, subtitle }) => {
     <View
       style={tw`flex-row ${
         !hasSub ? "items-center" : ""
-      } justify-between px-5 pb-3 pt-1 border-b-[0.5px] border-b-grey-250`}
+      } justify-between px-5 pb-3 pt-0.5 border-b-[0.5px] border-b-grey-250`}
     >
       <View style={flexOne[`${hasSub}`]}>
         <TouchableOpacity onPress={goBack}>
