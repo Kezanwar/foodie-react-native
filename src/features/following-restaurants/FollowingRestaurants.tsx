@@ -28,7 +28,7 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
     <FlatList
       onRefresh={refetch}
       refreshing={isRefetching}
-      contentContainerStyle={tw`bg-white pb-28`}
+      contentContainerStyle={tw`bg-white pb-18`}
       data={following}
       ItemSeparatorComponent={() => <Divider my="0" />}
       renderItem={({ item }) => (
