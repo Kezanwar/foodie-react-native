@@ -23,7 +23,7 @@ const useMutateFavouriteDeal = () => {
   const mutate = useMutation({
     mutationFn: (body: FavMutationArg) =>
       body.is_favourited ? unFavouriteDeal(body) : favouriteDeal(body),
-    onSuccess: ({ data: { deal_id, is_favourited, location_id } }) => {
+    onSuccess: async ({ data: { deal_id, is_favourited, location_id } }) => {
       queryClient.setQueriesData(
         {
           predicate: (query) =>
@@ -95,7 +95,7 @@ const useMutateFavouriteDeal = () => {
         }
       );
 
-      queryClient.invalidateQueries({ queryKey: [FAVOURITES] });
+      await queryClient.invalidateQueries({ queryKey: [FAVOURITES] });
     },
     onError: (error) => {
       enqeueSnack({ message: error.message, variant: "error" });

@@ -7,7 +7,7 @@ import { CenteredTextHeader } from "features/headers/common";
 
 const Following: FC<any> = ({ navigation }) => {
   return (
-    <SafeAreaView style={tw`bg-white `}>
+    <SafeAreaView style={tw`bg-white flex-1`}>
       <CenteredTextHeader
         title="Following"
         subtitle="Restaurants your are following"

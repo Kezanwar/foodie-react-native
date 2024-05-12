@@ -4,14 +4,16 @@ import useFollowingQuery from "hooks/queries/useFollowingQuery";
 import { ACCOUNT_STACK } from "constants/routes";
 import RestaurantItem from "./RestaurantItem";
 import Divider from "components/divider";
-import { FlatList } from "react-native";
+import { FlatList, LayoutAnimation, View, Animated } from "react-native";
+import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 type Props = {
   navigation: any;
 };
 
 const FollowingRestaurants: FC<Props> = ({ navigation }) => {
-  const { data, refetch, isRefetching, fetchNextPage } = useFollowingQuery(0);
+  const { data, refetch, isRefetching, isLoading, fetchNextPage } =
+    useFollowingQuery(0);
 
   const following = useMemo(
     () => data?.pages.map((p) => p.restaurants).flat(1) || [],
@@ -24,15 +26,29 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
       stack: ACCOUNT_STACK,
     });
 
+  const mutateFollow = useMutateFollowingRest();
+
+  const onUnFollow = async (location_id: string, rest_id: string) => {
+    try {
+      mutateFollow.mutate({
+        location_id,
+        rest_id,
+        is_following: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <FlatList
+    <Animated.FlatList
       onRefresh={refetch}
-      refreshing={isRefetching}
-      contentContainerStyle={tw`bg-white pb-18`}
+      refreshing={isRefetching || isLoading}
       data={following}
       ItemSeparatorComponent={() => <Divider my="0" />}
       renderItem={({ item }) => (
         <RestaurantItem
+          unfollowRest={onUnFollow}
           location={item.location}
           restaurant={item.restaurant}
           navToRest={navToRest}

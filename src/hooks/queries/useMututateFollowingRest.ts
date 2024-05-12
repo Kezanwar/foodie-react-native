@@ -20,7 +20,7 @@ const useMutateFollowingRest = () => {
   const mutate = useMutation({
     mutationFn: (body: FollowMutationArg) =>
       body.is_following ? unFollowRestaurant(body) : followRestaurant(body),
-    onSuccess: ({ data: { is_following, location_id } }) => {
+    onSuccess: async ({ data: { is_following, location_id } }) => {
       queryClient.setQueriesData(
         {
           predicate: (query) =>
@@ -53,7 +53,7 @@ const useMutateFollowingRest = () => {
           } else return undefined;
         }
       );
-      queryClient.invalidateQueries({ queryKey: [FOLLOWING] });
+      await queryClient.invalidateQueries({ queryKey: [FOLLOWING] });
     },
     onError: (error) => {
       enqeueSnack({ message: error.message, variant: "error" });

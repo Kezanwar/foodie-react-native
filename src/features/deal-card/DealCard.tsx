@@ -51,7 +51,7 @@ const DealCard: FC<Props> = ({
 
       <View style={tw` mt-5 flex-row items-start justify-between`}>
         <View style={tw`gap-1.5`}>
-          <View style={tw`flex-row gap-1.5  max-w-66`}>
+          <View style={tw`flex-row gap-1.5 ${showActions ? "max-w-66" : ""}`}>
             <AntDesign
               name="tago"
               size={20}

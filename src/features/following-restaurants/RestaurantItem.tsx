@@ -1,13 +1,11 @@
 import { View, Animated } from "react-native";
 import React, { FC, useCallback } from "react";
-import Swipeable, {
-  SwipeableProps,
-} from "react-native-gesture-handler/Swipeable";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import tw from "theme/tailwind";
 
 import RestaurantAvatar from "components/restaurant-avatar";
 import { Typography } from "components/typography";
-import { RectButton, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AntDesign } from "@expo/vector-icons";
 
@@ -28,6 +26,7 @@ type Props = {
   location: Location;
   restaurant: Restaurant;
   navToRest: (location_id: string) => void;
+  unfollowRest: (location_id: string, rest_id: string) => void;
 };
 
 type RenderRightActions = (
@@ -38,7 +37,12 @@ type RenderRightActions = (
 
 const iconCol = tw.color("error-main");
 
-const RestaurantItem: FC<Props> = ({ restaurant, location, navToRest }) => {
+const RestaurantItem: FC<Props> = ({
+  restaurant,
+  location,
+  navToRest,
+  unfollowRest,
+}) => {
   const renderLeftActions: RenderRightActions = useCallback((_, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100, 101],
@@ -53,7 +57,10 @@ const RestaurantItem: FC<Props> = ({ restaurant, location, navToRest }) => {
           },
         ]}
       >
-        <TouchableOpacity style={tw`h-full px-5 items-center justify-center`}>
+        <TouchableOpacity
+          onPress={() => unfollowRest(location._id, restaurant.id)}
+          style={tw`h-full px-5 items-center justify-center`}
+        >
           <AntDesign name="close" size={24} color={iconCol} />
         </TouchableOpacity>
       </Animated.View>
