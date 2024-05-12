@@ -24,6 +24,7 @@ import CarouselDivider from "components/separators/carousel-divider";
 import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 import DealCard from "features/deal-card";
 import { useFocusEffect } from "@react-navigation/native";
+import HeaderContainer from "components/header-container";
 
 type Props = any;
 
@@ -74,7 +75,7 @@ const Root: FC<Props> = ({ navigation }) => {
   return (
     <View style={tw`flex-1`}>
       <SafeAreaView style={tw`bg-white`}>
-        <View style={tw`flex-row px-5 pb-4 pt-2 items-center justify-between`}>
+        <HeaderContainer style={"flex-row items-center justify-between"}>
           <View>
             <Typography variant="h6" style={`font-semi-bold leading-tight  `}>
               Account
@@ -95,7 +96,7 @@ const Root: FC<Props> = ({ navigation }) => {
             firstName={user?.first_name}
             lastName={user.last_name}
           />
-        </View>
+        </HeaderContainer>
       </SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}

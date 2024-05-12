@@ -86,8 +86,11 @@ const Root: FC<Props> = ({ navigation }) => {
         <HeaderContainer style="pb-4 relative">
           <View style={tw`flex-row items-center gap-2`}>
             <CustomTextField
+              enablesReturnKeyAutomatically={true}
+              onSubmitEditing={handleOnSearchSubmit}
               value={searchInputText}
               containerStyle={tw`flex-1`}
+              inputMode="search"
               actionIcon={
                 <AntDesign
                   name="closecircleo"
