@@ -115,7 +115,7 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
     <>
       <FlatList
         ListHeaderComponent={
-          <View style={tw`bg-white px-6 pt-4 gap-1`}>
+          <View style={tw`bg-white px-5 pt-4 gap-1`}>
             <Typography variant="body2" color="text.secondary">
               Search results for '{searchText}'
             </Typography>

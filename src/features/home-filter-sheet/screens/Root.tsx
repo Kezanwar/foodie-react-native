@@ -59,7 +59,7 @@ const Root = (props: any) => {
 
   return (
     <BottomSheetScrollView style={tw`bg-white `}>
-      <View style={tw`px-6 pt-6 gap-6`}>
+      <View style={tw`px-5 pt-6 gap-5`}>
         <FilterNavAction
           filters={cuisines}
           onClear={onClearCuisines}

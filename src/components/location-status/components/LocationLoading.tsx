@@ -6,7 +6,7 @@ import LottieView from "lottie-react-native";
 
 const LocationLoading = () => {
   return (
-    <View style={tw`px-6 py-6 flex-1 items-center justify-center bg-white`}>
+    <View style={tw`px-5 py-6 flex-1 items-center justify-center bg-white`}>
       <LottieView
         source={require("../../../../assets/lottie/foodie-loading.json")}
         autoPlay

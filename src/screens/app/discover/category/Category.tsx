@@ -1,12 +1,10 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import React, { FC } from "react";
-import { Typography } from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import tw from "theme/tailwind";
-import BackButton from "components/buttons/back-button";
 import { Option } from "types/options";
 import CategoryFeed from "features/category-feed/CategoryFeed";
-import HeaderContainer from "components/header-container";
+import { CenteredTextHeader } from "features/headers/common";
 
 type Props = any;
 
@@ -19,20 +17,11 @@ const Category: FC<Props> = ({ navigation, route }) => {
   return (
     <>
       <SafeAreaView style={tw`bg-white`}>
-        <HeaderContainer>
-          <BackButton withPad={false} onPress={navigation.goBack} />
-          <View style={tw` gap-1`}>
-            <Typography
-              style="font-semi-bold leading-[0] text-4.5"
-              variant="h6"
-            >
-              {name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              near {location?.city}, {location?.subregion}
-            </Typography>
-          </View>
-        </HeaderContainer>
+        <CenteredTextHeader
+          title={name}
+          subtitle={`near ${location?.city}, ${location?.subregion}`}
+          goBack={navigation.goBack}
+        />
       </SafeAreaView>
       <CategoryFeed navigation={navigation} category={route.params} />
     </>

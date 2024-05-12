@@ -109,7 +109,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
         goBack={navigation.goBack}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={tw`px-6 relative`}>
+        <View style={tw`px-5 relative`}>
           <View style={tw`mt-3 flex-row  items-center gap-4`}>
             <RestaurantAvatar source={{ uri: restaurant.restaurant.avatar }} />
             <View style={tw`gap-2`}>

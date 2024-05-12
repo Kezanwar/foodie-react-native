@@ -19,9 +19,17 @@ type Props = {
   onLike: (item: IFeedDeal) => void;
   openDeal: (data: GetSingleDealProps) => void;
   type: "carousel" | "list";
+  showActions?: boolean;
 };
 
-const DealCard: FC<Props> = ({ item, onShare, onLike, openDeal, type }) => {
+const DealCard: FC<Props> = ({
+  item,
+  onShare,
+  onLike,
+  openDeal,
+  type,
+  showActions = true,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -32,7 +40,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, openDeal, type }) => {
         });
       }}
       activeOpacity={0.8}
-      style={tw`bg-white  ${type === "list" ? "px-6 py-6" : "w-[70vw]"}   `}
+      style={tw`bg-white  ${type === "list" ? "px-5 py-6" : "w-[70vw]"}   `}
     >
       <View style={tw`relative`}>
         <Image
@@ -69,7 +77,7 @@ const DealCard: FC<Props> = ({ item, onShare, onLike, openDeal, type }) => {
           </Typography>
         </View>
         <View style={tw`gap-3`}>
-          {type === "list" && (
+          {type === "list" && showActions && (
             <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
               <ShareButton onPress={() => onShare(item.deal.name)} />
               <LikeButton

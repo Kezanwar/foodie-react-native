@@ -24,7 +24,7 @@ const EmptyState: FC<Props> = ({
   actionIcon,
 }) => {
   return (
-    <View style={tw`p-6 flex-1 bg-white items-center ${style}`}>
+    <View style={tw`p-5 flex-1 bg-white items-center ${style}`}>
       <AntDesign name="frowno" size={24} color={tw.color("primary-main")} />
       <Typography
         variant="h6"

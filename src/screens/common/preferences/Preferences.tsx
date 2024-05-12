@@ -142,7 +142,7 @@ const Preferences = (props: any) => {
     <LoadingScreen />
   ) : (
     <StaticScreenWrapper>
-      <View style={tw`px-6`}>
+      <View style={tw`px-5`}>
         <TextActionHeader
           loading={apiLoading}
           headerText="Preferences"
@@ -158,7 +158,7 @@ const Preferences = (props: any) => {
           types (minimum 1) and let us know your preferred dietary requirements.
         </Typography>
 
-        <View style={tw`flex-row gap-6 mb-5`}></View>
+        <View style={tw`flex-row gap-5 mb-5`}></View>
         <View style={tw`gap-8`}>
           <View>
             <TitleBadgeCounter

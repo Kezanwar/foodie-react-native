@@ -17,8 +17,8 @@ const BackButton: FC<Props> = ({ isAbsolute, withPad = true, ...rest }) => {
       {...rest}
       style={tw`${
         isAbsolute
-          ? "absolute left-6 top-12 bg-[#46484970] shadow-lg rounded-full px-2 py-0.5"
-          : `${withPad ? "px-6" : ""}  mb-3`
+          ? "absolute left-5 top-12 bg-[#46484970] shadow-lg rounded-full px-2 py-0.5"
+          : `${withPad ? "px-5" : ""}  mb-3`
       }`}
     >
       <AntDesign

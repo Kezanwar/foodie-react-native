@@ -39,7 +39,6 @@ const SingleDealModal: FC = () => {
       ref={modalRef}
       handleStyle={tw`border-b border-grey-200 `}
       index={0}
-      backgroundStyle={tw`shadow-xl`}
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
     >

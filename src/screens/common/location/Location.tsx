@@ -39,7 +39,7 @@ const Location = (props: any) => {
 
   return (
     <StaticScreenWrapper>
-      <View style={tw`flex-1 px-6`}>
+      <View style={tw`flex-1 px-5`}>
         <TextActionHeader
           loading={false}
           headerText="Location"

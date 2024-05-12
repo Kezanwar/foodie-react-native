@@ -8,7 +8,7 @@ type Props = { style?: string; text?: string };
 
 const LoadingState: FC<Props> = ({ style = "", text }) => {
   return (
-    <View style={tw`p-6 flex-1 bg-white ${style}`}>
+    <View style={tw`p-5 flex-1 bg-white ${style}`}>
       <ActivityIndicator color={tw.color("primary-main")} />
       {text && (
         <Typography

@@ -1,5 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SINGLE_DEAL_QUERY, SINGLE_REST_QUERY } from "constants/react-query";
+import {
+  FOLLOWING,
+  SINGLE_DEAL_QUERY,
+  SINGLE_REST_QUERY,
+} from "constants/react-query";
 import useSnackbar from "hooks/useSnackbar";
 import { followRestaurant, unFollowRestaurant } from "lib/api/api";
 
@@ -49,6 +53,7 @@ const useMutateFollowingRest = () => {
           } else return undefined;
         }
       );
+      queryClient.invalidateQueries({ queryKey: [FOLLOWING] });
     },
     onError: (error) => {
       enqeueSnack({ message: error.message, variant: "error" });

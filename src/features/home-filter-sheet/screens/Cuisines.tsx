@@ -80,7 +80,7 @@ const Cuisines = (props: any) => {
           }}
           ref={cuisinesFlatListRef}
           data={cuisinesForm}
-          style={tw`px-6`}
+          style={tw`px-5`}
           contentContainerStyle={tw`pb-20`}
           keyExtractor={(i) => i.slug}
           renderItem={({ item, index }) => (

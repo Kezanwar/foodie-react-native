@@ -1,6 +1,5 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode } from "react";
-import { Image } from "expo-image";
 
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -185,5 +184,5 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
 export default SingleDealModalScreen;
 
 const BaseWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-  return <View style={tw`flex-1 bg-white px-6 py-6 relative`}>{children}</View>;
+  return <View style={tw`flex-1 bg-white px-5 py-6 relative`}>{children}</View>;
 };

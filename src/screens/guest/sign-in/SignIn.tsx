@@ -128,7 +128,7 @@ const SignIn = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <View style={tw`flex-1 px-6`}>
+        <View style={tw`flex-1 px-5`}>
           <Logo width={180} height={60} />
           <Typography
             variant="body2"
@@ -150,7 +150,7 @@ const SignIn = (props: any) => {
         <Animated.View
           entering={FadeInDown}
           style={[
-            tw`flex-1 py-8 px-6 z-20  bg-white dark:bg-grey-950   rounded-3xl`,
+            tw`flex-1 py-8 px-5 z-20  bg-white dark:bg-grey-950   rounded-3xl`,
             SECTION_SHADOWS.topShadowSection,
           ]}
         >

@@ -7,6 +7,11 @@ import BackButton from "components/buttons/back-button";
 import useFavouritesQuery from "hooks/queries/useFavouritesQuery";
 import DealCard from "features/deal-card";
 import { IFeedDeal } from "types/feed";
+import useAppDispatch from "hooks/useAppDispatch";
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { ACCOUNT_STACK } from "constants/routes";
+import { GetSingleDealProps } from "types/single-deal";
+import { CenteredTextHeader } from "features/headers/common";
 
 const Favourites: FC<any> = ({ navigation }) => {
   const { data, refetch, isRefetching, fetchNextPage } = useFavouritesQuery(0);
@@ -16,19 +21,26 @@ const Favourites: FC<any> = ({ navigation }) => {
     [data]
   );
 
+  const dispatch = useAppDispatch();
+
+  const openDeal = (data: GetSingleDealProps) => {
+    dispatch(
+      setSingleDeal({
+        deal_id: data.deal_id,
+        location_id: data.location_id,
+        stack: ACCOUNT_STACK,
+        linkRestaurant: true,
+      })
+    );
+  };
+
   return (
     <SafeAreaView style={tw`bg-white`}>
-      <HeaderContainer>
-        <BackButton withPad={false} onPress={navigation.goBack} />
-        <View style={tw` gap-1`}>
-          <Typography style="font-semi-bold leading-[0] text-4.5" variant="h6">
-            Favourites
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Deals you have favourited
-          </Typography>
-        </View>
-      </HeaderContainer>
+      <CenteredTextHeader
+        title="Favourites"
+        subtitle="Deals you've favourited"
+        goBack={navigation.goBack}
+      />
       <FlatList
         onRefresh={refetch}
         refreshing={isRefetching}
@@ -36,11 +48,12 @@ const Favourites: FC<any> = ({ navigation }) => {
         data={favourites}
         renderItem={({ item }) => (
           <DealCard
+            showActions={false}
             type="list"
             item={item as IFeedDeal}
             onLike={() => {}}
             onShare={() => {}}
-            openDeal={() => {}}
+            openDeal={openDeal}
           />
         )}
         keyExtractor={(item) => `${item.location._id}-${item.deal._id}`}

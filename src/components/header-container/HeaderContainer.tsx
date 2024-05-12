@@ -7,7 +7,7 @@ type Props = { children: ReactNode; style?: string };
 const HeaderContainer: FC<Props> = ({ children, style = "" }) => {
   return (
     <View
-      style={tw`px-6 border-b-[0.5px]  border-b-grey-250 pt-3 pb-4 ${style}`}
+      style={tw`px-5 border-b-[0.5px]  border-b-grey-250 pt-3 pb-4 ${style}`}
     >
       {children}
     </View>

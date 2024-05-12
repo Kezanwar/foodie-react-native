@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  FAVOURITES,
   FEED_QUERY,
   SINGLE_DEAL_QUERY,
   SINGLE_REST_QUERY,
@@ -93,6 +94,8 @@ const useMutateFavouriteDeal = () => {
           } else return undefined;
         }
       );
+
+      queryClient.invalidateQueries({ queryKey: [FAVOURITES] });
     },
     onError: (error) => {
       enqeueSnack({ message: error.message, variant: "error" });

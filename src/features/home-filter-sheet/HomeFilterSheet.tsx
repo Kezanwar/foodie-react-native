@@ -27,7 +27,6 @@ const FilterSheet = forwardRef<BottomSheetModal, Props>(
         ref={ref}
         handleStyle={tw`border-b border-grey-200 `}
         index={0}
-        backgroundStyle={tw`shadow-xl`}
         snapPoints={snapPoints}
         onDismiss={onDismissedModal}
         backdropComponent={renderBackdrop}

@@ -16,7 +16,7 @@ const LocationsPermissionsError: FC<Props> = ({ error }) => {
   const requestLocation = useRequestLocation();
 
   return (
-    <View style={tw`px-6 py-6 items-center justify-center flex-1 bg-white`}>
+    <View style={tw`px-5 py-6 items-center justify-center flex-1 bg-white`}>
       {error && (
         <>
           <Alert variant="error" align="center" content={error} />

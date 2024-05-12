@@ -1,6 +1,6 @@
 import { Alert, FlatList, SafeAreaView, ScrollView, View } from "react-native";
 import React, { FC, useCallback, useState } from "react";
-import { StaticScreenWrapper } from "components/screen-wrapper";
+
 import tw from "theme/tailwind";
 import UserAvatar from "components/user-avatar";
 import { useAppSelector } from "hooks/useAppSelector";
@@ -11,12 +11,12 @@ import { AntDesign } from "@expo/vector-icons";
 import FilterIcon from "components/svgs/filter-icon";
 import ListButton from "components/buttons/list-button";
 import { ACCOUNT_STACK, COMMON_ROUTES } from "constants/routes";
-import { FullWidthButton } from "components/buttons/full-width-button";
+
 import useAppDispatch from "hooks/useAppDispatch";
 import { authLogout } from "store/auth/auth.slice";
 import { endSession } from "lib/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";
-import TextButton from "components/buttons/text-button";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SectionCard from "components/section-card/SectionCard";
 import ls from "lib/storage/storage";
@@ -74,7 +74,7 @@ const Root: FC<Props> = ({ navigation }) => {
   return (
     <View style={tw`flex-1`}>
       <SafeAreaView style={tw`bg-white`}>
-        <View style={tw`flex-row px-6 pb-4 pt-2 items-center justify-between`}>
+        <View style={tw`flex-row px-5 pb-4 pt-2 items-center justify-between`}>
           <View>
             <Typography variant="h6" style={`font-semi-bold leading-tight  `}>
               Account

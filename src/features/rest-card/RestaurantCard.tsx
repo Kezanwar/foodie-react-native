@@ -37,7 +37,7 @@ const RestaurantCard: FC<Props> = ({
     <TouchableOpacity
       onPress={() => navToRest(location._id)}
       style={tw`${
-        type === "carousel" ? "w-[70vw]" : "p-6 bg-white"
+        type === "carousel" ? "w-[70vw]" : "p-5 bg-white"
       } rounded-md`}
     >
       <Image

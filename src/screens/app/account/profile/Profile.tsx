@@ -81,7 +81,7 @@ const Profile: FC = (props: any) => {
 
   return (
     <StaticScreenWrapper>
-      <View style={tw`px-6 flex-1`}>
+      <View style={tw`px-5 flex-1`}>
         <TextActionHeader
           headerText="Your Profile"
           rightActionText="Done"

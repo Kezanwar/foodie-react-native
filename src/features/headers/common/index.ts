@@ -1,2 +1,3 @@
 import TextActionHeader from "./TextActionHeader";
-export { TextActionHeader };
+import CenteredTextHeader from "./CenteredTextHeader";
+export { TextActionHeader, CenteredTextHeader };

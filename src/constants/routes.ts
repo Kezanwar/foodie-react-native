@@ -27,7 +27,8 @@ export const FAVOURITES_STACK = {
 export type DynamicStack =
   | typeof HOME_STACK
   | typeof DISCOVER_STACK
-  | typeof FAVOURITES_STACK;
+  | typeof FAVOURITES_STACK
+  | typeof ACCOUNT_STACK;
 
 //AUTH
 export const AUTH_ROUTES = {

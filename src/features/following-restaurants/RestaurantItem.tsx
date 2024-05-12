@@ -53,7 +53,7 @@ const RestaurantItem: FC<Props> = ({ restaurant, location, navToRest }) => {
           },
         ]}
       >
-        <TouchableOpacity style={tw`h-full px-4 items-center justify-center`}>
+        <TouchableOpacity style={tw`h-full px-5 items-center justify-center`}>
           <AntDesign name="close" size={24} color={iconCol} />
         </TouchableOpacity>
       </Animated.View>
@@ -64,7 +64,7 @@ const RestaurantItem: FC<Props> = ({ restaurant, location, navToRest }) => {
     <Swipeable renderRightActions={renderLeftActions}>
       <TouchableOpacity
         onPress={() => navToRest(location._id)}
-        style={tw` px-6 py-2.5 flex-row  flex-wrap gap-3 flex-1 items-center`}
+        style={tw` px-5 py-2.5 flex-row  flex-wrap gap-3  items-center`}
       >
         <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
         <View>

@@ -20,7 +20,7 @@ const SearchSuggestions: FC = () => {
 
   return (
     <Animated.View
-      style={tw`absolute top-[19] px-6 py-2 w-[100vw] h-[100vh] bg-white z-10`}
+      style={tw`absolute top-[19] px-5 py-2 w-[100vw] h-[100vh] bg-white z-10`}
       entering={FadeInDown}
       // exiting={FadeOutDown}
     >

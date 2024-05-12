@@ -11,7 +11,7 @@ const ScrollScreenWrapper: FC<Props> = ({ children, header }) => {
     <SafeAreaView style={tw`bg-white dark:bg-grey-950 py-4  flex-1 relative`}>
       {header}
       <ScrollView style={tw`flex-1`}>
-        <View style={tw` flex-1 gap-6 min-h-full  `}>{children}</View>
+        <View style={tw` flex-1 gap-5 min-h-full  `}>{children}</View>
       </ScrollView>
     </SafeAreaView>
   );
