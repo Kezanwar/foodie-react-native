@@ -16,7 +16,7 @@ const OpeningTimes: FC<Props> = React.memo(
   ({ opening_times, containerStyle = "" }) => {
     return (
       <View
-        style={tw`gap-2 m-6 border rounded-lg border-grey-200 p-3 mt-5 ${containerStyle}`}
+        style={tw`gap-2 m-5 border rounded-lg border-grey-200 p-3 mt-5 ${containerStyle}`}
       >
         {Object.entries(opening_times).map(([day, val]) => {
           return <Item key={day} day={day} val={val} />;

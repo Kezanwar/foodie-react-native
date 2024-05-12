@@ -35,7 +35,7 @@ const tabControllerItems: TabControllerItemProps[] = [
   },
 ];
 
-const map_style = tw`h-70 m-6 mt-5 rounded-md`;
+const map_style = tw`h-70 m-5 mt-5 rounded-md`;
 
 type Props = {
   name: string;
@@ -76,7 +76,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
           height={32}
           spreadItems={false}
           backgroundColor="transparent"
-          containerStyle={tw`mx-2 bg-[#00000000]`}
+          containerStyle={tw`mx-1 bg-[#00000000]`}
           items={tabControllerItems}
         />
         <TabController.PageCarousel>

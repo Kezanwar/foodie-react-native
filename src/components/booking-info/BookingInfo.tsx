@@ -56,7 +56,7 @@ const BookingInfo: FC<Props> = ({
   };
 
   return (
-    <View style={tw`m-6 mt-5 gap-3`}>
+    <View style={tw`m-5 mt-5 gap-3`}>
       <GreyBtn onPress={onDirectionsPress}>
         <IconAndText
           text={Object.values(address).filter((el) => el)}
