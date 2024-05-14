@@ -2,7 +2,7 @@ import React, { FC, useMemo } from "react";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import tw from "theme/tailwind";
 import MapView, { Marker, Region } from "react-native-maps";
-import { Geometry } from "types/geometry";
+import { Coordinates, Geometry } from "types/geometry";
 import BookingInfo from "components/booking-info";
 import { Address } from "types/address";
 import OpeningTimes from "components/opening-times/OpeningTimes";
@@ -40,7 +40,7 @@ const map_style = tw`h-70 m-5 mt-5 rounded-md`;
 type Props = {
   name: string;
   booking_link?: string;
-  geometry: Geometry;
+  coordinates: Coordinates;
   address: Address;
   email: string;
   phone_number: string;
@@ -50,7 +50,7 @@ type Props = {
 
 const RestaurantInfoTabs: FC<Props> = React.memo(
   ({
-    geometry,
+    coordinates,
     address,
     email,
     name,
@@ -61,10 +61,10 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
   }) => {
     const region = useMemo(() => {
       return {
-        latitude: geometry.coordinates[1],
-        longitude: geometry.coordinates[0],
+        latitude: coordinates[1],
+        longitude: coordinates[0],
       };
-    }, [geometry.coordinates[1], geometry.coordinates[0]]);
+    }, [coordinates[1], coordinates[0]]);
     return (
       <TabController
         asCarousel
@@ -98,7 +98,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
             <BookingInfo
               address={address}
               email={email}
-              geometry={geometry}
+              coordinates={coordinates}
               name={name}
               phone_number={phone_number}
               booking_link={booking_link}

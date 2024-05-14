@@ -3,25 +3,17 @@ import { getSingleRest } from "lib/api/api";
 import { SINGLE_REST_QUERY } from "constants/react-query";
 
 import { minutes } from "util/time";
-import { ILatLong } from "types/single-deal";
-import { useAppSelector } from "hooks/useAppSelector";
+
 import { GetSingleRestProps } from "types/restaurant";
 
-export const getSingleRestKey = (data: GetSingleRestProps & ILatLong) =>
-  `${SINGLE_REST_QUERY}-${data.location_id}-${data.lat}-${data.long}`;
+export const getSingleRestKey = (data: GetSingleRestProps) =>
+  `${SINGLE_REST_QUERY}-${data.location_id}`;
 
 const useSingleRestaurantQuery = (data: GetSingleRestProps) => {
-  const location = useAppSelector((state) => state.location.location?.coords);
-
-  const long = location?.longitude || 0;
-  const lat = location?.latitude || 0;
-
-  const dataWithLocation = { ...data, lat, long };
-
   const query = useQuery({
-    queryKey: [getSingleRestKey(dataWithLocation)],
-    queryFn: () => getSingleRest(dataWithLocation),
-    staleTime: minutes(15),
+    queryKey: [getSingleRestKey(data)],
+    queryFn: () => getSingleRest(data),
+    staleTime: minutes(20),
   });
 
   return query;

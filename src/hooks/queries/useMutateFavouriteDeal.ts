@@ -73,23 +73,19 @@ const useMutateFavouriteDeal = () => {
         }
       );
 
-      queryClient.setQueriesData(
-        {
-          predicate: (query) =>
-            query.queryKey.every((q) => {
-              if (typeof q === "string") {
-                return q.includes(`${SINGLE_REST_QUERY}-${location_id}`);
-              } else return false;
-            }),
-        },
+      queryClient.setQueryData(
+        [`${SINGLE_REST_QUERY}-${location_id}`],
         (oldData: IRestaurant | undefined): IRestaurant | undefined => {
           if (oldData) {
             const newData = { ...oldData };
-            for (let d of newData.active_deals) {
-              if (d._id === deal_id) {
-                d.is_favourited = is_favourited;
-              }
-            }
+            newData.active_deals = newData.active_deals.map((d) => {
+              return {
+                ...d,
+                is_favourited:
+                  d._id === deal_id ? is_favourited : d.is_favourited,
+              };
+            });
+
             return newData;
           } else return undefined;
         }

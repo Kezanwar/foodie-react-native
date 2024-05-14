@@ -158,7 +158,7 @@ export const getFollowing = async (page: number) => {
 
 //* SINGLE DEAL
 
-export const getSingleDeal = async (data: GetSingleDealProps & ILatLong) => {
+export const getSingleDeal = async (data: GetSingleDealProps) => {
   return axiosInstance
     .get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
       params: data,
@@ -203,16 +203,10 @@ export const getSearchFeed = async (
 
 //* SINGLE RESTAURANT
 
-export const getSingleRest = async (data: GetSingleRestProps & ILatLong) => {
+export const getSingleRest = async (data: GetSingleRestProps) => {
   return axiosInstance
     .get<IRestaurant>(
-      `${APP_ENDPOINTS.getSingleRestaurant}/${data.location_id}`,
-      {
-        params: {
-          lat: data.lat,
-          long: data.long,
-        },
-      }
+      `${APP_ENDPOINTS.getSingleRestaurant}/${data.location_id}`
     )
     .then((res) => {
       return res.data;

@@ -1,5 +1,5 @@
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useMemo } from "react";
 
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -20,6 +20,8 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { SingleDealState } from "store/single-deal/single-deal.slice";
 import RestaurantAvatar from "components/restaurant-avatar";
+import { getDistanceInMiles } from "util/distance";
+import { useAppSelector } from "hooks/useAppSelector";
 
 const PRIM = tw.color("primary-main");
 
@@ -80,6 +82,19 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
       }, 300);
     }
   };
+
+  const userLocationCoords = useAppSelector(
+    (state) => state.location.location?.coords
+  );
+
+  const distance = useMemo(() => {
+    if (deal?.location && userLocationCoords) {
+      return getDistanceInMiles(deal?.location.coordinates, [
+        userLocationCoords?.longitude,
+        userLocationCoords?.latitude,
+      ]);
+    } else return 0;
+  }, [deal?.location.coordinates, userLocationCoords]);
 
   if (isLoading) {
     return (
@@ -172,7 +187,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
               color="success.main"
               style=" font-medium  text-3.25"
             >
-              {deal.distance_miles.toFixed(1)} Miles
+              {distance.toFixed(1)} Miles
             </Typography>
           </View>
         </View>

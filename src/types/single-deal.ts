@@ -1,4 +1,4 @@
-import { Geometry } from "./geometry";
+import { Coordinates } from "./geometry";
 import { IOpeningTimes } from "./opening-times";
 import { Option } from "./options";
 
@@ -24,7 +24,6 @@ export interface ISingleDeal {
   is_favourited: boolean;
   is_following: boolean;
   location: ISingleLocation;
-  distance_miles: number;
 }
 
 interface Address {
@@ -34,17 +33,17 @@ interface Address {
   city: string;
   country: string;
 }
-export interface ISingleLocation {
+interface ISingleLocation {
   _id: string;
   nickname: string;
   address: Address;
   phone_number: string;
   email: string;
   opening_times: IOpeningTimes;
-  geometry: Geometry;
+  coordinates: Coordinates;
 }
 
-export interface ISingleRestaurant {
+interface ISingleRestaurant {
   id: string;
   name: string;
   avatar: string;

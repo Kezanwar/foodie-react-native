@@ -1,5 +1,5 @@
 import { Address } from "./address";
-import { Geometry } from "./geometry";
+import { Coordinates, Geometry } from "./geometry";
 import { IOpeningTimes } from "./opening-times";
 import { Option } from "./options";
 
@@ -18,9 +18,8 @@ export interface IRestaurant {
   cuisines: Option[];
   dietary_requirements: Option[];
   active_deals: ActiveDeal[];
-  distance_miles: number;
   is_following: boolean;
-  geometry: Geometry;
+  coordinates: Coordinates;
 }
 
 export interface Restaurant {

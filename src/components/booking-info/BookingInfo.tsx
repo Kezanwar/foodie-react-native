@@ -7,20 +7,20 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Linking } from "react-native";
-import { Geometry } from "types/geometry";
+import { Coordinates, Geometry } from "types/geometry";
 import { Address } from "types/address";
 
 type Props = {
   name: string;
   booking_link?: string;
-  geometry: Geometry;
+  coordinates: Coordinates;
   address: Address;
   email: string;
   phone_number: string;
 };
 
 const BookingInfo: FC<Props> = ({
-  geometry,
+  coordinates,
   name,
   booking_link,
   address,
@@ -32,7 +32,7 @@ const BookingInfo: FC<Props> = ({
       ios: "maps://0,0?q=",
       android: "geo:0,0?q=",
     });
-    const latLng = `${geometry.coordinates[1]},${geometry.coordinates[0]}`;
+    const latLng = `${coordinates[1]},${coordinates[0]}`;
     const label = name;
     const url = Platform.select({
       ios: `${scheme}${label}@${latLng}`,

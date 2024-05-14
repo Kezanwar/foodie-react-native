@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -28,6 +28,8 @@ import { GetSingleDealProps } from "types/single-deal";
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
+import { useAppSelector } from "hooks/useAppSelector";
+import { getDistanceInMiles } from "util/distance";
 
 export type RouteParams = {
   location_id: string;
@@ -90,6 +92,19 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
     );
   };
 
+  const userLocationCoords = useAppSelector(
+    (state) => state.location.location?.coords
+  );
+
+  const distance = useMemo(() => {
+    if (restaurant && userLocationCoords) {
+      return getDistanceInMiles(restaurant.coordinates, [
+        userLocationCoords?.longitude,
+        userLocationCoords?.latitude,
+      ]);
+    } else return 0;
+  }, [restaurant?.coordinates, userLocationCoords]);
+
   if (isLoading) return <LoadingScreen />;
 
   if (!restaurant || isError)
@@ -136,7 +151,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                   color="success.main"
                   style=" font-medium  text-3.25"
                 >
-                  {restaurant.distance_miles.toFixed(1)} Miles
+                  {distance.toFixed(1)} Miles
                 </Typography>
               </View>
             </View>
@@ -200,7 +215,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           initialIndex={1}
           address={restaurant.address}
           email={restaurant.email}
-          geometry={restaurant.geometry}
+          coordinates={restaurant.coordinates}
           name={restaurant.restaurant.name}
           phone_number={restaurant.phone_number}
           booking_link={restaurant.restaurant?.booking_link}

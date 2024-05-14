@@ -36,15 +36,8 @@ const useMutateFollowingRest = () => {
           } else return undefined;
         }
       );
-      queryClient.setQueriesData(
-        {
-          predicate: (query) =>
-            query.queryKey.every((q) => {
-              if (typeof q === "string") {
-                return q.includes(`${SINGLE_REST_QUERY}-${location_id}`);
-              } else return false;
-            }),
-        },
+      queryClient.setQueryData(
+        [`${SINGLE_REST_QUERY}-${location_id}`],
         (oldData: IRestaurant | undefined): IRestaurant | undefined => {
           if (oldData) {
             const newData = { ...oldData };
