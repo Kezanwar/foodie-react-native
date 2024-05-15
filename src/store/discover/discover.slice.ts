@@ -24,7 +24,13 @@ const discoverSlice = createSlice({
   reducers: {
     setSearchText: (state, { payload }: PayloadAction<string>) => {
       state.searchInputText = payload;
-      if (!state.isSearchFocused) state.isSearchFocused = true;
+      if (!state.isSearchFocused && payload) {
+        state.isSearchFocused = true;
+      }
+
+      if (!payload) {
+        state.searchSubmitText = "";
+      }
     },
     onClearSearchText: (state) => {
       state.searchInputText = "";

@@ -1,3 +1,4 @@
+import { Coordinates } from "types/geometry";
 export type IFeedDeal = {
   _id: string;
   restaurant: {
@@ -15,7 +16,8 @@ export type IFeedDeal = {
   location: {
     _id: string;
     nickname: string;
-    distance_miles: number;
+    distance_miles?: number;
+    coordinates?: Coordinates;
   };
 };
 

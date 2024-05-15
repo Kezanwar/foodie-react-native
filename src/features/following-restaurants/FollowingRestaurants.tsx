@@ -1,11 +1,11 @@
 import React, { FC, useMemo } from "react";
-import tw from "theme/tailwind";
 import useFollowingQuery from "hooks/queries/useFollowingQuery";
 import { ACCOUNT_STACK } from "constants/routes";
 import RestaurantItem from "./RestaurantItem";
 import Divider from "components/divider";
-import { FlatList, LayoutAnimation, View, Animated } from "react-native";
+import { Animated } from "react-native";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
+import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = {
   navigation: any;
@@ -25,6 +25,10 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
       location_id,
       stack: ACCOUNT_STACK,
     });
+
+  const userLocationCoords = useAppSelector(
+    (state) => state.location.location?.coords
+  );
 
   const mutateFollow = useMutateFollowingRest();
 
@@ -52,6 +56,7 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
           location={item.location}
           restaurant={item.restaurant}
           navToRest={navToRest}
+          userCoordinates={userLocationCoords}
         />
       )}
       keyExtractor={(item) => item.location._id}

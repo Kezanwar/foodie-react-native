@@ -35,7 +35,11 @@ const CenteredTextHeader: FC<Props> = ({ goBack, title, subtitle }) => {
           {title}
         </Typography>
         {hasSub && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            style={"text-center"}
+            color="text.secondary"
+          >
             {subtitle}
           </Typography>
         )}

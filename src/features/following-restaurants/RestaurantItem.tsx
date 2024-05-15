@@ -1,5 +1,5 @@
 import { View, Animated } from "react-native";
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import tw from "theme/tailwind";
 
@@ -8,6 +8,9 @@ import { Typography } from "components/typography";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AntDesign } from "@expo/vector-icons";
+import { getDistanceInMiles } from "util/distance";
+import { Coordinates } from "types/geometry";
+import { LocationObjectCoords } from "expo-location";
 
 interface Restaurant {
   id: string;
@@ -19,7 +22,7 @@ interface Restaurant {
 interface Location {
   _id: string;
   nickname: string;
-  distance_miles?: number;
+  coordinates: Coordinates;
 }
 
 type Props = {
@@ -27,6 +30,7 @@ type Props = {
   restaurant: Restaurant;
   navToRest: (location_id: string) => void;
   unfollowRest: (location_id: string, rest_id: string) => void;
+  userCoordinates: LocationObjectCoords | undefined;
 };
 
 type RenderRightActions = (
@@ -42,18 +46,23 @@ const RestaurantItem: FC<Props> = ({
   location,
   navToRest,
   unfollowRest,
+  userCoordinates,
 }) => {
   const renderLeftActions: RenderRightActions = useCallback((_, dragX) => {
-    const trans = dragX.interpolate({
+    const transX = dragX.interpolate({
       inputRange: [0, 50, 100, 101],
       outputRange: [0, 10, 30, 50],
+    });
+    const scale = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [0.55, 0.3, 0.1, 0],
     });
     return (
       <Animated.View
         style={[
           tw`h-full`,
           {
-            transform: [{ translateX: trans }],
+            transform: [{ translateX: transX }, { scale }],
           },
         ]}
       >
@@ -66,6 +75,15 @@ const RestaurantItem: FC<Props> = ({
       </Animated.View>
     );
   }, []);
+
+  const distance = useMemo(() => {
+    if (location && userCoordinates) {
+      return getDistanceInMiles(location.coordinates, [
+        userCoordinates.longitude,
+        userCoordinates.latitude,
+      ]);
+    } else return 0;
+  }, [userCoordinates, location]);
 
   return (
     <Swipeable renderRightActions={renderLeftActions}>
@@ -87,6 +105,15 @@ const RestaurantItem: FC<Props> = ({
               {location.nickname}
             </Typography>
           )}
+        </View>
+        <View style={tw`flex-1 items-end`}>
+          <Typography
+            variant="body2"
+            color="success.main"
+            style=" font-medium  text-3.25"
+          >
+            {distance.toFixed(1)} Miles
+          </Typography>
         </View>
       </TouchableOpacity>
     </Swipeable>

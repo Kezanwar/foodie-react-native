@@ -1,3 +1,5 @@
+import { Coordinates } from "./geometry";
+
 export type FollowRestRequest = {
   location_id: string;
   rest_id: string;
@@ -30,5 +32,5 @@ interface Restaurant {
 interface Location {
   _id: string;
   nickname: string;
-  distance_miles: number;
+  coordinates: Coordinates;
 }
