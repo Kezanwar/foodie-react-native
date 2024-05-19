@@ -24,7 +24,7 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 
 import { LoginSchema } from "lib/validation/auth";
 import { loginGoogle, loginJWT } from "lib/api/api";
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
 import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
@@ -32,6 +32,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import Spacer from "components/separators/spacer";
+import { useAppSelector } from "hooks/useAppSelector";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -68,6 +69,10 @@ const SignIn = (props: any) => {
     password: "",
   };
 
+  const pushToken = useAppSelector(
+    (state) => state.notifications.expoPushToken
+  );
+
   const {
     handleSubmit,
     control,
@@ -82,7 +87,7 @@ const SignIn = (props: any) => {
   const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
     try {
       setIsLoading(true);
-      const res = await loginJWT(data);
+      const res = await loginJWT({ ...data, pushToken });
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
       setSession(accessToken);
@@ -98,7 +103,7 @@ const SignIn = (props: any) => {
   const loginWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await loginGoogle(token);
+      const res = await loginGoogle(token, pushToken);
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
       setSession(accessToken);

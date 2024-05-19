@@ -22,7 +22,7 @@ import { Typography } from "components/typography";
 
 import useAppDispatch from "hooks/useAppDispatch";
 
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 
 import { setLocationObject } from "store/location/location.slice";
 

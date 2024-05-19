@@ -8,7 +8,7 @@ import { Typography } from "components/typography";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AntDesign } from "@expo/vector-icons";
-import { getDistanceInMiles } from "util/distance";
+import { getDistanceInMiles } from "utils/distance";
 import { Coordinates } from "types/geometry";
 import { LocationObjectCoords } from "expo-location";
 

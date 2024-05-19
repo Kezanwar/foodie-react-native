@@ -1,0 +1,3 @@
+const NOTIFICATION_TYPES = {
+  DEAL: "DEAL",
+};

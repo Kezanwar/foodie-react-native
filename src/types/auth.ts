@@ -7,7 +7,12 @@ export type IUser = {
   avatar: string;
 };
 
-export type LoginJWTData = { email: string; password: string };
+export type LoginJWTData = {
+  email: string;
+  password: string;
+  pushToken?: string;
+};
+
 export type LoginResponse = { user: IUser; accessToken: string };
 
 export type RegisterJWTData = {
@@ -15,6 +20,7 @@ export type RegisterJWTData = {
   last_name: string;
   email: string;
   password: string;
+  pushToken?: string;
 };
 
 export type InitializeResponse = { user: IUser };

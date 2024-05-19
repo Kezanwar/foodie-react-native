@@ -20,7 +20,7 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { SingleDealState } from "store/single-deal/single-deal.slice";
 import RestaurantAvatar from "components/restaurant-avatar";
-import { getDistanceInMiles } from "util/distance";
+import { getDistanceInMiles } from "utils/distance";
 import { useAppSelector } from "hooks/useAppSelector";
 
 const PRIM = tw.color("primary-main");

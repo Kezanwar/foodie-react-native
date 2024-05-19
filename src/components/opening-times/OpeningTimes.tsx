@@ -4,7 +4,7 @@ import tw from "theme/tailwind";
 
 import { Typography } from "components/typography";
 
-import { capitalize } from "util/string";
+import { capitalize } from "utils/string";
 import { IOpeningDay, IOpeningTimes } from "types/opening-times";
 
 type Props = {

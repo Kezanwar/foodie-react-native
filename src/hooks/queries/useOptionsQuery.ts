@@ -3,7 +3,7 @@ import { getOptions } from "lib/api/api";
 
 import { OPTIONS_QUERY } from "constants/react-query";
 
-import { minutes } from "util/time";
+import { minutes } from "utils/time";
 
 const useOptionsQuery = () => {
   const query = useQuery({

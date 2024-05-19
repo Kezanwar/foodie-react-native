@@ -10,6 +10,7 @@ import locationReducer from "./location/location.slice";
 import homeReducer from "./home/home.slice";
 import discoverReducer from "./discover/discover.slice";
 import singleDealReducer from "./single-deal/single-deal.slice";
+import notificationsReducer from "./notifications/notifications.slice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     home: homeReducer,
     discover: discoverReducer,
     singleDeal: singleDealReducer,
+    notifications: notificationsReducer,
   },
 });

@@ -16,7 +16,7 @@ import {
 } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
-import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
+import { GetSingleDealProps, ISingleDeal } from "types/single-deal";
 import { FollowRestResponse, FollowingInfinitePage } from "types/following";
 import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
@@ -75,9 +75,10 @@ export const addPreferences = (data: IOptions) => {
 export const loginJWT = (data: LoginJWTData) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.login, data);
 };
-export const loginGoogle = (token: string) => {
+export const loginGoogle = (token: string, pushToken?: string) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.loginWithGoogle, {
     token,
+    pushToken,
   });
 };
 export const confirmEmailOTP = (otp: string) => {
@@ -86,9 +87,10 @@ export const confirmEmailOTP = (otp: string) => {
 export const resendEmailOTP = () => {
   return axiosInstance.patch(AUTH_ENDPOINTS.resendEmailOTP);
 };
-export const registerGoogle = (token: string) => {
+export const registerGoogle = (token: string, pushToken?: string) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithGoogle, {
     token,
+    pushToken,
   });
 };
 export const registerJWT = (data: RegisterJWTData) => {

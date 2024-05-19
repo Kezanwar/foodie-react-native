@@ -15,7 +15,7 @@ import TextButton from "components/buttons/text-button";
 
 import useSnackbar from "hooks/useSnackbar";
 
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 
 import { changePassword } from "lib/api/api";
 

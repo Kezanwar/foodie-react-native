@@ -20,7 +20,7 @@ import useSnackbar from "hooks/useSnackbar";
 import { registerJWT } from "lib/api/api";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert/Alert";
 import TextButton from "components/buttons/text-button";
 
@@ -46,6 +46,10 @@ const AddEmailPassword: React.FC = (props: any) => {
   const { first_name, last_name } = register;
 
   const enqueueSnack = useSnackbar();
+
+  const pushToken = useAppSelector(
+    (state) => state.notifications.expoPushToken
+  );
 
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
@@ -76,7 +80,12 @@ const AddEmailPassword: React.FC = (props: any) => {
 
     try {
       setIsLoading(true);
-      const res = await registerJWT({ ...data, first_name, last_name });
+      const res = await registerJWT({
+        ...data,
+        first_name,
+        last_name,
+        pushToken,
+      });
       const { user, accessToken } = res?.data;
       setIsLoading(false);
       dispatch(authLogin(user));

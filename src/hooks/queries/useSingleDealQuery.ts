@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSingleDeal } from "lib/api/api";
 import { SINGLE_DEAL_QUERY } from "constants/react-query";
 
-import { minutes } from "util/time";
+import { minutes } from "utils/time";
 import { GetSingleDealProps } from "types/single-deal";
 
 const getSingleDealKey = (data: GetSingleDealProps) =>
