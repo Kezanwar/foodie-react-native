@@ -47,6 +47,10 @@ const AddEmailPassword: React.FC = (props: any) => {
 
   const enqueueSnack = useSnackbar();
 
+  const pushToken = useAppSelector(
+    (state) => state.notifications.expoPushToken
+  );
+
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
     password: "",
@@ -76,7 +80,12 @@ const AddEmailPassword: React.FC = (props: any) => {
 
     try {
       setIsLoading(true);
-      const res = await registerJWT({ ...data, first_name, last_name });
+      const res = await registerJWT({
+        ...data,
+        first_name,
+        last_name,
+        pushToken,
+      });
       const { user, accessToken } = res?.data;
       setIsLoading(false);
       dispatch(authLogin(user));

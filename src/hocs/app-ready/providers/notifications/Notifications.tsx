@@ -8,8 +8,9 @@ import useAppDispatch from "hooks/useAppDispatch";
 
 import {
   setExpoPushToken,
-  setNotification,
+  //   setNotification,
 } from "store/notifications/notifications.slice";
+import handleNotification from "./handle-notification";
 
 type Props = {
   children: ReactNode;
@@ -26,7 +27,7 @@ const Notifications: FC<Props> = ({ children }) => {
     }),
   });
 
-  const notificationListener = useRef<Notify.Subscription>();
+  //   const notificationListener = useRef<Notify.Subscription>();
   const responseListener = useRef<Notify.Subscription>();
 
   async function registerForPushNotificationsAsync() {
@@ -70,21 +71,19 @@ const Notifications: FC<Props> = ({ children }) => {
       }
     });
 
-    notificationListener.current = Notify.addNotificationReceivedListener(
-      (notification) => {
-        dispatch(setNotification(notification));
-        console.log(notification);
-      }
-    );
+    // notificationListener.current = Notify.addNotificationReceivedListener(
+    //   (notification) => {
+    //     dispatch(setNotification(notification));
+    //     console.log("not", notification);
+    //   }
+    // );
 
     responseListener.current = Notify.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log(response);
-      }
+      (response) => handleNotification(response.notification.request)
     );
 
     return () => {
-      Notify.removeNotificationSubscription(notificationListener.current!);
+      //   Notify.removeNotificationSubscription(notificationListener.current!);
       Notify.removeNotificationSubscription(responseListener.current!);
     };
   }, []);

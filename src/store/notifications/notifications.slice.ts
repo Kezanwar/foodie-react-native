@@ -4,7 +4,7 @@ import { ExpoPushToken, Notification } from "expo-notifications";
 // types
 
 interface notificationsSliceState {
-  expoPushToken?: ExpoPushToken;
+  expoPushToken?: string;
   notification?: Notification;
 }
 
@@ -21,7 +21,7 @@ const notificationsSlice = createSlice({
       state.notification = payload;
     },
     setExpoPushToken: (state, { payload }: PayloadAction<ExpoPushToken>) => {
-      state.expoPushToken = payload;
+      state.expoPushToken = payload.data;
     },
   },
 });

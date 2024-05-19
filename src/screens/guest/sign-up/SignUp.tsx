@@ -26,6 +26,7 @@ import { registerGoogle } from "lib/api/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
+import { useAppSelector } from "hooks/useAppSelector";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -46,10 +47,14 @@ const SignUp = (props: any) => {
 
   const onSignUp = () => props.navigation.navigate(AUTH_ROUTES.ADD_DETAILS);
 
+  const pushToken = useAppSelector(
+    (state) => state.notifications.expoPushToken
+  );
+
   const registerWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await registerGoogle(token);
+      const res = await registerGoogle(token, pushToken);
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
       setSession(accessToken);
