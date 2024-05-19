@@ -1,0 +1,34 @@
+import { useCallback } from "react";
+import { NotificationRequest } from "expo-notifications";
+import { navigate } from "../app-ready/providers/navigation/Navigation";
+import { HOME_STACK } from "constants/routes";
+import { NOTIFICATION_TYPES } from "./types";
+import useAppDispatch from "hooks/useAppDispatch";
+import { setSingleDeal } from "store/single-deal/single-deal.slice";
+
+const useOpenNotificationHandler = () => {
+  const dispatch = useAppDispatch();
+  const onOpen = useCallback((request: NotificationRequest): void => {
+    switch (request.content.data?.type) {
+      case NOTIFICATION_TYPES.SINGLE_DEAL:
+        navigate(HOME_STACK.SINGLE_RESTAURANT, {
+          location_id: request.content.data.location_id,
+        });
+        dispatch(
+          setSingleDeal({
+            deal_id: request.content.data.deal_id,
+            location_id: request.content.data.location_id,
+            stack: HOME_STACK,
+            linkRestaurant: true,
+          })
+        );
+        break;
+
+      default:
+        break;
+    }
+  }, []);
+  return onOpen;
+};
+
+export default useOpenNotificationHandler;

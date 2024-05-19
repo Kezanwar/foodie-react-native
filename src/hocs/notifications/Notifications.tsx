@@ -7,10 +7,13 @@ import Constants from "expo-constants";
 import useAppDispatch from "hooks/useAppDispatch";
 
 import {
+  clearNotification,
   setExpoPushToken,
-  //   setNotification,
+  setNotification,
 } from "store/notifications/notifications.slice";
-import handleNotification from "./handle-notification";
+
+import { useAppSelector } from "hooks/useAppSelector";
+import useOpenNotificationHandler from "./useOpenNotificationHandler";
 
 type Props = {
   children: ReactNode;
@@ -18,6 +21,11 @@ type Props = {
 
 const Notifications: FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const notification = useAppSelector(
+    (state) => state.notifications.notification
+  );
+
+  const openNotificationHandler = useOpenNotificationHandler();
 
   Notify.setNotificationHandler({
     handleNotification: async () => ({
@@ -79,14 +87,38 @@ const Notifications: FC<Props> = ({ children }) => {
     // );
 
     responseListener.current = Notify.addNotificationResponseReceivedListener(
-      (response) => handleNotification(response.notification.request)
+      (response) => dispatch(setNotification(response.notification))
     );
+
+    Notify.getAllScheduledNotificationsAsync()
+      .then((scheduled) => {
+        if (!scheduled.length) {
+          Notify.scheduleNotificationAsync({
+            content: {
+              title: "Foodie",
+              body: "Checkout deals in your area!",
+              data: { data: "goes here" },
+            },
+            trigger: { seconds: 60 * 10, repeats: true },
+          })
+            .then()
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
 
     return () => {
       //   Notify.removeNotificationSubscription(notificationListener.current!);
       Notify.removeNotificationSubscription(responseListener.current!);
     };
   }, []);
+
+  useEffect(() => {
+    if (notification) {
+      openNotificationHandler(notification.request);
+      dispatch(clearNotification());
+    }
+  }, [notification]);
 
   return children;
 };
