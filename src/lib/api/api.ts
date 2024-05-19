@@ -16,13 +16,12 @@ import {
 } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
-import { GetSingleDealProps, ILatLong, ISingleDeal } from "types/single-deal";
+import { GetSingleDealProps, ISingleDeal } from "types/single-deal";
 import { FollowRestResponse, FollowingInfinitePage } from "types/following";
 import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
-import { ExpoPushToken } from "expo-notifications";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
