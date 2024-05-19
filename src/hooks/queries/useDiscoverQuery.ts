@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiscover } from "lib/api/api";
 import { DISCOVER_QUERY } from "constants/react-query";
 
-import { minutes } from "util/time";
+import { minutes } from "utils/time";
 
 import { useAppSelector } from "hooks/useAppSelector";
 

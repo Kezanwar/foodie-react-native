@@ -21,7 +21,6 @@
       },
       "plugins": [
         "@react-native-google-signin/google-signin",
-        "@notifee/react-native",
         [
           "expo-location",
           {
@@ -30,9 +29,7 @@
         ]
       ]
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kezanwar.foodiereactnative"
@@ -52,8 +49,6 @@
         "projectId": "dc612448-f43d-4870-af12-35590fe2b0ee"
       }
     },
-    "plugins": [
-      "expo-font"
-    ]
+    "plugins": ["expo-font"]
   }
 }

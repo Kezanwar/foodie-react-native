@@ -13,7 +13,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 import useSnackbar from "hooks/useSnackbar";
 
 import { authLogin } from "store/auth/auth.slice";
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 import { confirmEmailOTP, initializeJWT, resendEmailOTP } from "lib/api/api";
 
 const OTP_THEME: Theme = {

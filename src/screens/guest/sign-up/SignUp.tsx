@@ -14,7 +14,7 @@ import { FullWidthButton } from "components/buttons/full-width-button";
 import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios/axios";
 

@@ -27,7 +27,7 @@ import {
 } from "store/preferences/preferences.slice";
 import useSnackbar from "hooks/useSnackbar";
 import { addPreferences } from "lib/api/api";
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 
 const Preferences = (props: any) => {
   // useAppSelector((state) => state.theme.theme);

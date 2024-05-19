@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSingleRest } from "lib/api/api";
 import { SINGLE_REST_QUERY } from "constants/react-query";
 
-import { minutes } from "util/time";
+import { minutes } from "utils/time";
 
 import { GetSingleRestProps } from "types/restaurant";
 

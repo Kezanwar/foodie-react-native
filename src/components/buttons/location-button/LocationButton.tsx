@@ -5,7 +5,7 @@ import { Typography } from "components/typography";
 import tw from "theme/tailwind";
 
 import { Ionicons } from "@expo/vector-icons";
-import { reverseGeocodedMainText } from "util/text";
+import { reverseGeocodedMainText } from "utils/text";
 
 type Props = TouchableOpacityProps;
 

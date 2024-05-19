@@ -29,7 +29,7 @@ import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { useAppSelector } from "hooks/useAppSelector";
-import { getDistanceInMiles } from "util/distance";
+import { getDistanceInMiles } from "utils/distance";
 
 export type RouteParams = {
   location_id: string;

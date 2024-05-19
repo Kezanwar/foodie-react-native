@@ -15,7 +15,7 @@ import TextButton from "components/buttons/text-button";
 import useSnackbar from "hooks/useSnackbar";
 import Spacer from "components/separators/spacer";
 import { changePassword, patchProfile } from "lib/api/api";
-import { catchErrorHandler } from "util/error";
+import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert";
 import useAppDispatch from "hooks/useAppDispatch";
 import { updateUser } from "store/auth/auth.slice";

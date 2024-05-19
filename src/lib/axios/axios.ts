@@ -12,9 +12,15 @@ const axiosInstance = axios.create({
   baseURL: baseUrl,
 });
 
+axios.interceptors.request.use((value) => {
+  console.log(value.baseURL);
+  return value;
+});
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log(baseUrl);
+    console.log(error);
     // logout when response is 401
 
     // if (error.response.status === 401) {

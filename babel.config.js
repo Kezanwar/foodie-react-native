@@ -17,7 +17,7 @@ module.exports = function (api) {
             hooks: "./src/hooks",
             theme: "./src/theme",
             constants: "./src/constants",
-            util: "./src/util",
+            utils: "./src/utils",
             navigation: "./src/navigation",
             screens: "./src/screens",
           },

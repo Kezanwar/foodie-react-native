@@ -4,7 +4,7 @@ import { PREFERENCES_QUERY } from "constants/react-query";
 import { AxiosResponse } from "axios";
 import { IPreferences } from "types/preferences";
 import { useCallback } from "react";
-import { minutes } from "util/time";
+import { minutes } from "utils/time";
 
 const usePreferencesQuery = () => {
   const query = useQuery({

@@ -14,7 +14,7 @@ import { Or } from "components/separators/or";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
 
-import { reverseGeocodedMainText } from "util/text";
+import { reverseGeocodedMainText } from "utils/text";
 import { COMMON_ROUTES } from "constants/routes";
 import { useFocusEffect } from "@react-navigation/native";
 import LocationStatus from "components/location-status/LocationStatus";
