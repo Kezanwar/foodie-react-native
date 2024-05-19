@@ -13,7 +13,6 @@ import Redux from "hocs/app-ready/providers/redux";
 import SingleDealModal from "features/single-deal-modal";
 
 import { enableFreeze } from "react-native-screens";
-import Notifications from "./providers/notifications";
 
 enableFreeze(true);
 
@@ -27,14 +26,12 @@ const AppReady: FC<Props> = ({ children }) => {
   return (
     <ReactQuery>
       <Redux>
-        <Notifications>
-          <FontLoadGestureHandler>
-            <BottomSheetModalProvider>
-              <Navigation>{children}</Navigation>
-              <SingleDealModal />
-            </BottomSheetModalProvider>
-          </FontLoadGestureHandler>
-        </Notifications>
+        <FontLoadGestureHandler>
+          <BottomSheetModalProvider>
+            <Navigation>{children}</Navigation>
+            <SingleDealModal />
+          </BottomSheetModalProvider>
+        </FontLoadGestureHandler>
       </Redux>
     </ReactQuery>
   );

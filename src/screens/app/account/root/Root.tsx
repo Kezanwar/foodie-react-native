@@ -1,30 +1,30 @@
 import { Alert, FlatList, SafeAreaView, ScrollView, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import React, { FC, useCallback, useState } from "react";
-
+import { useQueryClient } from "@tanstack/react-query";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
-import UserAvatar from "components/user-avatar";
-import { useAppSelector } from "hooks/useAppSelector";
-import { Typography } from "components/typography";
-import { Ionicons } from "@expo/vector-icons";
 
-import { AntDesign } from "@expo/vector-icons";
-import FilterIcon from "components/svgs/filter-icon";
-import ListButton from "components/buttons/list-button";
+import { endSession } from "lib/axios/axios";
+import ls from "lib/storage/storage";
+
+import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
+
 import { ACCOUNT_STACK, COMMON_ROUTES } from "constants/routes";
 
-import useAppDispatch from "hooks/useAppDispatch";
-import { authLogout } from "store/auth/auth.slice";
-import { endSession } from "lib/axios/axios";
-import { useQueryClient } from "@tanstack/react-query";
-
-import { TouchableOpacity } from "react-native-gesture-handler";
+import UserAvatar from "components/user-avatar";
+import { Typography } from "components/typography";
+import FilterIcon from "components/svgs/filter-icon";
+import ListButton from "components/buttons/list-button";
 import SectionCard from "components/section-card/SectionCard";
-import ls from "lib/storage/storage";
-import CarouselDivider from "components/separators/carousel-divider";
-import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
-import DealCard from "features/deal-card";
-import { useFocusEffect } from "@react-navigation/native";
 import HeaderContainer from "components/header-container";
+import CarouselDivider from "components/separators/carousel-divider";
+import DealCard from "features/deal-card";
+
+import useAppDispatch from "hooks/useAppDispatch";
+import { useAppSelector } from "hooks/useAppSelector";
+import { authLogout } from "store/auth/auth.slice";
 
 type Props = any;
 

@@ -7,10 +7,13 @@ import Constants from "expo-constants";
 import useAppDispatch from "hooks/useAppDispatch";
 
 import {
+  clearNotification,
   setExpoPushToken,
-  //   setNotification,
+  setNotification,
 } from "store/notifications/notifications.slice";
-import handleNotification from "./handle-notification";
+
+import { useAppSelector } from "hooks/useAppSelector";
+import useOpenNotificationHandler from "./useOpenNotificationHandler";
 
 type Props = {
   children: ReactNode;
@@ -18,6 +21,11 @@ type Props = {
 
 const Notifications: FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const notification = useAppSelector(
+    (state) => state.notifications.notification
+  );
+
+  const openNotificationHandler = useOpenNotificationHandler();
 
   Notify.setNotificationHandler({
     handleNotification: async () => ({
@@ -79,7 +87,7 @@ const Notifications: FC<Props> = ({ children }) => {
     // );
 
     responseListener.current = Notify.addNotificationResponseReceivedListener(
-      (response) => handleNotification(response.notification.request)
+      (response) => dispatch(setNotification(response.notification))
     );
 
     return () => {
@@ -87,6 +95,13 @@ const Notifications: FC<Props> = ({ children }) => {
       Notify.removeNotificationSubscription(responseListener.current!);
     };
   }, []);
+
+  useEffect(() => {
+    if (notification) {
+      openNotificationHandler(notification.request);
+      dispatch(clearNotification());
+    }
+  }, [notification]);
 
   return children;
 };
