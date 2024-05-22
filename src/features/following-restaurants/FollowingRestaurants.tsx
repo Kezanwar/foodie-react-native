@@ -3,9 +3,16 @@ import useFollowingQuery from "hooks/queries/useFollowingQuery";
 import { ACCOUNT_STACK } from "constants/routes";
 import RestaurantItem from "./RestaurantItem";
 import Divider from "components/divider";
-import { Animated } from "react-native";
+import Animated, {
+  EntryExitTransition,
+  FadeIn,
+  FadeOut,
+  Layout,
+  LinearTransition,
+} from "react-native-reanimated";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { useAppSelector } from "hooks/useAppSelector";
+import LoadingSpinner from "components/loading-spinner";
 
 type Props = {
   navigation: any;
@@ -44,10 +51,13 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <Animated.FlatList
+      itemLayoutAnimation={LinearTransition.springify()}
       onRefresh={refetch}
-      refreshing={isRefetching || isLoading}
+      refreshing={isRefetching}
       data={following}
       ItemSeparatorComponent={() => <Divider my="0" />}
       renderItem={({ item }) => (
