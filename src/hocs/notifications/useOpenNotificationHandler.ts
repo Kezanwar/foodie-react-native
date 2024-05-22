@@ -23,7 +23,10 @@ const useOpenNotificationHandler = () => {
           })
         );
         break;
-
+      case NOTIFICATION_TYPES.HOME_FEED:
+        navigate(HOME_STACK.ROOT);
+        setSingleDeal(undefined);
+        break;
       default:
         break;
     }

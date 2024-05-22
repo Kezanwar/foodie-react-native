@@ -21,7 +21,7 @@ const variantStyles = {
   success: {
     bg: "bg-success-lighter dark:bg-success-darker",
     text: "text-success-dark dark:text-success-lighter",
-    icon: <Ionicons name="md-checkmark-circle" size={24} />,
+    icon: <Ionicons name="checkmark-circle" size={24} />,
   },
   warning: {
     bg: "bg-warning-lighter dark:bg-warning-darker",

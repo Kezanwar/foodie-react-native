@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import React, { FC, useCallback } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
@@ -35,6 +29,7 @@ import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import SearchFeed from "features/search-feed/SearchFeed";
 import SectionCard from "components/section-card/SectionCard";
 import LocationStatus from "components/location-status/LocationStatus";
+import LoadingSpinner from "components/loading-spinner";
 
 type Props = any;
 
@@ -107,7 +102,7 @@ const Root: FC<Props> = ({ navigation }) => {
               placeholder="Type to search..."
             />
             {searchFeedIsLoading ? (
-              <ActivityIndicator size={"small"} color={PRIM} />
+              <LoadingSpinner />
             ) : (
               <TouchableOpacity onPress={handleOnSearchSubmit}>
                 <AntDesign name="search1" size={23} color={PRIM} />

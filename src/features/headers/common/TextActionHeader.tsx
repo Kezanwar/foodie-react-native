@@ -1,8 +1,9 @@
-import { ActivityIndicator, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
 import { Typography } from "components/typography";
 import tw from "theme/tailwind";
 import TextButton from "components/buttons/text-button";
+import LoadingSpinner from "components/loading-spinner";
 
 type Props = {
   headerText: string;
@@ -34,7 +35,7 @@ const TextActionHeader: FC<Props> = ({
         {headerText}
       </Typography>
       {loading ? (
-        <ActivityIndicator size={"small"} color={tw.color("primary-main")} />
+        <LoadingSpinner mt={0} />
       ) : (
         <TextButton
           label={rightActionText}

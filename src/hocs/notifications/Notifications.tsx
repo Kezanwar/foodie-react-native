@@ -90,23 +90,6 @@ const Notifications: FC<Props> = ({ children }) => {
       (response) => dispatch(setNotification(response.notification))
     );
 
-    Notify.getAllScheduledNotificationsAsync()
-      .then((scheduled) => {
-        if (!scheduled.length) {
-          Notify.scheduleNotificationAsync({
-            content: {
-              title: "Foodie",
-              body: "Checkout deals in your area!",
-              data: { data: "goes here" },
-            },
-            trigger: { seconds: 60 * 10, repeats: true },
-          })
-            .then()
-            .catch((err) => console.log(err));
-        }
-      })
-      .catch((err) => console.log(err));
-
     return () => {
       //   Notify.removeNotificationSubscription(notificationListener.current!);
       Notify.removeNotificationSubscription(responseListener.current!);

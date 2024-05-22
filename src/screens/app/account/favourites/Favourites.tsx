@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, View } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import React, { FC, useMemo } from "react";
 import tw from "theme/tailwind";
 
@@ -10,6 +10,7 @@ import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import { ACCOUNT_STACK } from "constants/routes";
 import { GetSingleDealProps } from "types/single-deal";
 import { CenteredTextHeader } from "features/headers/common";
+import LoadingSpinner from "components/loading-spinner";
 
 const Favourites: FC<any> = ({ navigation }) => {
   const { data, refetch, isRefetching, isLoading, fetchNextPage } =
@@ -40,25 +41,30 @@ const Favourites: FC<any> = ({ navigation }) => {
         subtitle="Deals you've favourited"
         goBack={navigation.goBack}
       />
-      <FlatList
-        onRefresh={refetch}
-        refreshing={isRefetching || isLoading}
-        contentContainerStyle={tw`bg-grey-200 gap-3`}
-        data={favourites}
-        renderItem={({ item }) => (
-          <DealCard
-            showActions={false}
-            type="list"
-            item={item as IFeedDeal}
-            onLike={() => {}}
-            onShare={() => {}}
-            openDeal={openDeal}
-          />
-        )}
-        keyExtractor={(item) => `${item.location._id}-${item.deal._id}`}
-        onEndReached={() => fetchNextPage()}
-        onEndReachedThreshold={1}
-      />
+
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <FlatList
+          onRefresh={refetch}
+          refreshing={isRefetching}
+          contentContainerStyle={tw`bg-grey-200 gap-3`}
+          data={favourites}
+          renderItem={({ item }) => (
+            <DealCard
+              showActions={false}
+              type="list"
+              item={item as IFeedDeal}
+              onLike={() => {}}
+              onShare={() => {}}
+              openDeal={openDeal}
+            />
+          )}
+          keyExtractor={(item) => `${item.location._id}-${item.deal._id}`}
+          onEndReached={() => fetchNextPage()}
+          onEndReachedThreshold={1}
+        />
+      )}
     </SafeAreaView>
   );
 };
