@@ -20,7 +20,10 @@ const singleDealSlice = createSlice({
   name: "singleDealSlice",
   initialState,
   reducers: {
-    setSingleDeal: (state, { payload }: PayloadAction<SingleDealState>) => {
+    setSingleDeal: (
+      state,
+      { payload }: PayloadAction<SingleDealState | undefined>
+    ) => {
       state.deal = payload;
     },
   },

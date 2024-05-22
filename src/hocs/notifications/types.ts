@@ -1,3 +1,4 @@
 export const NOTIFICATION_TYPES = {
   SINGLE_DEAL: "SINGLE_DEAL",
+  HOME_FEED: "HOME_FEED",
 };

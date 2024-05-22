@@ -1,4 +1,4 @@
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode, useMemo } from "react";
 
 import tw from "theme/tailwind";
@@ -22,8 +22,7 @@ import { SingleDealState } from "store/single-deal/single-deal.slice";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { getDistanceInMiles } from "utils/distance";
 import { useAppSelector } from "hooks/useAppSelector";
-
-const PRIM = tw.color("primary-main");
+import LoadingSpinner from "components/loading-spinner";
 
 const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
   deal_id,
@@ -99,7 +98,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
   if (isLoading) {
     return (
       <BaseWrapper>
-        <ActivityIndicator style={tw`mt-5`} size={"small"} color={PRIM} />
+        <LoadingSpinner />
       </BaseWrapper>
     );
   }

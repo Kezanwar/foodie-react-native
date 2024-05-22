@@ -10,7 +10,7 @@ type Props = {
 
 const navigationRef = React.createRef<NavigationContainerRef<{}>>();
 
-export function navigate(name: string, params: any) {
+export function navigate(name: string, params?: any) {
   //@ts-ignore
   navigationRef.current?.navigate(name, params);
 }

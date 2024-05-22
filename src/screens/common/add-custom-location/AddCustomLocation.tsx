@@ -1,4 +1,4 @@
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -25,6 +25,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { catchErrorHandler } from "utils/error";
 
 import { setLocationObject } from "store/location/location.slice";
+import LoadingSpinner from "components/loading-spinner";
 
 const PRIM = tw.color("primary-main");
 
@@ -144,7 +145,7 @@ const AddCustomLocation = (props: any) => {
             placeholder="Search for a Location"
           />
           {loading ? (
-            <ActivityIndicator size={"small"} color={PRIM} />
+            <LoadingSpinner mt={0} />
           ) : (
             <TouchableOpacity onPress={onSearch}>
               <AntDesign name="search1" size={23} color={PRIM} />

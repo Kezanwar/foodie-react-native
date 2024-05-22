@@ -32,6 +32,9 @@ const SingleDealModal: FC = () => {
     if (state) {
       modalRef?.current?.present();
     }
+    if (!state) {
+      close();
+    }
   }, [state]);
 
   return (
