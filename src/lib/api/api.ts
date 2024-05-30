@@ -53,6 +53,8 @@ const APP_ENDPOINTS = {
   getSearchFeed: "/cust/deals/search",
   //restaurant
   getSingleRestaurant: "/cust/restaurant",
+  //geo
+  saveUserGeo: "/cust/geo",
 };
 
 // *OPTIONS
@@ -103,6 +105,12 @@ export const initializeJWT = () => {
 
 export const changePassword = (email: string) => {
   return axiosInstance.post(AUTH_ENDPOINTS.forgotPassword, { email });
+};
+
+//* GEO
+
+export const saveUserGeo = (long: number, lat: number) => {
+  return axiosInstance.post(APP_ENDPOINTS.saveUserGeo, { long, lat });
 };
 
 //* HOME

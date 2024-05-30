@@ -8,40 +8,67 @@ import {
 } from "store/location/location.slice";
 import ls from "lib/storage/storage";
 import useSnackbar from "./useSnackbar";
+import { saveUserGeo } from "lib/api/api";
+import { useAppSelector } from "./useAppSelector";
+import { getDistanceInMiles } from "utils/distance";
 
 const useRequestLocation = () => {
   const dispatch = useAppDispatch();
   const enqSnack = useSnackbar();
+  const user = useAppSelector((state) => state.auth.user);
 
-  const request = useCallback(async (showSnackOnErr?: boolean) => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+  const request = useCallback(
+    async (showSnackOnErr?: boolean) => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
 
-    if (status !== "granted") {
-      dispatch(setLocationError("Location Permission was denied"));
+        if (status !== "granted") {
+          dispatch(setLocationError("Location Permission was denied"));
 
-      if (showSnackOnErr)
-        enqSnack({
-          message: "You must update Location Permissions for Foodie first.",
-          variant: "error",
+          if (showSnackOnErr)
+            enqSnack({
+              message: "You must update Location Permissions for Foodie first.",
+              variant: "error",
+            });
+
+          return;
+        }
+
+        dispatch(setIsFindingLocation());
+
+        const location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+          mayShowUserSettingsDialog: true,
+        });
+        const geo = await Location.reverseGeocodeAsync({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
         });
 
-      return;
-    }
+        dispatch(
+          setLocationObject({ location, reverseGeocode: geo[0] || null })
+        );
 
-    dispatch(setIsFindingLocation());
+        ls.setShouldUseCurrentLocation(true);
 
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Balanced,
-      mayShowUserSettingsDialog: true,
-    });
-    const geo = await Location.reverseGeocodeAsync({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    });
+        if (
+          user?.geometry &&
+          getDistanceInMiles(user.geometry.coordinates, [
+            location.coords.longitude,
+            location.coords.latitude,
+          ]) < 1
+        ) {
+          return;
+        }
 
-    dispatch(setLocationObject({ location, reverseGeocode: geo[0] || null }));
-    ls.setShouldUseCurrentLocation(true);
-  }, []);
+        await saveUserGeo(location.coords.longitude, location.coords.latitude);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [user]
+  );
+
   return request;
 };
 

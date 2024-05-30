@@ -1,3 +1,5 @@
+import { Geometry } from "./geometry";
+
 export type IUser = {
   first_name: string;
   last_name: string;
@@ -5,6 +7,7 @@ export type IUser = {
   email_confirmed: string;
   auth_method: "jwt" | "google";
   avatar: string;
+  geometry?: Geometry;
 };
 
 export type LoginJWTData = {
