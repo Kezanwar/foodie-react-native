@@ -11,24 +11,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "expo": {
-      "userInterfaceStyle": "automatic",
-      "android": {
-        "googleServicesFile": "./google-services.json"
-      },
-      "ios": {
-        "googleServicesFile": "./GoogleService-Info.plist"
-      },
-      "plugins": [
-        "@react-native-google-signin/google-signin",
-        [
-          "expo-location",
-          {
-            "locationAlwaysAndWhenInUsePermission": "Allow Foodie to use your location."
-          }
-        ]
+    "plugins": [
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Foodie to use your location."
+        }
       ]
-    },
+    ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
@@ -48,7 +39,6 @@
       "eas": {
         "projectId": "dc612448-f43d-4870-af12-35590fe2b0ee"
       }
-    },
-    "plugins": ["expo-font"]
+    }
   }
 }
