@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import "react-native-get-random-values";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
@@ -14,6 +14,8 @@ import SingleDealModal from "features/single-deal-modal";
 
 import { enableFreeze } from "react-native-screens";
 
+import useRegisterBackgroundTasks from "./tasks";
+
 enableFreeze(true);
 
 type Props = {
@@ -22,6 +24,8 @@ type Props = {
 
 const AppReady: FC<Props> = ({ children }) => {
   useDeviceContext(tw, { withDeviceColorScheme: false });
+
+  useRegisterBackgroundTasks();
 
   return (
     <ReactQuery>

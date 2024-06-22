@@ -5,7 +5,7 @@ import {
   SINGLE_REST_QUERY,
 } from "constants/react-query";
 import useSnackbar from "hooks/useSnackbar";
-import { followRestaurant, unFollowRestaurant } from "lib/api/api";
+import { followRestaurant, unFollowRestaurant } from "lib/api";
 
 import { ISingleDeal } from "types/single-deal";
 import { FollowRestRequest } from "types/following";

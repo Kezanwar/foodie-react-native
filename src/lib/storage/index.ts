@@ -11,6 +11,11 @@ const STORAGE_KEYS = {
   SEARCH_HISTORY: "SEARCH_HISTORY",
   LAST_KNOWN_LOCATION: "LAST_KNOWN_LOCATION",
   RECENTLY_VIEWED_DISPLAY: "RECENTLY_VIEWED_DISPLAY",
+  RECENTLY_VIEWED_STATS: "RECENTLY_VIEWED_STATS",
+};
+
+type RecentlyViewedDealStatMap = {
+  [key: string]: number;
 };
 
 class LocalStorage {
@@ -73,6 +78,7 @@ class LocalStorage {
   //recently viewed (DISPLAY)
   setRecentlyViewedDisplay(deal: IFeedDeal) {
     const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
+
     if (curr) {
       let p: IFeedDeal[] = JSON.parse(curr);
 
@@ -86,10 +92,43 @@ class LocalStorage {
     } else {
       mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
     }
+
+    setTimeout(() => {
+      const currStats = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
+      const deal_map_key = `${deal.deal._id}--${deal.location._id}`;
+      if (currStats) {
+        let s: RecentlyViewedDealStatMap = JSON.parse(currStats);
+
+        if (s[deal_map_key]) {
+          s[deal_map_key] = s[deal_map_key] + 1;
+        } else {
+          s[deal_map_key] = 1;
+        }
+
+        mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_STATS, JSON.stringify(s));
+      } else {
+        mmkv.set(
+          STORAGE_KEYS.RECENTLY_VIEWED_STATS,
+          JSON.stringify({
+            [deal_map_key]: 1,
+          })
+        );
+      }
+    }, 1000);
   }
+
   getRecentlyViewedDisplay(): IFeedDeal[] {
     const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
     return curr ? JSON.parse(curr) : [];
+  }
+
+  getRecentlyViewedStats() {
+    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
+    return curr ? JSON.parse(curr) : undefined;
+  }
+
+  deleteRecentlyViewedStats() {
+    mmkv.delete(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
   }
 }
 

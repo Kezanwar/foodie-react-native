@@ -6,7 +6,7 @@ import {
   SINGLE_REST_QUERY,
 } from "constants/react-query";
 import useSnackbar from "hooks/useSnackbar";
-import { favouriteDeal, unFavouriteDeal } from "lib/api/api";
+import { favouriteDeal, unFavouriteDeal } from "lib/api";
 import { FavouriteDealRequest } from "types/favourites";
 import { FeedQState } from "./useHomeFeedQuery";
 import { ISingleDeal } from "types/single-deal";

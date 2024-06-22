@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDiscover } from "lib/api/api";
+import { getDiscover } from "lib/api";
 import { DISCOVER_QUERY } from "constants/react-query";
 
 import { minutes } from "utils/time";

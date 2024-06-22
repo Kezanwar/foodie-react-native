@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getFollowing } from "lib/api/api";
+import { getFollowing } from "lib/api";
 
 import { minutes } from "utils/time";
 

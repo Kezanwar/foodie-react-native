@@ -14,7 +14,7 @@ import useSnackbar from "hooks/useSnackbar";
 
 import { authLogin } from "store/auth/auth.slice";
 import { catchErrorHandler } from "utils/error";
-import { confirmEmailOTP, initializeJWT, resendEmailOTP } from "lib/api/api";
+import { confirmEmailOTP, initializeJWT, resendEmailOTP } from "lib/api";
 
 const OTP_THEME: Theme = {
   pinCodeTextStyle: tw`font-light text-xl`,

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { LocationGeocodedAddress, LocationObject } from "expo-location";
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 
 // types
 

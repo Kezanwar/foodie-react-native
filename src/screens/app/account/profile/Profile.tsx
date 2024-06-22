@@ -14,7 +14,7 @@ import { CustomTextField } from "components/form/custom-text-field";
 import TextButton from "components/buttons/text-button";
 import useSnackbar from "hooks/useSnackbar";
 import Spacer from "components/separators/spacer";
-import { changePassword, patchProfile } from "lib/api/api";
+import { changePassword, patchProfile } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert";
 import useAppDispatch from "hooks/useAppDispatch";

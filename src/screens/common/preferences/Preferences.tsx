@@ -26,7 +26,7 @@ import {
   toggleDietary,
 } from "store/preferences/preferences.slice";
 import useSnackbar from "hooks/useSnackbar";
-import { addPreferences } from "lib/api/api";
+import { addPreferences } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 
 const Preferences = (props: any) => {

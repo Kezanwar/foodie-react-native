@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getFavourites } from "lib/api/api";
+import { getFavourites } from "lib/api";
 
 import { minutes } from "utils/time";
 

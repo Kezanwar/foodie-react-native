@@ -23,7 +23,6 @@ module.exports = function (api) {
           },
         },
       ],
-      "@react-native-google-signin/google-signin",
       "react-native-reanimated/plugin",
     ],
   };
