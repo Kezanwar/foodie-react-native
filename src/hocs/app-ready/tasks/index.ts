@@ -1,12 +1,16 @@
 import { useEffect } from "react";
-import { registerSyncViewsTaskAsync } from "./sync-recent-views";
+import { postRecentlyViewedStats } from "lib/api";
 
-const useRegisterBackgroundTasks = () => {
+const useRegisterTasks = () => {
   useEffect(() => {
-    (async () => {
-      await registerSyncViewsTaskAsync();
-    })();
+    const syncViewsInterval = setInterval(async () => {
+      await postRecentlyViewedStats();
+    }, 1000 * 60);
+
+    return () => {
+      clearInterval(syncViewsInterval);
+    };
   }, []);
 };
 
-export default useRegisterBackgroundTasks;
+export default useRegisterTasks;

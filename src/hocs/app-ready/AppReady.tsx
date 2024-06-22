@@ -14,7 +14,7 @@ import SingleDealModal from "features/single-deal-modal";
 
 import { enableFreeze } from "react-native-screens";
 
-import useRegisterBackgroundTasks from "./tasks";
+import useRegisterTasks from "./tasks";
 
 enableFreeze(true);
 
@@ -25,7 +25,7 @@ type Props = {
 const AppReady: FC<Props> = ({ children }) => {
   useDeviceContext(tw, { withDeviceColorScheme: false });
 
-  useRegisterBackgroundTasks();
+  useRegisterTasks();
 
   return (
     <ReactQuery>

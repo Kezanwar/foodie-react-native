@@ -19,7 +19,12 @@
           "locationAlwaysAndWhenInUsePermission": "Allow Foodie to use your location."
         }
       ],
-      "@react-native-google-signin/google-signin"
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.688879209449-6m9ojfpgapdlnolr98a0tbg20oc1il61"
+        }
+      ]
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {

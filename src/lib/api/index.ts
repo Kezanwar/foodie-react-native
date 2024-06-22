@@ -225,17 +225,19 @@ export const getSingleRest = async (data: GetSingleRestProps) => {
     });
 };
 
-export const postRecentlyViewedStats = () => {
+export const postRecentlyViewedStats = async () => {
   const recently_viewed = ls.getRecentlyViewedStats();
+
   if (!recently_viewed) {
-    return Promise.resolve();
+    return;
   }
 
-  return (
-    axiosInstance
-      .post(APP_ENDPOINTS.postRecentlyViewed, { recently_viewed })
-      // .then(() => ls.deleteRecentlyViewedStats())
-      .then(() => {})
-      .catch((err) => console.log(err))
-  );
+  try {
+    await axiosInstance.post(APP_ENDPOINTS.postRecentlyViewed, {
+      recently_viewed,
+    });
+    ls.deleteRecentlyViewedStats();
+  } catch (error) {
+    console.log(error);
+  }
 };
