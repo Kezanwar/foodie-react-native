@@ -4,9 +4,9 @@ import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 
 import tw from "theme/tailwind";
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 
-import { endSession } from "lib/axios/axios";
+import { endSession } from "lib/axios";
 import { authLogout } from "store/auth/auth.slice";
 import { COMMON_ROUTES } from "constants/routes";
 

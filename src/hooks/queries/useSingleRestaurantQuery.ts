@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSingleRest } from "lib/api/api";
+import { getSingleRest } from "lib/api";
 import { SINGLE_REST_QUERY } from "constants/react-query";
 
 import { minutes } from "utils/time";

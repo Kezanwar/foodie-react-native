@@ -16,13 +16,13 @@ import { GoogleButton } from "components/buttons/google-button";
 
 import { catchErrorHandler } from "utils/error";
 import { authLogin } from "store/auth/auth.slice";
-import { setSession } from "lib/axios/axios";
+import { setSession } from "lib/axios";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";
-import { androidOAuthClientId, iOSOAuthClientId } from "lib/env/env";
+import { androidOAuthClientId, iOSOAuthClientId } from "lib/env";
 import useAppDispatch from "hooks/useAppDispatch";
 import { ErrorObject } from "types/error";
-import { registerGoogle } from "lib/api/api";
+import { registerGoogle } from "lib/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";

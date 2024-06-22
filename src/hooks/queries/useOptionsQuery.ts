@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getOptions } from "lib/api/api";
+import { getOptions } from "lib/api";
 
 import { OPTIONS_QUERY } from "constants/react-query";
 

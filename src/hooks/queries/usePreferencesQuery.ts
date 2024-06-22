@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getPreferences } from "lib/api/api";
+import { getPreferences } from "lib/api";
 import { PREFERENCES_QUERY } from "constants/react-query";
 import { AxiosResponse } from "axios";
 import { IPreferences } from "types/preferences";

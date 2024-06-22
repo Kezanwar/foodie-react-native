@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 import { Keyboard } from "react-native";
 
 // types

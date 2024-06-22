@@ -1,11 +1,11 @@
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 import { useAppSelector } from "hooks/useAppSelector";
 import { authLogin, authLogout } from "store/auth/auth.slice";
 
-import { initializeJWT } from "lib/api/api";
-import { setSession } from "lib/axios/axios";
+import { initializeJWT, postRecentlyViewedStats } from "lib/api";
+import { setSession } from "lib/axios";
 
 import { LoadingScreen } from "components/loading-screen";
 import useAppDispatch from "hooks/useAppDispatch";
@@ -39,6 +39,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (!isInitialized && !isAuthenticated) {
       initialize();
+      postRecentlyViewedStats();
     }
   }, [isInitialized]);
 

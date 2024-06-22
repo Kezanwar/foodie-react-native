@@ -17,7 +17,7 @@ import useSnackbar from "hooks/useSnackbar";
 
 import { catchErrorHandler } from "utils/error";
 
-import { changePassword } from "lib/api/api";
+import { changePassword } from "lib/api";
 
 type FormValues = {
   email: string;

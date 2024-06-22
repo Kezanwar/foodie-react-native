@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSingleDeal } from "lib/api/api";
+import { getSingleDeal } from "lib/api";
 import { SINGLE_DEAL_QUERY } from "constants/react-query";
 
 import { minutes } from "utils/time";

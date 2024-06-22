@@ -9,7 +9,7 @@ import { Typography } from "components/typography";
 import ShareButton from "components/buttons/share-button";
 import LikeButton from "components/buttons/like-button";
 import { GetSingleDealProps } from "types/single-deal";
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 
 const { setRecentlyViewedDisplay } = ls;
 

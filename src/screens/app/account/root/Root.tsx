@@ -6,8 +6,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
-import { endSession } from "lib/axios/axios";
-import ls from "lib/storage/storage";
+import { endSession } from "lib/axios";
+import ls from "lib/storage";
 
 import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 

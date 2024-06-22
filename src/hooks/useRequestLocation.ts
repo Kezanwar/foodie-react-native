@@ -6,9 +6,9 @@ import {
   setLocationError,
   setLocationObject,
 } from "store/location/location.slice";
-import ls from "lib/storage/storage";
+import ls from "lib/storage";
 import useSnackbar from "./useSnackbar";
-import { saveUserGeo } from "lib/api/api";
+import { saveUserGeo } from "lib/api";
 import { useAppSelector } from "./useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
 

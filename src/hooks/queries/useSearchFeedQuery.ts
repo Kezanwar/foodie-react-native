@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getSearchFeed } from "lib/api/api";
+import { getSearchFeed } from "lib/api";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { DealInfinitePage } from "types/feed";

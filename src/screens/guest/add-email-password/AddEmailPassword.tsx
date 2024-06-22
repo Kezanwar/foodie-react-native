@@ -17,9 +17,9 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import useSnackbar from "hooks/useSnackbar";
-import { registerJWT } from "lib/api/api";
+import { registerJWT } from "lib/api";
 import { authLogin } from "store/auth/auth.slice";
-import { setSession } from "lib/axios/axios";
+import { setSession } from "lib/axios";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert/Alert";
 import TextButton from "components/buttons/text-button";
