@@ -1,4 +1,4 @@
-import MapView, { Marker, Region, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, Region } from "react-native-maps";
 import React, { FC, useRef } from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
@@ -13,12 +13,6 @@ const Map: FC<Props> = ({ mapStyle, region }) => {
   const fitToElements = () => {
     mapRef?.current?.fitToElements({
       animated: true,
-      edgePadding: {
-        top: 300,
-        right: 0,
-        left: 500,
-        bottom: 0,
-      },
     });
   };
   return (
@@ -26,10 +20,10 @@ const Map: FC<Props> = ({ mapStyle, region }) => {
       onMapReady={fitToElements}
       ref={mapRef}
       showsUserLocation
-      maxZoomLevel={12}
-      minZoomLevel={8}
+      maxZoomLevel={18}
+      minZoomLevel={10}
+      rotateEnabled={false}
       loadingEnabled
-      provider={PROVIDER_GOOGLE}
       mapType="standard"
       region={region}
       initialRegion={region}
