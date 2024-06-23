@@ -11,10 +11,10 @@ type Props = {
 
 const CoverBackButton: FC<Props> = ({ cover_photo, goBack }) => {
   return (
-    <View style={tw`w-full relative`}>
+    <View style={tw`w-full h-full relative`}>
       <Image
         transition={500}
-        style={tw`h-45 w-full mb-3`}
+        style={tw`h-full w-full mb-3`}
         source={{ uri: cover_photo }}
       />
       <BackButton isAbsolute={true} onPress={goBack} />

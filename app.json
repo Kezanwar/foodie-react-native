@@ -29,7 +29,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kezanwar.foodiereactnative"
+      "bundleIdentifier": "com.kezanwar.foodiereactnative",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAssBjvB_M1GfbT12E-4riIpF5wy8RAGMc"
+      }
     },
     "android": {
       "adaptiveIcon": {

@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import React, { FC, useMemo } from "react";
 
 import tw from "theme/tailwind";
@@ -30,6 +30,11 @@ import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  useAnimatedScrollHandler,
+} from "react-native-reanimated";
 
 export type RouteParams = {
   location_id: string;
@@ -96,6 +101,20 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
     (state) => state.location.location?.coords
   );
 
+  const height = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    if (event.contentOffset.y < 160) {
+      height.value = Math.max(event.contentOffset.y, 0);
+    }
+  });
+
+  const topstylez = useAnimatedStyle(() => {
+    return {
+      height: Math.max(160 - height.value, 100),
+    };
+  });
+
   const distance = useMemo(() => {
     if (restaurant && userLocationCoords) {
       return getDistanceInMiles(restaurant.coordinates, [
@@ -119,14 +138,20 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
   return (
     <View style={tw`flex-1 bg-white`}>
-      <CoverBackButton
-        cover_photo={restaurant.restaurant.cover_photo}
-        goBack={navigation.goBack}
-      />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <Animated.View style={topstylez}>
+        <CoverBackButton
+          cover_photo={restaurant.restaurant.cover_photo}
+          goBack={navigation.goBack}
+        />
+      </Animated.View>
+
+      <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <View style={tw`px-5 relative`}>
-          <View style={tw`mt-3 flex-row  items-center gap-4`}>
-            <RestaurantAvatar source={{ uri: restaurant.restaurant.avatar }} />
+          <View style={tw`mt-4 flex-row  items-center gap-4`}>
+            <RestaurantAvatar
+              size="lg"
+              source={{ uri: restaurant.restaurant.avatar }}
+            />
             <View style={tw`gap-2`}>
               <Typography
                 variant="h6"
@@ -135,10 +160,11 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                 {restaurant.restaurant.name}
                 <Typography
                   variant="h6"
-                  style="font-light text-4"
+                  style="font-light text-3.5"
                   color="text.secondary"
                 >
-                  {"  "}({restaurant.nickname})
+                  {"  "}
+                  {restaurant.nickname}
                 </Typography>
               </Typography>
               <View style={tw`gap-3 items-center flex-row`}>
@@ -156,6 +182,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               </View>
             </View>
           </View>
+
           <Divider my="6" />
           <View style={tw` gap-2`}>
             <View style={tw`flex-row justify-between`}>
@@ -221,7 +248,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           booking_link={restaurant.restaurant?.booking_link}
           opening_times={restaurant.opening_times}
         />
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };
