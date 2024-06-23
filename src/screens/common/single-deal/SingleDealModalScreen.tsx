@@ -172,7 +172,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
               {deal.restaurant.name}
               <Typography
                 variant="h6"
-                style="font-light text-4"
+                style="font-light text-3.5"
                 color="text.secondary"
               >
                 {"  "}({deal.location.nickname})

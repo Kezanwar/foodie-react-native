@@ -163,8 +163,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                   style="font-light text-3.5"
                   color="text.secondary"
                 >
-                  {"  "}
-                  {restaurant.nickname}
+                  {"  "}({restaurant.nickname})
                 </Typography>
               </Typography>
               <View style={tw`gap-3 items-center flex-row`}>

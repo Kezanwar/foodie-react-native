@@ -63,7 +63,7 @@ const DealCard: FC<Props> = ({
             </Typography>
           </View>
 
-          <Typography variant="body2" style=" text-3.75 font-normal">
+          <Typography variant="body2" style=" text-3.5 gap-2 font-regular">
             {item.restaurant.name}{" "}
             {type === "list" && (
               <Typography
