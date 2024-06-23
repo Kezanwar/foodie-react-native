@@ -101,20 +101,6 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
     (state) => state.location.location?.coords
   );
 
-  const height = useSharedValue(0);
-
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    if (event.contentOffset.y < 160) {
-      height.value = Math.max(event.contentOffset.y, 0);
-    }
-  });
-
-  const topstylez = useAnimatedStyle(() => {
-    return {
-      height: Math.max(160 - height.value, 100),
-    };
-  });
-
   const distance = useMemo(() => {
     if (restaurant && userLocationCoords) {
       return getDistanceInMiles(restaurant.coordinates, [
@@ -123,6 +109,20 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
       ]);
     } else return 0;
   }, [restaurant?.coordinates, userLocationCoords]);
+
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    if (event.contentOffset.y < 160) {
+      scrollY.value = Math.max(event.contentOffset.y, 0);
+    }
+  });
+
+  const topstylez = useAnimatedStyle(() => {
+    return {
+      height: Math.max(160 - scrollY.value, 100),
+    };
+  });
 
   if (isLoading) return <LoadingScreen />;
 
