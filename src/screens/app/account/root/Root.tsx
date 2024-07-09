@@ -7,7 +7,7 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
 import { endSession } from "lib/axios";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 
 import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 
@@ -31,7 +31,7 @@ type Props = any;
 const Root: FC<Props> = ({ navigation }) => {
   const { user } = useAppSelector((state) => state.auth);
   const [recentlyViewed, setRecentlyViewed] = useState(
-    ls.getRecentlyViewedDisplay()
+    LocalStorage.getRecentlyViewedDisplay()
   );
 
   const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ const Root: FC<Props> = ({ navigation }) => {
   };
 
   const setRecent = useCallback(() => {
-    setRecentlyViewed(ls.getRecentlyViewedDisplay());
+    setRecentlyViewed(LocalStorage.getRecentlyViewedDisplay());
   }, []);
 
   useFocusEffect(setRecent);

@@ -1,83 +1,79 @@
 import { MMKV } from "react-native-mmkv";
-import { LocationStorageData } from "store/location/location.slice";
+import { LocationLocalStorageData } from "store/location/location.slice";
 import { IFeedDeal } from "types/feed";
 
 const mmkv = new MMKV();
 
-const STORAGE_KEYS = {
+const LocalStorage_KEYS = {
   ACCESS_TOKEN: "ACCESS_TOKEN",
   INITIAL_PREFERENCES: "INITIAL_PREFERENCES",
   USE_CURRENT_LOCATION: "USE_CURRENT_LOCATION",
   SEARCH_HISTORY: "SEARCH_HISTORY",
   LAST_KNOWN_LOCATION: "LAST_KNOWN_LOCATION",
   RECENTLY_VIEWED_DISPLAY: "RECENTLY_VIEWED_DISPLAY",
-  RECENTLY_VIEWED_STATS: "RECENTLY_VIEWED_STATS",
-};
-
-type RecentlyViewedDealStatMap = {
-  [key: string]: number;
+  STATS: "STATS",
 };
 
 class LocalStorage {
   //default
-  clearStorage() {
+  static clearLocalStorage() {
     mmkv.clearAll();
   }
 
   //access token
-  storeAccessToken(accessToken: string) {
-    mmkv.set(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+  static storeAccessToken(accessToken: string) {
+    mmkv.set(LocalStorage_KEYS.ACCESS_TOKEN, accessToken);
   }
-  getAccessToken() {
-    return mmkv.getString(STORAGE_KEYS.ACCESS_TOKEN) || "";
+  static getAccessToken() {
+    return mmkv.getString(LocalStorage_KEYS.ACCESS_TOKEN) || "";
   }
-  clearAccessToken() {
-    mmkv.delete(STORAGE_KEYS.ACCESS_TOKEN);
+  static clearAccessToken() {
+    mmkv.delete(LocalStorage_KEYS.ACCESS_TOKEN);
   }
 
   //preferences
-  getInitialPreferencesDone() {
-    return mmkv.getBoolean(STORAGE_KEYS.INITIAL_PREFERENCES);
+  static getInitialPreferencesDone() {
+    return mmkv.getBoolean(LocalStorage_KEYS.INITIAL_PREFERENCES);
   }
-  setInitialPreferencesDone() {
-    mmkv.set(STORAGE_KEYS.INITIAL_PREFERENCES, true);
+  static setInitialPreferencesDone() {
+    mmkv.set(LocalStorage_KEYS.INITIAL_PREFERENCES, true);
   }
 
   //location
-  getShouldUseCurrentLocation() {
-    return mmkv.getBoolean(STORAGE_KEYS.USE_CURRENT_LOCATION);
+  static getShouldUseCurrentLocation() {
+    return mmkv.getBoolean(LocalStorage_KEYS.USE_CURRENT_LOCATION);
   }
-  setShouldUseCurrentLocation(should: boolean) {
-    mmkv.set(STORAGE_KEYS.USE_CURRENT_LOCATION, should);
+  static setShouldUseCurrentLocation(should: boolean) {
+    mmkv.set(LocalStorage_KEYS.USE_CURRENT_LOCATION, should);
   }
-  setlastKnownLocation(location: LocationStorageData) {
+  static setlastKnownLocation(location: LocationLocalStorageData) {
     if (location) {
-      mmkv.set(STORAGE_KEYS.LAST_KNOWN_LOCATION, JSON.stringify(location));
+      mmkv.set(LocalStorage_KEYS.LAST_KNOWN_LOCATION, JSON.stringify(location));
     }
   }
-  getLastKnownLocation(): LocationStorageData {
-    const str = mmkv.getString(STORAGE_KEYS.LAST_KNOWN_LOCATION);
+  static getLastKnownLocation(): LocationLocalStorageData {
+    const str = mmkv.getString(LocalStorage_KEYS.LAST_KNOWN_LOCATION);
     if (str) {
       return JSON.parse(str);
     } else return undefined;
   }
-  clearLastKnownLocation() {
-    mmkv.delete(STORAGE_KEYS.LAST_KNOWN_LOCATION);
+  static clearLastKnownLocation() {
+    mmkv.delete(LocalStorage_KEYS.LAST_KNOWN_LOCATION);
   }
 
   //search history
-  setSearchHistory(history: string[]) {
-    mmkv.set(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(history));
+  static setSearchHistory(history: string[]) {
+    mmkv.set(LocalStorage_KEYS.SEARCH_HISTORY, JSON.stringify(history));
   }
-  getSearchHistory(): string[] {
-    const h = mmkv.getString(STORAGE_KEYS.SEARCH_HISTORY);
+  static getSearchHistory(): string[] {
+    const h = mmkv.getString(LocalStorage_KEYS.SEARCH_HISTORY);
     if (h) return JSON.parse(h);
     else return [];
   }
 
   //recently viewed (DISPLAY)
-  setRecentlyViewedDisplay(deal: IFeedDeal) {
-    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
+  static setRecentlyViewedDisplay(deal: IFeedDeal) {
+    const curr = mmkv.getString(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY);
 
     if (curr) {
       let p: IFeedDeal[] = JSON.parse(curr);
@@ -88,50 +84,93 @@ class LocalStorage {
         p.pop();
       }
 
-      mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
+      mmkv.set(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
     } else {
-      mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
+      mmkv.set(
+        LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY,
+        JSON.stringify([deal])
+      );
     }
 
-    setTimeout(() => {
-      const currStats = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
-      const deal_map_key = `${deal.deal._id}--${deal.location._id}`;
-      if (currStats) {
-        let s: RecentlyViewedDealStatMap = JSON.parse(currStats);
-
-        if (s[deal_map_key]) {
-          s[deal_map_key] = s[deal_map_key] + 1;
-        } else {
-          s[deal_map_key] = 1;
-        }
-
-        mmkv.set(STORAGE_KEYS.RECENTLY_VIEWED_STATS, JSON.stringify(s));
-      } else {
-        mmkv.set(
-          STORAGE_KEYS.RECENTLY_VIEWED_STATS,
-          JSON.stringify({
-            [deal_map_key]: 1,
-          })
-        );
-      }
+    setTimeout(function () {
+      LocalStorage.addViewDealStat(deal);
     }, 1000);
   }
 
-  getRecentlyViewedDisplay(): IFeedDeal[] {
-    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_DISPLAY);
+  static getRecentlyViewedDisplay(): IFeedDeal[] {
+    const curr = mmkv.getString(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY);
     return curr ? JSON.parse(curr) : [];
   }
 
-  getRecentlyViewedStats() {
-    const curr = mmkv.getString(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
+  static addViewDealStat(deal: IFeedDeal) {
+    let stats = this.getStats();
+    const deal_map_key = `${deal.deal._id}--${deal.location._id}`;
+
+    if (!stats) {
+      stats = this.makeDefaultStats();
+    }
+
+    if (stats.deals[deal_map_key]) {
+      stats.deals[deal_map_key] = stats.deals[deal_map_key] + 1;
+    } else {
+      stats.deals[deal_map_key] = 1;
+    }
+
+    this.saveStats(stats);
+  }
+
+  static addViewLocationStat(location_id: string) {
+    let stats = this.getStats();
+
+    if (!stats) {
+      stats = this.makeDefaultStats();
+    }
+
+    if (stats.locations[location_id]) {
+      stats.locations[location_id] = stats.locations[location_id] + 1;
+    } else {
+      stats.locations[location_id] = 1;
+    }
+
+    this.saveStats(stats);
+  }
+
+  static addBookingClickStat(location_id: string) {
+    let stats = this.getStats();
+
+    if (!stats) {
+      stats = this.makeDefaultStats();
+    }
+
+    if (stats.booking_clicks[location_id]) {
+      stats.booking_clicks[location_id] = stats.booking_clicks[location_id] + 1;
+    } else {
+      stats.booking_clicks[location_id] = 1;
+    }
+
+    this.saveStats(stats);
+  }
+
+  static makeDefaultStats() {
+    return {
+      deals: {},
+      locations: {},
+      booking_clicks: {},
+    };
+  }
+
+  static getStats() {
+    const curr = mmkv.getString(LocalStorage_KEYS.STATS);
     return curr ? JSON.parse(curr) : undefined;
   }
 
-  deleteRecentlyViewedStats() {
-    mmkv.delete(STORAGE_KEYS.RECENTLY_VIEWED_STATS);
+  static saveStats(stats: any) {
+    mmkv.set(LocalStorage_KEYS.STATS, JSON.stringify(stats));
+  }
+
+  static clearStats() {
+    mmkv.delete(LocalStorage_KEYS.STATS);
   }
 }
 
-const ls = new LocalStorage();
-
-export default ls;
+export default LocalStorage;

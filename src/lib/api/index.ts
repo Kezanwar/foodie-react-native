@@ -22,7 +22,7 @@ import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -45,7 +45,7 @@ const APP_ENDPOINTS = {
   //deal
   fav: "/cust/favourites",
   getSingleDeal: "/cust/deals/single",
-  postRecentlyViewed: "/cust/stats/recently-viewed",
+  postStats: "/cust/stats",
   //rest
   follow: "/cust/following",
   //account
@@ -225,18 +225,20 @@ export const getSingleRest = async (data: GetSingleRestProps) => {
     });
 };
 
-export const postRecentlyViewedStats = async () => {
-  const recently_viewed = ls.getRecentlyViewedStats();
+export const postStats = async () => {
+  const stats = LocalStorage.getStats();
 
-  if (!recently_viewed) {
+  console.log(stats);
+
+  if (!stats) {
     return;
   }
 
   try {
-    await axiosInstance.post(APP_ENDPOINTS.postRecentlyViewed, {
-      recently_viewed,
+    await axiosInstance.post(APP_ENDPOINTS.postStats, {
+      stats,
     });
-    ls.deleteRecentlyViewedStats();
+    LocalStorage.clearStats();
   } catch (error) {
     console.log(error);
   }

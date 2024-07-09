@@ -1,10 +1,10 @@
 import React, { FC, ReactNode, useCallback, useEffect } from "react";
 
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 import { useAppSelector } from "hooks/useAppSelector";
 import { authLogin, authLogout } from "store/auth/auth.slice";
 
-import { initializeJWT, postRecentlyViewedStats } from "lib/api";
+import { initializeJWT, postStats } from "lib/api";
 import { setSession } from "lib/axios";
 
 import { LoadingScreen } from "components/loading-screen";
@@ -22,7 +22,7 @@ const AuthInitializer: FC<Props> = ({ children }) => {
 
   const initialize = useCallback(async () => {
     try {
-      const accessToken = ls.getAccessToken();
+      const accessToken = LocalStorage.getAccessToken();
       if (!accessToken) throw new Error("no token");
       setSession(accessToken);
       const res = await initializeJWT();
@@ -32,14 +32,14 @@ const AuthInitializer: FC<Props> = ({ children }) => {
       dispatch(authLogin(user));
     } catch (error) {
       dispatch(authLogout());
-      ls.clearAccessToken();
+      LocalStorage.clearAccessToken();
     }
   }, []);
 
   useEffect(() => {
     if (!isInitialized && !isAuthenticated) {
       initialize();
-      postRecentlyViewedStats();
+      postStats();
     }
   }, [isInitialized]);
 

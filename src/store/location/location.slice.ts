@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { LocationGeocodedAddress, LocationObject } from "expo-location";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 
 // types
 
@@ -11,18 +11,18 @@ interface locationSliceState {
   isFindingLocation: boolean;
 }
 
-export type LocationStorageData =
+export type LocationLocalStorageData =
   | {
       location: LocationObject;
       reverseGeocode: LocationGeocodedAddress;
     }
   | undefined;
 
-const initialStorage = ls.getLastKnownLocation();
+const initialLocalStorage = LocalStorage.getLastKnownLocation();
 
 const initialState: locationSliceState = {
-  location: initialStorage?.location || null,
-  reverseGeocode: initialStorage?.reverseGeocode || null,
+  location: initialLocalStorage?.location || null,
+  reverseGeocode: initialLocalStorage?.reverseGeocode || null,
   error: null,
   isFindingLocation: false,
 };
@@ -44,7 +44,7 @@ const locationSlice = createSlice({
       state.reverseGeocode = payload.reverseGeocode;
       state.isFindingLocation = false;
       state.error = null;
-      ls.setlastKnownLocation({
+      LocalStorage.setlastKnownLocation({
         location: payload.location,
         reverseGeocode: payload.reverseGeocode,
       });
@@ -54,7 +54,7 @@ const locationSlice = createSlice({
       state.location = null;
       state.reverseGeocode = null;
       state.isFindingLocation = false;
-      ls.clearLastKnownLocation();
+      LocalStorage.clearLastKnownLocation();
     },
     setIsFindingLocation: (state) => {
       state.isFindingLocation = true;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "lib/env";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 // config
 
 // import { navigate } from '@app/components/RootNavigator/RootNavigator';
@@ -30,13 +30,13 @@ axiosInstance.interceptors.response.use(
 export default axiosInstance;
 
 export const setSession = (accessToken: string) => {
-  ls.storeAccessToken(accessToken);
+  LocalStorage.storeAccessToken(accessToken);
   axiosInstance.defaults.headers["x-auth-token"] = accessToken;
   console.log(accessToken);
 };
 
 export const endSession = async () => {
-  ls.clearStorage();
+  LocalStorage.clearLocalStorage();
   delete axiosInstance.defaults.headers["x-auth-token"];
 };
 

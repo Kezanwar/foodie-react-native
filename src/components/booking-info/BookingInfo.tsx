@@ -9,6 +9,8 @@ import { Feather } from "@expo/vector-icons";
 import { Linking } from "react-native";
 import { Coordinates, Geometry } from "types/geometry";
 import { Address } from "types/address";
+import LocalStorage from "lib/storage";
+import useBrowser from "hooks/useBrowser";
 
 type Props = {
   name: string;
@@ -17,6 +19,7 @@ type Props = {
   address: Address;
   email: string;
   phone_number: string;
+  location_id: string;
 };
 
 const BookingInfo: FC<Props> = ({
@@ -26,6 +29,7 @@ const BookingInfo: FC<Props> = ({
   address,
   phone_number,
   email,
+  location_id,
 }) => {
   const onDirectionsPress = () => {
     const scheme = Platform.select({
@@ -50,9 +54,18 @@ const BookingInfo: FC<Props> = ({
     Linking.openURL(`mailto:${email}`);
   };
 
-  const onBookOnline = () => {
-    if (!booking_link) return;
-    Linking.openURL(booking_link);
+  const open = useBrowser();
+
+  const onBookOnline = async () => {
+    if (!booking_link) {
+      return;
+    }
+    LocalStorage.addBookingClickStat(location_id);
+    try {
+      await open(booking_link);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -70,7 +83,7 @@ const BookingInfo: FC<Props> = ({
         />
       </GreyBtn>
       {booking_link && (
-        <GreyBtn onPress={onEmailPress}>
+        <GreyBtn onPress={onBookOnline}>
           <IconAndText
             text={"Make a booking online"}
             icon={

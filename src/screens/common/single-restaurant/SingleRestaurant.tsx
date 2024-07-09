@@ -1,5 +1,10 @@
 import { View } from "react-native";
-import React, { FC, useMemo } from "react";
+import React, { FC, useEffect, useMemo } from "react";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  useAnimatedScrollHandler,
+} from "react-native-reanimated";
 
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
@@ -30,11 +35,8 @@ import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  useAnimatedScrollHandler,
-} from "react-native-reanimated";
+
+import LocalStorage from "lib/storage";
 
 export type RouteParams = {
   location_id: string;
@@ -53,6 +55,12 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
   } = useSingleRestaurantQuery({
     location_id,
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      LocalStorage.addViewLocationStat(location_id);
+    }, 1000);
+  }, []);
 
   const mutateFav = useMutateFavouriteDeal();
 
@@ -238,6 +246,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           <Divider style="mt-6 mb-3" />
         </View>
         <RestaurantInfoTabs
+          location_id={location_id}
           initialIndex={1}
           address={restaurant.address}
           email={restaurant.email}

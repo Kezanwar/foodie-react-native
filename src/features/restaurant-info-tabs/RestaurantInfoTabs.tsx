@@ -48,6 +48,7 @@ type Props = {
   phone_number: string;
   opening_times: IOpeningTimes;
   initialIndex?: number;
+  location_id: string;
 };
 
 const RestaurantInfoTabs: FC<Props> = React.memo(
@@ -60,6 +61,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
     booking_link,
     opening_times,
     initialIndex = 0,
+    location_id,
   }) => {
     const region = useMemo(() => {
       return {
@@ -94,6 +96,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
               name={name}
               phone_number={phone_number}
               booking_link={booking_link}
+              location_id={location_id}
             />
           </TabController.TabPage>
           <TabController.TabPage lazy index={2}>

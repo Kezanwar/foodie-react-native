@@ -11,7 +11,7 @@ import {
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 import tw from "theme/tailwind";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { CustomTextField } from "components/form/custom-text-field";
@@ -116,7 +116,7 @@ const AddCustomLocation = (props: any) => {
           },
         })
       );
-      ls.setShouldUseCurrentLocation(false);
+      LocalStorage.setShouldUseCurrentLocation(false);
       props.navigation.navigate("Home");
     }
   };

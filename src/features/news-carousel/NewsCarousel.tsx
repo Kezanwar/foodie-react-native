@@ -23,8 +23,8 @@ type Props = {
 const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
   const open = useBrowser();
 
-  const onBlogPress = (slug: string) => {
-    open(`https://www.thefoodiestaging.app/news/${slug}`);
+  const onBlogPress = async (slug: string) => {
+    await open(`https://www.thefoodiestaging.app/news/${slug}`);
   };
 
   return (

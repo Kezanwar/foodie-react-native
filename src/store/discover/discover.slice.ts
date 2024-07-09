@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 import { Keyboard } from "react-native";
 
 // types
@@ -15,7 +15,7 @@ const initialState: DiscoverSliceState = {
   searchInputText: "",
   searchSubmitText: "",
   isSearchFocused: false,
-  searchHistory: ls.getSearchHistory(),
+  searchHistory: LocalStorage.getSearchHistory(),
 };
 
 const discoverSlice = createSlice({
@@ -41,7 +41,7 @@ const discoverSlice = createSlice({
       newHistory.unshift(payload);
       const final = newHistory.slice(0, 5).filter(Boolean);
 
-      ls.setSearchHistory(final);
+      LocalStorage.setSearchHistory(final);
       state.searchHistory = final;
       state.searchInputText = payload;
       state.searchSubmitText = payload;
@@ -56,7 +56,7 @@ const discoverSlice = createSlice({
         newHistory.unshift(state.searchInputText);
         const final = newHistory.slice(0, 5).filter(Boolean);
 
-        ls.setSearchHistory(final);
+        LocalStorage.setSearchHistory(final);
         state.searchHistory = final;
         state.searchSubmitText = state.searchInputText;
         state.isSearchFocused = false;

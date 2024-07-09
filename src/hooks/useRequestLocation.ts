@@ -6,7 +6,7 @@ import {
   setLocationError,
   setLocationObject,
 } from "store/location/location.slice";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 import useSnackbar from "./useSnackbar";
 import { saveUserGeo } from "lib/api";
 import { useAppSelector } from "./useAppSelector";
@@ -49,7 +49,7 @@ const useRequestLocation = () => {
           setLocationObject({ location, reverseGeocode: geo[0] || null })
         );
 
-        ls.setShouldUseCurrentLocation(true);
+        LocalStorage.setShouldUseCurrentLocation(true);
 
         if (
           user?.geometry &&

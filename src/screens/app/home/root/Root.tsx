@@ -4,7 +4,7 @@ import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 
 import tw from "theme/tailwind";
-import ls from "lib/storage";
+import LocalStorage from "lib/storage";
 
 import { endSession } from "lib/axios";
 import { authLogout } from "store/auth/auth.slice";
@@ -34,7 +34,7 @@ const Home: FC<any> = (props) => {
   );
 
   const { data, isLoading } = usePreferencesQuery();
-  const hasInitialPref = ls.getInitialPreferencesDone();
+  const hasInitialPref = LocalStorage.getInitialPreferencesDone();
 
   useEffect(() => {
     if (
@@ -43,7 +43,7 @@ const Home: FC<any> = (props) => {
       !data?.data?.preferences?.cuisines?.length
     ) {
       props.navigation.navigate(COMMON_ROUTES.PREFERENCES);
-      ls.setInitialPreferencesDone();
+      LocalStorage.setInitialPreferencesDone();
     }
   }, [isLoading, data?.data?.preferences?.cuisines, true]);
 
