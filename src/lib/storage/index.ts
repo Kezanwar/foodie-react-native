@@ -4,7 +4,7 @@ import { IFeedDeal } from "types/feed";
 
 const mmkv = new MMKV();
 
-const LocalStorage_KEYS = {
+const KEYS = {
   ACCESS_TOKEN: "ACCESS_TOKEN",
   INITIAL_PREFERENCES: "INITIAL_PREFERENCES",
   USE_CURRENT_LOCATION: "USE_CURRENT_LOCATION",
@@ -22,58 +22,58 @@ class LocalStorage {
 
   //access token
   static storeAccessToken(accessToken: string) {
-    mmkv.set(LocalStorage_KEYS.ACCESS_TOKEN, accessToken);
+    mmkv.set(KEYS.ACCESS_TOKEN, accessToken);
   }
   static getAccessToken() {
-    return mmkv.getString(LocalStorage_KEYS.ACCESS_TOKEN) || "";
+    return mmkv.getString(KEYS.ACCESS_TOKEN) || "";
   }
   static clearAccessToken() {
-    mmkv.delete(LocalStorage_KEYS.ACCESS_TOKEN);
+    mmkv.delete(KEYS.ACCESS_TOKEN);
   }
 
   //preferences
   static getInitialPreferencesDone() {
-    return mmkv.getBoolean(LocalStorage_KEYS.INITIAL_PREFERENCES);
+    return mmkv.getBoolean(KEYS.INITIAL_PREFERENCES);
   }
   static setInitialPreferencesDone() {
-    mmkv.set(LocalStorage_KEYS.INITIAL_PREFERENCES, true);
+    mmkv.set(KEYS.INITIAL_PREFERENCES, true);
   }
 
   //location
   static getShouldUseCurrentLocation() {
-    return mmkv.getBoolean(LocalStorage_KEYS.USE_CURRENT_LOCATION);
+    return mmkv.getBoolean(KEYS.USE_CURRENT_LOCATION);
   }
   static setShouldUseCurrentLocation(should: boolean) {
-    mmkv.set(LocalStorage_KEYS.USE_CURRENT_LOCATION, should);
+    mmkv.set(KEYS.USE_CURRENT_LOCATION, should);
   }
   static setlastKnownLocation(location: LocationLocalStorageData) {
     if (location) {
-      mmkv.set(LocalStorage_KEYS.LAST_KNOWN_LOCATION, JSON.stringify(location));
+      mmkv.set(KEYS.LAST_KNOWN_LOCATION, JSON.stringify(location));
     }
   }
   static getLastKnownLocation(): LocationLocalStorageData {
-    const str = mmkv.getString(LocalStorage_KEYS.LAST_KNOWN_LOCATION);
+    const str = mmkv.getString(KEYS.LAST_KNOWN_LOCATION);
     if (str) {
       return JSON.parse(str);
     } else return undefined;
   }
   static clearLastKnownLocation() {
-    mmkv.delete(LocalStorage_KEYS.LAST_KNOWN_LOCATION);
+    mmkv.delete(KEYS.LAST_KNOWN_LOCATION);
   }
 
   //search history
   static setSearchHistory(history: string[]) {
-    mmkv.set(LocalStorage_KEYS.SEARCH_HISTORY, JSON.stringify(history));
+    mmkv.set(KEYS.SEARCH_HISTORY, JSON.stringify(history));
   }
   static getSearchHistory(): string[] {
-    const h = mmkv.getString(LocalStorage_KEYS.SEARCH_HISTORY);
+    const h = mmkv.getString(KEYS.SEARCH_HISTORY);
     if (h) return JSON.parse(h);
     else return [];
   }
 
   //recently viewed (DISPLAY)
-  static setRecentlyViewedDisplay(deal: IFeedDeal) {
-    const curr = mmkv.getString(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY);
+  static setRecentlyViewedDisplay(deal: any) {
+    const curr = mmkv.getString(KEYS.RECENTLY_VIEWED_DISPLAY);
 
     if (curr) {
       let p: IFeedDeal[] = JSON.parse(curr);
@@ -84,12 +84,9 @@ class LocalStorage {
         p.pop();
       }
 
-      mmkv.set(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
+      mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
     } else {
-      mmkv.set(
-        LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY,
-        JSON.stringify([deal])
-      );
+      mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
     }
 
     setTimeout(function () {
@@ -98,7 +95,7 @@ class LocalStorage {
   }
 
   static getRecentlyViewedDisplay(): IFeedDeal[] {
-    const curr = mmkv.getString(LocalStorage_KEYS.RECENTLY_VIEWED_DISPLAY);
+    const curr = mmkv.getString(KEYS.RECENTLY_VIEWED_DISPLAY);
     return curr ? JSON.parse(curr) : [];
   }
 
@@ -160,16 +157,16 @@ class LocalStorage {
   }
 
   static getStats() {
-    const curr = mmkv.getString(LocalStorage_KEYS.STATS);
+    const curr = mmkv.getString(KEYS.STATS);
     return curr ? JSON.parse(curr) : undefined;
   }
 
   static saveStats(stats: any) {
-    mmkv.set(LocalStorage_KEYS.STATS, JSON.stringify(stats));
+    mmkv.set(KEYS.STATS, JSON.stringify(stats));
   }
 
   static clearStats() {
-    mmkv.delete(LocalStorage_KEYS.STATS);
+    mmkv.delete(KEYS.STATS);
   }
 }
 

@@ -228,8 +228,6 @@ export const getSingleRest = async (data: GetSingleRestProps) => {
 export const postStats = async () => {
   const stats = LocalStorage.getStats();
 
-  console.log(stats);
-
   if (!stats) {
     return;
   }

@@ -37,6 +37,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
 
 import LocalStorage from "lib/storage";
+import { IFeedDeal } from "types/feed";
 
 export type RouteParams = {
   location_id: string;
@@ -103,6 +104,12 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
         linkRestaurant: true,
       })
     );
+    setTimeout(() => {
+      LocalStorage.addViewDealStat({
+        deal: { _id: data.deal_id },
+        location: { _id: data.location_id },
+      } as IFeedDeal);
+    }, 1000);
   };
 
   const userLocationCoords = useAppSelector(
