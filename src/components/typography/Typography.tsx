@@ -16,11 +16,11 @@ const TEXT_COLORS = {
 };
 
 const VARIANTS = {
-  h1: "font-bold text-6xl leading-[1.1] ",
-  h3: "font-bold text-5xl leading-[1.1]  ",
-  h4: "font-bold text-4xl leading-[1.1] ",
-  h5: "font-bold text-3xl leading-[1.1] ",
-  h6: "font-bold text-2xl leading-[1.1] ",
+  h1: "font-semi-bold text-6xl leading-[1.1] ",
+  h3: "font-semi-bold text-5xl leading-[1.1]  ",
+  h4: "font-semi-bold text-4xl leading-[1.1] ",
+  h5: "font-semi-bold text-3xl leading-[1.1] ",
+  h6: "font-semi-bold text-2xl leading-[1.1] ",
   subheader: "font-semi-bold text-xl leading-[1.1]  ",
   body1: "font-light text-base ",
   body2: "font-light text-sm",

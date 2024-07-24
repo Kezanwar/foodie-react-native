@@ -95,7 +95,7 @@ const ConfirmEmail: React.FC = () => {
             <Typography
               variant="body2"
               color="text.secondary"
-              style={"font-bold"}
+              style={"font-semi-bold"}
             >
               {user?.email}.
             </Typography>

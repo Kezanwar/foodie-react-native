@@ -93,7 +93,10 @@ const RestaurantItem: FC<Props> = ({
       >
         <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
         <View>
-          <Typography style=" font-medium leading-[1.3] text-4" variant="body1">
+          <Typography
+            style=" font-semi-bold leading-[1.3] text-4"
+            variant="body1"
+          >
             {restaurant.name}
           </Typography>
           {location?.nickname && (
