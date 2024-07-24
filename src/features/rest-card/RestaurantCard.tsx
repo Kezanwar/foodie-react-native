@@ -58,7 +58,7 @@ const RestaurantCard: FC<Props> = ({
             </Typography>
             {location?.nickname && (
               <Typography
-                style="text-3.25"
+                style="text-3.5"
                 variant="body2"
                 color="text.secondary"
               >

@@ -123,15 +123,13 @@ module.exports = {
       tablet: "1024px",
     },
     fontFamily: {
-      black: ["Poppins-Black"],
-      "extra-bold": ["Poppins-ExtraBold"],
-      bold: ["Poppins-Bold"],
-      "semi-bold": ["Poppins-SemiBold"],
-      "extra-light": ["Poppins-ExtraLight"],
-      light: ["Poppins-Light"],
-      thin: ["Poppins-Thin"],
-      medium: ["Poppins-Medium"],
-      regular: ["Poppins-Regular"],
+      "extra-bold": ["Manrope-ExtraBold"],
+      bold: ["Manrope-Bold"],
+      "semi-bold": ["Manrope-SemiBold"],
+      "extra-light": ["Manrope-ExtraLight"],
+      light: ["Manrope-Light"],
+      medium: ["Manrope-Medium"],
+      regular: ["Manrope-Regular"],
     },
 
     extend: {

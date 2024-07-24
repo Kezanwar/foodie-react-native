@@ -14,12 +14,12 @@ const FollowButton: FC<Props> = ({ onPress, following }) => {
       onPress={onPress}
       style={tw`rounded-full min-w-17 border items-center justify-center ${
         following ? "border-primary-main  min-w-22 " : " border-grey-800"
-      } py-1.75 px-3`}
+      } py-1.5 px-2.5`}
     >
       <Typography
         variant="body2"
         color={following ? "primary.main" : "text.primary"}
-        style="-m-1 text-3.25"
+        style="-m-1 text-3.25 "
       >
         {following ? "Following" : "Follow"}
       </Typography>

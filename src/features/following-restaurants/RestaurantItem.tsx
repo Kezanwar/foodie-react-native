@@ -97,11 +97,7 @@ const RestaurantItem: FC<Props> = ({
             {restaurant.name}
           </Typography>
           {location?.nickname && (
-            <Typography
-              style="text-3.25"
-              variant="body2"
-              color="text.secondary"
-            >
+            <Typography style="text-3.5" variant="body2" color="text.secondary">
               {location.nickname}
             </Typography>
           )}

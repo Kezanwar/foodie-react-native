@@ -214,7 +214,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
             <Typography
               variant="body2"
               color="text.secondary"
-              style="leading-[1.6]"
+              style="leading-[1.6] text-3.5"
             >
               {restaurant.restaurant.bio}
             </Typography>
