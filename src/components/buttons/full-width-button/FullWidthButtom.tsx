@@ -33,7 +33,7 @@ const FullWidthButton: React.FC<Props> = ({
         <Typography
           variant="h6"
           color={subtle ? "text.primary" : "white"}
-          style={"text-[3.75] font-semi-bold leading-[0]"}
+          style={"text-[3.75] font-bold leading-[0]"}
         >
           {text}
         </Typography>

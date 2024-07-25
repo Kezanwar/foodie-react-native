@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { onLogout } from "store/global-actions";
 import { IColVariants } from "types/colors";
 
 export type ISnackbarMessage = {

@@ -23,7 +23,7 @@ const DiscoverCuisines: FC<Props> = React.memo(
     return !cuisines ? null : (
       <View>
         <View style={tw`mb-5  gap-1`}>
-          <Typography style="font-semi-bold leading-[0] text-4.5" variant="h6">
+          <Typography style="font-bold leading-[0] text-4.5" variant="h6">
             Discover Cuisines
           </Typography>
           <Typography variant="body2" color="text.secondary">

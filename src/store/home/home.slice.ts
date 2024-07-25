@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { onLogout } from "store/global-actions";
 import { SelectChipFormObj } from "types/form";
 import { IFilters, Option } from "types/options";
 
@@ -89,6 +90,7 @@ const homeSlice = createSlice({
         }, [] as string[]);
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

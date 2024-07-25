@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { onLogout } from "store/global-actions";
 
 // types
 
@@ -35,6 +36,7 @@ const createAccountSlice = createSlice({
       state.last_name = payload.password;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

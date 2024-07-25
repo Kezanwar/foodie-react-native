@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { LocationGeocodedAddress, LocationObject } from "expo-location";
 import LocalStorage from "lib/storage";
+import { onLogout } from "store/global-actions";
 
 // types
 
@@ -63,6 +64,7 @@ const locationSlice = createSlice({
       state.error = initialState.error;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

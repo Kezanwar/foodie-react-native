@@ -168,10 +168,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               source={{ uri: restaurant.restaurant.avatar }}
             />
             <View style={tw`gap-2`}>
-              <Typography
-                variant="h6"
-                style="font-semi-bold text-4.25 max-w-80"
-              >
+              <Typography variant="h6" style="font-bold text-4.25 max-w-80">
                 {restaurant.restaurant.name}
                 <Typography
                   variant="h6"
@@ -204,7 +201,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
                 <AntDesign name="isv" size={19} color={iconCol} />
                 <Typography
                   variant="h6"
-                  style="font-semi-bold text-4.25 max-w-[89%] leading-0"
+                  style="font-bold text-4.25 max-w-[89%] leading-0"
                 >
                   Bio
                 </Typography>
@@ -230,10 +227,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           <Divider my="6" />
           <View style={tw`flex-row  items-center gap-2 mb-4`}>
             <AntDesign name="tago" size={20} color={iconCol} />
-            <Typography
-              variant="h6"
-              style="font-semi-bold text-4.25  leading-0"
-            >
+            <Typography variant="h6" style="font-bold text-4.25  leading-0">
               Deals
             </Typography>
           </View>

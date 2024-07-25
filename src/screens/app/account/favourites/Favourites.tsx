@@ -11,6 +11,7 @@ import { ACCOUNT_STACK } from "constants/routes";
 import { GetSingleDealProps } from "types/single-deal";
 import { CenteredTextHeader } from "features/headers/common";
 import LoadingSpinner from "components/loading-spinner";
+import EmptyState from "components/empty-state/EmptyState";
 
 const Favourites: FC<any> = ({ navigation }) => {
   const { data, refetch, isRefetching, isLoading, fetchNextPage } =
@@ -47,6 +48,12 @@ const Favourites: FC<any> = ({ navigation }) => {
       ) : (
         <FlatList
           onRefresh={refetch}
+          ListEmptyComponent={
+            <EmptyState
+              title="No Favourites Yet"
+              description="You haven't favourited any deals yet, go back to your feed and find some deals that interest you!"
+            />
+          }
           refreshing={isRefetching}
           contentContainerStyle={tw`bg-grey-200 gap-3`}
           data={favourites}

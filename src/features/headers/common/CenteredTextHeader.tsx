@@ -10,7 +10,7 @@ const iconCol = tw.color("primary-main");
 
 type Props = { goBack: any; title: string; subtitle?: string };
 
-const flexOne = { true: tw`flex-0.3 mt-1.15`, false: tw`flex-0.3` };
+const flexOne = { true: tw`flex-0.2 mt-1.15`, false: tw`flex-0.2` };
 
 const CenteredTextHeader: FC<Props> = ({ goBack, title, subtitle }) => {
   const hasSub = !!subtitle;
@@ -27,7 +27,7 @@ const CenteredTextHeader: FC<Props> = ({ goBack, title, subtitle }) => {
       </View>
       <View style={tw`flex-1 items-center`}>
         <Typography
-          style={`font-semi-bold leading-[0] ${
+          style={`font-bold text-center leading-[0] ${
             hasSub ? "mb-0.5" : ""
           } text-4.5`}
           variant="h6"

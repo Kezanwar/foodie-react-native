@@ -39,6 +39,8 @@ const tabControllerItems: TabControllerItemProps[] = [
 
 const map_style = tw`h-70 m-5 mt-5 rounded-md`;
 
+const indicator_style = tw`h-[1.5px] bg-primary-main `;
+
 type Props = {
   name: string;
   booking_link?: string;
@@ -77,7 +79,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
         items={tabControllerItems}
       >
         <TabController.TabBar
-          indicatorStyle={tw`h-[px] bg-primary-main `}
+          indicatorStyle={indicator_style}
           height={32}
           spreadItems={false}
           backgroundColor="transparent"

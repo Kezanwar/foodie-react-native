@@ -27,7 +27,7 @@ const GoogleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
           <Typography
             variant="h6"
             color="text.primary"
-            style="text-[3.75] leading-[0] font-semi-bold"
+            style="text-[3.75] leading-[0] font-bold"
           >
             {variant === "login"
               ? "Sign in with Google"

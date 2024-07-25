@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import LocalStorage from "lib/storage";
 import { Keyboard } from "react-native";
+import { onLogout } from "store/global-actions";
 
 // types
 
@@ -70,6 +71,13 @@ const discoverSlice = createSlice({
       state.isSearchFocused = false;
     },
   },
+  extraReducers: (builder) =>
+    builder.addCase(onLogout, () => ({
+      searchInputText: "",
+      searchSubmitText: "",
+      isSearchFocused: false,
+      searchHistory: [],
+    })),
 });
 
 // export for use around the app

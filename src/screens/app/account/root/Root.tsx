@@ -24,7 +24,7 @@ import DealCard from "features/deal-card";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
-import { authLogout } from "store/auth/auth.slice";
+import { onLogout } from "store/global-actions";
 
 type Props = any;
 
@@ -46,7 +46,7 @@ const Root: FC<Props> = ({ navigation }) => {
   const onFavouritePress = () => navigation.navigate(ACCOUNT_STACK.FAVOURITES);
 
   const logout = () => {
-    dispatch(authLogout());
+    dispatch(onLogout());
     endSession();
     client.clear();
   };
@@ -77,7 +77,7 @@ const Root: FC<Props> = ({ navigation }) => {
       <SafeAreaView style={tw`bg-white`}>
         <HeaderContainer style={"flex-row items-center justify-between"}>
           <View>
-            <Typography variant="h6" style={`font-semi-bold leading-tight  `}>
+            <Typography variant="h6" style={`font-bold leading-tight  `}>
               Account
             </Typography>
             <TouchableOpacity onPress={onLogoutPress}>
@@ -150,7 +150,7 @@ const Root: FC<Props> = ({ navigation }) => {
         <SectionCard>
           <Typography
             variant="h6"
-            style={`font-semi-bold text-5 mb-2 leading-tight  `}
+            style={`font-bold text-5 mb-2 leading-tight  `}
           >
             Settings
           </Typography>
@@ -178,40 +178,42 @@ const Root: FC<Props> = ({ navigation }) => {
             text="Notifications"
           />
         </SectionCard>
-        <SectionCard>
-          <Typography style="font-semi-bold leading-[0] text-4.5" variant="h6">
-            Recently Viewed
-          </Typography>
-          <Typography variant="body2" style="mb-6" color="text.secondary">
-            The last 5 deals you've viewed
-          </Typography>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={recentlyViewed}
-            ItemSeparatorComponent={() => <CarouselDivider />}
-            snapToAlignment="start"
-            decelerationRate={"fast"}
-            keyExtractor={(item, index) =>
-              `${index}-${item.deal._id}-${item.location._id}`
-            }
-            snapToInterval={CAROUSEL_ITEM_WIDTH}
-            renderItem={({ item }) => {
-              return (
-                <DealCard
-                  type="carousel"
-                  item={item}
-                  onShare={(name) => {}}
-                  onLike={(item) => {}}
-                  openDeal={() => {}}
-                  // location={item.location}
-                  // navToRest={navToRest}
-                  // restaurant={item.restaurant}
-                />
-              );
-            }}
-          />
-        </SectionCard>
+        {!!recentlyViewed.length && (
+          <SectionCard>
+            <Typography style="font-bold leading-[0] text-4.5" variant="h6">
+              Recently Viewed
+            </Typography>
+            <Typography variant="body2" style="mb-6" color="text.secondary">
+              The last 5 deals you've viewed
+            </Typography>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              data={recentlyViewed}
+              ItemSeparatorComponent={() => <CarouselDivider />}
+              snapToAlignment="start"
+              decelerationRate={"fast"}
+              keyExtractor={(item, index) =>
+                `${index}-${item.deal._id}-${item.location._id}`
+              }
+              snapToInterval={CAROUSEL_ITEM_WIDTH}
+              renderItem={({ item }) => {
+                return (
+                  <DealCard
+                    type="carousel"
+                    item={item}
+                    onShare={(name) => {}}
+                    onLike={(item) => {}}
+                    openDeal={() => {}}
+                    // location={item.location}
+                    // navToRest={navToRest}
+                    // restaurant={item.restaurant}
+                  />
+                );
+              }}
+            />
+          </SectionCard>
+        )}
       </ScrollView>
     </View>
   );

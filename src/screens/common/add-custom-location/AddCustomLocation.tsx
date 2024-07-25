@@ -127,7 +127,7 @@ const AddCustomLocation = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 px-5`}
       >
-        <Typography variant="h6" style={" font-semi-bold mb-2 "}>
+        <Typography variant="h6" style={" font-bold mb-2 "}>
           Search for a Location
         </Typography>
         <Typography
@@ -198,7 +198,7 @@ const AddCustomLocation = (props: any) => {
                 />
                 <Typography
                   color="primary.main"
-                  style="font-semi-bold text-[3.35] "
+                  style="font-bold text-[3.35] "
                   variant="body2"
                 >
                   Use This Location

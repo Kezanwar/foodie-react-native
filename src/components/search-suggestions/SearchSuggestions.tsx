@@ -22,7 +22,6 @@ const SearchSuggestions: FC = () => {
     <Animated.View
       style={tw`absolute top-[19] px-5 py-2 w-[100vw] h-[100vh] bg-white z-10`}
       entering={FadeInDown}
-      // exiting={FadeOutDown}
     >
       <KeyboardDismissingView containerStyle={tw`flex-1`} style={tw`flex-1`}>
         <Typography variant="body2" style="mb-4" color="text.secondary">

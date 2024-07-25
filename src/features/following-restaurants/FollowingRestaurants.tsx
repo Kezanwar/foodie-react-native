@@ -7,6 +7,7 @@ import Animated, { LinearTransition } from "react-native-reanimated";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { useAppSelector } from "hooks/useAppSelector";
 import LoadingSpinner from "components/loading-spinner";
+import EmptyState from "components/empty-state/EmptyState";
 
 type Props = {
   navigation: any;
@@ -51,6 +52,12 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
     <Animated.FlatList
       itemLayoutAnimation={LinearTransition.springify()}
       onRefresh={refetch}
+      ListEmptyComponent={
+        <EmptyState
+          title="No Restaurants To Show"
+          description="You haven't followeed any Restaurants yet, go back to your feed and find some Restaurants that interest you!"
+        />
+      }
       refreshing={isRefetching}
       data={following}
       ItemSeparatorComponent={() => <Divider my="0" />}

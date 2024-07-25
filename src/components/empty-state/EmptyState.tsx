@@ -10,8 +10,8 @@ type Props = {
   title: string;
   style?: string;
   description: string;
-  actionText: string;
-  action: () => void;
+  actionText?: string;
+  action?: () => void;
   actionIcon?: ReactNode;
 };
 
@@ -40,7 +40,9 @@ const EmptyState: FC<Props> = ({
       >
         {description}
       </Typography>
-      <RoundedButton icon={actionIcon} onPress={action} text={actionText} />
+      {!!(action && actionText) && (
+        <RoundedButton icon={actionIcon} onPress={action} text={actionText} />
+      )}
     </View>
   );
 };

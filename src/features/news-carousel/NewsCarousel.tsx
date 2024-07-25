@@ -30,7 +30,7 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
   return (
     <View>
       <View style={tw`mb-5  gap-1`}>
-        <Typography style="font-semi-bold leading-[0] text-4.5" variant="h6">
+        <Typography style="font-bold leading-[0] text-4.5" variant="h6">
           News & Insights
         </Typography>
         <Typography variant="body2" color="text.secondary">

@@ -28,7 +28,7 @@ const TextActionHeader: FC<Props> = ({
     >
       <Typography
         variant="h6"
-        style={`font-semi-bold leading-tight ${
+        style={`font-bold leading-tight ${
           fontSize === "medium" ? "text-5" : ""
         } `}
       >

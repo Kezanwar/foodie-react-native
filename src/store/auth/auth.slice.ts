@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { onLogout } from "store/global-actions";
 import { IUser } from "types/auth";
 
 // types
@@ -33,6 +34,7 @@ const authSlice = createSlice({
       state.isInitialized = true;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

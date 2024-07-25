@@ -80,7 +80,7 @@ const ConfirmEmail: React.FC = () => {
         style={tw`flex-1 gap-10`}
       >
         <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
-          <Typography variant="h6" style={" font-semi-bold mb-2 "}>
+          <Typography variant="h6" style={" font-bold mb-2 "}>
             Confirm your email
           </Typography>
 
@@ -95,7 +95,7 @@ const ConfirmEmail: React.FC = () => {
             <Typography
               variant="body2"
               color="text.secondary"
-              style={"font-semi-bold"}
+              style={"font-bold"}
             >
               {user?.email}.
             </Typography>
@@ -122,7 +122,7 @@ const ConfirmEmail: React.FC = () => {
               <Typography
                 variant="body2"
                 color="primary.main"
-                style="text-center font-semi-bold"
+                style="text-center font-bold"
               >
                 Resend OTP
               </Typography>

@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ExpoPushToken, Notification } from "expo-notifications";
+import { onLogout } from "store/global-actions";
 
 // types
 
@@ -27,6 +28,7 @@ const notificationsSlice = createSlice({
       state.expoPushToken = payload.data;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

@@ -126,10 +126,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}
             />
-            <Typography
-              variant="h6"
-              style="font-semi-bold text-4.3 max-w-[90%] "
-            >
+            <Typography variant="h6" style="font-bold text-4.3 max-w-[90%] ">
               {deal.name}
             </Typography>
           </View>
@@ -168,7 +165,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
             activeOpacity={linkRestaurant ? 0.8 : 1}
             onPress={navRest}
           >
-            <Typography variant="h6" style="font-semi-bold text-4.3 max-w-80">
+            <Typography variant="h6" style="font-bold text-4.3 max-w-80">
               {deal.restaurant.name}
               <Typography
                 variant="h6"

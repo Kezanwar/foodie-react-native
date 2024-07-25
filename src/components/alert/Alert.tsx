@@ -37,9 +37,7 @@ const Alert: FC<Props> = ({
       })}
       <View style={tw`${align === "left" ? "flex-1" : ""} flex-wrap`}>
         {title && (
-          <Text
-            style={tw`font-semi-bold text-base  ${variantStyles[variant].text}`}
-          >
+          <Text style={tw`font-bold text-base  ${variantStyles[variant].text}`}>
             {title}
           </Text>
         )}

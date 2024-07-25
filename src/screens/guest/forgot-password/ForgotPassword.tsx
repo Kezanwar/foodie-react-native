@@ -65,7 +65,7 @@ const ForgotPassword: React.FC = (props: any) => {
         style={tw`flex-1 gap-10`}
       >
         <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
-          <Typography variant="h6" style={" font-semi-bold mb-2 "}>
+          <Typography variant="h6" style={" font-bold mb-2 "}>
             Forgot your password?
           </Typography>
           <Typography

@@ -16,7 +16,7 @@ const RoundedButton: FC<Props> = ({ text = "", icon, ...rest }) => {
       style={tw`px-3 py-2 flex-row gap-2 rounded-md bg-primary-main-04 items-center`}
     >
       {icon}
-      <Typography variant="body2" style="font-semi-bold" color="primary.main">
+      <Typography variant="body2" style="font-bold" color="primary.main">
         {text}
       </Typography>
     </TouchableOpacity>

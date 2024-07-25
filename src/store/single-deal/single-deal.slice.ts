@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { DynamicStack } from "constants/routes";
+import { onLogout } from "store/global-actions";
 
 export type SingleDealState = {
   deal_id: string;
@@ -27,6 +28,7 @@ const singleDealSlice = createSlice({
       state.deal = payload;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app

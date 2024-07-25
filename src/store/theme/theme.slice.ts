@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { DARK, LIGHT } from "constants/theme";
+import { onLogout } from "store/global-actions";
 
 interface themeSliceState {
   theme: "light" | "dark";
@@ -20,6 +21,7 @@ const themeSlice = createSlice({
       state.theme = state.theme === DARK ? LIGHT : DARK;
     },
   },
+  extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app
