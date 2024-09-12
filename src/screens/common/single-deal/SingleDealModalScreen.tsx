@@ -24,6 +24,9 @@ import { getDistanceInMiles } from "utils/distance";
 import { useAppSelector } from "hooks/useAppSelector";
 import LoadingSpinner from "components/loading-spinner";
 
+const default_error_message =
+  "Sorry we can't seem to find that deal, it may have been deleted";
+
 const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
   deal_id,
   location_id,
@@ -35,6 +38,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
     data: deal,
     isLoading,
     isError,
+    error,
   } = useSingleDealQuery({
     deal_id,
     location_id,
@@ -108,9 +112,9 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
       <BaseWrapper>
         <EmptyState
           title="Oops!"
-          description="Sorry we can't seem to find that deal, it may have been deleted"
-          action={() => {}}
-          actionText="Go back"
+          description={error?.message || default_error_message}
+          action={close}
+          actionText="Ok"
         />
       </BaseWrapper>
     );

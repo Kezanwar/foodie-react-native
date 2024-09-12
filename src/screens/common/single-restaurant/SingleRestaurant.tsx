@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import React, { FC, useEffect, useMemo } from "react";
 import Animated, {
   useSharedValue,
@@ -44,6 +44,9 @@ export type RouteParams = {
   stack: DynamicStack;
 };
 
+const default_error_message =
+  "Sorry we can't seem to find that Restaurant, it may have been deleted";
+
 const iconCol = tw.color("primary-main");
 
 const SingleRestaurant: FC = ({ route, navigation }: any) => {
@@ -53,6 +56,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
     data: restaurant,
     isLoading,
     isError,
+    error,
   } = useSingleRestaurantQuery({
     location_id,
   });
@@ -143,12 +147,14 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
   if (!restaurant || isError)
     return (
-      <EmptyState
-        title="Oops!"
-        description="Sorry we can't seem to find that deal, it may have been deleted"
-        action={navigation.goBack}
-        actionText="Go back"
-      />
+      <SafeAreaView style={tw`flex-1 bg-white`}>
+        <EmptyState
+          title="Oops!"
+          description={error?.message || default_error_message}
+          action={navigation.goBack}
+          actionText="Go back"
+        />
+      </SafeAreaView>
     );
 
   return (

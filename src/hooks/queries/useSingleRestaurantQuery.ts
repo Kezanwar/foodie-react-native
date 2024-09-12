@@ -14,6 +14,7 @@ const useSingleRestaurantQuery = (data: GetSingleRestProps) => {
     queryKey: [getSingleRestKey(data)],
     queryFn: () => getSingleRest(data),
     staleTime: minutes(20),
+    retry: false,
   });
 
   return query;

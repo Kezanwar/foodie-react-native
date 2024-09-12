@@ -1,15 +1,12 @@
-import { Alert, FlatList, SafeAreaView, ScrollView, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { Alert, SafeAreaView, View } from "react-native";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
 import { endSession } from "lib/axios";
-import LocalStorage from "lib/storage";
-
-import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 
 import { ACCOUNT_STACK, COMMON_ROUTES } from "constants/routes";
 
@@ -19,8 +16,6 @@ import FilterIcon from "components/svgs/filter-icon";
 import ListButton from "components/buttons/list-button";
 import SectionCard from "components/section-card/SectionCard";
 import HeaderContainer from "components/header-container";
-import CarouselDivider from "components/separators/carousel-divider";
-import DealCard from "features/deal-card";
 
 import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
@@ -30,9 +25,9 @@ type Props = any;
 
 const Root: FC<Props> = ({ navigation }) => {
   const { user } = useAppSelector((state) => state.auth);
-  const [recentlyViewed, setRecentlyViewed] = useState(
-    LocalStorage.getRecentlyViewedDisplay()
-  );
+  // const [recentlyViewed, setRecentlyViewed] = useState(
+  //   LocalStorage.getRecentlyViewedDisplay()
+  // );
 
   const dispatch = useAppDispatch();
 
@@ -62,11 +57,11 @@ const Root: FC<Props> = ({ navigation }) => {
     ]);
   };
 
-  const setRecent = useCallback(() => {
-    setRecentlyViewed(LocalStorage.getRecentlyViewedDisplay());
-  }, []);
+  // const setRecent = useCallback(() => {
+  //   setRecentlyViewed(LocalStorage.getRecentlyViewedDisplay());
+  // }, []);
 
-  useFocusEffect(setRecent);
+  // useFocusEffect(setRecent);
 
   if (!user) {
     return null;
@@ -98,11 +93,7 @@ const Root: FC<Props> = ({ navigation }) => {
           />
         </HeaderContainer>
       </SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={tw`gap-3`}
-        style={tw`bg-grey-200  flex-1`}
-      >
+      <View style={tw`bg-grey-200 gap-3 flex-1`}>
         <SectionCard>
           <ListButton
             withBorder
@@ -147,10 +138,10 @@ const Root: FC<Props> = ({ navigation }) => {
             text="Following"
           />
         </SectionCard>
-        <SectionCard>
+        <SectionCard style="flex-1">
           <Typography
             variant="h6"
-            style={`font-bold text-5 mb-2 leading-tight  `}
+            style={`font-bold text-5 mb-3 leading-tight  `}
           >
             Settings
           </Typography>
@@ -178,7 +169,7 @@ const Root: FC<Props> = ({ navigation }) => {
             text="Notifications"
           />
         </SectionCard>
-        {!!recentlyViewed.length && (
+        {/* {!!recentlyViewed.length && (
           <SectionCard>
             <Typography style="font-bold leading-[0] text-4.5" variant="h6">
               Recently Viewed
@@ -213,8 +204,8 @@ const Root: FC<Props> = ({ navigation }) => {
               }}
             />
           </SectionCard>
-        )}
-      </ScrollView>
+        )} */}
+      </View>
     </View>
   );
 };

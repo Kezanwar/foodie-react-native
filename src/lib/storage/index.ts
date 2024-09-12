@@ -73,25 +73,23 @@ class LocalStorage {
 
   //recently viewed (DISPLAY)
   static setRecentlyViewedDisplay(deal: any) {
-    const curr = mmkv.getString(KEYS.RECENTLY_VIEWED_DISPLAY);
+    // const curr = mmkv.getString(KEYS.RECENTLY_VIEWED_DISPLAY);
 
-    if (curr) {
-      let p: IFeedDeal[] = JSON.parse(curr);
+    // if (curr) {
+    //   let p: IFeedDeal[] = JSON.parse(curr);
 
-      p.unshift(deal);
+    //   p.unshift(deal);
 
-      if (p.length > 5) {
-        p.pop();
-      }
+    //   if (p.length > 5) {
+    //     p.pop();
+    //   }
 
-      mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
-    } else {
-      mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
-    }
+    //   mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify(p));
+    // } else {
+    //   mmkv.set(KEYS.RECENTLY_VIEWED_DISPLAY, JSON.stringify([deal]));
+    // }
 
-    setTimeout(function () {
-      LocalStorage.addViewDealStat(deal);
-    }, 1000);
+    this.addViewDealStat(deal);
   }
 
   static getRecentlyViewedDisplay(): IFeedDeal[] {

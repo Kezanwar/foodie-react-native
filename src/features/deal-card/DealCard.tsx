@@ -11,8 +11,6 @@ import LikeButton from "components/buttons/like-button";
 import { GetSingleDealProps } from "types/single-deal";
 import LocalStorage from "lib/storage";
 
-const { setRecentlyViewedDisplay } = LocalStorage;
-
 type Props = {
   item: IFeedDeal;
   onShare: (name: string) => void;
@@ -33,7 +31,7 @@ const DealCard: FC<Props> = ({
   return (
     <TouchableOpacity
       onPress={() => {
-        setRecentlyViewedDisplay(item);
+        LocalStorage.setRecentlyViewedDisplay(item);
         openDeal({
           deal_id: item.deal._id,
           location_id: item.location._id,

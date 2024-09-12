@@ -1,5 +1,5 @@
 import { Linking, View } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 
 import tw from "theme/tailwind";
 import { Ionicons } from "@expo/vector-icons";
@@ -31,11 +31,13 @@ const Location = (props: any) => {
 
   const openSettings = () => Linking.openSettings();
 
-  useFocusEffect(() => {
-    if (error) {
-      requestLocation();
-    }
-  });
+  useFocusEffect(
+    useCallback(() => {
+      if (error) {
+        requestLocation();
+      }
+    }, [error])
+  );
 
   return (
     <StaticScreenWrapper>
