@@ -16,6 +16,7 @@ import SingleDealModal from "features/single-deal-modal";
 import { enableFreeze } from "react-native-screens";
 
 import useRegisterTasks from "./tasks";
+import Snackbar from "components/snackbar/Snackbar";
 
 enableFreeze(true);
 
@@ -33,6 +34,7 @@ const AppReady: FC<Props> = ({ children }) => {
       <Redux>
         <FontLoadGestureHandler>
           <BottomSheetModalProvider>
+            <Snackbar />
             <Navigation>{children}</Navigation>
             <SingleDealModal />
           </BottomSheetModalProvider>
