@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useCallback, useEffect } from "react";
 
 import LocalStorage from "lib/storage";
 import { useAppSelector } from "hooks/useAppSelector";
-import { authLogin, authLogout } from "store/auth/auth.slice";
+import { authLogin, setIsInitialized } from "store/auth/auth.slice";
 
 import { initializeJWT, postStats } from "lib/api";
 import { setSession } from "lib/axios";
@@ -23,7 +23,9 @@ const AuthInitializer: FC<Props> = ({ children }) => {
   const initialize = useCallback(async () => {
     try {
       const accessToken = LocalStorage.getAccessToken();
-      if (!accessToken) throw new Error("no token");
+      if (!accessToken) {
+        throw new Error("no token");
+      }
       setSession(accessToken);
       const res = await initializeJWT();
       const {
@@ -31,8 +33,8 @@ const AuthInitializer: FC<Props> = ({ children }) => {
       } = res;
       dispatch(authLogin(user));
     } catch (error) {
-      dispatch(authLogout());
-      LocalStorage.clearAccessToken();
+      //axios will handle invalid token
+      dispatch(setIsInitialized(true));
     }
   }, []);
 

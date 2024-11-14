@@ -25,9 +25,6 @@ type Props = any;
 
 const Root: FC<Props> = ({ navigation }) => {
   const { user } = useAppSelector((state) => state.auth);
-  // const [recentlyViewed, setRecentlyViewed] = useState(
-  //   LocalStorage.getRecentlyViewedDisplay()
-  // );
 
   const dispatch = useAppDispatch();
 
@@ -56,12 +53,6 @@ const Root: FC<Props> = ({ navigation }) => {
       { text: "Yes", onPress: () => logout(), style: "destructive" },
     ]);
   };
-
-  // const setRecent = useCallback(() => {
-  //   setRecentlyViewed(LocalStorage.getRecentlyViewedDisplay());
-  // }, []);
-
-  // useFocusEffect(setRecent);
 
   if (!user) {
     return null;

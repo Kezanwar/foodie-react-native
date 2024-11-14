@@ -15,6 +15,8 @@ import Preferences from "screens/common/preferences";
 import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
 import ForgotPassword from "screens/guest/forgot-password";
+import UpdateRequired from "screens/common/update-required";
+import MaintenanceMode from "screens/common/maintenance-mode";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -77,6 +79,7 @@ const RootNavigator: FC = () => {
       {/* Common screens */}
       <RootStack.Group>
         <RootStack.Screen
+          options={{ headerShown: false }}
           name={COMMON_ROUTES.PRIVACY_POLICY}
           component={PrivacyPolicy}
         />

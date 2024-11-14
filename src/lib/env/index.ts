@@ -6,3 +6,5 @@ export const androidOAuthClientId = process.env
 
 export const iOSOAuthClientId = process.env
   .EXPO_PUBLIC_IOS_OAUTH_CLIENT_ID as string;
+
+export const APP_VERSION = "27.11.2024";

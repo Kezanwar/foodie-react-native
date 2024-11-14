@@ -6,8 +6,6 @@ import { useScrollToTop } from "@react-navigation/native";
 import tw from "theme/tailwind";
 import LocalStorage from "lib/storage";
 
-import { endSession } from "lib/axios";
-import { authLogout } from "store/auth/auth.slice";
 import { COMMON_ROUTES } from "constants/routes";
 
 import { LoadingScreen } from "components/loading-screen";
@@ -17,7 +15,7 @@ import usePreferencesQuery from "hooks/queries/usePreferencesQuery";
 import { useAppSelector } from "hooks/useAppSelector";
 import useRequestLocation from "hooks/useRequestLocation";
 
-import HomeFeed, { HomeFeedRef } from "features/home-feed/HomeFeed";
+import HomeFeed from "features/home-feed/HomeFeed";
 import { RootHeader } from "features/headers/home";
 import { HomeFilterSheet } from "features/home-filter-sheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";

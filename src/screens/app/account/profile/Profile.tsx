@@ -95,6 +95,7 @@ const Profile: FC = (props: any) => {
           View and edit your profile details here, if you signed in with Google
           these can't be changed.
         </Typography>
+
         <View style={tw`gap-3`}>
           <RHFTextField
             control={control}
