@@ -99,14 +99,6 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
         title="No results found"
         description={`Sorry, we couldn't find any results.`}
         action={navigation.goBack}
-        actionText={"Error"}
-        actionIcon={
-          <Ionicons
-            name="map-outline"
-            size={21}
-            color={tw.color("primary-main")}
-          />
-        }
       />
     );
   }

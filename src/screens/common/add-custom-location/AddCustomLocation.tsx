@@ -89,7 +89,7 @@ const AddCustomLocation = (props: any) => {
         setLocationObject({
           location: {
             mocked: false,
-            timestamp: Math.floor(new Date("2012.08.10").getTime() / 1000),
+            timestamp: Date.now(),
             coords: {
               longitude,
               latitude,

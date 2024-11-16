@@ -10,7 +10,6 @@ type Props = {
 const Guard: FC<Props> = ({ children }) => {
   const authState = useAppSelector((state) => state.auth);
   const { maintenanceMode, updateRequired } = authState;
-  console.log({ maintenanceMode, updateRequired });
   if (maintenanceMode) {
     return <MaintenanceMode />;
   }

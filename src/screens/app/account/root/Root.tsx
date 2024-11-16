@@ -148,7 +148,7 @@ const Root: FC<Props> = ({ navigation }) => {
             onPress={onLocationPress}
             text="Location"
           />
-          <ListButton
+          {/* <ListButton
             icon={
               <Ionicons
                 name="notifications-outline"
@@ -158,7 +158,7 @@ const Root: FC<Props> = ({ navigation }) => {
             }
             onPress={onLocationPress}
             text="Notifications"
-          />
+          /> */}
         </SectionCard>
         {/* {!!recentlyViewed.length && (
           <SectionCard>

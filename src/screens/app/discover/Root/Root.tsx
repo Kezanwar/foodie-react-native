@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, TouchableOpacity, View } from "react-native";
 import React, { FC, useCallback } from "react";
-import { AntDesign } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 
 import HeaderContainer from "components/header-container";
@@ -30,6 +30,7 @@ import SearchFeed from "features/search-feed/SearchFeed";
 import SectionCard from "components/section-card/SectionCard";
 import LocationStatus from "components/location-status/LocationStatus";
 import LoadingSpinner from "components/loading-spinner";
+import EmptyState from "components/empty-state/EmptyState";
 
 type Props = any;
 
@@ -137,8 +138,11 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
   onCuisinePress,
 }) => {
   const { data, isLoading } = useDiscoverQuery();
+  const location = useAppSelector((state) => state.location.reverseGeocode);
 
   if (isLoading) return <LoadingScreen />;
+
+  const cuisines = data?.data?.cuisines;
 
   return (
     <ScrollView
@@ -146,18 +150,39 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
       style={tw`bg-grey-200 relative`}
       contentContainerStyle={tw`gap-3 z-0 `}
     >
-      <SectionCard>
-        <DiscoverRestaurants
-          navToRest={navToRest}
-          restaurants={data?.data?.restaurants}
-        />
-      </SectionCard>
-      <SectionCard>
-        <DiscoverCuisines
-          onCuisinePress={onCuisinePress}
-          cuisines={data?.data?.cuisines}
-        />
-      </SectionCard>
+      {!cuisines?.length ? (
+        <SectionCard>
+          <EmptyState
+            title="No Results"
+            description={`near ${location?.city}, ${location?.subregion}`}
+            action={() => {}}
+            actionText="Change location"
+            actionIcon={
+              <Ionicons
+                name="map-outline"
+                size={19}
+                color={tw.color("primary-main")}
+              />
+            }
+          />
+        </SectionCard>
+      ) : (
+        <>
+          <SectionCard>
+            <DiscoverRestaurants
+              navToRest={navToRest}
+              restaurants={data?.data?.restaurants}
+            />
+          </SectionCard>
+          <SectionCard>
+            <DiscoverCuisines
+              onCuisinePress={onCuisinePress}
+              cuisines={data?.data?.cuisines}
+            />
+          </SectionCard>
+        </>
+      )}
+
       <SectionCard>
         <NewsCarousel blogs={data?.data?.blogs} />
       </SectionCard>

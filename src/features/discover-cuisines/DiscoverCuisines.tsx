@@ -1,9 +1,6 @@
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
-import { Fader } from "react-native-ui-lib";
 import tw from "theme/tailwind";
-import { ScrollView } from "react-native-gesture-handler";
-
 import { Option } from "types/options";
 import ChipButton from "components/buttons/chip-button";
 import { ChipContainer } from "components/chip";
@@ -47,3 +44,7 @@ const DiscoverCuisines: FC<Props> = React.memo(
 );
 
 export default DiscoverCuisines;
+
+//  <Typography variant="body2" style="mb-2" color="text.secondary">
+//    sorry their are no results to show...
+//  </Typography>;

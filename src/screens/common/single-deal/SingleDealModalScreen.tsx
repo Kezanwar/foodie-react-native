@@ -17,7 +17,7 @@ import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
-import { navigate } from "hocs/app-ready/providers/navigation/Navigation";
+import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { SingleDealState } from "store/single-deal/single-deal.slice";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { getDistanceInMiles } from "utils/distance";
@@ -78,7 +78,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
     if (linkRestaurant) {
       close();
       setTimeout(() => {
-        navigate(stack?.SINGLE_RESTAURANT, {
+        external_navigate(stack?.SINGLE_RESTAURANT, {
           location_id,
           stack,
         });
