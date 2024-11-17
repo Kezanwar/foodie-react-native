@@ -67,7 +67,7 @@ const Location = (props: any) => {
                 color={tw.color("primary-main")}
               />
               <Typography
-                variant="subheader"
+                variant="h7"
                 color="text.primary"
                 style={" mt-5 font-medium text-center"}
               >

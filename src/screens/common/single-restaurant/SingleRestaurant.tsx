@@ -7,7 +7,6 @@ import Animated, {
 } from "react-native-reanimated";
 
 import tw from "theme/tailwind";
-import { AntDesign } from "@expo/vector-icons";
 
 import { LoadingScreen } from "components/loading-screen";
 import { Typography } from "components/typography";
@@ -46,8 +45,6 @@ export type RouteParams = {
 
 const default_error_message =
   "Sorry we can't seem to find that Restaurant, it may have been deleted";
-
-const iconCol = tw.color("primary-main");
 
 const SingleRestaurant: FC = ({ route, navigation }: any) => {
   const { location_id, stack } = route.params as RouteParams;
@@ -165,7 +162,6 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           goBack={navigation.goBack}
         />
       </Animated.View>
-
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <View style={tw`px-5 relative`}>
           <View style={tw`mt-4 flex-row  items-center gap-4`}>
@@ -199,29 +195,17 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               </View>
             </View>
           </View>
-
           <Divider my="6" />
-          <View style={tw` gap-2`}>
-            <View style={tw`flex-row justify-between`}>
-              <View style={tw`flex-row items-center gap-2 `}>
-                <AntDesign name="isv" size={19} color={iconCol} />
-                <Typography
-                  variant="h6"
-                  style="font-bold text-4.25 max-w-[89%] leading-0"
-                >
-                  Bio
-                </Typography>
-              </View>
-            </View>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              style="leading-[1.6] text-3.5"
-            >
-              {restaurant.restaurant.bio}
-            </Typography>
-          </View>
+          <Typography variant="subheader" style={"mb-4"}>
+            Bio
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            style="leading-[1.6] text-3.5"
+          >
+            {restaurant.restaurant.bio}
+          </Typography>
           <ChipContainer style="mt-5">
             {restaurant.cuisines.map(({ name, slug }) => (
               <ChipReadOnly key={slug} size="lg" label={name} />
@@ -231,12 +215,9 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
             ))}
           </ChipContainer>
           <Divider my="6" />
-          <View style={tw`flex-row  items-center gap-2 mb-4`}>
-            <AntDesign name="tago" size={20} color={iconCol} />
-            <Typography variant="h6" style="font-bold text-4.25  leading-0">
-              Deals
-            </Typography>
-          </View>
+          <Typography style={"mb-4"} variant="subheader">
+            Deals
+          </Typography>
           <View style={tw`gap-3`}>
             {restaurant.active_deals.map((deal) => {
               return (

@@ -168,11 +168,7 @@ const AddCustomLocation = (props: any) => {
               entering={FadeInUp}
               style={tw`border-[0.4px] border-grey-400 bg-white p-4 mt-6 rounded-md`}
             >
-              <Typography
-                color="text.primary"
-                style="text-[4.5]"
-                variant="subheader"
-              >
+              <Typography color="text.primary" style="text-[4.5]" variant="h7">
                 {result.district}
               </Typography>
               <Typography color="text.secondary" variant="body2">

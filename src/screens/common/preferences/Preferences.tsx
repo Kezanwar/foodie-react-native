@@ -160,7 +160,7 @@ const Preferences = (props: any) => {
 
         <View style={tw`flex-row gap-5 mb-5`}></View>
         <View style={tw`gap-8`}>
-          <View>
+          <View style={tw`h-[40vh] mb-8`}>
             <TitleBadgeCounter
               mb
               error={cuisineCount === 0}

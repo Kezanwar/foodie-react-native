@@ -56,7 +56,7 @@ const DealCard: FC<Props> = ({
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}
             />
-            <Typography variant="subheader" style=" text-4.3  mb-1">
+            <Typography variant="h7" style=" text-4.3  mb-1">
               {item.deal.name}
             </Typography>
           </View>

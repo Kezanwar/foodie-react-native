@@ -21,7 +21,8 @@ const VARIANTS = {
   h4: "font-bold text-4xl leading-[1.1] ",
   h5: "font-bold text-3xl leading-[1.1] ",
   h6: "font-bold text-2xl leading-[1.1] ",
-  subheader: "font-bold text-xl leading-[1.1]  ",
+  h7: "font-bold text-xl leading-[1.1]  ",
+  subheader: "font-medium text-3.25 tracking-wide uppercase leading-[1.1]",
   body1: "font-light text-base ",
   body2: "font-light text-sm",
 };

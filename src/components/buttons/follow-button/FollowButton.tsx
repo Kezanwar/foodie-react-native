@@ -19,7 +19,7 @@ const FollowButton: FC<Props> = ({ onPress, following }) => {
       <Typography
         variant="body2"
         color={following ? "primary.main" : "text.primary"}
-        style="-m-1 text-3.25 "
+        style="-m-1 font-regular text-3.5 "
       >
         {following ? "Following" : "Follow"}
       </Typography>

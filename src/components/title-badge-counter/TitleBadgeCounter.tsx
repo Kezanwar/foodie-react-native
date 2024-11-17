@@ -14,7 +14,7 @@ type Props = {
 const TitleBadgeCounter: FC<Props> = ({ title, count, error, mb }) => {
   return (
     <View style={tw`relative self-start ${mb ? "mb-4" : ""}`}>
-      <Typography variant="subheader" style={" text-lg"}>
+      <Typography variant="h7" style={" text-lg"}>
         {title}
       </Typography>
       {count && (
