@@ -14,7 +14,7 @@ type Props = {
 const CuisinesSelectForm: FC<Props> = ({ cuisines, onCuisineSelect }) => {
   return (
     <View>
-      <ScrollView style={tw`h-[80]`} contentContainerStyle={tw`pb-8`}>
+      <ScrollView style={tw``} contentContainerStyle={tw`pb-8`}>
         <ChipContainer>
           {cuisines?.map((item) => (
             <ChipSelect

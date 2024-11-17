@@ -1,7 +1,7 @@
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
-
+import { AntDesign } from "@expo/vector-icons";
 import { Typography } from "components/typography";
 
 import { ActiveDeal, IRestaurant } from "types/restaurant";
@@ -15,6 +15,8 @@ type Props = TouchableOpacityProps & {
   onLike: (is_favourited: boolean, deal_id: string) => Promise<void>;
 };
 
+const iconCol = tw.color("primary-light");
+
 const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
   return (
     <TouchableOpacity
@@ -27,13 +29,17 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
         })
       }
     >
-      <Typography
-        variant="body2"
-        color="text.primary"
-        style="text-3.5 font-medium"
-      >
-        {deal.name}
-      </Typography>
+      <View style={tw`flex-row gap-2 items-center`}>
+        <AntDesign name="tago" size={18} color={iconCol} />
+        <Typography
+          variant="body2"
+          color="text.primary"
+          style="text-3.5  font-medium"
+        >
+          {deal.name}
+        </Typography>
+      </View>
+
       <LikeButton
         onPress={() => onLike(deal.is_favourited, deal._id)}
         liked={deal.is_favourited}

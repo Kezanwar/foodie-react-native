@@ -36,7 +36,7 @@ const Item: FC<{ day: string; val: IOpeningDay }> = ({ day, val }) => {
       </Typography>
       <Typography
         variant="body2"
-        style="font-medium text-3.15"
+        style="font-medium text-3.25"
         color={val.is_open ? "success.main" : "warning.main"}
       >
         {val.is_open ? `${val.open} - ${val.close}` : "CLOSED"}

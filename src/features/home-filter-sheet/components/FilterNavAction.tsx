@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableHighlight, TouchableOpacity, View } from "react-native";
 import React, { FC, useMemo } from "react";
 import tw from "theme/tailwind";
 import { Ionicons } from "@expo/vector-icons";
@@ -33,7 +33,7 @@ const FilterNavAction: FC<Props> = ({ onNav, filters, onClear, title }) => {
     : "All";
 
   return (
-    <View>
+    <TouchableOpacity onPress={onNav}>
       <View style={tw`flex-row items-center justify-between `}>
         <TitleBadgeCounter
           mb={false}
@@ -46,13 +46,13 @@ const FilterNavAction: FC<Props> = ({ onNav, filters, onClear, title }) => {
           ) : (
             ""
           )}
-          <IconButton onPress={onNav}>
-            <Ionicons
-              name="add-circle-outline"
-              size={24}
-              color={tw.color("grey-950")}
-            />
-          </IconButton>
+          {/* <IconButton onPress={onNav}> */}
+          <Ionicons
+            name="add-circle-outline"
+            size={24}
+            color={tw.color("grey-950")}
+          />
+          {/* </IconButton> */}
         </View>
       </View>
       <Typography
@@ -62,7 +62,7 @@ const FilterNavAction: FC<Props> = ({ onNav, filters, onClear, title }) => {
       >
         {text}
       </Typography>
-    </View>
+    </TouchableOpacity>
   );
 };
 

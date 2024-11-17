@@ -72,8 +72,8 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
                 <View style={tw`flex-row gap-1.5 items-center`}>
                   <Ionicons name="glasses-outline" size={24} color={iconCol} />
                   <Typography
-                    style="text-3"
-                    variant="body1"
+                    style="text-3.25"
+                    variant="body2"
                     color="text.secondary"
                   >
                     {item.restaurant_review_fields.readTime} minute read

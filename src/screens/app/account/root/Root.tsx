@@ -137,7 +137,7 @@ const Root: FC<Props> = ({ navigation }) => {
             Settings
           </Typography>
           <ListButton
-            withBorder
+            // withBorder
             icon={
               <Ionicons
                 name="map-outline"

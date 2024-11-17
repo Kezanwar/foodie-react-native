@@ -57,7 +57,7 @@ const Cuisines = (props: any) => {
 
   return (
     <StaticScreenWrapper>
-      <View style={tw`pl-6 pr-4`}>
+      <View style={tw`px-4`}>
         <TextActionHeader
           fontSize="medium"
           mb={false}
