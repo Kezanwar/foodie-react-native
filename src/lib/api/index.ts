@@ -77,6 +77,7 @@ export const addPreferences = (data: IOptions) => {
 //*AUTH
 
 export const loginJWT = (data: LoginJWTData) => {
+  console.log(axiosInstance.getUri());
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.login, data);
 };
 export const loginGoogle = (token: string, pushToken?: string) => {
