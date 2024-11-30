@@ -22,7 +22,7 @@ const VARIANTS = {
   h5: "font-bold text-3xl leading-[1.1] ",
   h6: "font-bold text-2xl leading-[1.1] ",
   h7: "font-bold text-xl leading-[1.1]  ",
-  subheader: "font-medium text-3.25 tracking-wide uppercase leading-[1.1]",
+  subheader: "font-semibold text-3.15  uppercase leading-[1.1]",
   body1: "font-light text-base ",
   body2: "font-light text-sm",
 };

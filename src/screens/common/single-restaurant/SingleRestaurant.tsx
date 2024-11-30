@@ -195,7 +195,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               </View>
             </View>
           </View>
-          <Divider my="6" />
+          <Divider style="mt-6 mb-5" />
           <Typography variant="subheader" style={"mb-4"}>
             Bio
           </Typography>
@@ -214,24 +214,29 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               <ChipReadOnly key={slug} size="lg" label={name} />
             ))}
           </ChipContainer>
-          <Divider my="6" />
-          <Typography style={"mb-4"} variant="subheader">
-            Deals
-          </Typography>
-          <View style={tw`gap-3`}>
-            {restaurant.active_deals.map((deal) => {
-              return (
-                <DealButton
-                  deal={deal}
-                  key={deal._id}
-                  onLike={onLike}
-                  restaurant={restaurant}
-                  openDeal={openDeal}
-                />
-              );
-            })}
-          </View>
           <Divider style="mt-6 mb-3" />
+
+          {restaurant.active_deals.length > 0 && (
+            <>
+              <Typography style={"mb-4 mt-2"} variant="subheader">
+                Deals
+              </Typography>
+              <View style={tw`gap-3`}>
+                {restaurant.active_deals.map((deal) => {
+                  return (
+                    <DealButton
+                      deal={deal}
+                      key={deal._id}
+                      onLike={onLike}
+                      restaurant={restaurant}
+                      openDeal={openDeal}
+                    />
+                  );
+                })}
+              </View>
+              <Divider style="mt-6 mb-3" />
+            </>
+          )}
         </View>
         <RestaurantInfoTabs
           location_id={location_id}
