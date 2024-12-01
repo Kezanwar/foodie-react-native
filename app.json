@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "foodie-react-native",
-    "slug": "foodie-react-native",
+    "name": "thefoodie.app",
+    "slug": "thefoodie.app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,7 +29,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kezanwar.foodiereactnative",
+      "bundleIdentifier": "com.thefoodie.app",
       "config": {
         "googleMapsApiKey": "AIzaSyAssBjvB_M1GfbT12E-4riIpF5wy8RAGMc"
       }
@@ -39,7 +39,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kezanwar.foodiereactnative"
+      "package": "com.thefoodie.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
