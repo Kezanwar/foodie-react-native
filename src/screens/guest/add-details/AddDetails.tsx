@@ -7,7 +7,7 @@ import { FullWidthButton } from "components/buttons/full-width-button";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import RHFTextField from "components/form/RHF/RHFTextField";
 import { StaticScreenWrapper } from "components/screen-wrapper";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 

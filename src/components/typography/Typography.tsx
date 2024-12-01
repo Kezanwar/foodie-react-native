@@ -1,6 +1,9 @@
+import { isIOS } from "constants/theme";
 import React, { ReactNode } from "react";
 import { Text } from "react-native";
 import tw from "theme/tailwind";
+
+export const LEADING_TIGHT = isIOS ? "leading-[0]" : "leading-tight";
 
 const TEXT_COLORS = {
   "text.primary": "text-type-light-primary dark:text-type-dark-primary",

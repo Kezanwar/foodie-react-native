@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { IFeedDeal } from "types/feed";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import ShareButton from "components/buttons/share-button";
 import LikeButton from "components/buttons/like-button";

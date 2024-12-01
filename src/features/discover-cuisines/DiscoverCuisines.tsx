@@ -4,7 +4,7 @@ import tw from "theme/tailwind";
 import { Option } from "types/options";
 import ChipButton from "components/buttons/chip-button";
 import { ChipContainer } from "components/chip";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 
 import { useAppSelector } from "hooks/useAppSelector";
 
@@ -20,7 +20,10 @@ const DiscoverCuisines: FC<Props> = React.memo(
     return !cuisines ? null : (
       <View>
         <View style={tw`mb-5  gap-1`}>
-          <Typography style="font-bold leading-[0] text-4.5" variant="h6">
+          <Typography
+            style={`font-bold ${LEADING_TIGHT} text-4.5`}
+            variant="h6"
+          >
             Discover Cuisines
           </Typography>
           <Typography variant="body2" color="text.secondary">

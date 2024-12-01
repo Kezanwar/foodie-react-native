@@ -14,7 +14,7 @@ import { SECTION_SHADOWS } from "theme/custom-shadows";
 
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { FullWidthButton } from "components/buttons/full-width-button";
 import { Or } from "components/separators/or";
@@ -33,6 +33,7 @@ import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import Spacer from "components/separators/spacer";
 import { useAppSelector } from "hooks/useAppSelector";
+import { isIOS } from "constants/theme";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -156,7 +157,7 @@ const SignIn = (props: any) => {
           entering={FadeInDown}
           style={[
             tw`flex-1 py-8 px-5 z-20  bg-white dark:bg-grey-950   rounded-3xl`,
-            SECTION_SHADOWS.topShadowSection,
+            isIOS && SECTION_SHADOWS.topShadowSection,
           ]}
         >
           {/* <ThemeToggle /> */}

@@ -1,4 +1,4 @@
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import React, {
   ForwardedRef,

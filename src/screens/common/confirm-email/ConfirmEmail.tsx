@@ -5,7 +5,7 @@ import tw from "theme/tailwind";
 
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import Alert from "components/alert/Alert";
 
 import useAppDispatch from "hooks/useAppDispatch";

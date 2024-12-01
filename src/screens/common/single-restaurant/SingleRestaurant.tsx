@@ -9,7 +9,7 @@ import Animated, {
 import tw from "theme/tailwind";
 
 import { LoadingScreen } from "components/loading-screen";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
@@ -37,6 +37,7 @@ import { getDistanceInMiles } from "utils/distance";
 
 import LocalStorage from "lib/storage";
 import { IFeedDeal } from "types/feed";
+import { isAndroid } from "constants/theme";
 
 export type RouteParams = {
   location_id: string;
@@ -129,6 +130,8 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler((event) => {
+    if (isAndroid) return;
+
     if (event.contentOffset.y < 160) {
       scrollY.value = Math.max(event.contentOffset.y, 0);
     }
@@ -202,7 +205,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           <Typography
             variant="body2"
             color="text.secondary"
-            style="leading-[1.6] text-3.5"
+            style=" text-3.5 leading-[1.6]"
           >
             {restaurant.restaurant.bio}
           </Typography>

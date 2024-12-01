@@ -1,6 +1,6 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import React, { FC } from "react";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 type Props = TouchableOpacityProps & {
   label: string;

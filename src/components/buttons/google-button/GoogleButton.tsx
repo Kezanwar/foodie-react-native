@@ -1,5 +1,6 @@
 import GoogleIcon from "components/svgs/google-icon";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
+
 import React from "react";
 import {
   ActivityIndicator,
@@ -27,7 +28,7 @@ const GoogleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
           <Typography
             variant="h6"
             color="text.primary"
-            style="text-[3.75] leading-[0] font-bold"
+            style={`text-[3.75] font-bold ${LEADING_TIGHT}`}
           >
             {variant === "login"
               ? "Sign in with Google"

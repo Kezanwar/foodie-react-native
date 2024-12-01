@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React, { FC } from "react";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 import tw from "theme/tailwind";
 import TextButton from "components/buttons/text-button";
 import LoadingSpinner from "components/loading-spinner";
@@ -28,7 +28,7 @@ const TextActionHeader: FC<Props> = ({
     >
       <Typography
         variant="h6"
-        style={`font-bold leading-tight ${
+        style={`font-bold ${LEADING_TIGHT}  ${
           fontSize === "medium" ? "text-5" : ""
         } `}
       >
@@ -39,7 +39,7 @@ const TextActionHeader: FC<Props> = ({
       ) : (
         <TextButton
           label={rightActionText}
-          textStyle="font-medium leading-tight"
+          textStyle={`font-medium ${LEADING_TIGHT}`}
           onPress={rightActionOnPress}
         />
       )}

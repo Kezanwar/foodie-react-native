@@ -1,4 +1,4 @@
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import React from "react";
 import { View } from "react-native";
 import tw from "theme/tailwind";

@@ -4,7 +4,7 @@ import React, { FC, ReactNode, useMemo } from "react";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
 
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";

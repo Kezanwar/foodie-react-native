@@ -14,7 +14,7 @@ import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import { View } from "react-native-ui-lib";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import { GetSingleDealProps } from "types/single-deal";
 import { setSingleDeal } from "store/single-deal/single-deal.slice";

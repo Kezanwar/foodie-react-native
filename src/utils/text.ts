@@ -1,3 +1,4 @@
+import { isAndroid, isIOS } from "constants/theme";
 import { LocationGeocodedAddress } from "expo-location";
 
 type ReverseGeocodeMainText = (
@@ -10,8 +11,22 @@ export const reverseGeocodedMainText: ReverseGeocodeMainText = (
   short
 ) => {
   if (!reverseGeocode) return "";
-  if (reverseGeocode?.district)
-    if (short) return `${reverseGeocode?.city}, ${reverseGeocode?.subregion}`;
-    else return `${reverseGeocode?.district}, ${reverseGeocode?.city}`;
-  else return reverseGeocode?.city || "";
+
+  let value = "";
+
+  if (isIOS) {
+    if (short) {
+      value = `${reverseGeocode.city}, ${reverseGeocode.subregion}`;
+    } else {
+      value = `${reverseGeocode.district}, ${reverseGeocode.city}`;
+    }
+  } else if (isAndroid) {
+    if (short) {
+      value = reverseGeocode.subregion || "";
+    } else {
+      value = `${reverseGeocode.street}, ${reverseGeocode.subregion}`;
+    }
+  }
+
+  return value;
 };

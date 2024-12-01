@@ -1,7 +1,7 @@
 import { GestureResponderEvent, TouchableOpacity } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 type Props = {
   onPress: (e: GestureResponderEvent) => void;

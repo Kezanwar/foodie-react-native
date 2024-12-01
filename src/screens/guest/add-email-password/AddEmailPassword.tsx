@@ -9,7 +9,7 @@ import { FullWidthButton } from "components/buttons/full-width-button";
 
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import { StaticScreenWrapper } from "components/screen-wrapper";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import { RegisterEmailPasswordSchema } from "lib/validation/auth";

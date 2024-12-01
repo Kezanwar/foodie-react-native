@@ -4,7 +4,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import tw from "theme/tailwind";
 
 import RestaurantAvatar from "components/restaurant-avatar";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { AntDesign } from "@expo/vector-icons";
@@ -94,7 +94,7 @@ const RestaurantItem: FC<Props> = ({
         <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
         <View>
           <Typography
-            style=" font-semi-bold leading-[1.3] text-4"
+            style=" font-semi-bold leading-[1.3]  text-4"
             variant="body1"
           >
             {restaurant.name}

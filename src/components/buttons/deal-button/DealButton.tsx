@@ -2,7 +2,7 @@ import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { ActiveDeal, IRestaurant } from "types/restaurant";
 import LikeButton from "../like-button";

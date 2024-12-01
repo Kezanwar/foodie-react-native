@@ -1,4 +1,5 @@
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
+
 import React from "react";
 import {
   ActivityIndicator,
@@ -33,7 +34,7 @@ const FullWidthButton: React.FC<Props> = ({
         <Typography
           variant="h6"
           color={subtle ? "text.primary" : "white"}
-          style={"text-[3.75] font-bold leading-[0]"}
+          style={`text-[3.75] font-bold ${LEADING_TIGHT} `}
         >
           {text}
         </Typography>

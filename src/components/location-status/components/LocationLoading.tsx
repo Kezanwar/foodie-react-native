@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import React from "react";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import LottieView from "lottie-react-native";
 
 const LocationLoading = () => {

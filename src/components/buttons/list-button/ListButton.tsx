@@ -1,7 +1,7 @@
 import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import React, { FC, ReactNode } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 import tw from "theme/tailwind";
 
 type Props = TouchableOpacityProps & {
@@ -24,7 +24,7 @@ const ListButton: FC<Props> = ({ icon, onPress, text, withBorder }) => {
       <Typography
         variant="body1"
         color="text.primary"
-        style="font-regular leading-[0]  text-4"
+        style={`font-regular  text-4 ${LEADING_TIGHT}`}
       >
         {text}
       </Typography>

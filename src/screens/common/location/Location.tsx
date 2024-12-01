@@ -5,7 +5,7 @@ import tw from "theme/tailwind";
 import { Ionicons } from "@expo/vector-icons";
 
 import { StaticScreenWrapper } from "components/screen-wrapper";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import TextActionHeader from "features/headers/common/TextActionHeader";
 import { FullWidthButton } from "components/buttons/full-width-button";
 import TextButton from "components/buttons/text-button";

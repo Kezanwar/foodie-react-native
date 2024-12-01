@@ -3,7 +3,7 @@ import tw from "theme/tailwind";
 import React, { FC } from "react";
 
 import Alert from "components/alert/Alert";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import TextButton from "components/buttons/text-button";
 import useRequestLocation from "hooks/useRequestLocation";
 

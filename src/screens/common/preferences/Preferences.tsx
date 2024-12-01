@@ -6,7 +6,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 import TextActionHeader from "features/headers/common/TextActionHeader";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { LoadingScreen } from "components/loading-screen";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import TitleBadgeCounter from "components/title-badge-counter";
 
