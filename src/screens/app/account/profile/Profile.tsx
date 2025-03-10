@@ -8,7 +8,7 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 import tw from "theme/tailwind";
 import { TextActionHeader } from "features/headers/common";
 import { useAppSelector } from "hooks/useAppSelector";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { CustomTextField } from "components/form/custom-text-field";
 import TextButton from "components/buttons/text-button";

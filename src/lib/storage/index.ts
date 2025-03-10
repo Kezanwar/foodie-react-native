@@ -1,6 +1,6 @@
 import { MMKV } from "react-native-mmkv";
 import { LocationLocalStorageData } from "store/location/location.slice";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 
 const mmkv = new MMKV();
 

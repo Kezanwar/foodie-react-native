@@ -1,7 +1,7 @@
 import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import React, { FC } from "react";
 import { useAppSelector } from "hooks/useAppSelector";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import tw from "theme/tailwind";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,7 @@ const LocationButton: FC<Props> = ({ onPress }) => {
       <View>
         <Typography
           variant="body2"
-          style=" text-[3.25] font-regular"
+          style=" text-[3.25] font-medium"
           color="text.primary"
         >
           {reverseGeocode

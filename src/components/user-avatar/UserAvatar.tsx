@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 
 type Props = {
   firstName: string;
@@ -24,7 +24,7 @@ const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName }) => {
       ) : (
         <Typography
           variant="h6"
-          style="font-regular  text-6 leading-[0]"
+          style={`font-regular ${LEADING_TIGHT}  text-6`}
           color="white"
         >
           {firstName.charAt(0)}

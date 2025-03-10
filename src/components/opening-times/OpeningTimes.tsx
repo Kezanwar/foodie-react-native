@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { capitalize } from "utils/string";
 import { IOpeningDay, IOpeningTimes } from "types/opening-times";
@@ -16,7 +16,7 @@ const OpeningTimes: FC<Props> = React.memo(
   ({ opening_times, containerStyle = "" }) => {
     return (
       <View
-        style={tw`gap-2 m-5 border rounded-lg border-grey-200 p-3 mt-5 ${containerStyle}`}
+        style={tw`gap-2 m-5 border border-dashed rounded-lg border-grey-300 p-3 mt-5 ${containerStyle}`}
       >
         {Object.entries(opening_times).map(([day, val]) => {
           return <Item key={day} day={day} val={val} />;
@@ -31,7 +31,7 @@ export default OpeningTimes;
 const Item: FC<{ day: string; val: IOpeningDay }> = ({ day, val }) => {
   return (
     <View key={day} style={tw`flex-row `}>
-      <Typography style={"w-13 text-3.5"} variant="body2">
+      <Typography style={"w-13 text-3.5 font-regular"} variant="body2">
         {capitalize(day)}
       </Typography>
       <Typography

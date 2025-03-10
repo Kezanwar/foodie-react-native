@@ -1,4 +1,4 @@
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import React, { FC, ReactNode } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 

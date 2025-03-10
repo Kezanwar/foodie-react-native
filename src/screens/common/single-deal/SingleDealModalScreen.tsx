@@ -4,7 +4,7 @@ import React, { FC, ReactNode, useMemo } from "react";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
 
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
@@ -169,16 +169,21 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
             activeOpacity={linkRestaurant ? 0.8 : 1}
             onPress={navRest}
           >
-            <Typography variant="h6" style="font-bold text-4.3 max-w-80">
-              {deal.restaurant.name}
+            <View style={tw`flex-row items-center gap-1 flex-wrap`}>
               <Typography
                 variant="h6"
-                style="font-light text-3.5"
+                style={`font-bold text-4.3 max-w-80 ${LEADING_TIGHT}`}
+              >
+                {deal.restaurant.name}
+              </Typography>
+              <Typography
+                variant="h6"
+                style={`font-light text-3.5 ${LEADING_TIGHT}`}
                 color="text.secondary"
               >
-                {"  "}({deal.location.nickname})
+                ({deal.location.nickname})
               </Typography>
-            </Typography>
+            </View>
           </TouchableOpacity>
           <View style={tw`gap-3 items-center flex-row`}>
             <FollowButton onPress={onFollow} following={deal.is_following} />

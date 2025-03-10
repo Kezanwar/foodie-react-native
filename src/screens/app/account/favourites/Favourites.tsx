@@ -4,7 +4,7 @@ import tw from "theme/tailwind";
 
 import useFavouritesQuery from "hooks/queries/useFavouritesQuery";
 import DealCard from "features/deal-card";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 import useAppDispatch from "hooks/useAppDispatch";
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import { ACCOUNT_STACK } from "constants/routes";

@@ -7,14 +7,14 @@ import EmptyState from "components/empty-state/EmptyState";
 
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 import { DISCOVER_STACK } from "constants/routes";
 
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import { View } from "react-native-ui-lib";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import { GetSingleDealProps } from "types/single-deal";
 import { setSingleDeal } from "store/single-deal/single-deal.slice";

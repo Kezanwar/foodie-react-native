@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 import React, { FC } from "react";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = {};

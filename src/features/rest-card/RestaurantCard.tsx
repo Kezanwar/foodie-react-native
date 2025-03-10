@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
 
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import RestaurantAvatar from "components/restaurant-avatar";
 

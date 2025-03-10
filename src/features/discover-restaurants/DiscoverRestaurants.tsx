@@ -4,7 +4,7 @@ import tw from "theme/tailwind";
 
 import { FlatList } from "react-native-gesture-handler";
 
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 
 import CarouselDivider from "components/separators/carousel-divider";
 
@@ -24,7 +24,7 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
   return restaurants ? (
     <View>
       <View style={tw`mb-5  gap-1`}>
-        <Typography style="font-bold leading-[0] text-4.5" variant="h6">
+        <Typography style={`font-bold text-4.5 ${LEADING_TIGHT}`} variant="h6">
           Popular Restaurants
         </Typography>
         <Typography variant="body2" color="text.secondary">

@@ -8,6 +8,10 @@ node_modules/
 dist/
 web-build/
 
+# Local Builds
+build*.apk
+build*.tar.gz
+
 # Native
 *.orig.*
 *.jks

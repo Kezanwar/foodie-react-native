@@ -24,25 +24,29 @@ const Alert: FC<Props> = ({
 }) => {
   const isLight = !tw.prefixMatch("dark");
 
+  const isCentered = align === "center";
+
   return (
     <View
       style={tw`px-3 py-2 ${
-        align === "center" ? "justify-center" : ""
-      } flex-row rounded-md gap-2 w-full  ${
-        variantStyles[variant].bg
-      } ${style}`}
+        isCentered ? "justify-center flex-col items-center" : " flex-row"
+      }  rounded-md gap-2 w-full  ${variantStyles[variant].bg} ${style}`}
     >
       {React.cloneElement(icon ? icon : variantStyles[variant]?.icon, {
         color: tw.color(`${variant}-${isLight ? "main" : "light"}`),
       })}
-      <View style={tw`${align === "left" ? "flex-1" : ""} flex-wrap`}>
+      <View style={tw`${!isCentered ? "flex-1" : ""} flex-wrap text-wrap `}>
         {title && (
           <Text style={tw`font-bold text-base  ${variantStyles[variant].text}`}>
             {title}
           </Text>
         )}
         <Text
-          style={tw`font-regular w-full text-sm mt-[3] ${variantStyles[variant].text}`}
+          style={tw`${
+            isCentered ? "text-center" : ""
+          } font-regular max-w-[100%] text-sm  mt-[3] ${
+            variantStyles[variant].text
+          }`}
         >
           {content}
         </Text>

@@ -11,7 +11,7 @@ import { endSession } from "lib/axios";
 import { ACCOUNT_STACK, COMMON_ROUTES } from "constants/routes";
 
 import UserAvatar from "components/user-avatar";
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 import FilterIcon from "components/svgs/filter-icon";
 import ListButton from "components/buttons/list-button";
 import SectionCard from "components/section-card/SectionCard";
@@ -63,7 +63,7 @@ const Root: FC<Props> = ({ navigation }) => {
       <SafeAreaView style={tw`bg-white`}>
         <HeaderContainer style={"flex-row items-center justify-between"}>
           <View>
-            <Typography variant="h6" style={`font-bold leading-tight  `}>
+            <Typography variant="h6" style={`font-bold ${LEADING_TIGHT}`}>
               Account
             </Typography>
             <TouchableOpacity onPress={onLogoutPress}>
@@ -132,7 +132,7 @@ const Root: FC<Props> = ({ navigation }) => {
         <SectionCard style="flex-1">
           <Typography
             variant="h6"
-            style={`font-bold text-5 mb-3 leading-tight  `}
+            style={`font-bold text-5 mb-3 ${LEADING_TIGHT}`}
           >
             Settings
           </Typography>
@@ -162,7 +162,7 @@ const Root: FC<Props> = ({ navigation }) => {
         </SectionCard>
         {/* {!!recentlyViewed.length && (
           <SectionCard>
-            <Typography style="font-bold leading-[0] text-4.5" variant="h6">
+            <Typography style="font-bold leading-[1] text-4.5" variant="h6">
               Recently Viewed
             </Typography>
             <Typography variant="body2" style="mb-6" color="text.secondary">

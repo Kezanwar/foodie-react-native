@@ -36,7 +36,7 @@ const Notifications: FC<Props> = ({ children }) => {
   });
 
   //   const notificationListener = useRef<Notify.Subscription>();
-  const responseListener = useRef<Notify.Subscription>();
+  const responseListener = useRef<Notify.EventSubscription>();
 
   async function registerForPushNotificationsAsync() {
     let token;

@@ -18,7 +18,7 @@ import { CustomTextField } from "components/form/custom-text-field";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import Alert from "components/alert/Alert";
 import TextButton from "components/buttons/text-button";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import useAppDispatch from "hooks/useAppDispatch";
 
@@ -26,6 +26,7 @@ import { catchErrorHandler } from "utils/error";
 
 import { setLocationObject } from "store/location/location.slice";
 import LoadingSpinner from "components/loading-spinner";
+import { isIOS } from "constants/theme";
 
 const PRIM = tw.color("primary-main");
 
@@ -121,6 +122,14 @@ const AddCustomLocation = (props: any) => {
     }
   };
 
+  const displayResult = result
+    ? {
+        title: isIOS ? result.district : result.subregion,
+        caption: isIOS ? result.city : result.street,
+        region: result.region,
+      }
+    : null;
+
   return (
     <StaticScreenWrapper>
       <KeyboardDismissingView
@@ -154,7 +163,7 @@ const AddCustomLocation = (props: any) => {
         </View>
 
         {error && <Alert style="mt-4" variant="error" content={error} />}
-        {result && (
+        {displayResult && (
           <>
             {/* <Typography
               color="text.secondary"
@@ -169,13 +178,13 @@ const AddCustomLocation = (props: any) => {
               style={tw`border-[0.4px] border-grey-400 bg-white p-4 mt-6 rounded-md`}
             >
               <Typography color="text.primary" style="text-[4.5]" variant="h7">
-                {result.district}
+                {displayResult.title}
               </Typography>
               <Typography color="text.secondary" variant="body2">
-                {result.city}
+                {displayResult.caption}
               </Typography>
               <Typography color="text.secondary" variant="body2">
-                {result.region}
+                {displayResult.region}
               </Typography>
 
               <TouchableOpacity

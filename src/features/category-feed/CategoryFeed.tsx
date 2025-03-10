@@ -16,7 +16,7 @@ import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 import { Option } from "types/options";
 import { GetSingleDealProps } from "types/single-deal";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
 

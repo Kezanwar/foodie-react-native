@@ -9,7 +9,7 @@ import * as WebBrowser from "expo-web-browser";
 
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { FullWidthButton } from "components/buttons/full-width-button";
 import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
@@ -27,6 +27,7 @@ import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import { useAppSelector } from "hooks/useAppSelector";
+import { isIOS } from "constants/theme";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -98,7 +99,7 @@ const SignUp = (props: any) => {
         entering={FadeInDown}
         style={[
           tw`flex-1 py-8 px-5 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
-          SECTION_SHADOWS.topShadowSection,
+          isIOS && SECTION_SHADOWS.topShadowSection,
         ]}
       >
         <View style={tw`gap-4  flex-1`}>

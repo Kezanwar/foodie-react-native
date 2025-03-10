@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { ALPHABET, AlphabetOptions } from "../constants";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 type Props = {

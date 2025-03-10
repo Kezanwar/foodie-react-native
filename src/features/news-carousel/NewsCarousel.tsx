@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 
 import { Image } from "expo-image";
@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import tw from "theme/tailwind";
 
-import { Typography } from "components/typography";
+import Typography, { LEADING_TIGHT } from "components/typography";
 import CarouselDivider from "components/separators/carousel-divider";
 
 import { BlogItem } from "types/blog";
@@ -30,7 +30,7 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
   return (
     <View>
       <View style={tw`mb-5  gap-1`}>
-        <Typography style="font-bold leading-[0] text-4.5" variant="h6">
+        <Typography style={`font-bold ${LEADING_TIGHT} text-4.5`} variant="h6">
           News & Insights
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -58,12 +58,15 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
                 source={{ uri: item.featuredImage }}
               />
               <View style={tw`mt-3 gap-1.5`}>
-                <Typography style=" font-medium text-3.75" variant="body1">
+                <Typography
+                  style={`font-medium ${LEADING_TIGHT} text-3.75`}
+                  variant="body1"
+                >
                   {item.title}
                 </Typography>
                 <Typography
                   numberOfLines={2}
-                  style="text-3.25 leading-[1.6]"
+                  style="text-3.25 "
                   variant="body1"
                   color="text.secondary"
                 >

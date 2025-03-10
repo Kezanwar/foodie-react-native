@@ -10,14 +10,8 @@ type Props = {
 const Map: FC<Props> = ({ mapStyle, region }) => {
   const mapRef = useRef<MapView>(null);
 
-  const fitToElements = () => {
-    mapRef?.current?.fitToElements({
-      animated: true,
-    });
-  };
   return (
     <MapView
-      onMapReady={fitToElements}
       ref={mapRef}
       showsUserLocation
       maxZoomLevel={18}

@@ -1,17 +1,18 @@
 import { useCallback } from "react";
 import { NotificationRequest } from "expo-notifications";
-import { navigate } from "../app-ready/providers/navigation/Navigation";
+
 import { HOME_STACK } from "constants/routes";
 import { NOTIFICATION_TYPES } from "./types";
 import useAppDispatch from "hooks/useAppDispatch";
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
 
 const useOpenNotificationHandler = () => {
   const dispatch = useAppDispatch();
   const onOpen = useCallback((request: NotificationRequest): void => {
     switch (request.content.data?.type) {
       case NOTIFICATION_TYPES.SINGLE_DEAL:
-        navigate(HOME_STACK.SINGLE_RESTAURANT, {
+        external_navigate(HOME_STACK.SINGLE_RESTAURANT, {
           location_id: request.content.data.location_id,
         });
         dispatch(
@@ -24,7 +25,7 @@ const useOpenNotificationHandler = () => {
         );
         break;
       case NOTIFICATION_TYPES.HOME_FEED:
-        navigate(HOME_STACK.ROOT);
+        external_navigate(HOME_STACK.ROOT);
         setSingleDeal(undefined);
         break;
       default:

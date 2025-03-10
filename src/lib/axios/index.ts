@@ -1,6 +1,4 @@
 import axios from "axios";
-import { COMMON_ROUTES } from "constants/routes";
-import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { queryClient } from "hocs/app-ready/providers/react-query/ReactQuery";
 import { APP_VERSION, baseUrl } from "lib/env";
 import LocalStorage from "lib/storage";
@@ -28,7 +26,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    switch (error.response.status) {
+    switch (error.response?.status) {
       case CODES.APP_UPDATE_REQUIRED:
         //show update screen
         store.dispatch(setUpdateRequired(true));

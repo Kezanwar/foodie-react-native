@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { SelectChipFormObj } from "types/form";
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import tw from "theme/tailwind";
 import { Feather } from "@expo/vector-icons";
 
@@ -32,6 +32,7 @@ const OptionItem: FC<Props> = React.memo(
       >
         <Typography
           color={selected ? "primary.main" : "text.primary"}
+          style="font-regular"
           variant="body1"
         >
           {name}

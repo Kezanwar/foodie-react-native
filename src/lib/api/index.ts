@@ -9,7 +9,7 @@ import {
   LoginResponse,
   RegisterJWTData,
 } from "types/auth";
-import { DealInfinitePage } from "types/feed";
+import { DealInfinitePage } from "types/deal-feed";
 import {
   FavouriteDealResponse,
   FavouritesInfinitePage,
@@ -23,6 +23,7 @@ import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 import LocalStorage from "lib/storage";
+import { HomeFeedInfinitePage } from "types/home-feed";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -42,6 +43,7 @@ const APP_ENDPOINTS = {
   addPreferences: "/cust/preferences/add",
   //home
   getFeed: "/cust/deals/feed",
+  getHomeFeed: "/cust/deals/feed/home",
   //deal
   fav: "/cust/favourites",
   getSingleDeal: "/cust/deals/single",
@@ -77,6 +79,7 @@ export const addPreferences = (data: IOptions) => {
 //*AUTH
 
 export const loginJWT = (data: LoginJWTData) => {
+  console.log(axiosInstance.getUri());
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.login, data);
 };
 export const loginGoogle = (token: string, pushToken?: string) => {
@@ -116,6 +119,27 @@ export const saveUserGeo = (long: number, lat: number) => {
 };
 
 //* HOME
+
+export const getHomeFeed = async (
+  page: number,
+  long: number,
+  lat: number,
+  cuisines: string,
+  dietary_requirements: string
+) => {
+  return axiosInstance
+    .get<HomeFeedInfinitePage>(
+      `${APP_ENDPOINTS.getHomeFeed}/?page=${page}&long=${long}&lat=${lat}${
+        cuisines + dietary_requirements
+      }`
+    )
+    .then((res) => {
+      console.log("Feed API Request");
+      return res.data;
+    });
+};
+
+//* GENERIC DEAL FEED
 
 export const getFeed = async (
   page: number,

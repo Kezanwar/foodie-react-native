@@ -1,6 +1,6 @@
 import { Platform, TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode } from "react";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import tw from "theme/tailwind";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -137,7 +137,9 @@ const IconAndText: FC<{ text: string | string[]; icon: ReactNode }> = ({
     <View style={tw`flex-row gap-3 ${isStr ? "items-center" : ""}`}>
       {icon}
       {isStr ? (
-        <Text>{text}</Text>
+        <View style={tw`-mt-1`}>
+          <Text>{text}</Text>
+        </View>
       ) : (
         <View style={tw`-mt-1`}>
           {text.map((s) => (
@@ -151,7 +153,11 @@ const IconAndText: FC<{ text: string | string[]; icon: ReactNode }> = ({
 
 const Text: FC<{ children: string }> = ({ children }) => {
   return (
-    <Typography color="text.primary" variant="body2" style="text-3.5">
+    <Typography
+      color="text.primary"
+      variant="body2"
+      style="text-3.5 mt-.5 font-regular"
+    >
       {children}
     </Typography>
   );

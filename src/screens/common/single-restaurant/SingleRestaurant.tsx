@@ -4,12 +4,13 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
+  interpolate,
 } from "react-native-reanimated";
 
 import tw from "theme/tailwind";
 
 import { LoadingScreen } from "components/loading-screen";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
@@ -36,7 +37,8 @@ import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
 
 import LocalStorage from "lib/storage";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
+import { isAndroid } from "constants/theme";
 
 export type RouteParams = {
   location_id: string;
@@ -128,16 +130,17 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
   const scrollY = useSharedValue(0);
 
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    if (event.contentOffset.y < 160) {
-      scrollY.value = Math.max(event.contentOffset.y, 0);
-    }
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      if (!isAndroid && event.contentOffset.y < 160) {
+        scrollY.value = Math.max(event.contentOffset.y, 0);
+      }
+    },
   });
 
   const topstylez = useAnimatedStyle(() => {
-    return {
-      height: Math.max(160 - scrollY.value, 100),
-    };
+    const height = interpolate(scrollY.value, [0, 160], [160, 100], "clamp");
+    return { height };
   });
 
   if (isLoading) return <LoadingScreen />;
@@ -195,14 +198,14 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               </View>
             </View>
           </View>
-          <Divider my="6" />
-          <Typography variant="subheader" style={"mb-4"}>
+          <Divider style="mt-6 mb-5" />
+          <Typography variant="h6" style={"mb-4 text-3.75"}>
             Bio
           </Typography>
           <Typography
             variant="body2"
             color="text.secondary"
-            style="leading-[1.6] text-3.5"
+            style=" text-3.5 leading-[1.6]"
           >
             {restaurant.restaurant.bio}
           </Typography>
@@ -214,24 +217,29 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
               <ChipReadOnly key={slug} size="lg" label={name} />
             ))}
           </ChipContainer>
-          <Divider my="6" />
-          <Typography style={"mb-4"} variant="subheader">
-            Deals
-          </Typography>
-          <View style={tw`gap-3`}>
-            {restaurant.active_deals.map((deal) => {
-              return (
-                <DealButton
-                  deal={deal}
-                  key={deal._id}
-                  onLike={onLike}
-                  restaurant={restaurant}
-                  openDeal={openDeal}
-                />
-              );
-            })}
-          </View>
           <Divider style="mt-6 mb-3" />
+
+          {restaurant.active_deals.length > 0 && (
+            <>
+              <Typography style={"mb-4 mt-2 text-3.75"} variant="h6">
+                Deals
+              </Typography>
+              <View style={tw`gap-3`}>
+                {restaurant.active_deals.map((deal) => {
+                  return (
+                    <DealButton
+                      deal={deal}
+                      key={deal._id}
+                      onLike={onLike}
+                      restaurant={restaurant}
+                      openDeal={openDeal}
+                    />
+                  );
+                })}
+              </View>
+              <Divider style="mt-6 mb-3" />
+            </>
+          )}
         </View>
         <RestaurantInfoTabs
           location_id={location_id}

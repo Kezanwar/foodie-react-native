@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import TitleBadgeCounter from "components/title-badge-counter";
 import IconButton from "components/buttons/icon-button";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import TextButton from "components/buttons/text-button";
 
 import { SelectChipFormObj } from "types/form";

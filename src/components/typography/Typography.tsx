@@ -1,6 +1,9 @@
+import { isIOS } from "constants/theme";
 import React, { ReactNode } from "react";
 import { Text } from "react-native";
 import tw from "theme/tailwind";
+
+export const LEADING_TIGHT = isIOS ? "leading-[0]" : "leading-tight";
 
 const TEXT_COLORS = {
   "text.primary": "text-type-light-primary dark:text-type-dark-primary",
@@ -16,13 +19,13 @@ const TEXT_COLORS = {
 };
 
 const VARIANTS = {
-  h1: "font-bold text-6xl leading-[1.1] ",
-  h3: "font-bold text-5xl leading-[1.1]  ",
-  h4: "font-bold text-4xl leading-[1.1] ",
-  h5: "font-bold text-3xl leading-[1.1] ",
-  h6: "font-bold text-2xl leading-[1.1] ",
+  h1: `font-bold text-6xl leading-[1.1] `,
+  h3: `font-bold text-5xl leading-[1.1]  `,
+  h4: `font-bold text-4xl leading-[1.1] `,
+  h5: `font-bold text-3xl leading-[1.1] `,
+  h6: `font-bold text-2xl leading-[1.1] `,
   h7: "font-bold text-xl leading-[1.1]  ",
-  subheader: "font-medium text-3.25 tracking-wide uppercase leading-[1.1]",
+  subheader: `font-semibold text-3.15  uppercase leading-[1.1]`,
   body1: "font-light text-base ",
   body2: "font-light text-sm",
 };

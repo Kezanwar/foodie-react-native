@@ -2,7 +2,7 @@ import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 
 import { ActiveDeal, IRestaurant } from "types/restaurant";
 import LikeButton from "../like-button";
@@ -21,7 +21,7 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
   return (
     <TouchableOpacity
       key={deal._id}
-      style={tw` border-dashed flex-row justify-between border-[1.25px] border-primary-lighter p-3 rounded-md`}
+      style={tw` border-dashed flex-row justify-between border border-grey-300 p-3 rounded-lg`}
       onPress={() =>
         openDeal({
           deal_id: deal._id,

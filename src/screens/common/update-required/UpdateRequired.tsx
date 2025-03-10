@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React, { FC } from "react";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import tw from "theme/tailwind";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 

@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import React, { FC, ReactNode } from "react";
 import tw from "theme/tailwind";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import { AntDesign } from "@expo/vector-icons";
 
 import RoundedButton from "components/buttons/rounded-button/RoundedButton";

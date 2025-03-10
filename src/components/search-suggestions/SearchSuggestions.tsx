@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import tw from "theme/tailwind";
 import { useAppSelector } from "hooks/useAppSelector";
-import { Typography } from "components/typography";
+import Typography from "components/typography";
 import SearchSuggestionButton from "components/buttons/search-suggestion-button";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import useAppDispatch from "hooks/useAppDispatch";
