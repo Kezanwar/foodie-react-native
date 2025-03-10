@@ -32,6 +32,7 @@ const OptionItem: FC<Props> = React.memo(
       >
         <Typography
           color={selected ? "primary.main" : "text.primary"}
+          style="font-regular"
           variant="body1"
         >
           {name}

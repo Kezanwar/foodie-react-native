@@ -7,7 +7,7 @@ import EmptyState from "components/empty-state/EmptyState";
 
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 import { DISCOVER_STACK } from "constants/routes";
 
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";

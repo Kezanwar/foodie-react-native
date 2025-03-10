@@ -21,7 +21,7 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
   return (
     <TouchableOpacity
       key={deal._id}
-      style={tw` border-dashed flex-row justify-between border-[1.25px] border-primary-lighter p-3 rounded-md`}
+      style={tw` border-dashed flex-row justify-between border border-grey-300 p-3 rounded-lg`}
       onPress={() =>
         openDeal({
           deal_id: deal._id,

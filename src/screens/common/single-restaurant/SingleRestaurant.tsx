@@ -4,6 +4,7 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
+  interpolate,
 } from "react-native-reanimated";
 
 import tw from "theme/tailwind";
@@ -36,7 +37,7 @@ import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
 
 import LocalStorage from "lib/storage";
-import { IFeedDeal } from "types/feed";
+import { IFeedDeal } from "types/deal-feed";
 import { isAndroid } from "constants/theme";
 
 export type RouteParams = {
@@ -129,18 +130,17 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
   const scrollY = useSharedValue(0);
 
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    if (isAndroid) return;
-
-    if (event.contentOffset.y < 160) {
-      scrollY.value = Math.max(event.contentOffset.y, 0);
-    }
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      if (!isAndroid && event.contentOffset.y < 160) {
+        scrollY.value = Math.max(event.contentOffset.y, 0);
+      }
+    },
   });
 
   const topstylez = useAnimatedStyle(() => {
-    return {
-      height: Math.max(160 - scrollY.value, 100),
-    };
+    const height = interpolate(scrollY.value, [0, 160], [160, 100], "clamp");
+    return { height };
   });
 
   if (isLoading) return <LoadingScreen />;
@@ -199,7 +199,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
             </View>
           </View>
           <Divider style="mt-6 mb-5" />
-          <Typography variant="subheader" style={"mb-4"}>
+          <Typography variant="h6" style={"mb-4 text-3.75"}>
             Bio
           </Typography>
           <Typography
@@ -221,7 +221,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
 
           {restaurant.active_deals.length > 0 && (
             <>
-              <Typography style={"mb-4 mt-2"} variant="subheader">
+              <Typography style={"mb-4 mt-2 text-3.75"} variant="h6">
                 Deals
               </Typography>
               <View style={tw`gap-3`}>

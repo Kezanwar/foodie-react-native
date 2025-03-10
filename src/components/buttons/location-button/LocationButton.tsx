@@ -18,7 +18,7 @@ const LocationButton: FC<Props> = ({ onPress }) => {
       <View>
         <Typography
           variant="body2"
-          style=" text-[3.25] font-regular"
+          style=" text-[3.25] font-medium"
           color="text.primary"
         >
           {reverseGeocode

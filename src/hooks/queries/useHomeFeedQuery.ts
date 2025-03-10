@@ -1,12 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getFeed } from "lib/api";
+import { getHomeFeed } from "lib/api";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { DealInfinitePage } from "types/feed";
+import { DealInfinitePage } from "types/deal-feed";
 import { parseFiltersToParams } from "utils/api";
 import { minutes } from "utils/time";
 import { createFeedQueryKey } from "utils/queries";
 import { useMemo } from "react";
+import { HomeFeedInfinitePage } from "types/home-feed";
 
 const useHomeFeedQuery = (page: number = 0) => {
   const location = useAppSelector((state) => state.location.location?.coords);
@@ -27,10 +28,10 @@ const useHomeFeedQuery = (page: number = 0) => {
 
   const key = createFeedQueryKey(lat, lon, cuisinesParam, dietaryParam, "");
 
-  const query = useInfiniteQuery<DealInfinitePage, Error>({
+  const query = useInfiniteQuery<HomeFeedInfinitePage, Error>({
     initialPageParam: page,
     queryFn: ({ pageParam }) =>
-      getFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
+      getHomeFeed(pageParam as number, lon, lat, cuisinesParam, dietaryParam),
     queryKey: [key],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
     staleTime: minutes(10),

@@ -6,7 +6,7 @@ import { useScrollToTop } from "@react-navigation/native";
 import tw from "theme/tailwind";
 import LocalStorage from "lib/storage";
 
-import { COMMON_ROUTES } from "constants/routes";
+import { COMMON_ROUTES, HOME_STACK } from "constants/routes";
 
 import { LoadingScreen } from "components/loading-screen";
 
@@ -81,6 +81,15 @@ const Home: FC<any> = (props) => {
     isFilterOpen.current ? dismissModal() : presentModal();
   };
 
+  const navToRest = useCallback(
+    (location_id: string) =>
+      props.navigation.navigate(HOME_STACK.SINGLE_RESTAURANT, {
+        location_id,
+        stack: HOME_STACK,
+      }),
+    []
+  );
+
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -94,6 +103,7 @@ const Home: FC<any> = (props) => {
       <LocationStatus />
       {hasLocation && (
         <HomeFeed
+          navToRest={navToRest}
           ref={feedRef}
           navigation={props.navigation}
           navToLocation={handleLocationPress}

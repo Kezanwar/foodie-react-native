@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "thefoodie.app",
-    "slug": "thefoodie.app",
+    "name": "Foodie",
+    "slug": "foodie-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

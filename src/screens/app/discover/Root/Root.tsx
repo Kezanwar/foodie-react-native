@@ -72,7 +72,6 @@ const Root: FC<Props> = ({ navigation }) => {
   const navRest = (location_id: string) =>
     navigation.navigate(DISCOVER_STACK.SINGLE_RESTAURANT, {
       location_id,
-      show_cover_photo: true,
       stack: DISCOVER_STACK,
     });
 

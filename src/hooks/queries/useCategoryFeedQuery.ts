@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFeed } from "lib/api";
 
 import { useAppSelector } from "hooks/useAppSelector";
-import { DealInfinitePage } from "types/feed";
+import { DealInfinitePage } from "types/deal-feed";
 
 import { minutes } from "utils/time";
 import { createFeedQueryKey } from "utils/queries";
