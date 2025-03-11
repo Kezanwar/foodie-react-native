@@ -22,7 +22,7 @@ import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
-import { DynamicStack } from "constants/routes";
+import { COMMON_ROUTES, DynamicStack } from "constants/routes";
 
 import DealButton from "components/buttons/deal-button";
 
@@ -39,6 +39,8 @@ import { getDistanceInMiles } from "utils/distance";
 import LocalStorage from "lib/storage";
 import { IFeedDeal } from "types/deal-feed";
 import { isAndroid } from "constants/theme";
+import MapView from "react-native-maps";
+import { MapViewRegion } from "../map-view/MapView";
 
 export type RouteParams = {
   location_id: string;
@@ -48,7 +50,7 @@ export type RouteParams = {
 const default_error_message =
   "Sorry we can't seem to find that Restaurant, it may have been deleted";
 
-const SingleRestaurant: FC = ({ route, navigation }: any) => {
+const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
   const { location_id, stack } = route.params as RouteParams;
 
   const {
@@ -138,6 +140,10 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
     },
   });
 
+  const navToMap = (region: MapViewRegion) => {
+    navigation.navigate(COMMON_ROUTES.MAP_VIEW, { region });
+  };
+
   const topstylez = useAnimatedStyle(() => {
     const height = interpolate(scrollY.value, [0, 160], [160, 100], "clamp");
     return { height };
@@ -199,7 +205,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
             </View>
           </View>
           <Divider style="mt-6 mb-5" />
-          <Typography variant="h6" style={"mb-4 text-3.75"}>
+          <Typography variant="h6" style={"mb-3 text-3.75"}>
             Bio
           </Typography>
           <Typography
@@ -242,6 +248,7 @@ const SingleRestaurant: FC = ({ route, navigation }: any) => {
           )}
         </View>
         <RestaurantInfoTabs
+          navToMap={navToMap}
           location_id={location_id}
           initialIndex={1}
           address={restaurant.address}

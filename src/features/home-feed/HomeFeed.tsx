@@ -1,21 +1,12 @@
 import { Alert, FlatList, ScrollView, Share } from "react-native";
 import React, { forwardRef, useMemo } from "react";
 import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
-// import DealCard from "features/deal-card";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
 import { useAppSelector } from "hooks/useAppSelector";
 import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-// import { IFeedDeal } from "types/deal-feed";
-// import { HOME_STACK } from "constants/routes";
-
-// import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-// import { GetSingleDealProps } from "types/single-deal";
-
-// import { setSingleDeal } from "store/single-deal/single-deal.slice";
-// import useAppDispatch from "hooks/useAppDispatch";
 import { IHomeFeedItem } from "types/home-feed";
 import LocationFeedCard from "features/location-feed-card";
 
@@ -49,8 +40,6 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
       (state) => state.home.filters
     );
 
-    // const dispatch = useAppDispatch();
-
     const onShare = async (title: string) => {
       try {
         const result = await Share.share({
@@ -71,31 +60,6 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
         Alert.alert(error.message);
       }
     };
-
-    // const mutateFav = useMutateFavouriteDeal();
-
-    // const onLike = async (item: IFeedDeal) => {
-    //   try {
-    //     mutateFav.mutate({
-    //       deal_id: item.deal._id,
-    //       location_id: item.location._id,
-    //       is_favourited: item.deal.is_favourited,
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-
-    // const openDeal = (data: GetSingleDealProps) => {
-    //   dispatch(
-    //     setSingleDeal({
-    //       deal_id: data.deal_id,
-    //       location_id: data.location_id,
-    //       stack: HOME_STACK,
-    //       linkRestaurant: true,
-    //     })
-    //   );
-    // };
 
     if (isLoading) {
       return <LoadingState text="Searching for deals..." />;
@@ -142,7 +106,7 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
             item={item}
           />
         )}
-        keyExtractor={(item) => item?.location?._id}
+        keyExtractor={(item) => item.location._id}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={1}
       />

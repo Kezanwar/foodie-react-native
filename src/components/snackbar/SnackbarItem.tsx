@@ -14,7 +14,7 @@ const SnackbarItem: FC<Props> = ({ message }) => {
     <Animated.View
       entering={FadeInUp}
       exiting={FadeOutUp}
-      style={tw`flex-row items-start bg-grey-800 dark:bg-grey-100 shadow-lg gap-2 p-3 rounded-lg`}
+      style={tw`flex-row items-start bg-grey-800 dark:bg-grey-100 gap-2 p-3 rounded-lg`}
     >
       {React.cloneElement(variantStyles[message.variant]?.icon, {
         color: tw.color(`${message.variant}-main`),

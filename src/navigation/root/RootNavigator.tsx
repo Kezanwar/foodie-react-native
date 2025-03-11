@@ -17,6 +17,7 @@ import AddCustomLocation from "screens/common/add-custom-location";
 import ForgotPassword from "screens/guest/forgot-password";
 import UpdateRequired from "screens/common/update-required";
 import MaintenanceMode from "screens/common/maintenance-mode";
+import MapView from "screens/common/map-view";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -102,6 +103,14 @@ const RootNavigator: FC = () => {
               }}
               name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
               component={AddCustomLocation}
+            />
+            <RootStack.Screen
+              options={{
+                headerShown: false,
+                // presentation: "containedModal",
+              }}
+              name={COMMON_ROUTES.MAP_VIEW}
+              component={MapView}
             />
           </>
         )}

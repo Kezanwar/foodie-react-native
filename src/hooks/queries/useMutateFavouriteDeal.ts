@@ -8,9 +8,10 @@ import {
 import useSnackbar from "hooks/useSnackbar";
 import { favouriteDeal, unFavouriteDeal } from "lib/api";
 import { FavouriteDealRequest } from "types/favourites";
-import { FeedQState } from "./useHomeFeedQuery";
+
 import { ISingleDeal } from "types/single-deal";
 import { IRestaurant } from "types/restaurant";
+import { FeedQState } from "./useCategoryFeedQuery";
 
 export type FavMutationArg = FavouriteDealRequest & {
   is_favourited: boolean;

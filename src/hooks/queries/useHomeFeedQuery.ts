@@ -1,8 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getHomeFeed } from "lib/api";
-
 import { useAppSelector } from "hooks/useAppSelector";
-import { DealInfinitePage } from "types/deal-feed";
 import { parseFiltersToParams } from "utils/api";
 import { minutes } from "utils/time";
 import { createFeedQueryKey } from "utils/queries";
@@ -45,6 +43,6 @@ export default useHomeFeedQuery;
 export type FeedQState =
   | {
       pageParams: number[];
-      pages: DealInfinitePage[];
+      pages: HomeFeedInfinitePage[];
     }
   | undefined;

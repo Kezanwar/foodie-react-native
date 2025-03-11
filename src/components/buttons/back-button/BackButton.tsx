@@ -17,7 +17,7 @@ const BackButton: FC<Props> = ({ isAbsolute, withPad = true, ...rest }) => {
       {...rest}
       style={tw`${
         isAbsolute
-          ? "absolute left-5 top-12 bg-[#46484970] shadow-lg rounded-full px-2 py-0.5"
+          ? "absolute left-5 top-12 bg-grey-800/60 rounded-full px-2 py-0.5"
           : `${withPad ? "px-5" : ""}  mb-3`
       }`}
     >
