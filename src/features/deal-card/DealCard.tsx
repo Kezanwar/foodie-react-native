@@ -56,18 +56,18 @@ const DealCard: FC<Props> = ({
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}
             />
-            <Typography variant="h7" style=" text-4.3  mb-1">
+            <Typography variant="h7" style="font-bold text-4.2  mb-1">
               {item.deal.name}
             </Typography>
           </View>
 
-          <Typography variant="body2" style=" text-3.5 gap-2 font-regular">
+          <Typography variant="body2" style=" text-3.5 gap-2">
             {item.restaurant.name}{" "}
             {type === "list" && (
               <Typography
                 variant="body2"
                 color="text.secondary"
-                style=" text-3.25 font-normal"
+                style=" text-3.25"
               >
                 ({item.location.nickname})
               </Typography>
@@ -99,4 +99,4 @@ const DealCard: FC<Props> = ({
   );
 };
 
-export default DealCard;
+export default React.memo(DealCard);

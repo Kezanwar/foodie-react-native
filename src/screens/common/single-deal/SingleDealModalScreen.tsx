@@ -140,11 +140,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
           </View>
         </View>
 
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          style="leading-[1.6]"
-        >
+        <Typography variant="body2" color="text.secondary">
           {deal.description.trim()}
         </Typography>
       </View>
@@ -177,8 +173,8 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
                 {deal.restaurant.name}
               </Typography>
               <Typography
-                variant="h6"
-                style={`font-light text-3.5 ${LEADING_TIGHT}`}
+                variant="body1"
+                style={`text-3.5 ${LEADING_TIGHT}`}
                 color="text.secondary"
               >
                 ({deal.location.nickname})

@@ -17,13 +17,18 @@ type Props = {
 };
 
 const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
+  const total = item.location.active_deals.length;
+
   const dealsToShow = useMemo(() => {
-    return item.location.active_deals.slice(0, 3);
+    return total > 4
+      ? item.location.active_deals.slice(0, 3)
+      : item.location.active_deals;
   }, []);
 
-  const total = item.location.active_deals.length;
   const diff = total - dealsToShow.length;
   const hasMore = diff > 0;
+
+  const applyMaxWidth = total > 1;
 
   return (
     <TouchableOpacity
@@ -40,25 +45,25 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
 
       <View style={tw` mt-4 flex-row items-start justify-between mb-3`}>
         <View style={tw`gap-1.5`}>
-          {/* <View style={tw`flex-row flex-wrap gap-2 flex-1 items-center`}> */}
-          {/* <RestaurantAvatar
+          <View style={tw`flex-row flex-wrap gap-2 flex-1 items-center`}>
+            <RestaurantAvatar
               size="md"
               source={{ uri: item.restaurant.avatar }}
-            /> */}
-          {/* <Ionicons
+            />
+            {/* <Ionicons
               name="restaurant-outline"
               size={20}
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}
             /> */}
-          <View style={tw`gap-1`}>
-            <Typography
-              style=" font-medium leading-[1.3] text-4"
-              variant="body1"
-            >
-              {item.restaurant.name}
-            </Typography>
-            {item.location?.nickname && (
+            <View style={tw`gap-.5`}>
+              <Typography
+                style=" font-semi-bold leading-[1.3] mt-1 text-4"
+                variant="body1"
+              >
+                {item.restaurant.name}
+              </Typography>
+
               <Typography
                 style="text-3.5"
                 variant="body2"
@@ -66,8 +71,7 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
               >
                 {item.location.nickname}
               </Typography>
-            )}
-            {/* </View> */}
+            </View>
           </View>
         </View>
         <View style={tw`gap-2.25`}>
@@ -88,13 +92,17 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
         </View>
       </View>
       {dealsToShow.length > 0 && (
-        <ChipContainer
-        //   style={tw`gap-3 mt-5 p-3 border border-dashed border-grey-200 rounded-lg`}
-        >
+        <ChipContainer style="mt-.5">
           {dealsToShow.map((deal) => {
-            return <DealChipReadOnly label={deal.name} key={deal.deal_id} />;
+            return (
+              <DealChipReadOnly
+                applyMaxWidth={applyMaxWidth}
+                label={deal.name}
+                key={deal.deal_id}
+              />
+            );
           })}
-          {hasMore && <DealChipReadOnly icon={false} label={`+${diff}`} />}
+          {hasMore && <DealChipReadOnly icon={false} label={`+${diff} more`} />}
         </ChipContainer>
       )}
     </TouchableOpacity>

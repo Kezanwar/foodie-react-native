@@ -24,7 +24,7 @@ const ListButton: FC<Props> = ({ icon, onPress, text, withBorder }) => {
       <Typography
         variant="body1"
         color="text.primary"
-        style={`font-regular  text-4 ${LEADING_TIGHT}`}
+        style={` text-4 ${LEADING_TIGHT}`}
       >
         {text}
       </Typography>

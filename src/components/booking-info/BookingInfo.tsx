@@ -153,11 +153,7 @@ const IconAndText: FC<{ text: string | string[]; icon: ReactNode }> = ({
 
 const Text: FC<{ children: string }> = ({ children }) => {
   return (
-    <Typography
-      color="text.primary"
-      variant="body2"
-      style="text-3.5 mt-.5 font-regular"
-    >
+    <Typography color="text.primary" variant="body2" style="text-3.5 mt-.5">
       {children}
     </Typography>
   );

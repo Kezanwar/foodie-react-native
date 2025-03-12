@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
@@ -8,13 +8,16 @@ type Props = {
   firstName: string;
   lastName: string;
   avatarUrl?: string;
+  onPress: () => void;
 };
 
 const roundedStyle = tw`w-14 h-14 rounded-full`;
 
-const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName }) => {
+const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName, onPress }) => {
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={onPress}
       style={tw.style(roundedStyle, {
         "bg-success-main items-center justify-center": !avatarUrl,
       })}
@@ -31,7 +34,7 @@ const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName }) => {
           {lastName.charAt(0)}
         </Typography>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

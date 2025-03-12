@@ -26,8 +26,8 @@ const VARIANTS = {
   h6: `font-bold text-2xl leading-[1.1] `,
   h7: "font-bold text-xl leading-[1.1]  ",
   subheader: `font-semibold text-3.15  uppercase leading-[1.1]`,
-  body1: "font-light text-base ",
-  body2: "font-light text-sm",
+  body1: "font-regular text-base leading-1.6",
+  body2: "font-regular text-sm leading-1.6",
 };
 
 export type TypographyTextColors = keyof typeof TEXT_COLORS;

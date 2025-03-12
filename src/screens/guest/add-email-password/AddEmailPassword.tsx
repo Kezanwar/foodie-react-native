@@ -63,7 +63,7 @@ const AddEmailPassword: React.FC = (props: any) => {
     setError,
     formState: { errors },
   } = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(RegisterEmailPasswordSchema),
     defaultValues,
   });

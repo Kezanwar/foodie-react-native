@@ -51,20 +51,19 @@ const RestaurantCard: FC<Props> = ({
           <RestaurantAvatar size="md" source={{ uri: restaurant.avatar }} />
           <View>
             <Typography
-              style=" font-medium leading-[1.3] text-4"
+              style=" font-semi-bold leading-[1.3] text-4"
               variant="body1"
             >
               {restaurant.name}
             </Typography>
-            {location?.nickname && (
-              <Typography
-                style="text-3.5"
-                variant="body2"
-                color="text.secondary"
-              >
-                {location.nickname}
-              </Typography>
-            )}
+
+            <Typography
+              style="text-3.25"
+              variant="body2"
+              color="text.secondary"
+            >
+              {location.nickname}
+            </Typography>
           </View>
         </View>
         {location?.distance_miles && (

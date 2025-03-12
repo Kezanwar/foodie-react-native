@@ -18,7 +18,7 @@ const ChipButton: FC<Props> = ({ bgColor, color, text, onPress }) => {
       onPress={onPress}
       style={tw`bg-${bgColor} px-3 py-1 rounded-full`}
     >
-      <Typography style="font-regular text-3.5" variant="body2" color={color}>
+      <Typography style="font-medium text-3.5" variant="body2" color={color}>
         {text}
       </Typography>
     </TouchableOpacity>

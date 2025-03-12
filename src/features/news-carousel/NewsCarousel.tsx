@@ -59,7 +59,7 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
               />
               <View style={tw`mt-3 gap-1.5`}>
                 <Typography
-                  style={`font-medium ${LEADING_TIGHT} text-3.75`}
+                  style={`font-semi-bold ${LEADING_TIGHT} text-3.75`}
                   variant="body1"
                 >
                   {item.title}
@@ -77,7 +77,7 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
                   <Typography
                     style="text-3.25"
                     variant="body2"
-                    color="text.secondary"
+                    color="text.primary"
                   >
                     {item.restaurant_review_fields.readTime} minute read
                   </Typography>

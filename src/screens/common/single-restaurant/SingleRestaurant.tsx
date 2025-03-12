@@ -6,9 +6,7 @@ import Animated, {
   useAnimatedScrollHandler,
   interpolate,
 } from "react-native-reanimated";
-
 import tw from "theme/tailwind";
-
 import { LoadingScreen } from "components/loading-screen";
 import Typography from "components/typography";
 import Divider from "components/divider";
@@ -16,30 +14,22 @@ import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
 import FollowButton from "components/buttons/follow-button";
 import EmptyState from "components/empty-state/EmptyState";
-
 import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
-
 import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
 import { COMMON_ROUTES, DynamicStack } from "constants/routes";
-
 import DealButton from "components/buttons/deal-button";
-
 import CoverBackButton from "components/cover-back-button";
-
 import { GetSingleDealProps } from "types/single-deal";
-
 import { setSingleDeal } from "store/single-deal/single-deal.slice";
 import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { useAppSelector } from "hooks/useAppSelector";
 import { getDistanceInMiles } from "utils/distance";
-
 import LocalStorage from "lib/storage";
 import { IFeedDeal } from "types/deal-feed";
 import { isAndroid } from "constants/theme";
-import MapView from "react-native-maps";
 import { MapViewRegion } from "../map-view/MapView";
 
 export type RouteParams = {
@@ -135,7 +125,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       if (!isAndroid && event.contentOffset.y < 160) {
-        scrollY.value = Math.max(event.contentOffset.y, 0);
+        scrollY.set(Math.max(event.contentOffset.y, 0));
       }
     },
   });
@@ -182,11 +172,12 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
               <Typography variant="h6" style="font-bold text-4.25 max-w-80">
                 {restaurant.restaurant.name}
                 <Typography
-                  variant="h6"
-                  style="font-light text-3.5"
+                  variant="body1"
+                  style="text-3.5"
                   color="text.secondary"
                 >
-                  {"  "}({restaurant.nickname})
+                  {" "}
+                  ({restaurant.nickname})
                 </Typography>
               </Typography>
               <View style={tw`gap-3 items-center flex-row`}>
@@ -208,11 +199,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
           <Typography variant="h6" style={"mb-3 text-3.75"}>
             Bio
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            style=" text-3.5 leading-[1.6]"
-          >
+          <Typography variant="body2" color="text.secondary" style=" text-3.5">
             {restaurant.restaurant.bio}
           </Typography>
           <ChipContainer style="mt-5">

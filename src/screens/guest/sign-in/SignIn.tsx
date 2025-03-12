@@ -80,7 +80,7 @@ const SignIn = (props: any) => {
     setError,
     formState: { errors },
   } = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });

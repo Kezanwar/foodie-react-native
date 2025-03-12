@@ -1,9 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { getHomeFeed } from "lib/api";
 import { useAppSelector } from "hooks/useAppSelector";
 import { parseFiltersToParams } from "utils/api";
 import { minutes } from "utils/time";
-import { createFeedQueryKey } from "utils/queries";
+import { createLocationFeedQueryKey } from "utils/queries";
 import { useMemo } from "react";
 import { HomeFeedInfinitePage } from "types/home-feed";
 
@@ -24,7 +24,13 @@ const useHomeFeedQuery = (page: number = 0) => {
   const lon = location?.longitude || 0;
   const lat = location?.latitude || 0;
 
-  const key = createFeedQueryKey(lat, lon, cuisinesParam, dietaryParam, "");
+  const key = createLocationFeedQueryKey(
+    lat,
+    lon,
+    cuisinesParam,
+    dietaryParam,
+    ""
+  );
 
   const query = useInfiniteQuery<HomeFeedInfinitePage, Error>({
     initialPageParam: page,
@@ -33,6 +39,7 @@ const useHomeFeedQuery = (page: number = 0) => {
     queryKey: [key],
     getNextPageParam: (LastPage) => LastPage.nextCursor,
     staleTime: minutes(10),
+    placeholderData: keepPreviousData,
   });
 
   return query;

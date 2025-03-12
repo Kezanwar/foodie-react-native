@@ -31,7 +31,7 @@ export default OpeningTimes;
 const Item: FC<{ day: string; val: IOpeningDay }> = ({ day, val }) => {
   return (
     <View key={day} style={tw`flex-row `}>
-      <Typography style={"w-13 text-3.5 font-regular"} variant="body2">
+      <Typography style={"w-13 text-3.5"} variant="body2">
         {capitalize(day)}
       </Typography>
       <Typography

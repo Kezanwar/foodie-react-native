@@ -2,7 +2,9 @@ export const OPTIONS_QUERY = "OPTIONS";
 
 export const PREFERENCES_QUERY = "PREFERENCES";
 
-export const FEED_QUERY = "FEED";
+export const DEAL_FEED_QUERY = "DEAL_FEED";
+
+export const LOCATION_FEED_QUERY = "LOCATION_FEED";
 
 export const SINGLE_DEAL_QUERY = "SINGLE_DEAL";
 

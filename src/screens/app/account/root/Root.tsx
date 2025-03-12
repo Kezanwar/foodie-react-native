@@ -20,6 +20,7 @@ import HeaderContainer from "components/header-container";
 import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
 import { onLogout } from "store/global-actions";
+import TextButton from "components/buttons/text-button";
 
 type Props = any;
 
@@ -66,18 +67,10 @@ const Root: FC<Props> = ({ navigation }) => {
             <Typography variant="h6" style={`font-bold ${LEADING_TIGHT}`}>
               Account
             </Typography>
-            <TouchableOpacity onPress={onLogoutPress}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={`font-regular mt-1 leading-[1.2]`}
-              >
-                Sign out
-              </Typography>
-            </TouchableOpacity>
           </View>
 
           <UserAvatar
+            onPress={onProfilePress}
             avatarUrl={user.avatar}
             firstName={user?.first_name}
             lastName={user.last_name}
@@ -159,6 +152,11 @@ const Root: FC<Props> = ({ navigation }) => {
             onPress={onLocationPress}
             text="Notifications"
           /> */}
+          <TextButton
+            style={tw`mt-auto mb-7`}
+            label="Sign Out"
+            onPress={onLogoutPress}
+          />
         </SectionCard>
         {/* {!!recentlyViewed.length && (
           <SectionCard>

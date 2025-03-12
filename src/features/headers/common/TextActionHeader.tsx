@@ -39,7 +39,7 @@ const TextActionHeader: FC<Props> = ({
       ) : (
         <TextButton
           label={rightActionText}
-          textStyle={`font-medium ${LEADING_TIGHT}`}
+          textStyle={`${LEADING_TIGHT}`}
           onPress={rightActionOnPress}
         />
       )}
