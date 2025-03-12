@@ -1,14 +1,17 @@
 import MapView, { Marker, Region } from "react-native-maps";
 import React, { FC, useRef } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleSheet } from "react-native";
 
 type Props = {
-  mapStyle: StyleProp<ViewStyle>;
   region: Region;
 };
 
-const Map: FC<Props> = ({ mapStyle, region }) => {
+const InteractiveMap: FC<Props> = ({ region }) => {
   const mapRef = useRef<MapView>(null);
+
+  const onMapReady = () => {
+    mapRef.current?.animateToRegion(region);
+  };
 
   return (
     <MapView
@@ -18,14 +21,15 @@ const Map: FC<Props> = ({ mapStyle, region }) => {
       minZoomLevel={10}
       rotateEnabled={false}
       loadingEnabled
-      mapType="standard"
+      mapType={"standard"}
       region={region}
       initialRegion={region}
-      style={mapStyle}
+      onMapReady={onMapReady}
+      style={StyleSheet.absoluteFillObject}
     >
       <Marker identifier="restaurant" coordinate={region} />
     </MapView>
   );
 };
 
-export default Map;
+export default InteractiveMap;

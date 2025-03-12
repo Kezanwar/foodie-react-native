@@ -34,7 +34,7 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
         <Typography
           variant="body2"
           color="text.primary"
-          style="text-3.5  font-medium"
+          style="text-3.5  font-semi-bold"
         >
           {deal.name}
         </Typography>

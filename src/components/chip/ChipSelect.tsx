@@ -19,7 +19,7 @@ const ChipSelect: FC<Props> = ({ label, selected, onSelect, slug }) => {
       onPress={() => onSelect(slug)}
     >
       <Text
-        style={tw`font-regular text-3.5 ${
+        style={tw`font-medium text-3.5 ${
           selected ? "text-white" : "text-type-light-primary"
         }`}
       >

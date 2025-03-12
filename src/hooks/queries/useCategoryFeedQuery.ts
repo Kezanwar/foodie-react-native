@@ -5,9 +5,10 @@ import { useAppSelector } from "hooks/useAppSelector";
 import { DealInfinitePage } from "types/deal-feed";
 
 import { minutes } from "utils/time";
-import { createFeedQueryKey } from "utils/queries";
+
 import { parseFiltersToParams } from "utils/api";
 import { useMemo } from "react";
+import { createDealFeedQueryKey } from "utils/queries";
 
 const useCategoryFeedQuery = (page: number = 0, category: string) => {
   const location = useAppSelector((state) => state.location.location?.coords);
@@ -20,7 +21,7 @@ const useCategoryFeedQuery = (page: number = 0, category: string) => {
     [category]
   );
 
-  const key = createFeedQueryKey(lat, lon, catParam, "", "");
+  const key = createDealFeedQueryKey(lat, lon, catParam, "", "");
 
   const query = useInfiniteQuery<DealInfinitePage, Error>({
     initialPageParam: page,

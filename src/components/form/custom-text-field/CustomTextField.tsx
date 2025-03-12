@@ -1,14 +1,10 @@
 import Typography from "components/typography";
-import { useAppSelector } from "hooks/useAppSelector";
 import React, {
-  ForwardedRef,
   ReactNode,
-  Ref,
   createRef,
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useRef,
   useState,
 } from "react";
 import {
@@ -42,11 +38,18 @@ export type CustomTextFieldRef = {
   focus: () => void;
 } | null;
 
-const DEFAULT_B_COL = tw.color("grey-200") || "";
-const DEFAULT_P_COL = tw.color("grey-500") || "";
-const DEFAULT_P_TOP = 26;
-const DEFAULT_P_FSIZE = 16;
+// Colors
+const DEFAULT_B_COL = tw.color("grey-200");
+const ACTIVE_B_COL = tw.color("grey-700");
 
+const DEFAULT_P_COL = tw.color("grey-500");
+
+const ERROR_COL = tw.color("error-main");
+
+const DEFAULT_P_OPACITY = 1;
+const ACTIVE_P_OPACITY = 0;
+
+// Animation duration
 const ANIM_DURATION = 150;
 
 const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
@@ -67,52 +70,44 @@ const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
   ) => {
     const borderColor = useSharedValue(DEFAULT_B_COL);
     const placeholderColor = useSharedValue(DEFAULT_P_COL);
-    const placeholderTop = useSharedValue(DEFAULT_P_TOP);
-    const placeholderFontSize = useSharedValue(DEFAULT_P_FSIZE);
+    const placeholderOpacity = useSharedValue(DEFAULT_P_OPACITY);
 
     const inputRef = createRef<TextInput>();
-
-    const theme = useAppSelector((state) => state.theme.theme);
-
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
+    // Handle focus state
     const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setIsFocused(true);
       if (onFocus) onFocus(e);
     };
-    useEffect(() => {
-      if (isFocused || value || disabled) {
-        const col =
-          theme === "light" ? tw.color("grey-800") : tw.color("grey-500");
-        borderColor.value = col || "";
-        placeholderColor.value = col || "";
-        placeholderTop.value = 13;
-        placeholderFontSize.value = 12;
-      }
-
-      if (!isFocused) {
-        borderColor.value = DEFAULT_B_COL;
-        placeholderColor.value = DEFAULT_P_COL;
-
-        if (!value) {
-          placeholderTop.value = DEFAULT_P_TOP;
-          placeholderFontSize.value = DEFAULT_P_FSIZE;
-        }
-      }
-    }, [isFocused, value]);
-
-    useEffect(() => {
-      if (error) {
-        const errorCol = tw.color("error-main");
-        borderColor.value = errorCol || "";
-        placeholderColor.value = errorCol || "";
-      }
-    }, [error]);
 
     const onBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       if (onPropBlur) onPropBlur(e);
       setIsFocused(false);
     };
+
+    // Update animations based on focus, value, or error state
+    useEffect(() => {
+      if (isFocused) {
+        borderColor.set(ACTIVE_B_COL);
+      }
+      if (disabled || !isFocused) {
+        borderColor.set(DEFAULT_B_COL);
+      }
+
+      if (value) {
+        placeholderOpacity.set(ACTIVE_P_OPACITY);
+      } else {
+        placeholderOpacity.set(DEFAULT_P_OPACITY);
+      }
+    }, [isFocused, value, disabled]);
+
+    useEffect(() => {
+      if (error) {
+        borderColor.set(ERROR_COL);
+        placeholderColor.set(ERROR_COL);
+      }
+    }, [error]);
 
     useImperativeHandle(
       ref,
@@ -129,29 +124,32 @@ const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
     );
 
     const animatedBorderStyles = useAnimatedStyle(() => ({
-      borderColor: withTiming(borderColor.value, { duration: ANIM_DURATION }),
+      borderColor: withTiming(borderColor.value || "", {
+        duration: ANIM_DURATION,
+      }),
     }));
 
     const animatedTextStyles = useAnimatedStyle(() => ({
-      top: withTiming(`${placeholderTop.value}%`, { duration: ANIM_DURATION }),
-      fontSize: withTiming(placeholderFontSize.value, {
+      color: withTiming(placeholderColor.value || "", {
         duration: ANIM_DURATION,
       }),
-      color: withTiming(placeholderColor.value, { duration: ANIM_DURATION }),
+      opacity: withTiming(placeholderOpacity.value, {
+        duration: ANIM_DURATION,
+      }),
     }));
 
     return (
       <View style={containerStyle}>
-        <View style={tw` rounded-md bg-grey-100    dark:bg-grey-900 `}>
+        <View style={tw`rounded-md bg-grey-100 dark:bg-grey-900`}>
           <Animated.View
             style={[
-              tw`border-[0.15]  flex-row items-center  px-2   rounded-md relative`,
+              tw`border flex-row items-center px-2 rounded-md relative`,
               animatedBorderStyles,
             ]}
           >
             <Animated.Text
               style={[
-                tw`absolute  left-2  font-light text-[4] text-type-light-primary `,
+                tw`absolute left-2 font-regular  leading-0 text-4.25 text-type-light-primary`,
                 animatedTextStyles,
               ]}
             >
@@ -159,7 +157,9 @@ const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
             </Animated.Text>
             {disabled ? (
               <Typography
-                style={"font-medium text-4 flex-1 pb-1 pt-[24]  text-grey-500"}
+                style={
+                  "font-medium text-4.25 flex-1 py-3 leading-0 text-grey-500"
+                }
               >
                 {value}
               </Typography>
@@ -170,7 +170,7 @@ const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
                 onFocus={handleFocus}
                 value={value}
                 {...rest}
-                style={tw`font-medium text-lg flex-1 pb-1 pt-[15]  text-type-light-secondary`}
+                style={tw`font-medium text-4.25 flex-1 py-3 leading-0 text-grey-700`}
               />
             )}
             {actionOnPress && (

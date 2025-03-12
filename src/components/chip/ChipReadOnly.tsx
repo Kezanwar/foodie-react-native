@@ -15,7 +15,7 @@ const ChipReadOnly: FC<Props> = React.memo(({ label, size = "md" }) => {
         bg-grey-200 
        rounded-full`}
     >
-      <Text style={tw`font-regular  text-3.25`}>{label}</Text>
+      <Text style={tw`font-medium  text-3.25`}>{label}</Text>
     </View>
   );
 });

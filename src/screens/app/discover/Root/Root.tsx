@@ -99,7 +99,7 @@ const Root: FC<Props> = ({ navigation }) => {
               onFocus={handleSetSearchFocusedOn}
               onBlur={handleSetSearchFocusedOff}
               onChangeText={handleUpdateSearch}
-              placeholder="Type to search..."
+              placeholder="Search Deals"
             />
             {searchFeedIsLoading ? (
               <LoadingSpinner />

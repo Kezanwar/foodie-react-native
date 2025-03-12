@@ -7,35 +7,8 @@ import BookingInfo from "components/booking-info";
 import { Address } from "types/address";
 import OpeningTimes from "components/opening-times/OpeningTimes";
 import { IOpeningTimes } from "types/opening-times";
-import Map from "components/map";
-import { Region } from "react-native-maps";
-
-const tabControllerItems: TabControllerItemProps[] = [
-  {
-    label: "Map View",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    labelStyle: tw`font-medium`,
-    selectedLabelColor: tw.color("primary-main"),
-  },
-  {
-    label: "Booking Info",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    labelStyle: tw`font-medium`,
-    selectedLabelColor: tw.color("primary-main"),
-  },
-  {
-    label: "Opening Times",
-    labelColor: tw.color("grey-500"),
-    selectedLabelStyle: tw`font-medium`,
-    labelStyle: tw`font-medium`,
-    backgroundColor: "#00000000",
-    selectedLabelColor: tw.color("primary-main"),
-  },
-];
+import { MapViewRegion } from "screens/common/map-view/MapView";
+import { GoToMapImage } from "components/map";
 
 const map_style = tw`h-70 m-5 mt-5 rounded-md`;
 
@@ -51,6 +24,25 @@ type Props = {
   opening_times: IOpeningTimes;
   initialIndex?: number;
   location_id: string;
+  navToMap: (region: MapViewRegion) => void;
+};
+
+const bookingInfoTab = {
+  label: "Booking Info",
+  labelColor: tw.color("grey-500"),
+  selectedLabelStyle: tw`font-medium`,
+  backgroundColor: "#00000000",
+  labelStyle: tw`font-medium`,
+  selectedLabelColor: tw.color("primary-main"),
+};
+
+const openingTimesTab = {
+  label: "Opening Times",
+  labelColor: tw.color("grey-500"),
+  selectedLabelStyle: tw`font-medium`,
+  labelStyle: tw`font-medium`,
+  backgroundColor: "#00000000",
+  selectedLabelColor: tw.color("primary-main"),
 };
 
 const RestaurantInfoTabs: FC<Props> = React.memo(
@@ -64,6 +56,7 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
     opening_times,
     initialIndex = 0,
     location_id,
+    navToMap,
   }) => {
     const region = useMemo(() => {
       return {
@@ -71,6 +64,23 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
         longitude: coordinates[0],
       };
     }, [coordinates[1], coordinates[0]]);
+
+    const tabControllerItems: TabControllerItemProps[] = useMemo(() => {
+      return [
+        {
+          label: "Map View",
+          labelColor: tw.color("grey-500"),
+          selectedLabelStyle: tw`font-medium`,
+          backgroundColor: "#00000000",
+          labelStyle: tw`font-medium`,
+          selectedLabelColor: tw.color("primary-main"),
+          ignore: true,
+          onPress: () => navToMap(region),
+        },
+        bookingInfoTab,
+        openingTimesTab,
+      ];
+    }, [region]);
 
     return (
       <TabController
@@ -83,12 +93,12 @@ const RestaurantInfoTabs: FC<Props> = React.memo(
           height={32}
           spreadItems={false}
           backgroundColor="transparent"
-          containerStyle={tw`mx-1 bg-[#00000000]`}
+          containerStyle={tw`mx-1`}
           items={tabControllerItems}
         />
         <TabController.PageCarousel>
           <TabController.TabPage lazy index={0}>
-            <Map mapStyle={map_style} region={region as Region} />
+            <GoToMapImage onPress={() => navToMap(region)} />
           </TabController.TabPage>
           <TabController.TabPage lazy index={1}>
             <BookingInfo

@@ -38,7 +38,7 @@ const AddDetails: React.FC = (props: any) => {
   };
 
   const { handleSubmit, control } = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: yupResolver(RegisterUserDetailsSchema),
     defaultValues,
   });

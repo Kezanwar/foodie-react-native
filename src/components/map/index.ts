@@ -1,2 +1,3 @@
-import Map from "./Map";
-export default Map;
+import InteractiveMap from "./InteractiveMap";
+import GoToMapImage from "./GoToMapImage";
+export { InteractiveMap, GoToMapImage };

@@ -19,7 +19,7 @@ const Alphabet: FC<Props> = ({ onAlphabetClick }) => {
           onPressIn={() => onAlphabetClick(letter)}
         >
           <Typography
-            style={" text-center font-regular pr-4"}
+            style={" text-center pr-4"}
             variant="body2"
             color="primary.main"
           >
