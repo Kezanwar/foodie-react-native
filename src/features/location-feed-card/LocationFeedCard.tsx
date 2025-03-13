@@ -8,6 +8,7 @@ import { IHomeFeedItem } from "types/home-feed";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { DealChipReadOnly } from "components/deal-chip";
 import { ChipContainer } from "components/chip";
+import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = {
   item: IHomeFeedItem;
@@ -18,6 +19,8 @@ type Props = {
 
 const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
   const total = item.location.active_deals.length;
+
+  const devMode = useAppSelector((state) => state.debug.devMode);
 
   const dealsToShow = useMemo(() => {
     return total > 4
@@ -104,6 +107,13 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
           })}
           {hasMore && <DealChipReadOnly icon={false} label={`+${diff} more`} />}
         </ChipContainer>
+      )}
+      {devMode ? (
+        <Typography variant="body2" style="font-semi-bold" color="info.dark">
+          {JSON.stringify(item)}
+        </Typography>
+      ) : (
+        ""
       )}
     </TouchableOpacity>
   );

@@ -136,6 +136,7 @@ const SignIn = (props: any) => {
       >
         <View style={tw`flex-1 px-5`}>
           <Logo width={180} height={60} />
+
           <Typography
             variant="body2"
             color="text.secondary"
@@ -203,11 +204,13 @@ const SignIn = (props: any) => {
               variant="login"
             />
           </View>
+
           <Text
             style={tw`font-light text-center text-sm mt-12 mb-1.5   text-type-light-secondary`}
           >
             New here?
           </Text>
+
           <TextButton label="Create an account" onPress={onCreateAcc} />
           <Spacer spacing="mt-14" />
           <TextButton

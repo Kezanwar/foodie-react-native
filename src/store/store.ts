@@ -11,6 +11,7 @@ import homeReducer from "./home/home.slice";
 import discoverReducer from "./discover/discover.slice";
 import singleDealReducer from "./single-deal/single-deal.slice";
 import notificationsReducer from "./notifications/notifications.slice";
+import debugReducer from "./debug/debug.slice";
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     discover: discoverReducer,
     singleDeal: singleDealReducer,
     notifications: notificationsReducer,
+    debug: debugReducer,
   },
 });

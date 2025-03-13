@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
@@ -28,6 +29,8 @@ import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import { useAppSelector } from "hooks/useAppSelector";
 import { isIOS } from "constants/theme";
+import useDebugModeSecretTaps from "hooks/useDebugModeSecretTaps";
+import LocalStorage from "lib/storage";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -48,9 +51,15 @@ const SignUp = (props: any) => {
 
   const onSignUp = () => props.navigation.navigate(AUTH_ROUTES.ADD_DETAILS);
 
+  const auth = useAppSelector((state) => state.auth);
+
+  const registerTap = useDebugModeSecretTaps();
+
   const pushToken = useAppSelector(
     (state) => state.notifications.expoPushToken
   );
+
+  const devMode = useAppSelector((state) => state.debug.devMode);
 
   const registerWithGoogle = async (token: string) => {
     try {
@@ -102,6 +111,16 @@ const SignUp = (props: any) => {
           isIOS && SECTION_SHADOWS.topShadowSection,
         ]}
       >
+        {devMode ? (
+          <Typography variant="body2" style="font-semi-bold" color="info.dark">
+            {JSON.stringify(auth)}
+            {"\n"}
+            {LocalStorage.getAccessToken()}
+            {JSON.stringify(LocalStorage.getStats())}
+          </Typography>
+        ) : (
+          ""
+        )}
         <View style={tw`gap-4  flex-1`}>
           <FullWidthButton onPress={onSignUp} text="Create an account" />
           <Or />
@@ -122,11 +141,14 @@ const SignUp = (props: any) => {
             />
           </View>
         )}
-        <Text
-          style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}
-        >
-          Already have an account?
-        </Text>
+        <TouchableWithoutFeedback onPress={registerTap}>
+          <Text
+            style={tw`font-light text-center text-sm mt-12 mb-2   text-type-light-secondary`}
+          >
+            Already have an account?
+          </Text>
+        </TouchableWithoutFeedback>
+
         <TextButton label="Sign in" onPress={onCreateAcc} />
       </Animated.View>
     </ScrollScreenWrapper>
