@@ -163,7 +163,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
       </Animated.View>
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <View style={tw`px-5 relative`}>
-          <View style={tw`mt-4 flex-row  items-center gap-4`}>
+          <View style={tw`mt-5 flex-row  items-center gap-4`}>
             <RestaurantAvatar
               size="lg"
               source={{ uri: restaurant.restaurant.avatar }}

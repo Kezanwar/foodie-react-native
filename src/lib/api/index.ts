@@ -79,7 +79,6 @@ export const addPreferences = (data: IOptions) => {
 //*AUTH
 
 export const loginJWT = (data: LoginJWTData) => {
-  console.log(axiosInstance.getUri());
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.login, data);
 };
 export const loginGoogle = (token: string, pushToken?: string) => {
@@ -134,7 +133,6 @@ export const getHomeFeed = async (
       }`
     )
     .then((res) => {
-      console.log("Feed API Request");
       return res.data;
     });
 };
@@ -155,7 +153,6 @@ export const getFeed = async (
       }`
     )
     .then((res) => {
-      console.log("Feed API Request");
       return res.data;
     });
 };
@@ -232,7 +229,6 @@ export const getSearchFeed = async (
       `${APP_ENDPOINTS.getSearchFeed}/?page=${page}&long=${long}&lat=${lat}${search_text}`
     )
     .then((res) => {
-      console.log("Search Feed API Request", res.data.deals.length);
       return res.data;
     });
 };

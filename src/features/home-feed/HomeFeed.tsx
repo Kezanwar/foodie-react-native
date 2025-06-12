@@ -1,5 +1,5 @@
 import { Alert, FlatList, ScrollView, Share } from "react-native";
-import React, { forwardRef, useMemo } from "react";
+import React, { forwardRef, useCallback, useMemo } from "react";
 import useHomeFeedQuery from "hooks/queries/useHomeFeedQuery";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
@@ -8,7 +8,8 @@ import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
 import { IHomeFeedItem } from "types/home-feed";
-import LocationFeedCard from "features/location-feed-card";
+import { LocationFeedCard } from "features/location-card";
+import { DEEP_LINK_BASE_URL } from "lib/env";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -40,26 +41,26 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
       (state) => state.home.filters
     );
 
-    const onShare = async (title: string) => {
+    const onShare = useCallback(async (title: string, location_id: string) => {
       try {
-        const result = await Share.share({
-          url: "com.thefoodie.app",
-          message: "Check out this Restaurant on the Foodie App!",
+        await Share.share({
+          url: `${DEEP_LINK_BASE_URL}/single-restaurant/${location_id}`,
+          message: "Check out this Restaurant on the Foodie App.",
           title,
         });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
+        // if (result.action === Share.sharedAction) {
+        //   if (result.activityType) {
+        //     // shared with activity type of result.activityType
+        //   } else {
+        //     // shared
+        //   }
+        // } else if (result.action === Share.dismissedAction) {
+        //   // dismissed
+        // }
       } catch (error: any) {
         Alert.alert(error.message);
       }
-    };
+    }, []);
 
     if (isLoading) {
       return <LoadingState text="Searching for deals..." />;

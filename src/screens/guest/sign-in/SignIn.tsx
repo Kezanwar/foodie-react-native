@@ -148,7 +148,7 @@ const SignIn = (props: any) => {
           <Image
             style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}
             source={{
-              uri: "https://foodie-s3.s3.eu-west-2.amazonaws.com/yellow-orange-blur.png",
+              uri: "https://thefoodieappuk.s3.eu-north-1.amazonaws.com/assets/yellow-orange-blur.png",
             }}
           />
         </View>

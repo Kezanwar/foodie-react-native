@@ -1,6 +1,7 @@
 import { MMKV } from "react-native-mmkv";
 import { LocationLocalStorageData } from "store/location/location.slice";
 import { IFeedDeal } from "types/deal-feed";
+import { StatMap, Stats } from "types/stats";
 
 const mmkv = new MMKV();
 
@@ -146,7 +147,7 @@ class LocalStorage {
     this.saveStats(stats);
   }
 
-  static makeDefaultStats() {
+  static makeDefaultStats(): Stats {
     return {
       deals: {},
       locations: {},
@@ -154,12 +155,12 @@ class LocalStorage {
     };
   }
 
-  static getStats() {
+  static getStats(): Stats | undefined {
     const curr = mmkv.getString(KEYS.STATS);
     return curr ? JSON.parse(curr) : undefined;
   }
 
-  static saveStats(stats: any) {
+  static saveStats(stats: Stats) {
     mmkv.set(KEYS.STATS, JSON.stringify(stats));
   }
 

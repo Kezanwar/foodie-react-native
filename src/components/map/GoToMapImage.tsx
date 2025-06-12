@@ -9,7 +9,7 @@ type Props = {
 };
 
 const src = {
-  uri: "https://foodie-s3.s3.eu-west-2.amazonaws.com/go-to-map.png",
+  uri: "https://thefoodieappuk.s3.eu-north-1.amazonaws.com/assets/go-to-map.png",
 };
 
 const GoToMapImage = (props: Props) => {

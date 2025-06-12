@@ -1,7 +1,6 @@
 export type ActiveDealReadOnly = {
   deal_id: string;
   name: string;
-  description: string;
 };
 
 export type IHomeFeedItem = {

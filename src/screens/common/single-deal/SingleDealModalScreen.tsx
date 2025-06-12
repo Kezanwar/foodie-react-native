@@ -135,7 +135,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
             </Typography>
           </View>
           <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
-            <ShareButton onPress={() => {}} />
+            {/* <ShareButton onPress={() => {}} /> */}
             <LikeButton liked={deal.is_favourited} onPress={onLike} />
           </View>
         </View>

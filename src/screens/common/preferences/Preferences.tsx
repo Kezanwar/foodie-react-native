@@ -146,7 +146,7 @@ const Preferences = (props: any) => {
         <TextActionHeader
           loading={apiLoading}
           headerText="Preferences"
-          rightActionText="Done"
+          rightActionText="Save"
           rightActionOnPress={onDone}
         />
         <Typography

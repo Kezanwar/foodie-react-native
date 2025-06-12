@@ -11,7 +11,7 @@ import { ChipContainer } from "components/chip";
 
 type Props = {
   item: IHomeFeedItem;
-  onShare: (name: string) => void;
+  onShare: (name: string, location_id: string) => void;
   showActions?: boolean;
   navToRest: (location_id: string) => void;
 };
@@ -43,9 +43,9 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
         />
       </View>
 
-      <View style={tw` mt-4 flex-row items-start justify-between mb-3`}>
+      <View style={tw` mt-4 flex-row items-start justify-between mb-3 `}>
         <View style={tw`gap-1.5`}>
-          <View style={tw`flex-row flex-wrap gap-2 flex-1 items-center`}>
+          <View style={tw`flex-row flex-wrap gap-2 flex-1 items-center `}>
             <RestaurantAvatar
               size="md"
               source={{ uri: item.restaurant.avatar }}
@@ -74,21 +74,24 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
             </View>
           </View>
         </View>
-        <View style={tw`gap-2.25`}>
-          <View style={tw`items-start justify-end  -mt-.5  flex-row gap-1`}>
-            <ShareButton
+        <View style={tw`gap-2.25 `}>
+          <View style={tw`items-start justify-end  mt-1  flex-row gap-1`}>
+            {/* <ShareButton
               onPress={() =>
-                onShare(`${item.restaurant.name} | ${item.location.nickname})`)
+                onShare(
+                  `${item.restaurant.name} | ${item.location.nickname})`,
+                  item.location._id
+                )
               }
-            />
+            /> */}
+            <Typography
+              variant="body2"
+              color="success.main"
+              style=" font-medium text-3.25"
+            >
+              {item.location.distance_miles.toFixed(1)} Miles
+            </Typography>
           </View>
-          <Typography
-            variant="body2"
-            color="success.main"
-            style=" font-medium text-3.25"
-          >
-            {item.location.distance_miles.toFixed(1)} Miles
-          </Typography>
         </View>
       </View>
       {dealsToShow.length > 0 && (

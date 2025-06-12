@@ -26,12 +26,14 @@
         }
       ]
     ],
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.thefoodie.app",
+      "associatedDomains": [
+        "applinks:thefoodiestaging.app",
+        "applinks:thefoodie.app"
+      ],
       "config": {
         "googleMapsApiKey": "AIzaSyAssBjvB_M1GfbT12E-4riIpF5wy8RAGMc"
       },

@@ -1,4 +1,4 @@
-import { Dimensions, View } from "react-native";
+import { View } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
 
@@ -10,8 +10,9 @@ import CarouselDivider from "components/separators/carousel-divider";
 
 import { PopularRestaurants } from "types/discover";
 import { useAppSelector } from "hooks/useAppSelector";
-import RestaurantCard from "features/rest-card/RestaurantCard";
+
 import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
+import { LocationCarouselCard } from "features/location-card";
 
 type Props = {
   restaurants?: PopularRestaurants[];
@@ -43,8 +44,7 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
         snapToInterval={CAROUSEL_ITEM_WIDTH}
         renderItem={({ item }) => {
           return (
-            <RestaurantCard
-              type="carousel"
+            <LocationCarouselCard
               location={item.location}
               navToRest={navToRest}
               restaurant={item.restaurant}
