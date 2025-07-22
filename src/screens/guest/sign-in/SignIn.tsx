@@ -139,10 +139,9 @@ const SignIn = (props: any) => {
           <Typography
             variant="body2"
             color="text.secondary"
-            style={"mt-4 mb-8"}
+            style={"mt-4 mb-2"}
           >
-            Welcome back, lorem ipsum dolor, sit amet consectetur adipisicing
-            elit. Ea, molestiae.
+            Welcome back, let's have a look at some new local deals.
           </Typography>
 
           <Image

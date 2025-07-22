@@ -84,8 +84,8 @@ const SignUp = (props: any) => {
       <View style={tw`flex-1 px-5`}>
         <Logo width={180} height={60} />
         <Typography variant="body2" color="text.secondary" style={"mt-4 mb-8"}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta,
-          impedit.
+          Explore your neighborhood’s best food deals, hidden specials, and
+          offers you never knew about.
         </Typography>
         <Image
           style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}

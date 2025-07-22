@@ -11,7 +11,7 @@ import DiscoverCuisines from "features/discover-cuisines";
 
 import useDiscoverQuery from "hooks/queries/useDiscoverQuery";
 import NewsCarousel from "features/news-carousel";
-import { DISCOVER_STACK } from "constants/routes";
+import { COMMON_ROUTES, DISCOVER_STACK } from "constants/routes";
 import { Option } from "types/options";
 import SearchSuggestions from "components/search-suggestions";
 
@@ -75,6 +75,8 @@ const Root: FC<Props> = ({ navigation }) => {
       stack: DISCOVER_STACK,
     });
 
+  const handleLocationPress = () => navigation.navigate(COMMON_ROUTES.LOCATION);
+
   return (
     <>
       <SafeAreaView style={tw`bg-white z-10`}>
@@ -116,6 +118,7 @@ const Root: FC<Props> = ({ navigation }) => {
       {hasLocation ? (
         !hasSubmitted || searchFeedIsLoading ? (
           <DiscoverBaseContent
+            navToLocation={handleLocationPress}
             navToRest={navRest}
             onCuisinePress={onCuisinePress}
           />
@@ -130,13 +133,16 @@ const Root: FC<Props> = ({ navigation }) => {
 type DiscoverBaseContentProps = {
   navToRest: (location_id: string) => void;
   onCuisinePress: (option: Option) => void;
+  navToLocation: () => void;
 };
 
 const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
   navToRest,
+  navToLocation,
   onCuisinePress,
 }) => {
   const { data, isLoading } = useDiscoverQuery();
+
   const location = useAppSelector((state) => state.location.reverseGeocode);
 
   if (isLoading) return <LoadingScreen />;
@@ -154,7 +160,7 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
           <EmptyState
             title="No Results"
             description={`near ${location?.city}, ${location?.subregion}`}
-            action={() => {}}
+            action={navToLocation}
             actionText="Change location"
             actionIcon={
               <Ionicons
@@ -182,9 +188,11 @@ const DiscoverBaseContent: FC<DiscoverBaseContentProps> = ({
         </>
       )}
 
-      <SectionCard>
-        <NewsCarousel blogs={data?.data?.blogs} />
-      </SectionCard>
+      {data?.data?.blogs && (
+        <SectionCard>
+          <NewsCarousel blogs={data?.data?.blogs} />
+        </SectionCard>
+      )}
     </ScrollView>
   );
 };
