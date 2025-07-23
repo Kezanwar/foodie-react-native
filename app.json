@@ -28,7 +28,7 @@
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "22.07.2025",
+      "buildNumber": "23.07.2025",
       "supportsTablet": true,
       "bundleIdentifier": "com.thefoodie.app",
       "associatedDomains": [
