@@ -24,7 +24,7 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
   const open = useBrowser();
 
   const onBlogPress = async (slug: string) => {
-    await open(`https://www.thefoodiestaging.app/news/${slug}`);
+    await open(`https://www.thefoodie.app/news/${slug}`);
   };
 
   return (
