@@ -28,8 +28,8 @@
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "23.07.2025",
-      "supportsTablet": true,
+      "buildNumber": "27.07.2025",
+      "supportsTablet": false,
       "bundleIdentifier": "com.thefoodie.app",
       "associatedDomains": [
         "applinks:thefoodiestaging.app",
@@ -39,7 +39,10 @@
         "googleMapsApiKey": "AIzaSyAssBjvB_M1GfbT12E-4riIpF5wy8RAGMc"
       },
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "We need your location to show nearby Restaurants and Deals.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "We need your location to show nearby Restaurants and Deals.",
+        "NSLocationAlwaysUsageDescription": "We need your location to show nearby Restaurants and Deals."
       }
     },
     "android": {
