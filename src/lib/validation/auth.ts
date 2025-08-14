@@ -23,6 +23,7 @@ export const RegisterEmailPasswordSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address")
     .required("Email is required"),
+  private_email: Yup.bool().required(),
   password: Yup.string()
     .required("Password is required")
     .matches(/[@$!%*#?&]+/, "Password must have special character")

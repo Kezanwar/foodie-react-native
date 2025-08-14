@@ -34,6 +34,7 @@ const AUTH_ENDPOINTS = {
   registerWithGoogle: "/auth/register-google",
   intialize: "/auth/initialize",
   forgotPassword: "/auth/forgot-password",
+  deleteAccount: "/auth/delete",
 };
 
 const APP_ENDPOINTS = {
@@ -109,6 +110,10 @@ export const initializeJWT = () => {
 
 export const changePassword = (email: string) => {
   return axiosInstance.post(AUTH_ENDPOINTS.forgotPassword, { email });
+};
+
+export const deleteAccount = () => {
+  return axiosInstance.post(AUTH_ENDPOINTS.deleteAccount);
 };
 
 //* GEO

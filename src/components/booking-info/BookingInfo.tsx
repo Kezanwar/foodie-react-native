@@ -142,8 +142,8 @@ const IconAndText: FC<{ text: string | string[]; icon: ReactNode }> = ({
         </View>
       ) : (
         <View style={tw`-mt-1`}>
-          {text.map((s) => (
-            <Text key={s}>{s}</Text>
+          {text.map((s, i) => (
+            <Text key={`${s}-${i}`}>{s}</Text>
           ))}
         </View>
       )}

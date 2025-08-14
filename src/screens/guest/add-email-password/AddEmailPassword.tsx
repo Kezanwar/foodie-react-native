@@ -23,11 +23,14 @@ import { setSession } from "lib/axios";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert/Alert";
 import TextButton from "components/buttons/text-button";
+import RHFCheckbox from "components/form/RHF/RHFCheckbox";
+import useBrowser from "hooks/useBrowser";
 
 const iconColor = tw.color("grey-700");
 
 type FormValues = {
   email: string;
+  private_email: boolean;
   password: string;
   confirm_password: string;
 };
@@ -53,6 +56,7 @@ const AddEmailPassword: React.FC = (props: any) => {
 
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
+    private_email: true,
     password: "",
     confirm_password: "",
   };
@@ -98,6 +102,12 @@ const AddEmailPassword: React.FC = (props: any) => {
     }
   };
 
+  const open = useBrowser();
+
+  const onPrivacyPolicy = async () => {
+    await open(`https://www.thefoodie.app/privacy-policy`);
+  };
+
   return (
     <StaticScreenWrapper>
       <KeyboardDismissingView
@@ -108,12 +118,10 @@ const AddEmailPassword: React.FC = (props: any) => {
           <Typography variant="h6" style={" font-bold mb-2 "}>
             Welcome, {first_name}!
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            style={"max-w-[70]  mb-12 "}
-          >
-            Please provide your Email Address and create a Password...
+          <Typography variant="body2" color="text.secondary" style={"  mb-12 "}>
+            Your Account Details are solely for authentication and essential
+            account-related communication. We do not send marketing or
+            promotional emails.
           </Typography>
 
           <View style={tw`gap-4  flex-1`}>
@@ -122,6 +130,13 @@ const AddEmailPassword: React.FC = (props: any) => {
               name="email"
               autoComplete="email"
               placeholder={"Email address"}
+            />
+
+            <RHFCheckbox
+              control={control}
+              name="private_email"
+              label="Don’t share my email address with anyone."
+              containerStyle="ml-2 mb-2"
             />
             <RHFTextField
               control={control}
@@ -163,16 +178,23 @@ const AddEmailPassword: React.FC = (props: any) => {
           </View>
 
           <View style={tw`flex-1 justify-end`}>
-            <FullWidthButton
-              isLoading={isLoading}
-              onPress={handleSubmit(onDone)}
-              text="Done"
-            />
             <TextButton
-              label="Go back"
-              style={tw`mt-4`}
-              onPress={props.navigation.goBack}
+              style={tw`mt-auto mb-7`}
+              label="Read Our Privacy Policy"
+              onPress={onPrivacyPolicy}
             />
+            <View>
+              <FullWidthButton
+                isLoading={isLoading}
+                onPress={handleSubmit(onDone)}
+                text="Done"
+              />
+              <TextButton
+                label="Go back"
+                style={tw`mt-4`}
+                onPress={props.navigation.goBack}
+              />
+            </View>
           </View>
         </View>
       </KeyboardDismissingView>

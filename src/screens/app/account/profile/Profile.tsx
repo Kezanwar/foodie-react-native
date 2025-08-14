@@ -1,5 +1,5 @@
-import { View } from "react-native";
-import React, { FC } from "react";
+import { View, Alert as SystemAlert } from "react-native";
+import React, { FC, useRef } from "react";
 import { StaticScreenWrapper } from "components/screen-wrapper";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,11 +14,14 @@ import { CustomTextField } from "components/form/custom-text-field";
 import TextButton from "components/buttons/text-button";
 import useSnackbar from "hooks/useSnackbar";
 import Spacer from "components/separators/spacer";
-import { changePassword, patchProfile } from "lib/api";
+import { changePassword, deleteAccount, patchProfile } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert";
 import useAppDispatch from "hooks/useAppDispatch";
 import { updateUser } from "store/auth/auth.slice";
+import { onLogout } from "store/global-actions";
+import { endSession } from "lib/axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 type FormValues = {
   first_name: string;
@@ -34,6 +37,8 @@ const Profile: FC = (props: any) => {
     last_name: user?.last_name || "",
   };
 
+  const ref = useRef();
+
   const {
     handleSubmit,
     control,
@@ -47,7 +52,7 @@ const Profile: FC = (props: any) => {
   });
 
   const snack = useSnackbar();
-
+  const client = useQueryClient();
   const goBack = () => props.navigation.goBack();
 
   const onDone: SubmitHandler<FormValues> = async (data) => {
@@ -75,6 +80,34 @@ const Profile: FC = (props: any) => {
           setError("root.afterSubmit", error);
         });
       }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteAccount();
+      dispatch(onLogout());
+      endSession();
+      client.clear();
+
+      //log user out and clear all device cache
+    } catch (error: any) {
+      SystemAlert.alert(error.message);
+    }
+  };
+
+  const onDeleteAcc = async () => {
+    SystemAlert.alert(
+      "Delete Account",
+      "Are you sure you want to delete your account?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yes", onPress: () => handleDelete(), style: "destructive" },
+      ]
+    );
   };
 
   const isGoogle = user?.auth_method === "google";
@@ -126,6 +159,8 @@ const Profile: FC = (props: any) => {
             <TextButton label="Change Password" onPress={onResetPassword} />
           </>
         )}
+        <Spacer flex="flex-1" />
+        <TextButton label="Delete Account" onPress={onDeleteAcc} />
       </View>
     </StaticScreenWrapper>
   );
