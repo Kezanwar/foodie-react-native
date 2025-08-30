@@ -140,10 +140,10 @@ const CustomTextField = forwardRef<CustomTextFieldRef, Props>(
 
     return (
       <View style={containerStyle}>
-        <View style={tw`rounded-md bg-grey-100 dark:bg-grey-900`}>
+        <View style={tw`rounded-lg bg-grey-100 dark:bg-grey-900`}>
           <Animated.View
             style={[
-              tw`border flex-row items-center px-2 rounded-md relative`,
+              tw`border flex-row items-center px-2 rounded-lg relative`,
               animatedBorderStyles,
             ]}
           >

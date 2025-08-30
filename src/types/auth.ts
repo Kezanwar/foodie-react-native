@@ -4,6 +4,7 @@ export type IUser = {
   first_name: string;
   last_name: string;
   email: string;
+  email_private: boolean;
   email_confirmed: string;
   auth_method: "jwt" | "google";
   avatar: string;

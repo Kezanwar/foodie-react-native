@@ -10,8 +10,6 @@ import * as WebBrowser from "expo-web-browser";
 import { Logo } from "components/logo";
 import { ScrollScreenWrapper } from "components/screen-wrapper";
 import Typography from "components/typography";
-import { FullWidthButton } from "components/buttons/full-width-button";
-import { Or } from "components/separators/or";
 import { GoogleButton } from "components/buttons/google-button";
 
 import { catchErrorHandler } from "utils/error";
@@ -22,12 +20,18 @@ import { SECTION_SHADOWS } from "theme/custom-shadows";
 import { androidOAuthClientId, iOSOAuthClientId } from "lib/env";
 import useAppDispatch from "hooks/useAppDispatch";
 import { ErrorObject } from "types/error";
-import { registerGoogle } from "lib/api";
+import { registerApple, registerGoogle } from "lib/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import { useAppSelector } from "hooks/useAppSelector";
 import { isIOS } from "constants/theme";
+import {
+  AppleAuthenticationScope,
+  signInAsync,
+} from "expo-apple-authentication";
+import AppleButton from "components/buttons/apple-button";
+import EmailButton from "components/buttons/email-button";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -72,6 +76,30 @@ const SignUp = (props: any) => {
     prompAsync();
   };
 
+  const onAppleRegister = async () => {
+    try {
+      const credential = await signInAsync({
+        requestedScopes: [
+          AppleAuthenticationScope.FULL_NAME,
+          AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      const res = await registerApple(credential, pushToken);
+      const { user, accessToken } = res?.data;
+      dispatch(authLogin(user));
+      setSession(accessToken);
+    } catch (e) {
+      //@ts-ignore
+      if (e.code === "ERR_REQUEST_CANCELED") {
+        // handle that the user canceled the sign-in flow
+      } else {
+        catchErrorHandler(e, (error) => {
+          setError(error);
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     if (response?.type === "success") {
       if (response.authentication?.accessToken)
@@ -88,7 +116,7 @@ const SignUp = (props: any) => {
           offers you never knew about.
         </Typography>
         <Image
-          style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}
+          style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140] -z-10  `}
           source={{
             uri: "https://thefoodieappuk.s3.eu-north-1.amazonaws.com/assets/yellow-orange-blur.png",
           }}
@@ -98,18 +126,18 @@ const SignUp = (props: any) => {
       <Animated.View
         entering={FadeInDown}
         style={[
-          tw`flex-1 py-8 px-5 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
+          tw`flex-1 py-6 px-5 z-20  bg-white dark:bg-grey-800   rounded-3xl`,
           isIOS && SECTION_SHADOWS.topShadowSection,
         ]}
       >
-        <View style={tw`gap-4  flex-1`}>
-          <FullWidthButton onPress={onSignUp} text="Create an account" />
-          <Or />
+        <View style={tw`gap-3  flex-1`}>
+          <EmailButton onPress={onSignUp} />
           <GoogleButton
             onPress={onGoogleRegister}
             loading={googleLoading}
             variant="register"
           />
+          <AppleButton variant="register" onPress={onAppleRegister} />
         </View>
 
         {error?.message && (

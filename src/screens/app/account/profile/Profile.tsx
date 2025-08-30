@@ -22,6 +22,7 @@ import { updateUser } from "store/auth/auth.slice";
 import { onLogout } from "store/global-actions";
 import { endSession } from "lib/axios";
 import { useQueryClient } from "@tanstack/react-query";
+import { isAuthSocialMedia } from "utils/auth";
 
 type FormValues = {
   first_name: string;
@@ -30,6 +31,7 @@ type FormValues = {
 
 const Profile: FC = (props: any) => {
   const { user } = useAppSelector((state) => state.auth);
+
   const dispatch = useAppDispatch();
 
   const defaultValues: DefaultValues<FormValues> = {
@@ -55,8 +57,10 @@ const Profile: FC = (props: any) => {
   const client = useQueryClient();
   const goBack = () => props.navigation.goBack();
 
+  const isSocialMedia = isAuthSocialMedia(user!);
+
   const onDone: SubmitHandler<FormValues> = async (data) => {
-    if (isDirty) {
+    if (!isSocialMedia && !isDirty) {
       try {
         const res = await patchProfile(data);
         dispatch(updateUser(res.data));
@@ -110,40 +114,43 @@ const Profile: FC = (props: any) => {
     );
   };
 
-  const isGoogle = user?.auth_method === "google";
-
   return (
     <StaticScreenWrapper>
       <View style={tw`px-5 flex-1`}>
         <TextActionHeader
           headerText="Your Profile"
           rightActionText="Done"
-          rightActionOnPress={handleSubmit(onDone)}
+          rightActionOnPress={isSocialMedia ? goBack : handleSubmit(onDone)}
         />
         <Typography
           variant="body2"
           style="mb-6 leading-[1.6]"
           color="text.secondary"
         >
-          View and edit your profile details here, if you signed in with Google
-          these can't be changed.
+          You can update your profile details here. If you signed up with a
+          social account, some information may not be editable. This is in line
+          with your chosen social media sign up method.
         </Typography>
 
         <View style={tw`gap-3`}>
-          <RHFTextField
-            control={control}
-            name="first_name"
-            autoComplete="given-name"
-            placeholder={"First name"}
-            disabled={isGoogle}
-          />
-          <RHFTextField
-            control={control}
-            name="last_name"
-            autoComplete="family-name"
-            placeholder={"Last name"}
-            disabled={isGoogle}
-          />
+          {user!.first_name && (
+            <RHFTextField
+              control={control}
+              name="first_name"
+              autoComplete="given-name"
+              placeholder={"First name"}
+              disabled={isSocialMedia}
+            />
+          )}
+          {user!.last_name && (
+            <RHFTextField
+              control={control}
+              name="last_name"
+              autoComplete="family-name"
+              placeholder={"Last name"}
+              disabled={isSocialMedia}
+            />
+          )}
           <CustomTextField placeholder="Email" value={user?.email} disabled />
           {errors?.root?.afterSubmit && (
             <Alert
@@ -153,7 +160,7 @@ const Profile: FC = (props: any) => {
             />
           )}
         </View>
-        {!isGoogle && (
+        {!isSocialMedia && (
           <>
             <Spacer flex="flex-1" />
             <TextButton label="Change Password" onPress={onResetPassword} />

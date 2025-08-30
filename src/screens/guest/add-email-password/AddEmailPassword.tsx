@@ -132,12 +132,12 @@ const AddEmailPassword: React.FC = (props: any) => {
               placeholder={"Email address"}
             />
 
-            <RHFCheckbox
+            {/* <RHFCheckbox
               control={control}
               name="private_email"
               label="Don’t share my email address with anyone."
               containerStyle="ml-2 mb-2"
-            />
+            /> */}
             <RHFTextField
               control={control}
               name="password"

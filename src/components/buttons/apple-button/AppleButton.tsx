@@ -1,4 +1,4 @@
-import GoogleIcon from "components/svgs/google-icon";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import Typography, { LEADING_TIGHT } from "components/typography";
 
 import React from "react";
@@ -14,25 +14,28 @@ type Props = TouchableOpacityProps & {
   loading?: boolean;
 };
 
-const GoogleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
+const AppleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`w-full p-3 flex-row gap-2 justify-center bg-white border-[0.25] border-grey-300 rounded-lg  items-center`}
+      style={tw`w-full p-3 flex-row gap-2 justify-center bg-white border border-grey-300 rounded-lg items-center`}
     >
       {loading ? (
         <ActivityIndicator />
       ) : (
         <>
-          <GoogleIcon />
+          <AntDesign
+            name="apple-o"
+            size={22}
+            color={tw.color("grey-500")}
+            style={tw`-ml-2`}
+          />
           <Typography
             variant="h6"
             color="text.primary"
-            style={`text-[3.75] font-bold ${LEADING_TIGHT}`}
+            style={`text-[3.75] leading-none text-center font-bold ${LEADING_TIGHT}`}
           >
-            {variant === "login"
-              ? "Sign in with Google"
-              : "Register with Google"}
+            {variant === "login" ? "Sign in with Apple" : "Register with Apple"}
           </Typography>
         </>
       )}
@@ -40,4 +43,4 @@ const GoogleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
   );
 };
 
-export default GoogleButton;
+export default AppleButton;

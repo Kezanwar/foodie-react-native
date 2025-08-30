@@ -30,7 +30,7 @@ const Alert: FC<Props> = ({
     <View
       style={tw`px-3 py-2 ${
         isCentered ? "justify-center flex-col items-center" : " flex-row"
-      }  rounded-md gap-2 w-full  ${variantStyles[variant].bg} ${style}`}
+      }  rounded-lg gap-2 w-full  ${variantStyles[variant].bg} ${style}`}
     >
       {React.cloneElement(icon ? icon : variantStyles[variant]?.icon, {
         color: tw.color(`${variant}-${isLight ? "main" : "light"}`),

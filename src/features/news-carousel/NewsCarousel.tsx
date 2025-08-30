@@ -51,10 +51,10 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
           return (
             <TouchableOpacity
               onPress={() => onBlogPress(item.slug)}
-              style={tw`w-[70vw] rounded-md`}
+              style={tw`w-[70vw] rounded-lg`}
             >
               <Image
-                style={tw`h-32 w-[70vw] rounded-md`}
+                style={tw`h-32 w-[70vw] rounded-lg`}
                 source={{ uri: item.featuredImage }}
               />
               <View style={tw`mt-3 gap-1.5`}>

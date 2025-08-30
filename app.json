@@ -13,6 +13,7 @@
     },
     "plugins": [
       "expo-font",
+      "expo-apple-authentication",
       [
         "expo-location",
         {
@@ -28,9 +29,10 @@
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "13.08.2025",
+      "buildNumber": "30.08.2025",
       "supportsTablet": false,
       "bundleIdentifier": "com.thefoodie.app",
+      "usesAppleSignIn": true,
       "associatedDomains": [
         "applinks:thefoodiestaging.app",
         "applinks:thefoodie.app"

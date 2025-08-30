@@ -34,10 +34,10 @@ const LocationCarouselCard: FC<Props> = ({
   return (
     <TouchableOpacity
       onPress={() => navToRest(location._id)}
-      style={tw`${"w-[70vw]"} rounded-md`}
+      style={tw`${"w-[70vw]"} rounded-lg`}
     >
       <Image
-        style={tw`h-32 w-full rounded-md`}
+        style={tw`h-32 w-full rounded-lg`}
         source={{ uri: restaurant.cover_photo }}
       />
       <View

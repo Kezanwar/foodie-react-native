@@ -15,9 +15,9 @@ import Preferences from "screens/common/preferences";
 import Location from "screens/common/location";
 import AddCustomLocation from "screens/common/add-custom-location";
 import ForgotPassword from "screens/guest/forgot-password";
-import UpdateRequired from "screens/common/update-required";
-import MaintenanceMode from "screens/common/maintenance-mode";
+
 import MapView from "screens/common/map-view";
+import Debug from "screens/common/debug";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -39,6 +39,7 @@ const RootStack = createNativeStackNavigator();
 
 const RootNavigator: FC = () => {
   const auth = useAppSelector((state) => state.auth);
+  const debugMode = useAppSelector((state) => state.debug.active);
   const isLoggedIn = auth.isAuthenticated && auth.isInitialized && auth.user;
   const emailConfirmed = auth?.user?.email_confirmed;
 
@@ -107,12 +108,20 @@ const RootNavigator: FC = () => {
             <RootStack.Screen
               options={{
                 headerShown: false,
-                // presentation: "containedModal",
               }}
               name={COMMON_ROUTES.MAP_VIEW}
               component={MapView}
             />
           </>
+        )}
+        {debugMode && (
+          <RootStack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name={COMMON_ROUTES.DEBUG}
+            component={Debug}
+          />
         )}
       </RootStack.Group>
     </RootStack.Navigator>

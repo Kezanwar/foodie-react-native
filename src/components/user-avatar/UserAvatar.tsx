@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
 import Typography, { LEADING_TIGHT } from "components/typography";
+import { AntDesign } from "@expo/vector-icons";
 
 type Props = {
   firstName: string;
@@ -11,7 +12,9 @@ type Props = {
   onPress: () => void;
 };
 
-const roundedStyle = tw`w-14 h-14 rounded-full`;
+const roundedStyle = tw`w-13 h-13 rounded-full`;
+
+const success_main = tw.color("success-main");
 
 const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName, onPress }) => {
   return (
@@ -19,16 +22,17 @@ const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName, onPress }) => {
       activeOpacity={0.7}
       onPress={onPress}
       style={tw.style(roundedStyle, {
-        "bg-success-main items-center justify-center": !avatarUrl,
+        "bg-success-main/20 items-center justify-center": !avatarUrl,
       })}
     >
       {avatarUrl ? (
         <Image style={roundedStyle} source={{ uri: avatarUrl }} />
+      ) : !firstName && !lastName ? (
+        <AntDesign name="user" size={23} color={success_main} />
       ) : (
         <Typography
           variant="h6"
-          style={`font-regular ${LEADING_TIGHT}  text-6`}
-          color="white"
+          style={`font-regular text-success-main ${LEADING_TIGHT}  text-6`}
         >
           {firstName.charAt(0)}
           {lastName.charAt(0)}

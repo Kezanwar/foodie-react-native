@@ -1,6 +1,9 @@
 import { Alert, SafeAreaView, View } from "react-native";
 
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import React, { FC } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
@@ -21,6 +24,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
 import { onLogout } from "store/global-actions";
 import TextButton from "components/buttons/text-button";
+import { handleSecretTap } from "store/debug/debug.slice";
 
 type Props = any;
 
@@ -63,11 +67,11 @@ const Root: FC<Props> = ({ navigation }) => {
     <View style={tw`flex-1`}>
       <SafeAreaView style={tw`bg-white`}>
         <HeaderContainer style={"flex-row items-center justify-between"}>
-          <View>
+          <TouchableWithoutFeedback onPress={() => dispatch(handleSecretTap())}>
             <Typography variant="h6" style={`font-bold ${LEADING_TIGHT}`}>
               Account
             </Typography>
-          </View>
+          </TouchableWithoutFeedback>
 
           <UserAvatar
             onPress={onProfilePress}

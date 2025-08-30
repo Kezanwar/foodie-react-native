@@ -13,7 +13,7 @@ const RoundedButton: FC<Props> = ({ text = "", icon, ...rest }) => {
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`px-3 py-2 flex-row gap-2 rounded-md bg-primary-main-04 items-center`}
+      style={tw`px-3 py-2 flex-row gap-2 rounded-lg bg-primary-main-04 items-center`}
     >
       {icon}
       <Typography variant="body2" style="font-bold" color="primary.main">

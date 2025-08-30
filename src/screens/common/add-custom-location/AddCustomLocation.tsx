@@ -175,7 +175,7 @@ const AddCustomLocation = (props: any) => {
 
             <Animated.View
               entering={FadeInUp}
-              style={tw`border-[0.4px] border-grey-400 bg-white p-4 mt-6 rounded-md`}
+              style={tw`border-[0.4px] border-grey-400 bg-white p-4 mt-6 rounded-lg`}
             >
               <Typography color="text.primary" style="text-[4.5]" variant="h7">
                 {displayResult.title}
@@ -189,7 +189,7 @@ const AddCustomLocation = (props: any) => {
 
               <TouchableOpacity
                 onPress={onUseResult}
-                style={tw`flex-row gap-1 bg-primary-main-04 mt-4 justify-between rounded-md px-2 py-1.5 w-40 items-center `}
+                style={tw`flex-row gap-1 bg-primary-main-04 mt-4 justify-between rounded-lg px-2 py-1.5 w-40 items-center `}
               >
                 {/* <AntDesign
                   name="find"

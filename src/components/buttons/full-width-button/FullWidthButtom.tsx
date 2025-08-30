@@ -24,7 +24,7 @@ const FullWidthButton: React.FC<Props> = ({
   return (
     <TouchableOpacity
       {...rest}
-      style={tw`w-full p-3 rounded-md ${
+      style={tw`w-full p-3 rounded-lg ${
         subtle ? "border border-grey-950" : "bg-grey-900 dark:bg-grey-200"
       } items-center`}
     >

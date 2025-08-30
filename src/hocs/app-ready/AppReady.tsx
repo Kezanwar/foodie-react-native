@@ -18,6 +18,8 @@ import { enableFreeze } from "react-native-screens";
 import useRegisterTasks from "./tasks";
 import Snackbar from "components/snackbar/Snackbar";
 
+import DebugMenu from "components/debug-nav";
+
 enableFreeze(true);
 
 type Props = {
@@ -35,7 +37,10 @@ const AppReady: FC<Props> = ({ children }) => {
         <FontLoadGestureHandler>
           <BottomSheetModalProvider>
             <Snackbar />
-            <Navigation>{children}</Navigation>
+            <Navigation>
+              <DebugMenu />
+              {children}
+            </Navigation>
             <SingleDealModal />
           </BottomSheetModalProvider>
         </FontLoadGestureHandler>

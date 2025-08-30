@@ -24,6 +24,7 @@ import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 import LocalStorage from "lib/storage";
 import { HomeFeedInfinitePage } from "types/home-feed";
+import { AppleAuthenticationCredential } from "expo-apple-authentication";
 
 const AUTH_ENDPOINTS = {
   login: "/auth/login",
@@ -32,6 +33,7 @@ const AUTH_ENDPOINTS = {
   confirmEmailOTP: "/auth/confirm-email",
   resendEmailOTP: "/auth/confirm-email/resend-otp",
   registerWithGoogle: "/auth/register-google",
+  registerWithApple: "/auth/register-apple",
   intialize: "/auth/initialize",
   forgotPassword: "/auth/forgot-password",
   deleteAccount: "/auth/delete",
@@ -100,6 +102,17 @@ export const registerGoogle = (token: string, pushToken?: string) => {
     pushToken,
   });
 };
+
+export const registerApple = (
+  credential: AppleAuthenticationCredential,
+  pushToken?: string
+) => {
+  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithApple, {
+    credential,
+    pushToken,
+  });
+};
+
 export const registerJWT = (data: RegisterJWTData) => {
   return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.register, data);
 };

@@ -42,7 +42,7 @@ const DealCard: FC<Props> = ({
     >
       <View style={tw`relative`}>
         <Image
-          style={tw`h-35 rounded-md `}
+          style={tw`h-35 rounded-lg `}
           source={{ uri: item.restaurant.cover_photo }}
         />
       </View>

@@ -55,4 +55,6 @@ export const COMMON_ROUTES = {
   MAINTENANCE_MODE: "MAINTENANCE_MODE",
   //map
   MAP_VIEW: "MAP_VIEW",
+  //debug
+  DEBUG: "DEBUG",
 } as const;

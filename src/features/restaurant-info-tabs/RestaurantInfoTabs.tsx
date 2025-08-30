@@ -10,7 +10,7 @@ import { IOpeningTimes } from "types/opening-times";
 import { MapViewRegion } from "screens/common/map-view/MapView";
 import { GoToMapImage } from "components/map";
 
-const map_style = tw`h-70 m-5 mt-5 rounded-md`;
+const map_style = tw`h-70 m-5 mt-5 rounded-lg`;
 
 const indicator_style = tw`h-[1.5px] bg-primary-main `;
 

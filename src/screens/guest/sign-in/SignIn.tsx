@@ -34,6 +34,11 @@ import TextButton from "components/buttons/text-button";
 import Spacer from "components/separators/spacer";
 import { useAppSelector } from "hooks/useAppSelector";
 import { isIOS } from "constants/theme";
+import AppleButton from "components/buttons/apple-button";
+import {
+  AppleAuthenticationScope,
+  signInAsync,
+} from "expo-apple-authentication";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -121,6 +126,25 @@ const SignIn = (props: any) => {
     prompAsync();
   };
 
+  const onAppleSignIn = async () => {
+    try {
+      const credential = await signInAsync({
+        requestedScopes: [
+          AppleAuthenticationScope.FULL_NAME,
+          AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      // signed in
+    } catch (e) {
+      //@ts-ignore
+      if (e.code === "ERR_REQUEST_CANCELED") {
+        // handle that the user canceled the sign-in flow
+      } else {
+        // handle other errors
+      }
+    }
+  };
+
   useEffect(() => {
     if (response?.type === "success") {
       if (response.authentication?.accessToken)
@@ -145,7 +169,7 @@ const SignIn = (props: any) => {
           </Typography>
 
           <Image
-            style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140]  `}
+            style={tw`h-[120] opacity-30 right-[-40] bottom-[-200%] absolute w-[140] -z-10 `}
             source={{
               uri: "https://thefoodieappuk.s3.eu-north-1.amazonaws.com/assets/yellow-orange-blur.png",
             }}
@@ -196,11 +220,14 @@ const SignIn = (props: any) => {
               text="Login"
             />
             <Or />
-            <GoogleButton
-              loading={googleLoading}
-              onPress={onGoogleSignIn}
-              variant="login"
-            />
+            <View style={tw`gap-4  flex-1`}>
+              <GoogleButton
+                loading={googleLoading}
+                onPress={onGoogleSignIn}
+                variant="login"
+              />
+              <AppleButton variant="login" onPress={onAppleSignIn} />
+            </View>
           </View>
           <Text
             style={tw`font-light text-center text-sm mt-12 mb-1.5   text-type-light-secondary`}
