@@ -23,7 +23,7 @@ import { GoogleButton } from "components/buttons/google-button";
 import RHFTextField from "components/form/RHF/RHFTextField";
 
 import { LoginSchema } from "lib/validation/auth";
-import { loginGoogle, loginJWT } from "lib/api";
+import { loginApple, loginGoogle, loginJWT } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 import { authLogin } from "store/auth/auth.slice";
 import { setSession } from "lib/axios";
@@ -134,13 +134,18 @@ const SignIn = (props: any) => {
           AppleAuthenticationScope.EMAIL,
         ],
       });
-      // signed in
+      const res = await loginApple(credential, pushToken);
+      const { user, accessToken } = res?.data;
+      dispatch(authLogin(user));
+      setSession(accessToken);
     } catch (e) {
       //@ts-ignore
       if (e.code === "ERR_REQUEST_CANCELED") {
         // handle that the user canceled the sign-in flow
       } else {
-        // handle other errors
+        catchErrorHandler(e, (error) => {
+          setError("root.afterSubmit", error);
+        });
       }
     }
   };

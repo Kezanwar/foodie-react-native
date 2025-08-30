@@ -26,78 +26,51 @@ import LocalStorage from "lib/storage";
 import { HomeFeedInfinitePage } from "types/home-feed";
 import { AppleAuthenticationCredential } from "expo-apple-authentication";
 
-const AUTH_ENDPOINTS = {
-  login: "/auth/login",
-  loginWithGoogle: "/auth/login-google",
-  register: "/auth/register",
-  confirmEmailOTP: "/auth/confirm-email",
-  resendEmailOTP: "/auth/confirm-email/resend-otp",
-  registerWithGoogle: "/auth/register-google",
-  registerWithApple: "/auth/register-apple",
-  intialize: "/auth/initialize",
-  forgotPassword: "/auth/forgot-password",
-  deleteAccount: "/auth/delete",
-};
-
-const APP_ENDPOINTS = {
-  // options
-  getOptions: "/options",
-  getPreferences: "/cust/preferences",
-  addPreferences: "/cust/preferences/add",
-  //home
-  getFeed: "/cust/deals/feed",
-  getHomeFeed: "/cust/deals/feed/home",
-  //deal
-  fav: "/cust/favourites",
-  getSingleDeal: "/cust/deals/single",
-  postStats: "/cust/stats",
-  //rest
-  follow: "/cust/following",
-  //account
-  patchProfile: "/account/profile",
-  //discover
-  getDiscover: "/cust/discover",
-  getSearchFeed: "/cust/deals/search",
-  //restaurant
-  getSingleRestaurant: "/cust/restaurant",
-  //geo
-  saveUserGeo: "/cust/geo",
-};
-
 // *OPTIONS
 
 export const getOptions = () => {
-  return axiosInstance.get<IOptions>(APP_ENDPOINTS.getOptions);
+  return axiosInstance.get<IOptions>("/options");
 };
 // *PREFERENCES
 
 export const getPreferences = () => {
-  return axiosInstance.get<IPreferences>(APP_ENDPOINTS.getPreferences);
+  return axiosInstance.get<IPreferences>("/cust/preferences");
 };
 
 export const addPreferences = (data: IOptions) => {
-  return axiosInstance.post<IPreferences>(APP_ENDPOINTS.addPreferences, data);
+  return axiosInstance.post<IPreferences>("/cust/preferences/add", data);
 };
 
 //*AUTH
 
 export const loginJWT = (data: LoginJWTData) => {
-  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.login, data);
+  return axiosInstance.post<LoginResponse>("/auth/login", data);
 };
 export const loginGoogle = (token: string, pushToken?: string) => {
-  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.loginWithGoogle, {
+  return axiosInstance.post<LoginResponse>("/auth/login-google", {
     token,
     pushToken,
   });
 };
+
+export const loginApple = (
+  credential: AppleAuthenticationCredential,
+  pushToken?: string
+) => {
+  return axiosInstance.post<LoginResponse>("/auth/login-apple", {
+    credential,
+    pushToken,
+  });
+};
+
 export const confirmEmailOTP = (otp: string) => {
-  return axiosInstance.post(`${AUTH_ENDPOINTS.confirmEmailOTP}/${otp}`);
+  return axiosInstance.post(`/auth/confirm-email/${otp}`);
 };
 export const resendEmailOTP = () => {
-  return axiosInstance.patch(AUTH_ENDPOINTS.resendEmailOTP);
+  return axiosInstance.patch("/auth/confirm-email/resend-otp");
 };
 export const registerGoogle = (token: string, pushToken?: string) => {
-  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithGoogle, {
+  return axiosInstance.post<LoginResponse>("/auth/register-google", {
     token,
     pushToken,
   });
@@ -107,32 +80,32 @@ export const registerApple = (
   credential: AppleAuthenticationCredential,
   pushToken?: string
 ) => {
-  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.registerWithApple, {
+  return axiosInstance.post<LoginResponse>("/auth/register-apple", {
     credential,
     pushToken,
   });
 };
 
 export const registerJWT = (data: RegisterJWTData) => {
-  return axiosInstance.post<LoginResponse>(AUTH_ENDPOINTS.register, data);
+  return axiosInstance.post<LoginResponse>("/auth/register", data);
 };
 
 export const initializeJWT = () => {
-  return axiosInstance.get<InitializeResponse>(AUTH_ENDPOINTS.intialize);
+  return axiosInstance.get<InitializeResponse>("/auth/initialize");
 };
 
 export const changePassword = (email: string) => {
-  return axiosInstance.post(AUTH_ENDPOINTS.forgotPassword, { email });
+  return axiosInstance.post("/auth/forgot-password", { email });
 };
 
 export const deleteAccount = () => {
-  return axiosInstance.post(AUTH_ENDPOINTS.deleteAccount);
+  return axiosInstance.post("/auth/delete");
 };
 
 //* GEO
 
 export const saveUserGeo = (long: number, lat: number) => {
-  return axiosInstance.post(APP_ENDPOINTS.saveUserGeo, { long, lat });
+  return axiosInstance.post("/cust/geo", { long, lat });
 };
 
 //* HOME
@@ -146,7 +119,7 @@ export const getHomeFeed = async (
 ) => {
   return axiosInstance
     .get<HomeFeedInfinitePage>(
-      `${APP_ENDPOINTS.getHomeFeed}/?page=${page}&long=${long}&lat=${lat}${
+      `/cust/deals/feed/home/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
       }`
     )
@@ -166,7 +139,7 @@ export const getFeed = async (
 ) => {
   return axiosInstance
     .get<DealInfinitePage>(
-      `${APP_ENDPOINTS.getFeed}/?page=${page}&long=${long}&lat=${lat}${
+      `/cust/deals/feed/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
       }`
     )
@@ -178,32 +151,32 @@ export const getFeed = async (
 //* FAVOURITES
 
 export const favouriteDeal = (data: FavMutationArg) => {
-  return axiosInstance.post<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
+  return axiosInstance.post<FavouriteDealResponse>("/cust/favourites", data);
 };
 
 export const unFavouriteDeal = (data: FavMutationArg) => {
-  return axiosInstance.patch<FavouriteDealResponse>(APP_ENDPOINTS.fav, data);
+  return axiosInstance.patch<FavouriteDealResponse>("/cust/favourites", data);
 };
 
 export const getFavourites = async (page: number) => {
   return axiosInstance
-    .get<FavouritesInfinitePage>(`${APP_ENDPOINTS.fav}/?page=${page}`)
+    .get<FavouritesInfinitePage>(`/cust/favourites/?page=${page}`)
     .then((res) => res.data);
 };
 
 //* FOLLOWS
 
 export const followRestaurant = (data: FollowMutationArg) => {
-  return axiosInstance.post<FollowRestResponse>(APP_ENDPOINTS.follow, data);
+  return axiosInstance.post<FollowRestResponse>("/cust/following", data);
 };
 
 export const unFollowRestaurant = (data: FollowMutationArg) => {
-  return axiosInstance.patch<FollowRestResponse>(APP_ENDPOINTS.follow, data);
+  return axiosInstance.patch<FollowRestResponse>("/cust/following", data);
 };
 
 export const getFollowing = async (page: number) => {
   return axiosInstance
-    .get<FollowingInfinitePage>(`${APP_ENDPOINTS.follow}/?page=${page}`)
+    .get<FollowingInfinitePage>(`/cust/following/?page=${page}`)
     .then((res) => res.data);
 };
 
@@ -211,7 +184,7 @@ export const getFollowing = async (page: number) => {
 
 export const getSingleDeal = async (data: GetSingleDealProps) => {
   return axiosInstance
-    .get<ISingleDeal>(APP_ENDPOINTS.getSingleDeal, {
+    .get<ISingleDeal>("/cust/deals/single", {
       params: data,
     })
     .then((res) => {
@@ -225,14 +198,14 @@ export const patchProfile = (data: {
   first_name: string;
   last_name: string;
 }) => {
-  return axiosInstance.patch<IUser>(APP_ENDPOINTS.patchProfile, data);
+  return axiosInstance.patch<IUser>("/account/profile", data);
 };
 
 //* DISCOVER
 
 export const getDiscover = (long: number, lat: number) => {
   return axiosInstance.get<DiscoverResponse>(
-    `${APP_ENDPOINTS.getDiscover}?lat=${lat}&long=${long}`
+    `/cust/discover?lat=${lat}&long=${long}`
   );
 };
 
@@ -244,7 +217,7 @@ export const getSearchFeed = async (
 ) => {
   return axiosInstance
     .get<DealInfinitePage>(
-      `${APP_ENDPOINTS.getSearchFeed}/?page=${page}&long=${long}&lat=${lat}${search_text}`
+      `/cust/deals/search/?page=${page}&long=${long}&lat=${lat}${search_text}`
     )
     .then((res) => {
       return res.data;
@@ -256,7 +229,7 @@ export const getSearchFeed = async (
 export const getSingleRest = async (data: GetSingleRestProps) => {
   return axiosInstance
     .get<IRestaurant>(
-      `${APP_ENDPOINTS.getSingleRestaurant}/${data.location_id}`
+      `/cust/restaurant/${data.location_id}`
     )
     .then((res) => {
       return res.data;
@@ -271,7 +244,7 @@ export const postStats = async () => {
   }
 
   try {
-    await axiosInstance.post(APP_ENDPOINTS.postStats, {
+    await axiosInstance.post("/cust/stats", {
       stats,
     });
     LocalStorage.clearStats();
