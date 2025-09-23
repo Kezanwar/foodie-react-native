@@ -3,21 +3,17 @@ import { Image } from "expo-image";
 import React, { FC, useMemo } from "react";
 import tw from "theme/tailwind";
 import Typography from "components/typography";
-import ShareButton from "components/buttons/share-button";
-
+import { ILocationFeedItem } from "types/feed";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { DealChipReadOnly } from "components/deal-chip";
 import { ChipContainer } from "components/chip";
-import { ILocationFeedItem } from "types/feed";
 
 type Props = {
   item: ILocationFeedItem;
-  onShare: (name: string, location_id: string) => void;
-  showActions?: boolean;
-  navToRest: (location_id: string) => void;
+  onPress: () => void;
 };
 
-const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
+const GuestLocationFeedCard: FC<Props> = ({ item, onPress }) => {
   const total = item.location.active_deals.length;
 
   const dealsToShow = useMemo(() => {
@@ -32,11 +28,7 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
   const applyMaxWidth = total > 1;
 
   return (
-    <TouchableOpacity
-      onPress={() => navToRest(item.location._id)}
-      activeOpacity={0.8}
-      style={tw`bg-white px-5 py-6`}
-    >
+    <TouchableOpacity onPress={onPress} style={tw`bg-white px-5 py-6`}>
       <View style={tw`relative`}>
         <Image
           style={tw`h-35 rounded-lg `}
@@ -51,12 +43,6 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
               size="md"
               source={{ uri: item.restaurant.avatar }}
             />
-            {/* <Ionicons
-              name="restaurant-outline"
-              size={20}
-              color={tw.color("primary-main")}
-              style={tw`-mt-0.5`}
-            /> */}
             <View style={tw`gap-.5`}>
               <Typography
                 style=" font-semi-bold leading-[1.3] mt-1 text-4"
@@ -77,14 +63,6 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
         </View>
         <View style={tw`gap-2.25 `}>
           <View style={tw`items-start justify-end  mt-1  flex-row gap-1`}>
-            {/* <ShareButton
-              onPress={() =>
-                onShare(
-                  `${item.restaurant.name} | ${item.location.nickname})`,
-                  item.location._id
-                )
-              }
-            /> */}
             <Typography
               variant="body2"
               color="success.main"
@@ -113,4 +91,4 @@ const LocationFeedCard: FC<Props> = ({ item, onShare, navToRest }) => {
   );
 };
 
-export default React.memo(LocationFeedCard);
+export default React.memo(GuestLocationFeedCard);

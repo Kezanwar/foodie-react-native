@@ -24,7 +24,7 @@ import {
   initializeDietary,
   toggleCuisine,
   toggleDietary,
-} from "store/preferences/preferences.slice";
+} from "store/preferences";
 import useSnackbar from "hooks/useSnackbar";
 import { addPreferences } from "lib/api";
 import { catchErrorHandler } from "utils/error";

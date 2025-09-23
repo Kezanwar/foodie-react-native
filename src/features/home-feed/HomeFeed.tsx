@@ -7,9 +7,10 @@ import { useAppSelector } from "hooks/useAppSelector";
 import FilterIcon from "components/svgs/filter-icon";
 import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
-import { IHomeFeedItem } from "types/home-feed";
+
 import { LocationFeedCard } from "features/location-card";
 import { DEEP_LINK_BASE_URL } from "lib/env";
+import { ILocationFeedItem } from "types/feed";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -38,7 +39,7 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
     );
 
     const { cuisines, dietary_requirements } = useAppSelector(
-      (state) => state.home.filters
+      (state) => state.filters.filters
     );
 
     const onShare = useCallback(async (title: string, location_id: string) => {
@@ -95,7 +96,7 @@ const HomeFeed = forwardRef<HomeFeedRef, Props>(
 
     return (
       <FlatList
-        ref={ref as React.LegacyRef<FlatList<IHomeFeedItem>>}
+        ref={ref as React.LegacyRef<FlatList<ILocationFeedItem>>}
         onRefresh={refetch}
         refreshing={isRefetching}
         contentContainerStyle={tw`bg-grey-200 gap-3`}

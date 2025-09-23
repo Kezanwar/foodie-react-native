@@ -12,7 +12,7 @@ import Typography from "components/typography";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useAppDispatch from "hooks/useAppDispatch";
-import { addRegisterDetails } from "store/create-account/create-account.slice";
+import { addRegisterDetails } from "store/create-account";
 import { RegisterUserDetailsSchema } from "lib/validation/auth";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
@@ -49,7 +49,7 @@ const AddDetails: React.FC = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
+        <View style={tw`flex-1 py-2  px-5   bg-white dark:bg-grey-800`}>
           <Typography variant="h6" style={" font-bold mb-2 "}>
             Hello!
           </Typography>

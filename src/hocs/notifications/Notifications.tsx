@@ -10,7 +10,7 @@ import {
   clearNotification,
   setExpoPushToken,
   setNotification,
-} from "store/notifications/notifications.slice";
+} from "store/notifications";
 
 import { useAppSelector } from "hooks/useAppSelector";
 import useOpenNotificationHandler from "./useOpenNotificationHandler";

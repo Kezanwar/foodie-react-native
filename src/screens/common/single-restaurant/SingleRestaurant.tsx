@@ -22,7 +22,7 @@ import { COMMON_ROUTES, DynamicStack } from "constants/routes";
 import DealButton from "components/buttons/deal-button";
 import CoverBackButton from "components/cover-back-button";
 import { GetSingleDealProps } from "types/single-deal";
-import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { setSingleDeal } from "store/single-deal";
 import useAppDispatch from "hooks/useAppDispatch";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { useAppSelector } from "hooks/useAppSelector";

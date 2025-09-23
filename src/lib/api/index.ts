@@ -23,7 +23,7 @@ import { GetSingleRestProps, IRestaurant } from "types/restaurant";
 import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
 import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 import LocalStorage from "lib/storage";
-import { HomeFeedInfinitePage } from "types/home-feed";
+import { HomeFeedInfinitePage } from "types/feed";
 import { AppleAuthenticationCredential } from "expo-apple-authentication";
 
 // *OPTIONS
@@ -120,6 +120,24 @@ export const getHomeFeed = async (
   return axiosInstance
     .get<HomeFeedInfinitePage>(
       `/cust/deals/feed/home/?page=${page}&long=${long}&lat=${lat}${
+        cuisines + dietary_requirements
+      }`
+    )
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const getGuestFeed = async (
+  page: number,
+  long: number,
+  lat: number,
+  cuisines: string,
+  dietary_requirements: string
+) => {
+  return axiosInstance
+    .get<HomeFeedInfinitePage>(
+      `/cust/deals/feed/guest/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
       }`
     )
@@ -228,9 +246,7 @@ export const getSearchFeed = async (
 
 export const getSingleRest = async (data: GetSingleRestProps) => {
   return axiosInstance
-    .get<IRestaurant>(
-      `/cust/restaurant/${data.location_id}`
-    )
+    .get<IRestaurant>(`/cust/restaurant/${data.location_id}`)
     .then((res) => {
       return res.data;
     });

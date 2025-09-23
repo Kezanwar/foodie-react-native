@@ -1,5 +1,5 @@
 import { MMKV } from "react-native-mmkv";
-import { LocationLocalStorageData } from "store/location/location.slice";
+import { LocationLocalStorageData } from "store/location";
 import { IFeedDeal } from "types/deal-feed";
 import { StatMap, Stats } from "types/stats";
 

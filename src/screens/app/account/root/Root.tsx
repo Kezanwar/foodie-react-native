@@ -24,7 +24,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
 import { onLogout } from "store/global-actions";
 import TextButton from "components/buttons/text-button";
-import { handleSecretTap } from "store/debug/debug.slice";
+import { handleSecretTap } from "store/debug";
 
 type Props = any;
 

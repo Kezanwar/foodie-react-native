@@ -25,7 +25,7 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 import { LoginSchema } from "lib/validation/auth";
 import { loginApple, loginGoogle, loginJWT } from "lib/api";
 import { catchErrorHandler } from "utils/error";
-import { authLogin } from "store/auth/auth.slice";
+import { authLogin } from "store/auth";
 import { setSession } from "lib/axios";
 import { androidOAuthClientId, iOSOAuthClientId } from "lib/env";
 import useAppDispatch from "hooks/useAppDispatch";

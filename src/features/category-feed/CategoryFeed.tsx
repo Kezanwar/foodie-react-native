@@ -18,7 +18,7 @@ import { Option } from "types/options";
 import { GetSingleDealProps } from "types/single-deal";
 import { IFeedDeal } from "types/deal-feed";
 
-import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { setSingleDeal } from "store/single-deal";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 

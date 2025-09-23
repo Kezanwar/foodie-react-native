@@ -1,8 +1,8 @@
-export const localBaseURL = "http://192.168.1.133:5006/api";
+export const localBaseURL = "http://192.168.1.81:5006/api";
 //@ts-ignore
-export const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+// export const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 // export const baseUrl = `https://api.thefoodiestaging.app/api`;
-// export const baseUrl = localBaseURL;
+export const baseUrl = localBaseURL;
 
 export const androidOAuthClientId = //@ts-ignore
   process.env.EXPO_PUBLIC_ANDROID_OAUTH_CLIENT_ID as string;

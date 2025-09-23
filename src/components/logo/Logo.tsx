@@ -2,7 +2,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import React from "react";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg";
-import { handleSecretTap } from "store/debug/debug.slice";
+import { handleSecretTap } from "store/debug";
 
 type Props = {
   width?: number;

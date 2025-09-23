@@ -3,7 +3,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { setTheme } from "store/theme/theme.slice";
+import { setTheme } from "store/theme";
 import tw from "theme/tailwind";
 import { useAppColorScheme } from "twrnc";
 

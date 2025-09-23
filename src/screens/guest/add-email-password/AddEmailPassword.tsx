@@ -18,7 +18,7 @@ import RHFTextField from "components/form/RHF/RHFTextField";
 import useAppDispatch from "hooks/useAppDispatch";
 import useSnackbar from "hooks/useSnackbar";
 import { registerJWT } from "lib/api";
-import { authLogin } from "store/auth/auth.slice";
+import { authLogin } from "store/auth";
 import { setSession } from "lib/axios";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert/Alert";
@@ -114,7 +114,7 @@ const AddEmailPassword: React.FC = (props: any) => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
+        <View style={tw`flex-1 py-2  px-5   bg-white dark:bg-grey-800`}>
           <Typography variant="h6" style={" font-bold mb-2 "}>
             Welcome, {first_name}!
           </Typography>

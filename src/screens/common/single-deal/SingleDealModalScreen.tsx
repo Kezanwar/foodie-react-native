@@ -18,7 +18,7 @@ import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 
 import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
-import { SingleDealState } from "store/single-deal/single-deal.slice";
+import { SingleDealState } from "store/single-deal";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { getDistanceInMiles } from "utils/distance";
 import { useAppSelector } from "hooks/useAppSelector";

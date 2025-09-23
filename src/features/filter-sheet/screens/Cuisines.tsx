@@ -14,7 +14,7 @@ import { StaticScreenWrapper } from "components/screen-wrapper";
 import { useAppSelector } from "hooks/useAppSelector";
 import useAppDispatch from "hooks/useAppDispatch";
 
-import { setCuisineFilterForm } from "store/home/home.slice";
+import { setCuisineFilterForm } from "store/filters";
 import {
   createAlphabetCuisinesSearchMap,
   findClosestCuisineAlphabetIndex,
@@ -27,7 +27,7 @@ const Cuisines = (props: any) => {
   const cuisinesFlatListRef = useRef<BottomSheetFlatListMethods>(null);
 
   const cuisinesForm = useAppSelector(
-    (state) => state.home.filterForm.cuisines
+    (state) => state.filters.filterForm.cuisines
   );
 
   const onItemPress = useCallback((index: number) => {

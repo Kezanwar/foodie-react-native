@@ -3,7 +3,7 @@ export type ActiveDealReadOnly = {
   name: string;
 };
 
-export type IHomeFeedItem = {
+export type ILocationFeedItem = {
   _id: string;
   restaurant: {
     _id: string;
@@ -19,9 +19,9 @@ export type IHomeFeedItem = {
   };
 };
 
-export type IHomeFeedResponse = IHomeFeedItem[];
+export type ILocationFeedResponse = ILocationFeedItem[];
 
 export type HomeFeedInfinitePage = {
   nextCursor: number | undefined;
-  locations: IHomeFeedResponse;
+  locations: ILocationFeedResponse;
 };

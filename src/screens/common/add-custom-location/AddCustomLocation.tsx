@@ -24,7 +24,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 
 import { catchErrorHandler } from "utils/error";
 
-import { setLocationObject } from "store/location/location.slice";
+import { setLocationObject } from "store/location";
 import LoadingSpinner from "components/loading-spinner";
 import { isIOS } from "constants/theme";
 
@@ -118,7 +118,7 @@ const AddCustomLocation = (props: any) => {
         })
       );
       LocalStorage.setShouldUseCurrentLocation(false);
-      props.navigation.navigate("Home");
+      onGoBack();
     }
   };
 

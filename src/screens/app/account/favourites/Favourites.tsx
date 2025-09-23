@@ -6,7 +6,7 @@ import useFavouritesQuery from "hooks/queries/useFavouritesQuery";
 import DealCard from "features/deal-card";
 import { IFeedDeal } from "types/deal-feed";
 import useAppDispatch from "hooks/useAppDispatch";
-import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { setSingleDeal } from "store/single-deal";
 import { ACCOUNT_STACK } from "constants/routes";
 import { GetSingleDealProps } from "types/single-deal";
 import { CenteredTextHeader } from "features/headers/common";

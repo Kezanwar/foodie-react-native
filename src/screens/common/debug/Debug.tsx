@@ -9,7 +9,7 @@ import { TextActionHeader } from "features/headers/common";
 import LocalStorage from "lib/storage";
 import RoundedButton from "components/buttons/rounded-button/RoundedButton";
 import useAppDispatch from "hooks/useAppDispatch";
-import { deactivate, setDebugAPIEndpoint } from "store/debug/debug.slice";
+import { deactivate, setDebugAPIEndpoint } from "store/debug";
 import { CustomTextField } from "components/form/custom-text-field";
 
 import { AntDesign } from "@expo/vector-icons";

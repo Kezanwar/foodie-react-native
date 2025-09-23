@@ -5,7 +5,7 @@ import {
   setIsFindingLocation,
   setLocationError,
   setLocationObject,
-} from "store/location/location.slice";
+} from "store/location";
 import LocalStorage from "lib/storage";
 import useSnackbar from "./useSnackbar";
 import { saveUserGeo } from "lib/api";
@@ -61,7 +61,12 @@ const useRequestLocation = () => {
           return;
         }
 
-        await saveUserGeo(location.coords.longitude, location.coords.latitude);
+        if (user) {
+          await saveUserGeo(
+            location.coords.longitude,
+            location.coords.latitude
+          );
+        }
       } catch (error) {
         console.log(error);
       }

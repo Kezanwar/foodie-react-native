@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Text } from "react-native";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
-import { ISnackbarMessage } from "store/snackbar/snackbar.slice";
+import { ISnackbarMessage } from "store/snackbar";
 import tw from "theme/tailwind";
 import variantStyles from "theme/variant-styles";
 

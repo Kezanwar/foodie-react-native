@@ -8,9 +8,9 @@ import { useAppSelector } from "hooks/useAppSelector";
 
 type Props = { onFilterPress: () => void; onLocationPress: () => void };
 
-const RootHeader: FC<Props> = ({ onFilterPress, onLocationPress }) => {
+const FilterScreenHeader: FC<Props> = ({ onFilterPress, onLocationPress }) => {
   const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.home.filters
+    (state) => state.filters.filters
   );
 
   const filterCount = useMemo(
@@ -25,4 +25,4 @@ const RootHeader: FC<Props> = ({ onFilterPress, onLocationPress }) => {
   );
 };
 
-export default RootHeader;
+export default FilterScreenHeader;

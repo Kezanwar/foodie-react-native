@@ -2,7 +2,7 @@ import axios from "axios";
 import { queryClient } from "hocs/app-ready/providers/react-query/ReactQuery";
 import { APP_VERSION, baseUrl } from "lib/env";
 import LocalStorage from "lib/storage";
-import { setMaintenanceMode, setUpdateRequired } from "store/auth/auth.slice";
+import { setMaintenanceMode, setUpdateRequired } from "store/auth";
 import { onLogout } from "store/global-actions";
 import { store } from "store/store";
 // config

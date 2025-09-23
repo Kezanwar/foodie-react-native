@@ -18,6 +18,7 @@ import ForgotPassword from "screens/guest/forgot-password";
 
 import MapView from "screens/common/map-view";
 import Debug from "screens/common/debug";
+import GuestFeed from "screens/guest/guest-feed";
 
 // export type RootStackParamList = {
 //   App: undefined;
@@ -62,6 +63,10 @@ const RootNavigator: FC = () => {
       ) : (
         // Auth screens
         <RootStack.Group screenOptions={{ headerShown: false }}>
+          <RootStack.Screen
+            name={AUTH_ROUTES.GUEST_FEED}
+            component={GuestFeed}
+          />
           <RootStack.Screen name={AUTH_ROUTES.SIGN_UP} component={SignUp} />
           <RootStack.Screen name={AUTH_ROUTES.SIGN_IN} component={SignIn} />
           <RootStack.Screen
@@ -85,6 +90,19 @@ const RootNavigator: FC = () => {
           name={COMMON_ROUTES.PRIVACY_POLICY}
           component={PrivacyPolicy}
         />
+        <RootStack.Screen
+          options={{ headerShown: false }}
+          name={COMMON_ROUTES.LOCATION}
+          component={Location}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false,
+            presentation: "containedModal",
+          }}
+          name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
+          component={AddCustomLocation}
+        />
         {isLoggedIn && emailConfirmed && (
           <>
             <RootStack.Screen
@@ -92,19 +110,7 @@ const RootNavigator: FC = () => {
               name={COMMON_ROUTES.PREFERENCES}
               component={Preferences}
             />
-            <RootStack.Screen
-              options={{ headerShown: false }}
-              name={COMMON_ROUTES.LOCATION}
-              component={Location}
-            />
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-                presentation: "containedModal",
-              }}
-              name={COMMON_ROUTES.ADD_CUSTOM_LOCATION}
-              component={AddCustomLocation}
-            />
+
             <RootStack.Screen
               options={{
                 headerShown: false,

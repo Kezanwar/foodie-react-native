@@ -10,13 +10,13 @@ type FilterForm = {
   dietary_requirements: SelectChipFormObj[];
 };
 
-interface homeSliceState {
+interface filtersSliceState {
   filters: IFilters;
   filterForm: FilterForm;
   isFilterFormInitialized: boolean;
 }
 
-const initialState: homeSliceState = {
+const initialState: filtersSliceState = {
   filters: { cuisines: [], dietary_requirements: [] },
   filterForm: {
     cuisines: [],
@@ -25,8 +25,8 @@ const initialState: homeSliceState = {
   isFilterFormInitialized: false,
 };
 
-const homeSlice = createSlice({
-  name: "homeSlice",
+const filtersSlice = createSlice({
+  name: "filtersSlice",
   initialState,
   reducers: {
     initializeFilterForm: (
@@ -101,9 +101,9 @@ export const {
   onSaveFilterForm,
   clearCuisinesFilter,
   clearDietaryFilter,
-} = homeSlice.actions;
+} = filtersSlice.actions;
 
 // export for store
-const homeReducer = homeSlice.reducer;
+const filtersReducer = filtersSlice.reducer;
 
-export default homeReducer;
+export default filtersReducer;

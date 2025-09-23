@@ -13,7 +13,7 @@ import {
   clearCuisinesFilter,
   clearDietaryFilter,
   initializeFilterForm,
-} from "store/home/home.slice";
+} from "store/filters";
 
 import { LoadingScreen } from "components/loading-screen";
 import FilterNavAction from "../components/FilterNavAction";
@@ -25,10 +25,10 @@ const Root = (props: any) => {
   const navDietary = () =>
     props.navigation.navigate(FILTER_ROUTES.DIETARY_REQUIREMENTS);
 
-  const filterForm = useAppSelector((state) => state.home.filterForm);
+  const filterForm = useAppSelector((state) => state.filters.filterForm);
 
   const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.home.filterForm
+    (state) => state.filters.filterForm
   );
 
   const { data: opt, isLoading } = useOptionsQuery();

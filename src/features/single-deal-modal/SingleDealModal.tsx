@@ -1,26 +1,14 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
-import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import tw from "theme/tailwind";
-
 import SingleDealModalScreen from "screens/common/single-deal";
 import { useAppSelector } from "hooks/useAppSelector";
+import { renderBackdrop } from "components/sheet";
+
+const snapPoints = ["55%"];
 
 const SingleDealModal: FC = () => {
-  const snapPoints = useMemo(() => ["55%"], []);
   const modalRef = useRef<BottomSheetModal>(null);
-
-  const renderBackdrop = useCallback(
-    (props: any) => (
-      <BottomSheetBackdrop
-        {...props}
-        animatedIndex={{
-          value: 1,
-        }}
-        opacity={0.3}
-      />
-    ),
-    []
-  );
 
   const close = useCallback(() => {
     modalRef.current?.close();
@@ -40,7 +28,6 @@ const SingleDealModal: FC = () => {
   return (
     <BottomSheetModal
       ref={modalRef}
-      handleStyle={tw`border-b border-grey-200 `}
       index={0}
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}

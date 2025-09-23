@@ -4,7 +4,7 @@ import { NotificationRequest } from "expo-notifications";
 import { HOME_STACK } from "constants/routes";
 import { NOTIFICATION_TYPES } from "./types";
 import useAppDispatch from "hooks/useAppDispatch";
-import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { setSingleDeal } from "store/single-deal";
 import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
 
 const useOpenNotificationHandler = () => {

@@ -16,7 +16,7 @@ import { View } from "react-native";
 import Typography from "components/typography";
 import { useAppSelector } from "hooks/useAppSelector";
 import { GetSingleDealProps } from "types/single-deal";
-import { setSingleDeal } from "store/single-deal/single-deal.slice";
+import { setSingleDeal } from "store/single-deal";
 import useAppDispatch from "hooks/useAppDispatch";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue

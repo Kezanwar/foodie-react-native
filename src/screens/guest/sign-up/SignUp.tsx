@@ -13,7 +13,7 @@ import Typography from "components/typography";
 import { GoogleButton } from "components/buttons/google-button";
 
 import { catchErrorHandler } from "utils/error";
-import { authLogin } from "store/auth/auth.slice";
+import { authLogin } from "store/auth";
 import { setSession } from "lib/axios";
 
 import { SECTION_SHADOWS } from "theme/custom-shadows";

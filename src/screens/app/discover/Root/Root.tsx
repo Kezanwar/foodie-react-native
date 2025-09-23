@@ -22,15 +22,16 @@ import {
   setIsSearchFocusedOff,
   setIsSearchFocusedOn,
   setSearchText,
-} from "store/discover/discover.slice";
+} from "store/discover";
 import { useAppSelector } from "hooks/useAppSelector";
 
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import SearchFeed from "features/search-feed/SearchFeed";
 import SectionCard from "components/section-card/SectionCard";
-import LocationStatus from "components/location-status/LocationStatus";
+import LocationStatus from "components/location-protected-content/LocationProtectedContent";
 import LoadingSpinner from "components/loading-spinner";
 import EmptyState from "components/empty-state/EmptyState";
+import LocationProtectedContent from "components/location-protected-content/LocationProtectedContent";
 
 type Props = any;
 
@@ -114,9 +115,8 @@ const Root: FC<Props> = ({ navigation }) => {
           {isSearchFocused && <SearchSuggestions />}
         </HeaderContainer>
       </SafeAreaView>
-      <LocationStatus />
-      {hasLocation ? (
-        !hasSubmitted || searchFeedIsLoading ? (
+      <LocationProtectedContent>
+        {!hasSubmitted || searchFeedIsLoading ? (
           <DiscoverBaseContent
             navToLocation={handleLocationPress}
             navToRest={navRest}
@@ -124,8 +124,8 @@ const Root: FC<Props> = ({ navigation }) => {
           />
         ) : (
           <SearchFeed navigation={navigation} />
-        )
-      ) : null}
+        )}
+      </LocationProtectedContent>
     </>
   );
 };

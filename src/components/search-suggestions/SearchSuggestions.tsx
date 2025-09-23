@@ -7,7 +7,7 @@ import Typography from "components/typography";
 import SearchSuggestionButton from "components/buttons/search-suggestion-button";
 import { KeyboardDismissingView } from "components/keyboard-dismmising-view";
 import useAppDispatch from "hooks/useAppDispatch";
-import { handleSuggestionSearch } from "store/discover/discover.slice";
+import { handleSuggestionSearch } from "store/discover";
 
 const SearchSuggestions: FC = () => {
   const dispatch = useAppDispatch();

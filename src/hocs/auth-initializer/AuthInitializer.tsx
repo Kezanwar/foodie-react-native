@@ -2,7 +2,7 @@ import React, { FC, ReactNode, useCallback, useEffect } from "react";
 
 import LocalStorage from "lib/storage";
 import { useAppSelector } from "hooks/useAppSelector";
-import { authLogin, setIsInitialized } from "store/auth/auth.slice";
+import { authLogin, setIsInitialized } from "store/auth";
 
 import { initializeJWT, postStats } from "lib/api";
 import { setSession } from "lib/axios";

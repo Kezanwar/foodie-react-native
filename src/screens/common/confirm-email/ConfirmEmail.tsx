@@ -12,7 +12,7 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { useAppSelector } from "hooks/useAppSelector";
 import useSnackbar from "hooks/useSnackbar";
 
-import { authLogin } from "store/auth/auth.slice";
+import { authLogin } from "store/auth";
 import { catchErrorHandler } from "utils/error";
 import { confirmEmailOTP, initializeJWT, resendEmailOTP } from "lib/api";
 
@@ -20,6 +20,7 @@ const OTP_THEME: Theme = {
   pinCodeTextStyle: tw`font-light text-xl`,
   focusStickStyle: tw`h-5 w-[1px] bg-grey-900`,
   containerStyle: tw`mb-12`,
+  pinCodeContainerStyle: tw`gap-1`,
 };
 
 const ConfirmEmail: React.FC = () => {
@@ -79,7 +80,7 @@ const ConfirmEmail: React.FC = () => {
         containerStyle={tw`flex-1`}
         style={tw`flex-1 gap-10`}
       >
-        <View style={tw`flex-1 py-2  px-7   bg-white dark:bg-grey-800`}>
+        <View style={tw`flex-1 py-2  px-5   bg-white dark:bg-grey-800`}>
           <Typography variant="h6" style={" font-bold mb-2 "}>
             Confirm your email
           </Typography>

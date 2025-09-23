@@ -3,19 +3,21 @@ import { useAppSelector } from "hooks/useAppSelector";
 import LocationsPermissionsError from "./components/LocationPermissionsError";
 import LocationLoading from "./components/LocationLoading";
 
-type Props = {};
+type Props = {
+  children: ReactNode;
+};
 
-const LocationStatus: FC<Props> = () => {
+const LocationProtectedContent: FC<Props> = ({ children }) => {
   const { error, isFindingLocation, location } = useAppSelector(
     (state) => state.location
   );
 
-  if (error) return <LocationsPermissionsError error={error} />;
-
   if (!location && isFindingLocation) return <LocationLoading />;
+
+  if (error) return <LocationsPermissionsError error={error} />;
   else {
-    return null;
+    return children;
   }
 };
 
-export default LocationStatus;
+export default LocationProtectedContent;

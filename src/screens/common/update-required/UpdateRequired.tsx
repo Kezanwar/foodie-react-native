@@ -10,7 +10,7 @@ const UpdateRequired: FC<Props> = ({}) => {
   return (
     <StaticScreenWrapper>
       <View
-        style={tw`flex-1 py-2 justify-center  px-7   bg-white dark:bg-grey-800`}
+        style={tw`flex-1 py-2 justify-center  px-5   bg-white dark:bg-grey-800`}
       >
         <Typography variant="h6" style={" font-bold text-center mb-2  "}>
           App Update Required
@@ -20,7 +20,7 @@ const UpdateRequired: FC<Props> = ({}) => {
           latest features and ensure the best performance, please update to the
           newest version of our app.
         </Typography>
-        <View style={tw`px-7 mt-12`}></View>
+        <View style={tw` mt-12`}></View>
       </View>
     </StaticScreenWrapper>
   );

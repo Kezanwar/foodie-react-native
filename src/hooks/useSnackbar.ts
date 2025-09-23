@@ -1,9 +1,5 @@
 import { useCallback } from "react";
-import {
-  ISnackbarMessage,
-  addMessage,
-  removeMessage,
-} from "store/snackbar/snackbar.slice";
+import { ISnackbarMessage, addMessage, removeMessage } from "store/snackbar";
 import { v4 } from "uuid";
 import useAppDispatch from "./useAppDispatch";
 

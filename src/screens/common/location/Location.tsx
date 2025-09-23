@@ -17,7 +17,7 @@ import useRequestLocation from "hooks/useRequestLocation";
 import { reverseGeocodedMainText } from "utils/text";
 import { COMMON_ROUTES } from "constants/routes";
 import { useFocusEffect } from "@react-navigation/native";
-import LocationStatus from "components/location-status/LocationStatus";
+import LocationProtectedContent from "components/location-protected-content/LocationProtectedContent";
 
 const Location = (props: any) => {
   const { reverseGeocode, error, location } = useAppSelector(
@@ -48,71 +48,67 @@ const Location = (props: any) => {
           rightActionText="Done"
           rightActionOnPress={props.navigation.goBack}
         />
-        <LocationStatus />
-        {location && (
-          <>
-            <Typography
-              variant="body2"
-              style="mb-20 leading-[1.6]"
-              color="text.secondary"
-            >
-              Choose a location to browse from, you can use your current
-              location or specify one.
-            </Typography>
-
-            <View style={tw`items-center`}>
-              <Ionicons
-                name="map-outline"
-                size={32}
-                color={tw.color("primary-main")}
-              />
-              <Typography
-                variant="h7"
-                color="text.primary"
-                style={" mt-5 font-medium text-center"}
-              >
-                {reverseGeocode
-                  ? reverseGeocodedMainText(reverseGeocode)
-                  : "No Location"}
-              </Typography>
-
+        <LocationProtectedContent>
+          {location && (
+            <>
               <Typography
                 variant="body2"
+                style="mb-20 leading-[1.6]"
                 color="text.secondary"
-                style={"mt-2 -ml-1 text-center "}
               >
-                {reverseGeocode
-                  ? reverseGeocode?.subregion
-                  : "User denied Location Permissions..."}
+                Choose a location to browse from, you can use your current
+                location or specify one.
               </Typography>
-              {reverseGeocode && (
+
+              <View style={tw`items-center`}>
+                <Ionicons
+                  name="map-outline"
+                  size={32}
+                  color={tw.color("primary-main")}
+                />
+                <Typography
+                  variant="h7"
+                  color="text.primary"
+                  style={" mt-5 font-medium text-center"}
+                >
+                  {reverseGeocode
+                    ? reverseGeocodedMainText(reverseGeocode)
+                    : "No Location"}
+                </Typography>
+
                 <Typography
                   variant="body2"
                   color="text.secondary"
                   style={"mt-2 -ml-1 text-center "}
                 >
-                  {reverseGeocode?.country}
+                  {reverseGeocode
+                    ? reverseGeocode?.subregion
+                    : "User denied Location Permissions..."}
                 </Typography>
-              )}
-            </View>
-          </>
-        )}
-
-        <View style={tw`flex-1 gap-4 justify-end`}>
-          {!error && (
-            <>
-              <FullWidthButton
-                onPress={() => requestLocation()}
-                text="Use your Current Location"
-              />
-              <Or />
-              <TextButton
-                label="Use a Different Location"
-                onPress={onAddCustomLocation}
-              />
+                {reverseGeocode && (
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    style={"mt-2 -ml-1 text-center "}
+                  >
+                    {reverseGeocode?.country}
+                  </Typography>
+                )}
+              </View>
             </>
           )}
-        </View>
+          <View style={tw`flex-1 gap-4 justify-end`}>
+            <FullWidthButton
+              onPress={() => requestLocation()}
+              text="Use your Current Location"
+            />
+            <Or />
+            <TextButton
+              label="Use a Different Location"
+              onPress={onAddCustomLocation}
+            />
+          </View>
+        </LocationProtectedContent>
       </View>
     </StaticScreenWrapper>
   );

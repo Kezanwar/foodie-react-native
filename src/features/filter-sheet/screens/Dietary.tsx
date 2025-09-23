@@ -13,7 +13,7 @@ import { StaticScreenWrapper } from "components/screen-wrapper";
 import { useAppSelector } from "hooks/useAppSelector";
 import useAppDispatch from "hooks/useAppDispatch";
 
-import { setDietaryReqFilterForm } from "store/home/home.slice";
+import { setDietaryReqFilterForm } from "store/filters";
 
 const Dietary = (props: any) => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const Dietary = (props: any) => {
   const dietaryFlatListRef = useRef<BottomSheetFlatListMethods>(null);
 
   const dietaryForm = useAppSelector(
-    (state) => state.home.filterForm.dietary_requirements
+    (state) => state.filters.filterForm.dietary_requirements
   );
 
   const onItemPress = useCallback((index: number) => {

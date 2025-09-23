@@ -11,7 +11,7 @@ const MaintenanceMode: FC<Props> = ({}) => {
   return (
     <StaticScreenWrapper>
       <View
-        style={tw`flex-1 py-2 justify-center items-center  px-7   bg-white dark:bg-grey-800`}
+        style={tw`flex-1 py-2 justify-center items-center  px-5   bg-white dark:bg-grey-800`}
       >
         <Ionicons
           name="hammer-outline"

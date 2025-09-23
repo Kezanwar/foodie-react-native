@@ -1,17 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // reducers
-import authReducer from "./auth/auth.slice";
-import snackbarReducer from "./snackbar/snackbar.slice";
-import themeReducer from "./theme/theme.slice";
-import createAccountReducer from "./create-account/create-account.slice";
-import preferencesReducer from "./preferences/preferences.slice";
-import locationReducer from "./location/location.slice";
-import homeReducer from "./home/home.slice";
-import discoverReducer from "./discover/discover.slice";
-import singleDealReducer from "./single-deal/single-deal.slice";
-import notificationsReducer from "./notifications/notifications.slice";
-import debugReducer from "./debug/debug.slice";
+import authReducer from "./auth";
+import snackbarReducer from "./snackbar";
+import themeReducer from "./theme";
+import createAccountReducer from "./create-account";
+import preferencesReducer from "./preferences";
+import locationReducer from "./location";
+import filtersReducer from "./filters";
+import discoverReducer from "./discover";
+import singleDealReducer from "./single-deal";
+import notificationsReducer from "./notifications";
+import debugReducer from "./debug";
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +21,7 @@ export const store = configureStore({
     createAccount: createAccountReducer,
     preferences: preferencesReducer,
     location: locationReducer,
-    home: homeReducer,
+    filters: filtersReducer,
     discover: discoverReducer,
     singleDeal: singleDealReducer,
     notifications: notificationsReducer,

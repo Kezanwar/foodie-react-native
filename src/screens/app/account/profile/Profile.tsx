@@ -18,7 +18,7 @@ import { changePassword, deleteAccount, patchProfile } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert";
 import useAppDispatch from "hooks/useAppDispatch";
-import { updateUser } from "store/auth/auth.slice";
+import { updateUser } from "store/auth";
 import { onLogout } from "store/global-actions";
 import { endSession } from "lib/axios";
 import { useQueryClient } from "@tanstack/react-query";
