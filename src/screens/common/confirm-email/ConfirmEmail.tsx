@@ -20,7 +20,6 @@ const OTP_THEME: Theme = {
   pinCodeTextStyle: tw`font-light text-xl`,
   focusStickStyle: tw`h-5 w-[1px] bg-grey-900`,
   containerStyle: tw`mb-12`,
-  pinCodeContainerStyle: tw`gap-1`,
 };
 
 const ConfirmEmail: React.FC = () => {
