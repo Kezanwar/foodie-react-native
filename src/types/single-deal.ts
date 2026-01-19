@@ -21,8 +21,6 @@ export interface ISingleDeal {
   cuisines: Option[];
   dietary_requirements: Option[];
   restaurant: ISingleRestaurant;
-  is_favourited: boolean;
-  is_following: boolean;
   location: ISingleLocation;
 }
 

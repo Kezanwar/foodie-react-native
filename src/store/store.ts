@@ -12,6 +12,7 @@ import discoverReducer from "./discover";
 import singleDealReducer from "./single-deal";
 import notificationsReducer from "./notifications";
 import debugReducer from "./debug";
+import datasourcesReducer from "./datasources";
 
 export const store = configureStore({
   reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
     singleDeal: singleDealReducer,
     notifications: notificationsReducer,
     debug: debugReducer,
+    datasources: datasourcesReducer,
   },
 });

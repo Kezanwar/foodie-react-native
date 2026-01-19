@@ -11,7 +11,6 @@ export type IFeedDeal = {
     _id: string;
     name: string;
     description: string;
-    is_favourited: boolean;
   };
   location: {
     _id: string;

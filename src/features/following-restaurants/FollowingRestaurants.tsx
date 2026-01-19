@@ -4,10 +4,10 @@ import { ACCOUNT_STACK } from "constants/routes";
 import RestaurantItem from "./RestaurantItem";
 import Divider from "components/divider";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import { useAppSelector } from "hooks/useAppSelector";
 import LoadingSpinner from "components/loading-spinner";
 import EmptyState from "components/empty-state/EmptyState";
+import useMutateRestFollows from "hooks/useMutateRestFollows";
 
 type Props = {
   navigation: any;
@@ -19,7 +19,7 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
 
   const following = useMemo(
     () => data?.pages.map((p) => p.restaurants).flat(1) || [],
-    [data]
+    [data],
   );
 
   const navToRest = (location_id: string) =>
@@ -29,21 +29,13 @@ const FollowingRestaurants: FC<Props> = ({ navigation }) => {
     });
 
   const userLocationCoords = useAppSelector(
-    (state) => state.location.location?.coords
+    (state) => state.location.location?.coords,
   );
 
-  const mutateFollow = useMutateFollowingRest();
+  const { unfollow } = useMutateRestFollows();
 
-  const onUnFollow = async (location_id: string, rest_id: string) => {
-    try {
-      mutateFollow.mutate({
-        location_id,
-        rest_id,
-        is_following: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const onUnFollow = async (location_id: string) => {
+    unfollow(location_id);
   };
 
   return isLoading ? (

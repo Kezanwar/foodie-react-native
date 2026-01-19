@@ -1,3 +1,5 @@
+import { FavouriteDealItem } from "./favourites";
+import { FollowRestItem } from "./following";
 import { Geometry } from "./geometry";
 
 export type IUser = {
@@ -17,7 +19,16 @@ export type LoginJWTData = {
   pushToken?: string;
 };
 
-export type LoginResponse = { user: IUser; accessToken: string };
+export type InitDatasourcePayload = {
+  deal_favourites: FavouriteDealItem[];
+  location_follows: FollowRestItem[];
+};
+
+export type LoginResponse = {
+  user: IUser;
+  accessToken: string;
+  datasource: InitDatasourcePayload;
+};
 
 export type RegisterJWTData = {
   first_name: string;
@@ -27,4 +38,7 @@ export type RegisterJWTData = {
   pushToken?: string;
 };
 
-export type InitializeResponse = { user: IUser };
+export type InitializeResponse = {
+  user: IUser;
+  datasource: InitDatasourcePayload;
+};

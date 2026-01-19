@@ -5,12 +5,10 @@ import { onLogout } from "store/global-actions";
 // types
 
 interface notificationsSliceState {
-  expoPushToken?: string;
   notification?: Notification;
 }
 
 const initialState: notificationsSliceState = {
-  expoPushToken: undefined,
   notification: undefined,
 };
 
@@ -24,15 +22,12 @@ const notificationsSlice = createSlice({
     clearNotification: (state) => {
       state.notification = undefined;
     },
-    setExpoPushToken: (state, { payload }: PayloadAction<ExpoPushToken>) => {
-      state.expoPushToken = payload.data;
-    },
   },
   extraReducers: (builder) => builder.addCase(onLogout, () => initialState),
 });
 
 // export for use around the app
-export const { setExpoPushToken, setNotification, clearNotification } =
+export const { setNotification, clearNotification } =
   notificationsSlice.actions;
 
 // export for store

@@ -14,8 +14,6 @@ import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
 import FollowButton from "components/buttons/follow-button";
 import EmptyState from "components/empty-state/EmptyState";
-import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
 import useSingleRestaurantQuery from "hooks/queries/useSingleRestaurantQuery";
 import RestaurantInfoTabs from "features/restaurant-info-tabs";
 import { COMMON_ROUTES, DynamicStack } from "constants/routes";
@@ -31,6 +29,9 @@ import LocalStorage from "lib/storage";
 import { IFeedDeal } from "types/deal-feed";
 import { isAndroid } from "constants/theme";
 import { MapViewRegion } from "../map-view/MapView";
+import useMutateDealFavourites from "hooks/useMutateDealFavourites";
+import useMutateRestFollows from "hooks/useMutateRestFollows";
+import useIsFollowing from "hooks/useIsFollowing";
 
 export type RouteParams = {
   location_id: string;
@@ -42,6 +43,11 @@ const default_error_message =
 
 const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
   const { location_id, stack } = route.params as RouteParams;
+
+  const { favourite, unfavourite } = useMutateDealFavourites();
+  const { follow, unfollow } = useMutateRestFollows();
+
+  const is_following = useIsFollowing(location_id);
 
   const {
     data: restaurant,
@@ -58,34 +64,26 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
     }, 1000);
   }, []);
 
-  const mutateFav = useMutateFavouriteDeal();
-
   const onLike = async (is_favourited: boolean, deal_id: string) => {
-    if (restaurant)
-      try {
-        mutateFav.mutate({
-          deal_id: deal_id,
-          location_id: restaurant._id,
-          is_favourited,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    if (!is_favourited) {
+      favourite({
+        deal_id: deal_id,
+        location_id: location_id,
+      });
+    } else {
+      unfavourite({
+        deal_id: deal_id,
+        location_id: location_id,
+      });
+    }
   };
 
-  const mutateFollow = useMutateFollowingRest();
-
   const onFollow = async () => {
-    if (restaurant)
-      try {
-        mutateFollow.mutate({
-          location_id: restaurant._id,
-          rest_id: restaurant.restaurant._id,
-          is_following: restaurant.is_following,
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    if (!is_following) {
+      follow(location_id);
+    } else {
+      unfollow(location_id);
+    }
   };
 
   const dispatch = useAppDispatch();
@@ -97,7 +95,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
         location_id: data.location_id,
         stack: stack,
         linkRestaurant: true,
-      })
+      }),
     );
     setTimeout(() => {
       LocalStorage.addViewDealStat({
@@ -108,7 +106,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
   };
 
   const userLocationCoords = useAppSelector(
-    (state) => state.location.location?.coords
+    (state) => state.location.location?.coords,
   );
 
   const distance = useMemo(() => {
@@ -181,10 +179,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
                 </Typography>
               </Typography>
               <View style={tw`gap-3 items-center flex-row`}>
-                <FollowButton
-                  onPress={onFollow}
-                  following={restaurant.is_following}
-                />
+                <FollowButton onPress={onFollow} following={is_following} />
                 <Typography
                   variant="body2"
                   color="success.main"
@@ -224,7 +219,7 @@ const SingleRestaurant: FC<any> = ({ route, navigation }: any) => {
                       deal={deal}
                       key={deal._id}
                       onLike={onLike}
-                      restaurant={restaurant}
+                      location_id={location_id}
                       openDeal={openDeal}
                     />
                   );

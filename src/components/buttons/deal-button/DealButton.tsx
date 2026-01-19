@@ -3,21 +3,22 @@ import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
 import Typography from "components/typography";
-
-import { ActiveDeal, IRestaurant } from "types/restaurant";
+import { ActiveDeal } from "types/restaurant";
 import LikeButton from "../like-button";
 import { GetSingleDealProps } from "types/single-deal";
+import useIsFavourited from "hooks/useIsFavourited";
 
 type Props = TouchableOpacityProps & {
   deal: ActiveDeal;
   openDeal: (params: GetSingleDealProps) => void;
-  restaurant: IRestaurant;
+  location_id: string;
   onLike: (is_favourited: boolean, deal_id: string) => Promise<void>;
 };
 
 const iconCol = tw.color("primary-light");
 
-const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
+const DealButton: FC<Props> = ({ openDeal, location_id, deal, onLike }) => {
+  const is_favourited = useIsFavourited(deal._id, location_id);
   return (
     <TouchableOpacity
       key={deal._id}
@@ -25,7 +26,7 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
       onPress={() =>
         openDeal({
           deal_id: deal._id,
-          location_id: restaurant._id,
+          location_id: location_id,
         })
       }
     >
@@ -41,8 +42,8 @@ const DealButton: FC<Props> = ({ openDeal, restaurant, deal, onLike }) => {
       </View>
 
       <LikeButton
-        onPress={() => onLike(deal.is_favourited, deal._id)}
-        liked={deal.is_favourited}
+        onPress={() => onLike(is_favourited, deal._id)}
+        liked={is_favourited}
       />
     </TouchableOpacity>
   );

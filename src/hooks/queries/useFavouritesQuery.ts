@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { getFavourites } from "lib/api";
 
 import { minutes } from "utils/time";
@@ -16,6 +16,11 @@ const useFavouritesQuery = (page: number = 0) => {
   });
 
   return query;
+};
+
+export const usePurgeFavouritesQuery = () => {
+  const queryClient = useQueryClient();
+  return () => queryClient.invalidateQueries({ queryKey: [FAVOURITES] });
 };
 
 export default useFavouritesQuery;

@@ -10,18 +10,13 @@ import {
   RegisterJWTData,
 } from "types/auth";
 import { DealInfinitePage } from "types/deal-feed";
-import {
-  FavouriteDealResponse,
-  FavouritesInfinitePage,
-} from "types/favourites";
+import { FavouriteDealItem, FavouritesInfinitePage } from "types/favourites";
 import { IOptions } from "types/options";
 import { IPreferences } from "types/preferences";
 import { GetSingleDealProps, ISingleDeal } from "types/single-deal";
-import { FollowRestResponse, FollowingInfinitePage } from "types/following";
+import { FollowingInfinitePage, FollowRestItem } from "types/following";
 import { DiscoverResponse } from "types/discover";
 import { GetSingleRestProps, IRestaurant } from "types/restaurant";
-import { FollowMutationArg } from "hooks/queries/useMututateFollowingRest";
-import { FavMutationArg } from "hooks/queries/useMutateFavouriteDeal";
 import LocalStorage from "lib/storage";
 import { HomeFeedInfinitePage } from "types/feed";
 import { AppleAuthenticationCredential } from "expo-apple-authentication";
@@ -55,7 +50,7 @@ export const loginGoogle = (token: string, pushToken?: string) => {
 
 export const loginApple = (
   credential: AppleAuthenticationCredential,
-  pushToken?: string
+  pushToken?: string,
 ) => {
   return axiosInstance.post<LoginResponse>("/auth/login-apple", {
     credential,
@@ -78,7 +73,7 @@ export const registerGoogle = (token: string, pushToken?: string) => {
 
 export const registerApple = (
   credential: AppleAuthenticationCredential,
-  pushToken?: string
+  pushToken?: string,
 ) => {
   return axiosInstance.post<LoginResponse>("/auth/register-apple", {
     credential,
@@ -115,13 +110,13 @@ export const getHomeFeed = async (
   long: number,
   lat: number,
   cuisines: string,
-  dietary_requirements: string
+  dietary_requirements: string,
 ) => {
   return axiosInstance
     .get<HomeFeedInfinitePage>(
       `/cust/deals/feed/home/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
-      }`
+      }`,
     )
     .then((res) => {
       return res.data;
@@ -133,13 +128,13 @@ export const getGuestFeed = async (
   long: number,
   lat: number,
   cuisines: string,
-  dietary_requirements: string
+  dietary_requirements: string,
 ) => {
   return axiosInstance
     .get<HomeFeedInfinitePage>(
       `/cust/deals/feed/guest/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
-      }`
+      }`,
     )
     .then((res) => {
       return res.data;
@@ -153,13 +148,13 @@ export const getFeed = async (
   long: number,
   lat: number,
   cuisines: string,
-  dietary_requirements: string
+  dietary_requirements: string,
 ) => {
   return axiosInstance
     .get<DealInfinitePage>(
       `/cust/deals/feed/?page=${page}&long=${long}&lat=${lat}${
         cuisines + dietary_requirements
-      }`
+      }`,
     )
     .then((res) => {
       return res.data;
@@ -168,12 +163,12 @@ export const getFeed = async (
 
 //* FAVOURITES
 
-export const favouriteDeal = (data: FavMutationArg) => {
-  return axiosInstance.post<FavouriteDealResponse>("/cust/favourites", data);
+export const favouriteDeal = (data: FavouriteDealItem) => {
+  return axiosInstance.post("/cust/favourites", data);
 };
 
-export const unFavouriteDeal = (data: FavMutationArg) => {
-  return axiosInstance.patch<FavouriteDealResponse>("/cust/favourites", data);
+export const unFavouriteDeal = (data: FavouriteDealItem) => {
+  return axiosInstance.patch("/cust/favourites", data);
 };
 
 export const getFavourites = async (page: number) => {
@@ -184,12 +179,12 @@ export const getFavourites = async (page: number) => {
 
 //* FOLLOWS
 
-export const followRestaurant = (data: FollowMutationArg) => {
-  return axiosInstance.post<FollowRestResponse>("/cust/following", data);
+export const followRestaurant = (data: FollowRestItem) => {
+  return axiosInstance.post("/cust/following", data);
 };
 
-export const unFollowRestaurant = (data: FollowMutationArg) => {
-  return axiosInstance.patch<FollowRestResponse>("/cust/following", data);
+export const unFollowRestaurant = (data: FollowRestItem) => {
+  return axiosInstance.patch("/cust/following", data);
 };
 
 export const getFollowing = async (page: number) => {
@@ -223,7 +218,7 @@ export const patchProfile = (data: {
 
 export const getDiscover = (long: number, lat: number) => {
   return axiosInstance.get<DiscoverResponse>(
-    `/cust/discover?lat=${lat}&long=${long}`
+    `/cust/discover?lat=${lat}&long=${long}`,
   );
 };
 
@@ -231,11 +226,11 @@ export const getSearchFeed = async (
   page: number,
   long: number,
   lat: number,
-  search_text: string
+  search_text: string,
 ) => {
   return axiosInstance
     .get<DealInfinitePage>(
-      `/cust/deals/search/?page=${page}&long=${long}&lat=${lat}${search_text}`
+      `/cust/deals/search/?page=${page}&long=${long}&lat=${lat}${search_text}`,
     )
     .then((res) => {
       return res.data;

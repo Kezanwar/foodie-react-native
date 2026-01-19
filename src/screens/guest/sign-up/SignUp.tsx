@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -24,7 +24,6 @@ import { registerApple, registerGoogle } from "lib/api";
 import Alert from "components/alert/Alert";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
-import { useAppSelector } from "hooks/useAppSelector";
 import { isIOS } from "constants/theme";
 import {
   AppleAuthenticationScope,
@@ -32,11 +31,12 @@ import {
 } from "expo-apple-authentication";
 import AppleButton from "components/buttons/apple-button";
 import EmailButton from "components/buttons/email-button";
+import registerForPushNotificationsAsync from "hocs/notifications/registerForPushNotifications";
+import { ExpoPushToken } from "expo-notifications";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const SignUp = (props: any) => {
-  // useAppSelector((state) => state.theme.theme);
   const dispatch = useAppDispatch();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState<ErrorObject | null>(null);
@@ -45,6 +45,7 @@ const SignUp = (props: any) => {
     iosClientId: iOSOAuthClientId,
     androidClientId: androidOAuthClientId,
   });
+  const pushTokenRef = useRef<ExpoPushToken | undefined>(undefined);
 
   const onCreateAcc = () => {
     props.navigation.navigate(AUTH_ROUTES.SIGN_IN);
@@ -52,14 +53,10 @@ const SignUp = (props: any) => {
 
   const onSignUp = () => props.navigation.navigate(AUTH_ROUTES.ADD_DETAILS);
 
-  const pushToken = useAppSelector(
-    (state) => state.notifications.expoPushToken
-  );
-
   const registerWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await registerGoogle(token, pushToken);
+      const res = await registerGoogle(token, pushTokenRef.current?.data);
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
       setSession(accessToken);
@@ -72,19 +69,24 @@ const SignUp = (props: any) => {
     }
   };
 
-  const onGoogleRegister = () => {
-    prompAsync();
+  const onGoogleRegister = async () => {
+    const pushToken = await registerForPushNotificationsAsync();
+    if (pushToken) {
+      pushTokenRef.current = pushToken;
+    }
+    await prompAsync();
   };
 
   const onAppleRegister = async () => {
     try {
+      const pushToken = await registerForPushNotificationsAsync();
       const credential = await signInAsync({
         requestedScopes: [
           AppleAuthenticationScope.FULL_NAME,
           AppleAuthenticationScope.EMAIL,
         ],
       });
-      const res = await registerApple(credential, pushToken);
+      const res = await registerApple(credential, pushToken?.data);
       const { user, accessToken } = res?.data;
       dispatch(authLogin(user));
       setSession(accessToken);

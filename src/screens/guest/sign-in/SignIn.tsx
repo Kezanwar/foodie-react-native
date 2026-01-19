@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Text, View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,13 +32,16 @@ import useAppDispatch from "hooks/useAppDispatch";
 import { AUTH_ROUTES } from "constants/routes";
 import TextButton from "components/buttons/text-button";
 import Spacer from "components/separators/spacer";
-import { useAppSelector } from "hooks/useAppSelector";
+
 import { isIOS } from "constants/theme";
 import AppleButton from "components/buttons/apple-button";
 import {
   AppleAuthenticationScope,
   signInAsync,
 } from "expo-apple-authentication";
+import registerForPushNotificationsAsync from "hocs/notifications/registerForPushNotifications";
+import { ExpoPushToken } from "expo-notifications";
+import { initializeDatasources } from "store/datasources";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -60,6 +63,8 @@ const SignIn = (props: any) => {
     androidClientId: androidOAuthClientId,
   });
 
+  const pushTokenRef = useRef<ExpoPushToken | undefined>(undefined);
+
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const onCreateAcc = () => {
@@ -75,10 +80,6 @@ const SignIn = (props: any) => {
     password: "",
   };
 
-  const pushToken = useAppSelector(
-    (state) => state.notifications.expoPushToken
-  );
-
   const {
     handleSubmit,
     control,
@@ -93,8 +94,13 @@ const SignIn = (props: any) => {
   const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
     try {
       setIsLoading(true);
-      const res = await loginJWT({ ...data, pushToken });
-      const { user, accessToken } = res?.data;
+      const pushToken = await registerForPushNotificationsAsync();
+      const res = await loginJWT({
+        ...data,
+        pushToken: pushToken?.data,
+      });
+      const { user, accessToken, datasource } = res?.data;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
     } catch (error) {
@@ -109,8 +115,9 @@ const SignIn = (props: any) => {
   const loginWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await loginGoogle(token, pushToken);
-      const { user, accessToken } = res?.data;
+      const res = await loginGoogle(token, pushTokenRef.current?.data);
+      const { user, accessToken, datasource } = res?.data;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
     } catch (error) {
@@ -122,20 +129,26 @@ const SignIn = (props: any) => {
     }
   };
 
-  const onGoogleSignIn = () => {
-    prompAsync();
+  const onGoogleSignIn = async () => {
+    const pushToken = await registerForPushNotificationsAsync();
+    if (pushToken) {
+      pushTokenRef.current = pushToken;
+    }
+    await prompAsync();
   };
 
   const onAppleSignIn = async () => {
     try {
+      const pushToken = await registerForPushNotificationsAsync();
       const credential = await signInAsync({
         requestedScopes: [
           AppleAuthenticationScope.FULL_NAME,
           AppleAuthenticationScope.EMAIL,
         ],
       });
-      const res = await loginApple(credential, pushToken);
-      const { user, accessToken } = res?.data;
+      const res = await loginApple(credential, pushToken?.data);
+      const { user, accessToken, datasource } = res?.data;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
     } catch (e) {

@@ -1,28 +1,25 @@
 import { TouchableOpacity, View } from "react-native";
 import React, { FC, ReactNode, useMemo } from "react";
-
 import tw from "theme/tailwind";
 import { AntDesign } from "@expo/vector-icons";
-
 import Typography, { LEADING_TIGHT } from "components/typography";
 import Divider from "components/divider";
 import { ChipContainer } from "components/chip";
 import ChipReadOnly from "components/chip/ChipReadOnly";
 import LikeButton from "components/buttons/like-button";
-import ShareButton from "components/buttons/share-button";
 import FollowButton from "components/buttons/follow-button";
 import EmptyState from "components/empty-state/EmptyState";
-
 import useSingleDealQuery from "hooks/queries/useSingleDealQuery";
-import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-import useMutateFollowingRest from "hooks/queries/useMututateFollowingRest";
-
 import { external_navigate } from "hocs/app-ready/providers/navigation/Navigation";
 import { SingleDealState } from "store/single-deal";
 import RestaurantAvatar from "components/restaurant-avatar";
 import { getDistanceInMiles } from "utils/distance";
 import { useAppSelector } from "hooks/useAppSelector";
 import LoadingSpinner from "components/loading-spinner";
+import useIsFavourited from "hooks/useIsFavourited";
+import useMutateDealFavourites from "hooks/useMutateDealFavourites";
+import useMutateRestFollows from "hooks/useMutateRestFollows";
+import useIsFollowing from "hooks/useIsFollowing";
 
 const default_error_message =
   "Sorry we can't seem to find that deal, it may have been deleted";
@@ -44,34 +41,37 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
     location_id,
   });
 
-  const mutateFav = useMutateFavouriteDeal();
+  const is_favourited = useIsFavourited(deal_id, location_id);
+  const is_following = useIsFollowing(location_id);
+
+  const { favourite, unfavourite } = useMutateDealFavourites();
 
   const onLike = async () => {
-    if (deal)
-      try {
-        mutateFav.mutate({
+    if (deal) {
+      if (!is_favourited) {
+        favourite({
           deal_id: deal._id,
           location_id: deal.location._id,
-          is_favourited: deal.is_favourited,
         });
-      } catch (error) {
-        console.log(error);
+      } else {
+        unfavourite({
+          deal_id: deal._id,
+          location_id: deal.location._id,
+        });
       }
+    }
   };
 
-  const mutateFollow = useMutateFollowingRest();
+  const { follow, unfollow } = useMutateRestFollows();
 
   const onFollow = async () => {
-    if (deal)
-      try {
-        mutateFollow.mutate({
-          location_id: deal.location._id,
-          rest_id: deal.restaurant.id,
-          is_following: deal.is_following,
-        });
-      } catch (error) {
-        console.log(error);
+    if (deal) {
+      if (!is_following) {
+        follow(deal.location._id);
+      } else {
+        unfollow(deal.location._id);
       }
+    }
   };
 
   const navRest = () => {
@@ -87,7 +87,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
   };
 
   const userLocationCoords = useAppSelector(
-    (state) => state.location.location?.coords
+    (state) => state.location.location?.coords,
   );
 
   const distance = useMemo(() => {
@@ -136,7 +136,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
           </View>
           <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
             {/* <ShareButton onPress={() => {}} /> */}
-            <LikeButton liked={deal.is_favourited} onPress={onLike} />
+            <LikeButton liked={is_favourited} onPress={onLike} />
           </View>
         </View>
 
@@ -182,7 +182,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
             </View>
           </TouchableOpacity>
           <View style={tw`gap-3 items-center flex-row`}>
-            <FollowButton onPress={onFollow} following={deal.is_following} />
+            <FollowButton onPress={onFollow} following={is_following} />
             <Typography
               variant="body2"
               color="success.main"

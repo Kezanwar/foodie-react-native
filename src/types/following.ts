@@ -1,14 +1,7 @@
 import { Coordinates } from "./geometry";
 
-export type FollowRestRequest = {
+export type FollowRestItem = {
   location_id: string;
-  rest_id: string;
-};
-
-export type FollowRestResponse = {
-  location_id: string;
-  rest_id: string;
-  is_following: boolean;
 };
 
 export type FollowingInfinitePage = {

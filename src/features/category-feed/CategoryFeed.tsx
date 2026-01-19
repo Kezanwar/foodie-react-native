@@ -19,6 +19,7 @@ import { GetSingleDealProps } from "types/single-deal";
 import { IFeedDeal } from "types/deal-feed";
 
 import { setSingleDeal } from "store/single-deal";
+import useMutateDealFavourites from "hooks/useMutateDealFavourites";
 
 //https://stackoverflow.com/questions/71286123/reactquery-useinfinitequery-refetching-issue
 
@@ -61,17 +62,19 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
     }
   };
 
-  const mutateFav = useMutateFavouriteDeal();
+  const { favourite, unfavourite } = useMutateDealFavourites();
 
-  const onLike = async (item: IFeedDeal) => {
-    try {
-      mutateFav.mutate({
+  const onLike = async (item: IFeedDeal, is_favourited: boolean) => {
+    if (!is_favourited) {
+      favourite({
         deal_id: item.deal._id,
         location_id: item.location._id,
-        is_favourited: item.deal.is_favourited,
       });
-    } catch (error) {
-      console.log(error);
+    } else {
+      unfavourite({
+        deal_id: item.deal._id,
+        location_id: item.location._id,
+      });
     }
   };
 

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { postStats } from "lib/api";
+import { seconds } from "utils/time";
 
 const useRegisterTasks = () => {
   useEffect(() => {
     const syncStats = setInterval(async () => {
       await postStats();
-    }, 1000 * 60);
+    }, seconds(20));
 
     return () => {
       clearInterval(syncStats);

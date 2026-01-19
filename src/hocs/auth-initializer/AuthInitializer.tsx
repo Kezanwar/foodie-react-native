@@ -9,6 +9,7 @@ import { setSession } from "lib/axios";
 
 import { LoadingScreen } from "components/loading-screen";
 import useAppDispatch from "hooks/useAppDispatch";
+import { initializeDatasources } from "store/datasources";
 
 type Props = {
   children: ReactNode;
@@ -29,8 +30,9 @@ const AuthInitializer: FC<Props> = ({ children }) => {
       setSession(accessToken);
       const res = await initializeJWT();
       const {
-        data: { user },
+        data: { user, datasource },
       } = res;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
     } catch (error) {
       //axios will handle invalid token

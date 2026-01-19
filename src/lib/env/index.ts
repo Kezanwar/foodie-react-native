@@ -1,7 +1,13 @@
-export const localBaseURL = "http://192.168.1.81:5006/api";
-//@ts-ignore
-// export const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
-// export const baseUrl = `https://api.thefoodiestaging.app/api`;
+import { isTestFlight } from "expo-testflight";
+
+export const stagingBaseURL = "https://api.thefoodiestaging.app/api";
+export const localBaseURL = "http://192.168.1.251:5006/api";
+
+// export const baseUrl = isTestFlight
+//   ? stagingBaseURL
+//   : //@ts-ignore
+//     process.env.EXPO_PUBLIC_BASE_URL;
+
 export const baseUrl = localBaseURL;
 
 export const androidOAuthClientId = //@ts-ignore
@@ -10,7 +16,7 @@ export const androidOAuthClientId = //@ts-ignore
 export const iOSOAuthClientId = //@ts-ignore
   process.env.EXPO_PUBLIC_IOS_OAUTH_CLIENT_ID as string;
 
-export const APP_VERSION = "27.11.2024";
+export const APP_VERSION = "17.01.2026";
 
 export const DEEP_LINK_BASE_URL = //@ts-ignore
   (process.env.EXPO_PUBLIC_DEEP_LINK_BASE_URL as string) ||

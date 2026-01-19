@@ -1,12 +1,6 @@
-export type FavouriteDealRequest = {
+export type FavouriteDealItem = {
   deal_id: string;
   location_id: string;
-};
-
-export type FavouriteDealResponse = {
-  deal_id: string;
-  location_id: string;
-  is_favourited: boolean;
 };
 
 export type FavouritesInfinitePage = {
@@ -26,7 +20,6 @@ type ListItem = {
     _id: string;
     name: string;
     description: string;
-    is_favourited: boolean;
   };
   location: {
     _id: string;

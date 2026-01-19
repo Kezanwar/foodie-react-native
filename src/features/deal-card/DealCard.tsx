@@ -5,16 +5,16 @@ import { IFeedDeal } from "types/deal-feed";
 import { AntDesign } from "@expo/vector-icons";
 import tw from "theme/tailwind";
 import Typography from "components/typography";
-
 import ShareButton from "components/buttons/share-button";
 import LikeButton from "components/buttons/like-button";
 import { GetSingleDealProps } from "types/single-deal";
 import LocalStorage from "lib/storage";
+import useIsFavourited from "hooks/useIsFavourited";
 
 type Props = {
   item: IFeedDeal;
   onShare: (name: string) => void;
-  onLike: (item: IFeedDeal) => void;
+  onLike: (item: IFeedDeal, isFavourited: boolean) => void;
   openDeal: (data: GetSingleDealProps) => void;
   type: "carousel" | "list";
   showActions?: boolean;
@@ -28,6 +28,8 @@ const DealCard: FC<Props> = ({
   type,
   showActions = true,
 }) => {
+  const is_favourited = useIsFavourited(item.deal._id, item.location._id);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -79,8 +81,8 @@ const DealCard: FC<Props> = ({
             <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
               <ShareButton onPress={() => onShare(item.deal.name)} />
               <LikeButton
-                liked={item.deal.is_favourited}
-                onPress={() => onLike(item)}
+                liked={is_favourited}
+                onPress={() => onLike(item, is_favourited)}
               />
             </View>
           )}

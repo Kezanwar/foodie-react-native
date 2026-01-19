@@ -9,7 +9,6 @@ import { Or } from "components/separators/or";
 import TextButton from "components/buttons/text-button";
 import { useNavigation } from "@react-navigation/native";
 import { AUTH_ROUTES } from "constants/routes";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import Octicons from "@expo/vector-icons/Octicons";
 
 type Props = {
@@ -53,7 +52,6 @@ const PromptSignInSheet = forwardRef<BottomSheetModal, Props>(
           >
             Free forever. No hidden costs.
           </Typography>
-
           <Typography
             variant="body2"
             color="text.secondary"
@@ -72,11 +70,6 @@ const PromptSignInSheet = forwardRef<BottomSheetModal, Props>(
                   size={22}
                   color={tw.color("primary-main")}
                 />
-                // <Ionicons
-                //   name="create-outline"
-                //   size={22}
-                //   color={tw.color("primary-main")}
-                // />
               }
             />
             <Or />

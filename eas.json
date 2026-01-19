@@ -26,18 +26,6 @@
         "EXPO_PUBLIC_DEEP_LINK_BASE_URL": "https://thefoodiestaging.app"
       }
     },
-    "preview": {
-      "distribution": "internal",
-      "env": {
-        "EXPO_PUBLIC_BASE_URL": "https://api.thefoodiestaging.app/api",
-        "EXPO_PUBLIC_IOS_OAUTH_CLIENT_ID": "688879209449-6m9ojfpgapdlnolr98a0tbg20oc1il61.apps.googleusercontent.com",
-        "EXPO_PUBLIC_ANDROID_OAUTH_CLIENT_ID": "688879209449-da0qoaq0q1vlprcpi4dto4dp7uedlucu.apps.googleusercontent.com",
-        "EXPO_PUBLIC_DEEP_LINK_BASE_URL": "https://thefoodiestaging.app"
-      },
-      "ios": {
-        "resourceClass": "m-medium"
-      }
-    },
     "production": {
       "env": {
         "EXPO_PUBLIC_BASE_URL": "https://api.thefoodie.app/api",

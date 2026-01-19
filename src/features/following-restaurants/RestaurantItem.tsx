@@ -29,14 +29,14 @@ type Props = {
   location: Location;
   restaurant: Restaurant;
   navToRest: (location_id: string) => void;
-  unfollowRest: (location_id: string, rest_id: string) => void;
+  unfollowRest: (location_id: string) => void;
   userCoordinates: LocationObjectCoords | undefined;
 };
 
 type RenderRightActions = (
   progressAnimatedValue: Animated.AnimatedInterpolation<string | number>,
   dragAnimatedValue: Animated.AnimatedInterpolation<string | number>,
-  swipeable: Swipeable
+  swipeable: Swipeable,
 ) => React.ReactNode;
 
 const iconCol = tw.color("error-main");
@@ -67,7 +67,7 @@ const RestaurantItem: FC<Props> = ({
         ]}
       >
         <TouchableOpacity
-          onPress={() => unfollowRest(location._id, restaurant.id)}
+          onPress={() => unfollowRest(location._id)}
           style={tw`h-full px-5 items-center justify-center`}
         >
           <AntDesign name="close" size={24} color={iconCol} />
