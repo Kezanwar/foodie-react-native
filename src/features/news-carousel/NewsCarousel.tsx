@@ -12,9 +12,14 @@ import CarouselDivider from "components/separators/carousel-divider";
 
 import { BlogItem } from "types/blog";
 import useBrowser from "hooks/useBrowser";
-import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
+import {
+  CAROUSEL_CARD_WIDTH,
+  CAROUSEL_TOTAL_ITEM_WIDTH,
+} from "constants/theme";
 
 const iconCol = tw.color("primary-main");
+
+const style = [{ width: CAROUSEL_CARD_WIDTH }, tw`rounded-lg`];
 
 type Props = {
   blogs?: BlogItem[];
@@ -46,15 +51,15 @@ const NewsCarousel: FC<Props> = React.memo(({ blogs }) => {
         snapToAlignment="start"
         decelerationRate={"fast"}
         keyExtractor={(item) => item.slug}
-        snapToInterval={CAROUSEL_ITEM_WIDTH}
+        snapToInterval={CAROUSEL_TOTAL_ITEM_WIDTH}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() => onBlogPress(item.slug)}
-              style={tw`w-[70vw] rounded-lg`}
+              style={style}
             >
               <Image
-                style={tw`h-32 w-[70vw] rounded-lg`}
+                style={tw`h-32  rounded-lg`}
                 source={{ uri: item.featuredImage }}
               />
               <View style={tw`mt-3 gap-1.5`}>

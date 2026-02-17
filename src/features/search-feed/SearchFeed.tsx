@@ -9,8 +9,6 @@ import LoadingState from "components/loading-state";
 import { IFeedDeal } from "types/deal-feed";
 import { DISCOVER_STACK } from "constants/routes";
 
-import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
-
 import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import { View } from "react-native";
 import Typography from "components/typography";
@@ -39,7 +37,7 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
 
   const data = useMemo(
     () => feedData?.pages.map((p) => p.deals).flat(1) || [],
-    [feedData]
+    [feedData],
   );
 
   const onShare = async (title: string) => {
@@ -87,7 +85,7 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
         location_id: data.location_id,
         stack: DISCOVER_STACK,
         linkRestaurant: true,
-      })
+      }),
     );
   };
 
@@ -125,7 +123,6 @@ const SearchFeed: FC<Props> = ({ navigation }) => {
         data={data}
         renderItem={({ item }) => (
           <DealCard
-            type="list"
             openDeal={openDeal}
             onShare={onShare}
             item={item}

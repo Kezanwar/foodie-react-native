@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ExpoPushToken, Notification } from "expo-notifications";
+import { Notification } from "expo-notifications";
 import { onLogout } from "store/global-actions";
 
 // types

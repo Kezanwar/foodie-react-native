@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackNavigator from "./home";
 import { DiscoverStackNavigator } from "./discover";
 
-import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 import tw from "theme/tailwind";
 import AccountStackNavigator from "./account";
 
@@ -18,7 +18,7 @@ const AppTabNavigator = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
-            <AntDesign
+            <Feather
               name="home"
               size={23}
               color={focused ? FOCUSED_COL : BLUR_COL}
@@ -34,8 +34,8 @@ const AppTabNavigator = () => {
         component={DiscoverStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
-            <AntDesign
-              name="search1"
+            <Feather
+              name="search"
               size={23}
               color={focused ? FOCUSED_COL : BLUR_COL}
             />
@@ -48,7 +48,7 @@ const AppTabNavigator = () => {
         component={AccountStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
-            <AntDesign
+            <Feather
               name="user"
               size={23}
               color={focused ? FOCUSED_COL : BLUR_COL}

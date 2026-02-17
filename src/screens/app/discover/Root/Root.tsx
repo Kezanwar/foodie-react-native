@@ -29,6 +29,7 @@ import useSearchFeedQuery from "hooks/queries/useSearchFeedQuery";
 import SearchFeed from "features/search-feed/SearchFeed";
 import SectionCard from "components/section-card/SectionCard";
 import LocationStatus from "components/location-protected-content/LocationProtectedContent";
+import Feather from "@expo/vector-icons/Feather";
 import LoadingSpinner from "components/loading-spinner";
 import EmptyState from "components/empty-state/EmptyState";
 import LocationProtectedContent from "components/location-protected-content/LocationProtectedContent";
@@ -45,11 +46,11 @@ const Root: FC<Props> = ({ navigation }) => {
   };
 
   const { isSearchFocused, searchInputText, searchSubmitText } = useAppSelector(
-    (state) => state.discover
+    (state) => state.discover,
   );
 
   const { location, error: locationError } = useAppSelector(
-    (state) => state.location
+    (state) => state.location,
   );
 
   const hasLocation = !locationError && location;
@@ -91,7 +92,7 @@ const Root: FC<Props> = ({ navigation }) => {
               inputMode="search"
               actionIcon={
                 <AntDesign
-                  name="closecircleo"
+                  name="close-circle"
                   size={18}
                   color={tw.color("grey-600")}
                 />
@@ -108,7 +109,7 @@ const Root: FC<Props> = ({ navigation }) => {
               <LoadingSpinner />
             ) : (
               <TouchableOpacity onPress={handleOnSearchSubmit}>
-                <AntDesign name="search1" size={23} color={PRIM} />
+                <Feather name="search" size={23} color={PRIM} />
               </TouchableOpacity>
             )}
           </View>

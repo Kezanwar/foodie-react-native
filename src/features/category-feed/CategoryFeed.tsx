@@ -5,14 +5,12 @@ import DealCard from "features/deal-card";
 import tw from "theme/tailwind";
 import EmptyState from "components/empty-state/EmptyState";
 
-import { Ionicons } from "@expo/vector-icons";
 import LoadingState from "components/loading-state";
 
 import { DISCOVER_STACK } from "constants/routes";
 
 import useCategoryFeedQuery from "hooks/queries/useCategoryFeedQuery";
 import useAppDispatch from "hooks/useAppDispatch";
-import useMutateFavouriteDeal from "hooks/queries/useMutateFavouriteDeal";
 
 import { Option } from "types/options";
 import { GetSingleDealProps } from "types/single-deal";
@@ -39,7 +37,7 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
 
   const data = useMemo(
     () => feedData?.pages.map((p) => p.deals).flat(1) || [],
-    [feedData]
+    [feedData],
   );
 
   const onShare = async (title: string) => {
@@ -87,7 +85,7 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
         location_id: data.location_id,
         stack: DISCOVER_STACK,
         linkRestaurant: true,
-      })
+      }),
     );
   };
 
@@ -113,7 +111,6 @@ const CategoryFeed: FC<Props> = ({ category, navigation }) => {
       data={data}
       renderItem={({ item }) => (
         <DealCard
-          type="list"
           openDeal={openDeal}
           onShare={onShare}
           item={item}

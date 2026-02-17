@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { DefaultValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -40,7 +40,6 @@ import {
   signInAsync,
 } from "expo-apple-authentication";
 import registerForPushNotificationsAsync from "hocs/notifications/registerForPushNotifications";
-import { ExpoPushToken } from "expo-notifications";
 import { initializeDatasources } from "store/datasources";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -62,8 +61,6 @@ const SignIn = (props: any) => {
     iosClientId: iOSOAuthClientId,
     androidClientId: androidOAuthClientId,
   });
-
-  const pushTokenRef = useRef<ExpoPushToken | undefined>(undefined);
 
   const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -94,15 +91,14 @@ const SignIn = (props: any) => {
   const onFormSuccess: SubmitHandler<FormValues> = async (data) => {
     try {
       setIsLoading(true);
-      const pushToken = await registerForPushNotificationsAsync();
       const res = await loginJWT({
         ...data,
-        pushToken: pushToken?.data,
       });
       const { user, accessToken, datasource } = res?.data;
       dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (error) {
       catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);
@@ -115,11 +111,12 @@ const SignIn = (props: any) => {
   const loginWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await loginGoogle(token, pushTokenRef.current?.data);
+      const res = await loginGoogle(token);
       const { user, accessToken, datasource } = res?.data;
       dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (error) {
       catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);
@@ -130,27 +127,23 @@ const SignIn = (props: any) => {
   };
 
   const onGoogleSignIn = async () => {
-    const pushToken = await registerForPushNotificationsAsync();
-    if (pushToken) {
-      pushTokenRef.current = pushToken;
-    }
     await prompAsync();
   };
 
   const onAppleSignIn = async () => {
     try {
-      const pushToken = await registerForPushNotificationsAsync();
       const credential = await signInAsync({
         requestedScopes: [
           AppleAuthenticationScope.FULL_NAME,
           AppleAuthenticationScope.EMAIL,
         ],
       });
-      const res = await loginApple(credential, pushToken?.data);
+      const res = await loginApple(credential);
       const { user, accessToken, datasource } = res?.data;
       dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (e) {
       //@ts-ignore
       if (e.code === "ERR_REQUEST_CANCELED") {

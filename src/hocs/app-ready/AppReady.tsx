@@ -27,8 +27,6 @@ type Props = {
 };
 
 const AppReady: FC<Props> = ({ children }) => {
-  useDeviceContext(tw, { withDeviceColorScheme: false });
-
   useRegisterTasks();
 
   return (

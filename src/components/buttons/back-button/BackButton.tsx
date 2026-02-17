@@ -1,8 +1,7 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import React, { FC } from "react";
 import tw from "theme/tailwind";
-
-import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 
 type Props = TouchableOpacityProps & {
   isAbsolute?: boolean;
@@ -21,8 +20,8 @@ const BackButton: FC<Props> = ({ isAbsolute, withPad = true, ...rest }) => {
           : `${withPad ? "px-5" : ""}  mb-3`
       }`}
     >
-      <AntDesign
-        name="arrowleft"
+      <Feather
+        name="arrow-left"
         size={18}
         color={isAbsolute ? "white" : iconCol}
       />

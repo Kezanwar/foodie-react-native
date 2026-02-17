@@ -16,7 +16,7 @@ type Props = {
   onShare: (name: string) => void;
   onLike: (item: IFeedDeal, isFavourited: boolean) => void;
   openDeal: (data: GetSingleDealProps) => void;
-  type: "carousel" | "list";
+
   showActions?: boolean;
 };
 
@@ -25,7 +25,7 @@ const DealCard: FC<Props> = ({
   onShare,
   onLike,
   openDeal,
-  type,
+
   showActions = true,
 }) => {
   const is_favourited = useIsFavourited(item.deal._id, item.location._id);
@@ -40,7 +40,7 @@ const DealCard: FC<Props> = ({
         });
       }}
       activeOpacity={0.8}
-      style={tw`bg-white  ${type === "list" ? "px-5 py-6" : "w-[70vw]"}   `}
+      style={tw`bg-white px-5 py-6 `}
     >
       <View style={tw`relative`}>
         <Image
@@ -53,7 +53,7 @@ const DealCard: FC<Props> = ({
         <View style={tw`gap-1.5`}>
           <View style={tw`flex-row gap-1.5 ${showActions ? "max-w-66" : ""}`}>
             <AntDesign
-              name="tago"
+              name="tag"
               size={20}
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}
@@ -65,19 +65,17 @@ const DealCard: FC<Props> = ({
 
           <Typography variant="body2" style=" text-3.5 gap-2">
             {item.restaurant.name}{" "}
-            {type === "list" && (
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style=" text-3.25"
-              >
-                ({item.location.nickname})
-              </Typography>
-            )}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              style=" text-3.25"
+            >
+              ({item.location.nickname})
+            </Typography>
           </Typography>
         </View>
         <View style={tw`gap-3`}>
-          {type === "list" && showActions && (
+          {showActions && (
             <View style={tw`items-start justify-end  -m-0.5  flex-row gap-1`}>
               <ShareButton onPress={() => onShare(item.deal.name)} />
               <LikeButton
@@ -86,7 +84,7 @@ const DealCard: FC<Props> = ({
               />
             </View>
           )}
-          {item.location.distance_miles && type === "list" && (
+          {item.location.distance_miles && (
             <Typography
               variant="body2"
               color="success.main"

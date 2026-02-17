@@ -41,20 +41,15 @@ export const addPreferences = (data: IOptions) => {
 export const loginJWT = (data: LoginJWTData) => {
   return axiosInstance.post<LoginResponse>("/auth/login", data);
 };
-export const loginGoogle = (token: string, pushToken?: string) => {
+export const loginGoogle = (token: string) => {
   return axiosInstance.post<LoginResponse>("/auth/login-google", {
     token,
-    pushToken,
   });
 };
 
-export const loginApple = (
-  credential: AppleAuthenticationCredential,
-  pushToken?: string,
-) => {
+export const loginApple = (credential: AppleAuthenticationCredential) => {
   return axiosInstance.post<LoginResponse>("/auth/login-apple", {
     credential,
-    pushToken,
   });
 };
 
@@ -64,20 +59,15 @@ export const confirmEmailOTP = (otp: string) => {
 export const resendEmailOTP = () => {
   return axiosInstance.patch("/auth/confirm-email/resend-otp");
 };
-export const registerGoogle = (token: string, pushToken?: string) => {
+export const registerGoogle = (token: string) => {
   return axiosInstance.post<LoginResponse>("/auth/register-google", {
     token,
-    pushToken,
   });
 };
 
-export const registerApple = (
-  credential: AppleAuthenticationCredential,
-  pushToken?: string,
-) => {
+export const registerApple = (credential: AppleAuthenticationCredential) => {
   return axiosInstance.post<LoginResponse>("/auth/register-apple", {
     credential,
-    pushToken,
   });
 };
 
@@ -212,6 +202,10 @@ export const patchProfile = (data: {
   last_name: string;
 }) => {
   return axiosInstance.patch<IUser>("/account/profile", data);
+};
+
+export const postPushToken = (token: string) => {
+  return axiosInstance.post("/notifications/push-token", { pushToken: token });
 };
 
 //* DISCOVER

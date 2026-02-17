@@ -6,7 +6,10 @@ import {
 } from "react-native-gesture-handler";
 import React, { FC } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import tw from "theme/tailwind";
 
 import { endSession } from "lib/axios";
@@ -86,11 +89,7 @@ const Root: FC<Props> = ({ navigation }) => {
           <ListButton
             withBorder
             icon={
-              <AntDesign
-                name="infocirlceo"
-                size={19}
-                color={tw.color("primary-main")}
-              />
+              <Feather name="info" size={19} color={tw.color("primary-main")} />
             }
             onPress={onProfilePress}
             text="Profile"
@@ -105,8 +104,8 @@ const Root: FC<Props> = ({ navigation }) => {
           <ListButton
             withBorder
             icon={
-              <AntDesign
-                name="hearto"
+              <FontAwesome
+                name="heart-o"
                 size={19}
                 color={tw.color("primary-main")}
               />
@@ -117,7 +116,7 @@ const Root: FC<Props> = ({ navigation }) => {
           <ListButton
             icon={
               <AntDesign
-                name="adduser"
+                name="user-add"
                 size={19}
                 color={tw.color("primary-main")}
               />

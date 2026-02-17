@@ -11,8 +11,8 @@ import CarouselDivider from "components/separators/carousel-divider";
 import { PopularRestaurants } from "types/discover";
 import { useAppSelector } from "hooks/useAppSelector";
 
-import { CAROUSEL_ITEM_WIDTH } from "constants/theme";
 import { LocationCarouselCard } from "features/location-card";
+import { CAROUSEL_TOTAL_ITEM_WIDTH } from "constants/theme";
 
 type Props = {
   restaurants?: PopularRestaurants[];
@@ -41,7 +41,7 @@ const DiscoverRestaurants: FC<Props> = ({ restaurants, navToRest }) => {
         snapToAlignment="start"
         decelerationRate={"fast"}
         keyExtractor={(item) => item._id}
-        snapToInterval={CAROUSEL_ITEM_WIDTH}
+        snapToInterval={CAROUSEL_TOTAL_ITEM_WIDTH}
         renderItem={({ item }) => {
           return (
             <LocationCarouselCard

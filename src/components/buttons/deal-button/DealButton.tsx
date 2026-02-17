@@ -31,7 +31,7 @@ const DealButton: FC<Props> = ({ openDeal, location_id, deal, onLike }) => {
       }
     >
       <View style={tw`flex-row gap-2 items-center`}>
-        <AntDesign name="tago" size={18} color={iconCol} />
+        <AntDesign name="tag" size={18} color={iconCol} />
         <Typography
           variant="body2"
           color="text.primary"

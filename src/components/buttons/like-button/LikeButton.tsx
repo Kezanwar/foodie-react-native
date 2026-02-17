@@ -1,6 +1,6 @@
 import { GestureResponderEvent } from "react-native";
 import React, { FC } from "react";
-import { AntDesign } from "@expo/vector-icons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import IconButton from "../icon-button";
 import tw from "theme/tailwind";
 
@@ -12,8 +12,8 @@ type Props = {
 const LikeButton: FC<Props> = ({ liked, onPress }) => {
   return (
     <IconButton onPress={onPress}>
-      <AntDesign
-        name={liked ? "heart" : "hearto"}
+      <FontAwesome
+        name={liked ? "heart" : "heart-o"}
         size={19}
         color={liked ? tw.color("error-main") : tw.color("grey-900")}
       />

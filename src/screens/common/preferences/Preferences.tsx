@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import tw from "theme/tailwind";
 
@@ -29,6 +29,8 @@ import useSnackbar from "hooks/useSnackbar";
 import { addPreferences } from "lib/api";
 import { catchErrorHandler } from "utils/error";
 
+const CUISINES_HEIGHT = Dimensions.get("window").height * 0.4;
+
 const Preferences = (props: any) => {
   // useAppSelector((state) => state.theme.theme);
   const [apiLoading, setApiLoading] = useState(false);
@@ -38,7 +40,7 @@ const Preferences = (props: any) => {
   const enqeueSnackbar = useSnackbar();
 
   const { cuisines, dietary_requirements, isDirty } = useAppSelector(
-    (state) => state.preferences
+    (state) => state.preferences,
   );
 
   const preferences = usePreferencesQuery();
@@ -50,8 +52,8 @@ const Preferences = (props: any) => {
           ...d,
           selected: Boolean(
             preferences.data?.data?.preferences?.cuisines.find(
-              (p) => p.slug === d.slug
-            )
+              (p) => p.slug === d.slug,
+            ),
           ),
         }))
       : [];
@@ -63,8 +65,8 @@ const Preferences = (props: any) => {
           ...d,
           selected: Boolean(
             preferences.data?.data?.preferences?.dietary_requirements.find(
-              (p) => p.slug === d.slug
-            )
+              (p) => p.slug === d.slug,
+            ),
           ),
         }))
       : [];
@@ -160,7 +162,7 @@ const Preferences = (props: any) => {
 
         <View style={tw`flex-row gap-5 mb-5`}></View>
         <View style={tw`gap-8`}>
-          <View style={tw`h-[40vh] mb-8`}>
+          <View style={[{ height: CUISINES_HEIGHT }, tw`mb-8`]}>
             <TitleBadgeCounter
               mb
               error={cuisineCount === 0}

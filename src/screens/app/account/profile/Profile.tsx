@@ -39,8 +39,6 @@ const Profile: FC = (props: any) => {
     last_name: user?.last_name || "",
   };
 
-  const ref = useRef();
-
   const {
     handleSubmit,
     control,
@@ -110,7 +108,7 @@ const Profile: FC = (props: any) => {
           style: "cancel",
         },
         { text: "Yes", onPress: () => handleDelete(), style: "destructive" },
-      ]
+      ],
     );
   };
 

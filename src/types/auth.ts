@@ -16,7 +16,6 @@ export type IUser = {
 export type LoginJWTData = {
   email: string;
   password: string;
-  pushToken?: string;
 };
 
 export type InitDatasourcePayload = {
@@ -35,7 +34,6 @@ export type RegisterJWTData = {
   last_name: string;
   email: string;
   password: string;
-  pushToken?: string;
 };
 
 export type InitializeResponse = {

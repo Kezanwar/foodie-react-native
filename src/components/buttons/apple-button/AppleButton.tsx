@@ -25,7 +25,7 @@ const AppleButton: React.FC<Props> = ({ variant, loading, ...rest }) => {
       ) : (
         <>
           <AntDesign
-            name="apple-o"
+            name="apple"
             size={22}
             color={tw.color("grey-500")}
             style={tw`-ml-2`}

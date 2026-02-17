@@ -1,6 +1,6 @@
 import { TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 import { Entypo } from "@expo/vector-icons";
 import {
   LocationGeocodedAddress,
@@ -59,7 +59,7 @@ const AddCustomLocation = (props: any) => {
         setResult({ ...loc[0], ...res[0] });
       } else {
         setError(
-          `We couldn't find a location for '${searchText}', please try again.`
+          `We couldn't find a location for '${searchText}', please try again.`,
         );
       }
     } catch (error) {
@@ -115,7 +115,7 @@ const AddCustomLocation = (props: any) => {
             subregion,
             timezone,
           },
-        })
+        }),
       );
       LocalStorage.setShouldUseCurrentLocation(false);
       onGoBack();
@@ -157,7 +157,7 @@ const AddCustomLocation = (props: any) => {
             <LoadingSpinner mt={0} />
           ) : (
             <TouchableOpacity onPress={onSearch}>
-              <AntDesign name="search1" size={23} color={PRIM} />
+              <Feather name="search" size={23} color={PRIM} />
             </TouchableOpacity>
           )}
         </View>

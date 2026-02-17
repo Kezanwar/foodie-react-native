@@ -1,13 +1,16 @@
 import { Logo } from "components/logo";
 import LottieView from "lottie-react-native";
 import React from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import tw from "theme/tailwind";
 
 const LoadingScreen: React.FC = () => {
   return (
     <View
-      style={tw`absolute bg-white h-screen w-screen top-0 items-center justify-center `}
+      style={[
+        StyleSheet.absoluteFillObject,
+        tw`bg-white items-center justify-center`,
+      ]}
     >
       <LottieView
         source={require("../../../assets/lottie/foodie-loading.json")}

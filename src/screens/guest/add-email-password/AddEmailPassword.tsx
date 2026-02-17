@@ -23,8 +23,9 @@ import { setSession } from "lib/axios";
 import { catchErrorHandler } from "utils/error";
 import Alert from "components/alert/Alert";
 import TextButton from "components/buttons/text-button";
-import RHFCheckbox from "components/form/RHF/RHFCheckbox";
+
 import useBrowser from "hooks/useBrowser";
+import registerForPushNotificationsAsync from "hocs/notifications/registerForPushNotifications";
 
 const iconColor = tw.color("grey-700");
 
@@ -49,10 +50,6 @@ const AddEmailPassword: React.FC = (props: any) => {
   const { first_name, last_name } = register;
 
   const enqueueSnack = useSnackbar();
-
-  const pushToken = useAppSelector(
-    (state) => state.notifications.expoPushToken
-  );
 
   const defaultValues: DefaultValues<FormValues> = {
     email: "",
@@ -88,12 +85,12 @@ const AddEmailPassword: React.FC = (props: any) => {
         ...data,
         first_name,
         last_name,
-        pushToken,
       });
       const { user, accessToken } = res?.data;
       setIsLoading(false);
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (error) {
       catchErrorHandler(error, (error) => {
         setError("root.afterSubmit", error);

@@ -19,7 +19,7 @@ const Favourites: FC<any> = ({ navigation }) => {
 
   const favourites = useMemo(
     () => data?.pages.map((p) => p.deals).flat(1) || [],
-    [data]
+    [data],
   );
 
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const Favourites: FC<any> = ({ navigation }) => {
         location_id: data.location_id,
         stack: ACCOUNT_STACK,
         linkRestaurant: true,
-      })
+      }),
     );
   };
 
@@ -60,7 +60,6 @@ const Favourites: FC<any> = ({ navigation }) => {
           renderItem={({ item }) => (
             <DealCard
               showActions={false}
-              type="list"
               item={item as IFeedDeal}
               onLike={() => {}}
               onShare={() => {}}

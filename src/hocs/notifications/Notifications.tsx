@@ -15,7 +15,7 @@ type Props = {
 const Notifications: FC<Props> = ({ children }) => {
   const dispatch = useAppDispatch();
   const notification = useAppSelector(
-    (state) => state.notifications.notification
+    (state) => state.notifications.notification,
   );
 
   const openNotificationHandler = useOpenNotificationHandler();
@@ -25,11 +25,13 @@ const Notifications: FC<Props> = ({ children }) => {
       shouldPlaySound: false,
       shouldShowAlert: true,
       shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true,
     }),
   });
 
   //   const notificationListener = useRef<Notify.Subscription>();
-  const responseListener = useRef<Notify.EventSubscription>();
+  const responseListener = useRef<Notify.EventSubscription>(null);
 
   useEffect(() => {
     // notificationListener.current = Notify.addNotificationReceivedListener(
@@ -40,12 +42,11 @@ const Notifications: FC<Props> = ({ children }) => {
     // );
 
     responseListener.current = Notify.addNotificationResponseReceivedListener(
-      (response) => dispatch(setNotification(response.notification))
+      (response) => dispatch(setNotification(response.notification)),
     );
 
     return () => {
-      //   Notify.removeNotificationSubscription(notificationListener.current!);
-      Notify.removeNotificationSubscription(responseListener.current!);
+      responseListener.current?.remove();
     };
   }, []);
 

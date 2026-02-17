@@ -1,10 +1,9 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 
-import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 import tw from "theme/tailwind";
 import Typography, { LEADING_TIGHT } from "components/typography";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const iconCol = tw.color("primary-main");
 
@@ -22,7 +21,7 @@ const CenteredTextHeader: FC<Props> = ({ goBack, title, subtitle }) => {
     >
       <View style={flexOne[`${hasSub}`]}>
         <TouchableOpacity onPress={goBack}>
-          <AntDesign name="arrowleft" size={18} color={iconCol} />
+          <Feather name="arrow-left" size={18} color={iconCol} />
         </TouchableOpacity>
       </View>
       <View style={tw`flex-1 items-center`}>

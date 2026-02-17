@@ -125,7 +125,7 @@ const SingleDealModalScreen: FC<SingleDealState & { close: () => void }> = ({
         <View style={tw`flex-row justify-between mb-1`}>
           <View style={tw`flex-row items-start gap-2`}>
             <AntDesign
-              name="tago"
+              name="tag"
               size={20}
               color={tw.color("primary-main")}
               style={tw`-mt-0.5`}

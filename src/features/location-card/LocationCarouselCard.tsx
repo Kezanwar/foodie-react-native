@@ -6,6 +6,7 @@ import { Image } from "expo-image";
 import Typography from "components/typography";
 
 import RestaurantAvatar from "components/restaurant-avatar";
+import { CAROUSEL_CARD_WIDTH } from "constants/theme";
 
 interface Restaurant {
   id: string;
@@ -26,16 +27,15 @@ type Props = {
   navToRest: (location_id: string) => void;
 };
 
+const style = [{ width: CAROUSEL_CARD_WIDTH }, tw`rounded-lg`];
+
 const LocationCarouselCard: FC<Props> = ({
   location,
   restaurant,
   navToRest,
 }) => {
   return (
-    <TouchableOpacity
-      onPress={() => navToRest(location._id)}
-      style={tw`${"w-[70vw]"} rounded-lg`}
-    >
+    <TouchableOpacity onPress={() => navToRest(location._id)} style={style}>
       <Image
         style={tw`h-32 w-full rounded-lg`}
         source={{ uri: restaurant.cover_photo }}

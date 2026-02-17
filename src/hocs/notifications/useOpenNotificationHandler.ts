@@ -21,7 +21,7 @@ const useOpenNotificationHandler = () => {
             location_id: request.content.data.location_id,
             stack: HOME_STACK,
             linkRestaurant: true,
-          })
+          }),
         );
         break;
       case NOTIFICATION_TYPES.HOME_FEED:

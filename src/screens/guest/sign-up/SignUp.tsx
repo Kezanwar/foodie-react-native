@@ -32,7 +32,7 @@ import {
 import AppleButton from "components/buttons/apple-button";
 import EmailButton from "components/buttons/email-button";
 import registerForPushNotificationsAsync from "hocs/notifications/registerForPushNotifications";
-import { ExpoPushToken } from "expo-notifications";
+import { initializeDatasources } from "store/datasources";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -45,7 +45,6 @@ const SignUp = (props: any) => {
     iosClientId: iOSOAuthClientId,
     androidClientId: androidOAuthClientId,
   });
-  const pushTokenRef = useRef<ExpoPushToken | undefined>(undefined);
 
   const onCreateAcc = () => {
     props.navigation.navigate(AUTH_ROUTES.SIGN_IN);
@@ -56,10 +55,12 @@ const SignUp = (props: any) => {
   const registerWithGoogle = async (token: string) => {
     try {
       setGoogleLoading(true);
-      const res = await registerGoogle(token, pushTokenRef.current?.data);
-      const { user, accessToken } = res?.data;
+      const res = await registerGoogle(token);
+      const { user, accessToken, datasource } = res?.data;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (error) {
       catchErrorHandler(error, (error) => {
         setError(error);
@@ -70,26 +71,23 @@ const SignUp = (props: any) => {
   };
 
   const onGoogleRegister = async () => {
-    const pushToken = await registerForPushNotificationsAsync();
-    if (pushToken) {
-      pushTokenRef.current = pushToken;
-    }
     await prompAsync();
   };
 
   const onAppleRegister = async () => {
     try {
-      const pushToken = await registerForPushNotificationsAsync();
       const credential = await signInAsync({
         requestedScopes: [
           AppleAuthenticationScope.FULL_NAME,
           AppleAuthenticationScope.EMAIL,
         ],
       });
-      const res = await registerApple(credential, pushToken?.data);
-      const { user, accessToken } = res?.data;
+      const res = await registerApple(credential);
+      const { user, accessToken, datasource } = res?.data;
+      dispatch(initializeDatasources(datasource));
       dispatch(authLogin(user));
       setSession(accessToken);
+      registerForPushNotificationsAsync();
     } catch (e) {
       //@ts-ignore
       if (e.code === "ERR_REQUEST_CANCELED") {

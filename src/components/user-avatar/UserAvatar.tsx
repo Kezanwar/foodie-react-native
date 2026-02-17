@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import tw from "theme/tailwind";
 import { Image } from "expo-image";
 import Typography, { LEADING_TIGHT } from "components/typography";
-import { AntDesign } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 
 type Props = {
   firstName: string;
@@ -28,7 +28,7 @@ const UserAvatar: FC<Props> = ({ avatarUrl, firstName, lastName, onPress }) => {
       {avatarUrl ? (
         <Image style={roundedStyle} source={{ uri: avatarUrl }} />
       ) : !firstName && !lastName ? (
-        <AntDesign name="user" size={23} color={success_main} />
+        <Feather name="user" size={23} color={success_main} />
       ) : (
         <Typography
           variant="h6"

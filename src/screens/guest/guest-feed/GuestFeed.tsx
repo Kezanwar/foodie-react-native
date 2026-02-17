@@ -1,4 +1,4 @@
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, FlatList as RNFlatList } from "react-native";
 import React, { FC, forwardRef, useEffect, useMemo, useRef } from "react";
 import { useScrollToTop } from "@react-navigation/native";
 import { useAppSelector } from "hooks/useAppSelector";
@@ -21,7 +21,6 @@ import {
   PromptSignInSheet,
   usePromptSignInSheet,
 } from "features/prompt-sign-in-sheet";
-import { AUTH_ROUTES } from "constants/routes";
 
 type FeedProps = {
   toggleFilterSheet: () => void;
@@ -33,7 +32,7 @@ type FeedProps = {
 const Feed = forwardRef<FlatList, FeedProps>(
   (
     { toggleFilterSheet, handleLocationPress, hasFilters, onCardPress },
-    ref
+    ref,
   ) => {
     const {
       data: feedData,
@@ -45,7 +44,7 @@ const Feed = forwardRef<FlatList, FeedProps>(
 
     const data = useMemo(
       () => feedData?.pages.map((p) => p.locations).flat(1) || [],
-      [feedData]
+      [feedData],
     );
 
     if (isLoading) {
@@ -93,14 +92,14 @@ const Feed = forwardRef<FlatList, FeedProps>(
         onEndReachedThreshold={1}
       />
     );
-  }
+  },
 );
 
 const GuestFeed: FC = (props: any) => {
   const requestLocation = useRequestLocation();
 
   const { cuisines, dietary_requirements } = useAppSelector(
-    (state) => state.filters.filters
+    (state) => state.filters.filters,
   );
 
   useEffect(() => {
@@ -109,7 +108,7 @@ const GuestFeed: FC = (props: any) => {
 
   const feedRef = useRef<FlatList>(null);
 
-  useScrollToTop(feedRef);
+  useScrollToTop(feedRef as React.RefObject<RNFlatList>);
 
   const {
     filterSheetRef,
