@@ -205,7 +205,9 @@ export const patchProfile = (data: {
 };
 
 export const postPushToken = (token: string) => {
-  return axiosInstance.post("/notifications/push-token", { pushToken: token });
+  return axiosInstance.post("/cust/notifications/push-token", {
+    pushToken: token,
+  });
 };
 
 //* DISCOVER
