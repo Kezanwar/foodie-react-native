@@ -25,7 +25,7 @@ const EmptyState: FC<Props> = ({
 }) => {
   return (
     <View style={tw`p-5 flex-1 bg-white items-center ${style}`}>
-      <AntDesign name="frowno" size={24} color={tw.color("primary-main")} />
+      <AntDesign name="frown" size={24} color={tw.color("primary-main")} />
       <Typography
         variant="h6"
         style="font-medium text-center mb-3 mt-5 text-xl"
