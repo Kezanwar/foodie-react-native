@@ -18,7 +18,7 @@ export const androidOAuthClientId = //@ts-ignore
 export const iOSOAuthClientId = //@ts-ignore
   process.env.EXPO_PUBLIC_IOS_OAUTH_CLIENT_ID as string;
 
-export const APP_VERSION = "18.02.2026";
+export const APP_VERSION = "19.02.2026";
 
 export const DEEP_LINK_BASE_URL = //@ts-ignore
   (process.env.EXPO_PUBLIC_DEEP_LINK_BASE_URL as string) ||
