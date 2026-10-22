@@ -2,7 +2,7 @@
   "expo": {
     "name": "Foodie",
     "slug": "foodie-react-native",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,7 +30,7 @@
     ],
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "19.02.2026",
+      "buildNumber": "2026.8.1",
       "supportsTablet": false,
       "bundleIdentifier": "com.thefoodie.app",
       "usesAppleSignIn": true,
